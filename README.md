@@ -1,18 +1,3 @@
-# Fengzhichu Theme
-
-A jekyll theme for personal blog which based on [Type theme](https://github.com/rohanchandra/type-theme) and [ibireme's blog](http://blog.ibireme.com). Add several useful features. Fengzhichu Theme is powered by [Jekyll](http://jekyllrb.com/) and freely
-hosted in [Github pages](https://pages.github.com/).
-
-## Check the live demo
-
-[Fengzhichu Theme Live Demo](https://fengzhichu.com)
-
-## Screenshots
-![Home page](img/Screenshot1.png)
-![Pst page](img/Screenshot2.png)
-![Archive page](img/Screenshot3.png)
-![Category page](img/Screenshot4.png)
-![About page](img/Screenshot5.png)
 
 ## How to use it
 * Star & Fork the [repo](https://github.com/fengzhichu/fengzhichu-theme).
