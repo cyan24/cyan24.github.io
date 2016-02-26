@@ -1,0 +1,103 @@
+---
+layout: post
+title:  "CSS样式的优先级别"
+date:   2013-09-20
+author: cyan
+category: front
+tags: css
+---
+
+* 优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式 
+
+例：
+
+```html
+
+<style type="text/css">
+.def1{background:black;}
+.def2{background:yellow; }
+</style>
+
+<div class="def2 def1">测试1</div>
+```
+
+结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。
+___
+* 优先原则二：id声明（即 # 开头的样式）> class声明（即 . 开头的样式）> 标签声明(即 类似 div 开头)
+
+以上三种声明处于不同的量级，份量上，div 开头相当于 1克 重，. 开头相当于 1公斤 重，# 开头相当于 1吨 重。
+
+例：
+
+
+```html
+
+<style type="text/css">
+#bb{background:pink}
+.def{background:black;}
+div{background:yellow; }
+</style>
+
+<div id="bb" class="def">测试2</div>
+```
+
+结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。
+___
+* 优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加
+
+比如：\#bb \#tt \#dd {background:red} 则重量等于3吨,
+
+\#bb \.tt ul\.dd li {background:red} 则重量等于1吨2公斤2克，这么精确的重量，就不需要举例了吧。
+
+####再次说明：优先原则一只适用两个样式声明同样重的情况.
+___
+* 优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。
+
+```html
+<style type="text/css">
+.def1{background:yellow !important;background:red;}
+.def2{background:green;}
+</style>
+
+<div class="def1 def2">dd</div>
+```
+
+结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下
+___
+* 优先原则五：近水楼台
+
+```html
+<div style="background:black"></div>
+```
+直接写在元素体内的style优先级别最高！（仅次于!important）用重量来形容，可以定为百万吨量级。
+
+```html
+<style type="text/css">
+.def1{ background:red;}
+</style>
+
+<div class="def1 " style="background:black">dd</div>
+```
+
+结果：black色。
+
+```html
+<style type="text/css">
+.def1{ background:red !important;}
+</style>
+
+<div class="def1 " style="background:black">dd</div>
+```
+
+结果：red色。
+
+```html
+<style type="text/css">
+.def1{ background:red !important;}
+</style>
+
+<div class="def1 " style="background:black !important">dd</div>
+```
+
+结果：black色。
+

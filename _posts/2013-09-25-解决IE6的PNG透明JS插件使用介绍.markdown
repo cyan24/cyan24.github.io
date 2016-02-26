@@ -1,0 +1,70 @@
+---
+layout: post
+title:  "解决IE6的PNG透明JS插件使用介绍"
+date:   2013-09-25
+author: cyan
+category: front
+tags: IE 兼容
+---
+
+IE6的PNG透明是个老问题了，最近有朋友问我有没有最好的解决这个问题的插件。虽然知道且在用DD_belatedPNG这个插件，今天抽空把这个发上来。 
+
+虽然之前在原博客里发过一款jquery的png插件，但是不支持背景平铺。 
+DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达到半透明的效果，并且能支持background-position和background-repeat属性，支持伪类。是一款不错的值得推荐的插件，用法也比较简单。 
+
+使用方法： 
+
+```html
+
+<!--[if IE 6]> 
+<script src="DD_belatedPNG.js"></script> 
+<script> 
+DD_belatedPNG.fix('.png_bg'); 
+</script> 
+<![endif]--> 
+
+```
+
+引用函数是DD_belatedPNG.fix()，括号里的 .png_bg 改成你的css选择器名称。 
+
+* ID选择器例子：
+
+```javascript
+DD_belatedPNG.fix('#png'); 
+```
+
+* 伪类例子： 
+
+```javascript
+DD_belatedPNG.fix('.png a:hover,.png a:focus'); 
+```
+
+* img标签例子：
+
+```javascript
+DD_belatedPNG.fix('img'); 
+```
+
+如果是多个直接加逗号（英文下的）就行。例如： 
+
+```javascript
+
+DD_belatedPNG.fix('.png_bg,#png,.png a:hover,.png a:focus,img'); 
+```
+
+使用方法： 
+
+```html
+
+<!--[if IE 6]> 
+<script type="text/javascript" src="js/dd_png.js"></script> 
+<script type="text/javascript"> 
+DD_belatedPNG.fix('.tel,.head_content'); 
+</script> 
+<![endif]--> 
+```
+
+括号里的是样式选择器，中间用逗号隔开.
+
+JS文件下载地址:
+<a href="http://xiazai.jb51.net/201304/yuanma/DD_belatedPNG_jb51net.rar">0.0.8a-min.js (压缩版)</a>

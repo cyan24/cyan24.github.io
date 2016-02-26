@@ -1,0 +1,10 @@
+- slug: front
+  name: 前端
+#  color: '#3498db'
+  
+- slug: server
+  name: 后端
+#  color: '#1abc9c'
+
+- slug: other
+  name: Other

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>CSS 元素垂直居中的 7种方法 | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , css, 利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="https://fengzhichu.com/fengzhichu-theme/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="https://fengzhichu.com/fengzhichu-theme/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Design/">
+							设计
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/iOS/">
+							iOS开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Other/">
+							其他
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="https://fengzhichu.com/fengzhichu-theme">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">CSS 元素垂直居中的 7种方法</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2013年12月15日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/css/">css</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p>
+
+<p>方法1 ： IE 10 以下不兼容
+transform: </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+<span class="c">/*声明伸缩容器*/</span>
+<span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span>
+<span class="nf">#child</span> <span class="p">{</span>
+   <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">30%</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="o">,-</span><span class="m">50%</span><span class="p">);</span>
+  <span class="c">/*margin: -15% 0 0 -25%;*/</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<hr>
+
+<p>方法2:  FLEX BOX 弹性布局 IE10以下不适用</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+<span class="c">/*声明伸缩容器*/</span>
+<span class="nf">#parent</span> <span class="p">{</span>
+     <span class="k">display</span><span class="o">:-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;;</span>
+     <span class="k">justify</span><span class="o">-</span><span class="k">content</span><span class="o">:</span><span class="k">center</span><span class="p">;</span>
+     <span class="n">align</span><span class="o">-</span><span class="n">items</span><span class="o">:</span><span class="k">center</span><span class="p">;</span>
+     <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span>
+<span class="nc">.child</span> <span class="p">{</span>
+   <span class="n">flex</span><span class="o">:</span><span class="m">1</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">:</span> <span class="m">#999999</span> <span class="k">solid</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>  
+</code></pre></div>
+<hr>
+
+<p>方法3:Line-Height Method</p>
+
+<p><img src="/img/post/1312151.jpg" alt=""> </p>
+
+<p>适用：单行文本垂直居中</p>
+
+<p>html</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Text here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div>
+<p>css</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">line-height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
+
+<p>垂直居中一张图片，代码如下</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;image.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;&lt;/div&gt;</span>
+
+```css
+
+#parent {line-height: 200px;}#parent img {vertical-align: middle;}
+</code></pre></div>
+<p>适用：通用</p>
+
+<p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">table-cell</span><span class="p">;</span><span class="k">vertical-align</span><span class="o">:</span> <span class="k">middle</span><span class="p">;}</span>
+</code></pre></div>
+<p>低版本 IE fix bug：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
+
+<p>方法4: CSS Table Method</p>
+
+<p><img src="/img/post/1312152.jpg" alt=""> </p>
+
+<p>适用：通用</p>
+
+<p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">table-cell</span><span class="p">;</span><span class="k">vertical-align</span><span class="o">:</span> <span class="k">middle</span><span class="p">;}</span>
+</code></pre></div>
+<p>低版本 IE fix bug：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
+
+<p>方法4:Absolute Positioning and Negative Margin</p>
+
+<p><img src="/img/post/1312153.jpg" alt=""> </p>
+
+<p>适用：块级元素</p>
+
+<p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span><span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">30%</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">margin</span><span class="o">:</span> <span class="m">-15%</span> <span class="m">0</span> <span class="m">0</span> <span class="m">-25%</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
+
+<p>方法5:Absolute Positioning and Stretching
+<img src="/img/post/1312154.jpg" alt=""> </p>
+
+<p>适用：通用，但在IE版本低于7时不能正常工作</p>
+
+<p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span><span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">bottom</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">30%</span><span class="p">;</span><span class="k">margin</span><span class="o">:</span> <span class="k">auto</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
+
+<p>方法6:Equal Top and Bottom Padding
+<img src="/img/post/1312155.jpg" alt=""> </p>
+
+<p>适用：通用，demo</p>
+
+<p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">padding</span><span class="o">:</span> <span class="m">5%</span> <span class="m">0</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">padding</span><span class="o">:</span> <span class="m">10%</span> <span class="m">0</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
+
+<p>方法7:Floater Div</p>
+
+<p><img src="/img/post/1312156.jpg" alt=""> </p>
+
+<p>适用：通用</p>
+
+<p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;floater&quot;</span><span class="nt">&gt;&lt;/div&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">height</span><span class="o">:</span> <span class="m">250px</span><span class="p">;}</span><span class="nf">#floater</span> <span class="p">{</span><span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span><span class="k">margin-bottom</span><span class="o">:</span> <span class="m">-50px</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;}</span>
+</code></pre></div>
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

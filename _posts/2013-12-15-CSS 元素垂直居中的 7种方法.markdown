@@ -1,0 +1,197 @@
+---
+layout: post
+title:  "CSS 元素垂直居中的 7种方法"
+date:   2013-12-15
+author: cyan
+category: front
+tags: css
+---
+
+利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。
+
+方法1 ： IE 10 以下不兼容
+transform: 
+
+```html
+
+<style>
+/*声明伸缩容器*/
+#parent {position: relative;background-color: red;width: 220px;height: 200px;}
+#child {
+   position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  height:30%;
+  width:50%;
+  -webkit-transform: translate(-50%,-50%);
+  /*margin: -15% 0 0 -25%;*/
+  background-color: #fff;
+}
+</style>
+<body>
+<div id="parent">
+<div id="child">Content here</div>
+```
+___
+方法2:  FLEX BOX 弹性布局 IE10以下不适用
+
+```html
+
+<style>
+/*声明伸缩容器*/
+#parent {
+     display:-webkit-flex;;
+     justify-content:center;
+     align-items:center;
+     background-color: red;width: 220px;height: 200px;}
+.child {
+   flex:1;
+  border: #999999 solid 1px;
+  background-color: #fff;
+}
+</style>
+<body>
+<div id="parent">
+<div class="child">Content here</div><div class="child">Content here</div>
+</div>
+</div>  
+```
+___
+方法3:Line-Height Method
+
+<img src="{{ '/img/post/1312151.jpg' | prepend: site.baseurl }}" alt=""> 
+
+适用：单行文本垂直居中
+
+html
+
+```html
+
+<div id="parent"><div id="child">Text here</div></div>
+```
+css
+
+```css
+
+#child {line-height: 200px;}
+```
+___
+
+垂直居中一张图片，代码如下
+
+```html
+
+<div id="parent"><img src="image.png" alt="" /></div>
+
+```css
+
+#parent {line-height: 200px;}#parent img {vertical-align: middle;}
+```
+适用：通用
+
+代码：
+
+```html
+
+<div id="parent"><div id="child">Content here</div></div>
+```
+
+```css
+#parent {display: table;}#child {display: table-cell;vertical-align: middle;}
+```
+低版本 IE fix bug：
+
+```css
+#child {display: inline-block;}
+```
+___
+方法4: CSS Table Method
+
+<img src="{{ '/img/post/1312152.jpg' | prepend: site.baseurl }}" alt=""> 
+
+适用：通用
+
+代码：
+
+```html
+<div id="parent"><div id="child">Content here</div></div>
+```
+
+```css
+#parent {display: table;}#child {display: table-cell;vertical-align: middle;}
+```
+
+低版本 IE fix bug：
+
+```css
+#child {display: inline-block;}
+```
+___
+方法4:Absolute Positioning and Negative Margin
+
+<img src="{{ '/img/post/1312153.jpg' | prepend: site.baseurl }}" alt=""> 
+
+适用：块级元素
+
+代码：
+
+```html
+
+<div id="parent"><div id="child">Content here</div></div>
+```
+
+```css
+
+#parent {position: relative;}#child {position: absolute;top: 50%;left: 50%;height: 30%;width: 50%;margin: -15% 0 0 -25%;}
+```
+___
+方法5:Absolute Positioning and Stretching
+<img src="{{ '/img/post/1312154.jpg' | prepend: site.baseurl }}" alt=""> 
+
+
+适用：通用，但在IE版本低于7时不能正常工作
+
+代码：
+
+```html
+
+<div id="parent"><div id="child">Content here</div></div>
+```
+
+```css
+#parent {position: relative;}#child {position: absolute;top: 0;bottom: 0;left: 0;right: 0;width: 50%;height: 30%;margin: auto;}
+```
+___
+方法6:Equal Top and Bottom Padding
+<img src="{{ '/img/post/1312155.jpg' | prepend: site.baseurl }}" alt=""> 
+
+适用：通用，demo
+
+代码：
+
+```html
+
+<div id="parent"><div id="child">Content here</div></div>
+```
+```css
+
+#parent {padding: 5% 0;}#child {padding: 10% 0;}
+```
+___
+方法7:Floater Div
+
+<img src="{{ '/img/post/1312156.jpg' | prepend: site.baseurl }}" alt=""> 
+
+适用：通用
+
+代码：
+
+```html
+<div id="parent"><div id="floater"></div><div id="child">Content here</div></div>
+```
+
+```css
+
+#parent {height: 250px;}#floater {float: left;height: 50%;width: 100%;margin-bottom: -50px;}#child {clear: both;height: 100px;}
+```

@@ -1,0 +1,50 @@
+- slug: javascript
+  name: Javascript
+
+- slug: css
+  name: css
+
+- slug: IE
+  name: IE
+
+- slug: 兼容
+  name: 兼容
+
+- slug: Jquery
+  name: Jquery
+
+- slug: 跨域
+  name: 跨域
+
+- slug: 安全
+  name: 安全
+
+- slug: 性能优化
+  name: 性能优化
+
+- slug: django-template-tags
+  name: Django Template Tags
+
+- slug: font-awesome
+  name: Font Awesome
+
+- slug: icons
+  name: Icons
+
+- slug: image-processing
+  name: Image Processing
+
+- slug: python
+  name: Python
+
+- slug: github
+  name: GitHub
+
+- slug: github-pages
+  name: GitHub Pages
+
+- slug: jekyll
+  name: Jekyll
+  
+- slug: open-source
+  name: Open Source

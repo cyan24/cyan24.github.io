@@ -1,0 +1,55 @@
+---
+layout: post
+title:  "高性能网站建设指南读书笔记之图片地图在CSS中的使用"
+date:   2013-11-03
+author: cyan
+category: front
+tags: css 性能优化
+---
+
+最近看了《 High Performance Web Site》，书上对网站性能优化方面从多个角度做了剖析，本文就总结一下书中css优化方面涉及到的图片地图在CSS中的使用。
+
+在HTML中还可以把图片划分成多个热点区域，每一个热点域链接到不同网页的资源。这种效果的实质是把一幅图片划分为不同的热点区域，再让不同的区域进行 超链接。这就是影像地图。要完成地图区域超链接要用到三种标签：< img>< map>< area>下面分别介绍这些 标签的用法：
+
+   影像地图（Image Map）标签的使用格式：
+
+```html
+
+    <img src="图形文件名" usemap="#图的名称">
+
+      <!-- 插入图片时要在<img>标记中设置参数usemap="#图的名称" ismap，以表示对图像地图（图的名称）的引用；-->
+
+    <map name="图的名称">
+
+       <!--用<map>标记设定图像地图的作用区域，并用name属性爲图像起一个名字-->
+
+     <area shape=形状 coords=区域座标列表 href="URL资源地址">
+
+     ......可根据需要定义多少个热点区域
+
+     <area shape=形状 coords=区域座标列表 href="URL资源地址">
+
+    </map>
+
+```
+___
+提示和注释：
+
+注释：area 元素永远嵌套在 map 元素内部。area 元素可定义图像映射中的区域。
+
+注释：< img>中的 usemap 属性可引用 < map> 中的 id 或 name 属性（取决于浏览器），所以我们应同时向 < map> 添加 id 和 name 属性。
+
+
+```html
+
+<img src="planets.jpg" border="0" usemap="#planetmap" alt="Planets" />
+
+<map name="planetmap" id="planetmap">
+  <area shape="circle" coords="180,139,14" href ="venus.html" alt="Venus" />
+  <area shape="circle" coords="129,161,10" href ="mercur.html" alt="Mercury" />
+  <area shape="rect" coords="0,0,110,260" href ="sun.html" alt="Sun" />
+</map>
+
+```
+
+<a href="http://stevesouders.com/hpws/imagemap.php">点我看示例</a>
