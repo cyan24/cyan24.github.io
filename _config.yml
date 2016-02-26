@@ -1,7 +1,20 @@
 # SITE CONFIGURATION
 baseurl: "" # Set it to "" if use for personal site. The subpath of your site, e.g. /blog/
-url: "http://cyan24.github.io" # the base hostname & protocol for your site
+# url: "http://cyan24.github.io" # the base hostname & protocol for your site
 imageurl: "https://source.unsplash.com/category/nature/2600x500" #"https://unsplash.it/2600/500?random"
+
+# Site settings
+encoding: utf-8
+title: "Cyan的技术笔记"
+description: "cyan24的技术笔记, github地址, 前端技术, 讲述前端高效技术与前沿。"
+baseurl: "/"  # the subpath of your site, e.g. /blog/
+url: "http://cyan24.github.io" # the base hostname & protocol for your site
+# cover: "assets/header_image.png"
+logo: "assets/logo.png"
+keywords: "前后端, cyan, 博客, github, 前端技术, javascript, css, html"
+image: "http://ouvens.github.io/blog/assets/logo.png"
+
+
 
 # THEME-SPECIFIC CONFIGURATION
 theme:
