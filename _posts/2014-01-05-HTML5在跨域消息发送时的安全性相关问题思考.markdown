@@ -1,0 +1,183 @@
+---
+layout: post
+title:  "HTML5在跨域消息发送时的安全性相关问题思考"
+date:   2014-01-05
+author: cyan
+category: front
+tags: html5 安全
+---
+
+因为最近的项目要求，逐步开始关注web安全性方面的内容,加之最近又做了两个h5的项目，遇到了一些跨域方面的问题，今天就来说说html5在跨域消息发送上到安全问题。
+在h5之前，由于同源策略的限制导致在两个窗口之间进行消息传送必须是使用相同的协议、端口和主机。而H5有了一种新的方法叫做postMessage()，通过这一方法，跨域的消息传送将不再受到同源策略的限制。
+postMessage()使用方式：
+在发送方：
+
+```javascript
+otherWindeow.postMessage(message,targetOrigin,[transfer]);
+```
+**参数说明**：
+
+Otherwindows：涉及到的其他窗口
+
+Message：被发送到接收窗口的信息
+
+targetOrigin：接收窗口必须规定的URL。如果没有任何特殊偏好，可以将其规定为“*”定义“*”为targetOrigin，但这样做其实会存在一些安全隐患，在后文中我会提到。
+
+Transfer：这个是任意的。
+
+接收方：
+
+当otherWindow.postMessage()执行时，消息将会被发送到接收方的窗口。
+
+接收方使用以下这段代码后，我们就可以接收到这条消息。
+
+```javascript
+window.addEventListener("message",receiveMessage,false);
+function receiveMessage(event){
+  if(event.origin !=="http://site.com:8383"){
+    return;
+    //
+    ...
+  }
+}
+```
+
+通过该段代码，我们可以访问数据以及这一信息的源。如下所示：
+
+Event.origin：提供信息的源(我们所接收到的信息的URL)
+
+Event.data：提供实际所发送出的信息内容
+
+___
+
+###安全性实例分析
+
+出于演示需要，设立了如下两个服务：
+
+A: http://localhost:8383/
+
+B: http://localhost/
+
+上面两个URL具有不同的端口，第一个运行在8383端口，第二个则是在80端口。我们通过端口不同来模拟跨域的情况。
+
+A是发送窗口，B是接收窗口
+现在我们加载第二个URL(http://localhost/ )作为第一个URL的iframe：
+
+<img src="{{ '/img/post/1401051.png' | prepend: site.baseurl }}" alt=""> 
+
+
+通过使用postMessage()的方法，我可以轻松的将消息从第一个URL发送到第二个URL.
+
+我们可以通过点击”send message“的按钮来进行验证。
+
+
+<img src="{{ '/img/post/1401052.png' | prepend: site.baseurl }}" alt=""> 
+
+
+尽管加载在第一个URL中的iframe与其并不同源，但通过postMessage() 即可进行信息传递。
+
+现在我们来看一些postMessage()使用过程中可导致应用出现漏洞的例子：
+
+**case1**
+
+发送方代码：
+
+```javascript
+
+receiver.postMessage('Hi,There...!','*');
+```
+
+当发送者把targetOrigin规定为通配符”*“时，将会导致未知的信息被陌生的接收方(窗口)接收到。原因是从接收窗口传来的消息任何人都可以再加载一个iframe来进行监听。因此在进行敏感数据的传输时，使用通配符是一个十分错误的决定。
+
+针对此问题最好的解决方法就是在发送时添加具体的目标字段，如下所示：
+
+```javascript
+
+receiver.postMessage('Hi,There...!','http://localhost');
+```
+**case2**
+接收窗口代码：
+
+```javascript
+
+function receiver(e){
+  do something..!
+}
+```
+
+在上面这段代码中可以看到，我们是直接接收发送方的消息对其进行处理，并不检验是否来自发送方。
+
+但检查消息的来源无疑是十分重要的，这样可以防止消息来自未经授权的发送者。
+
+因此，我们只需要在代码中加入对发送方的验证，这一问题就可解决了。代码如下：
+
+```javascript
+
+function receiver(e){
+  if (e.origin!=="http://localhost:8383"){
+    return;
+  }
+  ...
+  do something ...!;
+}
+
+```
+通过检验event.origin，来进行验证。
+
+***Case3***
+
+在这一过程中，发送方和接收方都应该验证正在传送的.消息。如果数据插入到HTML DOM中时并没有进行验证，那么应用很有可能遭受到基于DOM的跨站脚本攻击。
+
+由下面这段代码可以看出，当应用程序接收到攻击者发来的恶意信息，并已经插入到HTML DOM使用innerHTML属性时，其显得异常脆弱。
+
+发送方：
+
+```javascript
+receiver.postMessage("< img src="x" onerror=alert(1);>",'http://localhost');
+
+}
+```
+接收方：
+
+```javascript
+
+function receiver(e){
+  if (e.origin!=="http://localhost:8383"){
+    return;
+  }
+  ...
+  messageEle.innerHTML = "Message from localhost:8383: "+e.data;
+}
+```
+
+执行上面这段代码，可导致在接收窗口出现XSS。
+
+
+<img src="{{ '/img/post/1401053.png' | prepend: site.baseurl }}" alt=""> 
+
+解决这一问题最简单的方法就是在给元素分配数据值时使用 textContent 而不是innerHTML.
+
+如下所示：
+
+发送方：
+
+```javascript
+receiver.postMessage("< img src="x" onerror=alert(1);>",'http://localhost');
+
+}
+```
+接收方：
+
+```javascript
+
+function receiver(e){
+  if (e.origin!=="http://localhost:8383"){
+    return;
+  }
+  ...
+  element.textContent = "Message from localhost:8383: "+e.data;
+}
+```
+执行上面这段代码时我们可以看到，文本中显示frame是作为数据而不是代码。
+
+<img src="{{ '/img/post/1401054.png' | prepend: site.baseurl }}" alt=""> 

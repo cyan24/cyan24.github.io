@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>css 原理及其优化 | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , css, 性能优化, 在写css代码时 做一些简单的优化，这样css的渲染速率会有一定的提高的。">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/css-%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Design/">
+							设计
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/iOS/">
+							iOS开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Other/">
+							其他
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">css 原理及其优化</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2013年10月26日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/css/">css</a>, <a href="/tags/性能优化/">性能优化</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>在写css代码时 做一些简单的优化，这样css的渲染速率会有一定的提高的。</p>
+
+<h3>浏览器是如何渲染页面和加载页面</h3>
+
+<p>为什么有些网站打开的时候会加载会很慢，而且是整个页面同时显示的，而有些网站是从顶到下逐步显示出来的？要搞懂这个可以先从下面这个常规流程开始：</p>
+
+<ul>
+<li><p>浏览器下载的顺序是从上到下，渲染的顺序也是从上到下，下载和渲染是同时进行的。</p></li>
+<li><p>在渲染到页面的某一部分时，其上面的所有部分都已经下载完成（并不是说所有相关联的元素都已经下载完）。</p></li>
+<li><p>如果遇到语义解释性的标签嵌入文件（JS脚本，CSS样式），那么此时IE的下载过程会启用单独连接进行下载。</p></li>
+<li><p>并且在下载后进行解析，解析过程中，停止页面所有往下元素的下载。</p></li>
+<li><p>样式表在下载完成后，将和以前下载的所有样式表一起进行解析，解析完成后，将对此前所有元素（含以前已经渲染的）重新进行渲染。</p></li>
+<li><p>JS、CSS中如有重定义，后定义函数将覆盖前定义函数。</p></li>
+<li><p>这里关键的是第2-5这三点。渲染效率与下面三点有关：</p>
+
+<ul>
+<li>css选择器的查询定位效率</li>
+<li>浏览器的渲染模式和算法</li>
+<li>要进行渲染内容的大小</li>
+</ul></li>
+</ul>
+
+<h3>什么是CSS以及CSS的优点</h3>
+
+<p>什么是CascadingStyleSheets（层叠样式表）</p>
+
+<ul>
+<li>CSS是CascadingStyleSheets(层叠样式表)的简称.</li>
+<li>CSS 语言是一种标记语言,它不需要编译,可以直接由浏览器解释执行(属于浏览器解释型语言).</li>
+<li>在标准网页设计中CSS负责网页内容 (XHTML)的表 现.</li>
+<li>CSS文件也可以说是一个文本文件,它包含了一些CSS标记,CSS文件必须使用css为文件名后缀.</li>
+<li>可以通过简单的更改 CSS文件,改变网页 的整体表现形式,可以减少我们的工作量,所以她是每一个网页设计人员的必修课.</li>
+<li>CSS是由W3C的CSS工作组产生和维护的.</li>
+</ul>
+
+<p><strong><em>采用CSS+DIV进行网页重构相对与传统的TABLE网页布局而具有以下3个显著优势：</em></strong></p>
+
+<ul>
+<li><p>表现和内容相分离将设计部分剥离出来放在一个独立样式文件中，HTML文件中只存放文本信息。这样的页面对搜索引擎更加友好。</p></li>
+<li><p>提高页面浏览速度对于同一个页面视觉效果，采用CSS+DIV重构的页面容量要比TABLE编码的页面文件容量小得多，前者一般只有后者的1/2大小。浏览器就不用去编译大量冗长的标签。</p></li>
+<li><p>易于维护和改版你只要简单的修改几个CSS文件就可以重新设计整个网站的页面。</p></li>
+</ul>
+
+<p><strong><em>浏览器对CSS的匹配原理</em></strong></p>
+
+<p>浏览器CSS匹配是从右到左进行查找。比如之前说的DIV#divBoxpspan.red{color:red;}，浏览器的查找顺序如下：先查找html中所有class=’red’的span元素，找到后，再查找其父辈元素中是否有p元素，再判断p的父元素中是否有id为 divBox的div元素，如果都存在则CSS匹配上。</p>
+
+<p>浏览器从右到左进行查找的好处是为了尽早过滤掉一些无关的样式规则和元素。firefox称这种查 找方式为keyselector(关键字查询)，所谓的关键字就是样式规则中最后(最右边)的规则，上面的key就是span.red。</p>
+
+<h3>优化你的CSS</h3>
+
+<ul>
+<li>css 命名 、书写规范；（好的代码看上去就很整齐 很有条理性这样方便日后的维护和管理）。</li>
+<li><p>css优先级； 选择器权重：内联样式：1000，id选择器：1000， class选择器：10，标签选择器：1  注意权重的问题。</p></li>
+<li><p>少用滤镜，少用hack，少用position：absolute。</p></li>
+<li><p>多用继承属性。</p></li>
+<li><p>使用简写样式：例如margin: 10px; 浏览器会解释为上下左右各有10px的外补丁。margin： 0 10px 浏览器解析为 左右有10px的外补丁。</p></li>
+<li><p>不要在ID选择器和class选择器前 使用标签名 例如：div.box { color: #f00; }; 直接 可以 用类名， .box { color:#f00;}  这样浏览器找到这个class后 就不用再匹配是否存在div标签.从而提高了渲染效率。当然同一级的 有不同的样式可以这样写，但是不建议这样。</p></li>
+<li><p>css的层级关系不要太深 用class直接代替多余的层级元素。例如 .box .box-con .box-list li { line-height: 24px; } 这么长。。。增加代码量减小开发效率。刚也说了，css渲染是从上到下，从右到左的
+所以直接这样写就可以了.box-list li { line-height: 24px; };</p></li>
+<li><p>平铺背景图片不要过小，影响渲染速率。</p></li>
+<li><p>float使用要谨慎。</p></li>
+<li><p>合理化布局（模块化布局）；可以把样式划分为 基类 和扩展类 ;模块化布局 ：模块基本相同的样式写在 基类里，不同的在重新用class来定义称为扩展类 。</p></li>
+<li><p>在css渲染效率中id和class的效率是基本相当的</p></li>
+</ul>
+
+<p>class最在第一次载入中被缓存，在层叠中会有更加好的效果，在根部元素采用id会具有更加好（id有微妙的速度优势）。</p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

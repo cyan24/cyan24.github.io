@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="https://fengzhichu.com/fengzhichu-theme/blog/page4/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/page4/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="https://fengzhichu.com/fengzhichu-theme/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -152,6 +152,10 @@
 					
 					
 					
+					
+					
+					
+					
 					<!-- Social icons from Font Awesome, if enabled -->
 					<li>
 						<a class="page-link" href="">Find Me</a>
@@ -229,7 +233,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="https://fengzhichu.com/fengzhichu-theme">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -254,12 +258,42 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/CSS%E6%A0%B7%E5%BC%8F%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%E5%88%AB/">
-		        CSS样式的优先级别
+		      <a id="post-link-trans" class="post-link" href="/blog/HTML5%E5%9C%A8%E8%B7%A8%E5%9F%9F%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83/">
+		        HTML5在跨域消息发送时的安全性相关问题思考
 		      </a>
 		    </h1>
 		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年09月20日</a>
+		      <a class="subtitle">2014年01月5日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/html5/">html5</a>, <a href="/tags/安全/">安全</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>因为最近的项目要求，逐步开始关注web安全性方面的内容,加之最近又做了两个h5的项目，遇到了一些跨域方面的问题，今天就来说说html5在跨域消息发送上到安全问题。 在h5之前，由于同源策略的限制导致在两个窗口之间进行消息传送必须是使用相同的协议、端口和主机。而H5有了一种新的方法叫做postMessage()，通过这一方法，跨域的消息传送将不再受到同源策略的限制。 postMessage()使用方式： 在发送方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">otherWindeow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span><span class="nx">targetOrigin</span><span class="p">,[</span><span class="nx">transfer</span><span class="p">]);</span> </code></pre></div> <p><strong>参数说明</strong>：</p> <p>Otherwindows：涉及到的其他窗口</p> <p>Message：被发送到接收窗口的信息</p> <p>targetOrigin：接收窗口必须规定的URL。如果没有任何特殊偏好，可以将其规定为“<em>”定义“</em>”为targetOrigin，但这样做其实会存在一些安全隐患，在后文中我会提到。</p> <p>Transfer：这个是任意的。</p> <p>接收方：</p> <p>当otherWindow.postMessage()执行时，消息将会被发送到接收方的窗口。</p> <p>接收方使用以下这段代码后，我们就可以接收到这条消息。</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="nx">receiveMessage</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span> <span class="kd">function</span> <span class="nx">receiveMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span> <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">origin</span> <span class="o">!==</span><span class="s2">&quot;http://site.com:8383&quot;</span><span class="p">){</span> <span class="k">return</span><span class="p">;</span> <span class="c1">//</span> <span class="p">...</span> <span class="p">}</span> <span class="p">}</span> </code></pre></div> <p>通过该段代码，我们可以访问数据以及这一信息的源。如下所示：</p> <p>Event.origin：提供信息的源(我们所接收到的信息的URL)</p> <p>Event.data：提供实际所发送出的信息内容</p> <hr> <h3>安全性实例分析</h3> <p>出于演示需要，设立了如下两个服务：</p> <p>A: http://localhost:8383/</p> <p>B: http://localhost/</p> <p>上面两个URL具有不同的端口，第一个运行在8383端口，第二个则是在80端口。我们通过端口不同来模拟跨域的情况。</p> <p>A是发送窗口，B是接收窗口 现在我们加载第二个URL(http://localhost/ )作为第一个URL的iframe：</p> <p><img src="/img/post/1401051.png" alt=""> </p> <p>通过使用postMessage()的方法，我可以轻松的将消息从第一个URL发送到第二个URL.</p> <p>我们可以通过点击”send message“的按钮来进行验证。</p> <p><img src="/img/post/1401052.png" alt=""> </p> <p>尽管加载在第一个URL中的iframe与其并不同源，但通过postMessage() 即可进行信息传递。</p> <p>现在我们来看一些postMessage()使用过程中可导致应用出现漏洞的例子：</p> <p><strong>case1</strong></p> <p>发送方代码：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hi,There...!&#39;</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">);</span> </code></pre></div> <p>当发送者把targetOrigin规定为通配符”*“时，将会导致未知的信息被陌生的接收方(窗口)接收到。原因是从接收窗口传来的消息任何人都可以再加载一个iframe来进行监听。因此在进行敏感数据的传输时，使用通配符是一个十分错误的决定。</p> <p>针对此问题最好的解决方法就是在发送时添加具体的目标字段，如下所示：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hi,There...!&#39;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span> </code></pre></div> <p><strong>case2</strong> 接收窗口代码：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="k">do</span> <span class="nx">something</span><span class="p">..</span><span class="o">!</span> <span class="p">}</span> </code></pre></div> <p>在上面这段代码中可以看到，我们是直接接收发送方的消息对其进行处理，并不检验是否来自发送方。</p> <p>但检查消息的来源无疑是十分重要的，这样可以防止消息来自未经授权的发送者。</p> <p>因此，我们只需要在代码中加入对发送方的验证，这一问题就可解决了。代码如下：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="o">!==</span><span class="s2">&quot;http://localhost:8383&quot;</span><span class="p">){</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span> <span class="p">...</span> <span class="k">do</span> <span class="nx">something</span> <span class="p">...</span><span class="o">!</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>通过检验event.origin，来进行验证。</p> <p><strong><em>Case3</em></strong></p> <p>在这一过程中，发送方和接收方都应该验证正在传送的.消息。如果数据插入到HTML DOM中时并没有进行验证，那么应用很有可能遭受到基于DOM的跨站脚本攻击。</p> <p>由下面这段代码可以看出，当应用程序接收到攻击者发来的恶意信息，并已经插入到HTML DOM使用innerHTML属性时，其显得异常脆弱。</p> <p>发送方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;&lt; img src=&quot;</span><span class="nx">x</span><span class="s2">&quot; onerror=alert(1);&gt;&quot;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span> <span class="p">}</span> </code></pre></div> <p>接收方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="o">!==</span><span class="s2">&quot;http://localhost:8383&quot;</span><span class="p">){</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span> <span class="p">...</span> <span class="nx">messageEle</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Message from localhost:8383: &quot;</span><span class="o">+</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>执行上面这段代码，可导致在接收窗口出现XSS。</p> <p><img src="/img/post/1401053.png" alt=""> </p> <p>解决这一问题最简单的方法就是在给元素分配数据值时使用 textContent 而不是innerHTML.</p> <p>如下所示：</p> <p>发送方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;&lt; img src=&quot;</span><span class="nx">x</span><span class="s2">&quot; onerror=alert(1);&gt;&quot;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span> <span class="p">}</span> </code></pre></div> <p>接收方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span>...
+		    <p>
+		    <a class="text" href="/blog/HTML5%E5%9C%A8%E8%B7%A8%E5%9F%9F%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
+		        CSS 元素垂直居中的 7种方法
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年12月15日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
 		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/css/">css</a></a>
 		    </p>
@@ -267,95 +301,170 @@
 		  <div class="excerpt">
 		  
 		  
-		    <ul>
-<li>优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式 </li>
+		    <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p> <p>方法1 ： IE 10 以下不兼容 transform: </p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nf">#child</span> <span class="p">{</span> <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span> <span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">z-index</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">30%</span><span class="p">;</span> <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="o">,-</span><span class="m">50%</span><span class="p">);</span> <span class="c">/*margin: -15% 0 0 -25%;*/</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法2: FLEX BOX 弹性布局 IE10以下不适用</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span> <span class="k">display</span><span class="o">:-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;;</span> <span class="k">justify</span><span class="o">-</span><span class="k">content</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="n">align</span><span class="o">-</span><span class="n">items</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nc">.child</span> <span class="p">{</span> <span class="n">flex</span><span class="o">:</span><span class="m">1</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">#999999</span> <span class="k">solid</span> <span class="m">1px</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法3:Line-Height Method</p> <p><img src="/img/post/1312151.jpg" alt=""> </p> <p>适用：单行文本垂直居中</p> <p>html</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Text here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span> </code></pre></div> <p>css</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">line-height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> </code></pre></div> <hr> <p>垂直居中一张图片，代码如下</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;image.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;&lt;/div&gt;</span> ```css #parent {line-height: 200px;}#parent img...
+		    <p>
+		    <a class="text" href="/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/padding-ie-%E4%B8%8D%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
+		        padding ie 不兼容问题
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年11月10日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>在使用padding时，在ie 兼容时通常我们遇到3种情况：</p>
+
+<ul>
+<li>IE6 正常 IE7/FF不正常</li>
 </ul>
 
-<p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
-
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def2 def1&quot;</span><span class="nt">&gt;</span>测试1<span class="nt">&lt;/div&gt;</span>
+<p>这种情况下我们这样处理：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px !important;（针对FF/IE7）
+   padding: 6px;（针对IE6）
 </code></pre></div>
-<p>结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。</p>
+<ul>
+<li>IE6 IE7正常 FF不正常</li>
+</ul>
+
+<p>这种情况我们要这么处理，因为!important IE7也是能识别的！</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">  padding: 7px;（针对FF）
+ *padding: 6px;（针对IE6/IE7）
+</code></pre></div>
+<ul>
+<li>E6 IE7 FF都不一样
+```</li>
+</ul>
+
+<p>这种情况我们这样来处理：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px;（针对FF）
+  *padding: 6px;（针对IE7）
+  _padding: 5px; （针对IE6）
+</code></pre></div>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8BCSS3-webkit-font-smoothing-%E5%B1%9E%E6%80%A7/">
+		        高性能网站建设指南读书笔记之CSS3 -webkit-font-smoothing 属性
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年11月7日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/css/">css</a>, <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>CSS3里面加入了一个“-webkit-font-smoothing”属性。这个属性可以使页面上的字体抗锯齿,使用后字体看起来会更清晰舒服。加上之后就顿时感觉页面小清晰了。</p>
+
+<p>在测试中将 -webkit-font-smoothing设置为none，非常模糊。</p>
+
+<p>将-webkit-font-smoothing设置为antialiased，变得非常平滑，效果非常不错。</p>
+
+<p>其默认可以支持6个值（如图），暂时我能看到效果的就是三个：
+none | subpixel-antialiased | antialiased
+其他的三个，我设置了，好像没什么变化。大家可以自己在控制台调试看看。</p>
+
+<p><img src="/img/post/1312193.jpg" alt=""> </p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8BCSS-Sprites/">
+		        高性能网站建设指南读书笔记之CSS Sprites
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年11月4日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/css/">css</a>, <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>大名鼎鼎的CSS Sprites。今天来总结一下：</p>
+
+<p>CSS Sprites简介</p>
+
+<p>通常被意译为“CSS图像拼合”或“CSS贴图定位”。CSS Sprites并不是一门新技术，目前它已经在网页开发中发展得较为成熟，一些较为成熟的网站的网页中到处都可发现css sprites 的影子。但CSS Sprites并不是什么金科玉律，但在很多情况下，它有着一定的优势，最重要的是它可以减轻服务器的负载，提高网页加载速度。随着Web设计向着精致、 巧妙的方向发展，设计师们开始考虑使用非Javascript的方式制作鼠标滑过、悬停菜单的效果，这时CSS Sprite应运而生。</p>
+
+<p><strong>说白了，CSS Sprites其实就是把网页中一些背景图片整合到一张图片文件中，再利用CSS的“background-image”，“background- repeat”，“background-position”的组合进行背景定位，background-position可以用数字能精确的定位出背景图片的位置。</strong></p>
+
+<p>当页面加载时，不是加载每个单独图片，而是一次加载整个组合图片。这是一个了不起的改进，它大大减少了HTTP请求的次数，减轻服务器压力，同时缩短了悬停加载图片所需要的时间延迟，使效果更流畅，不会停顿。</p>
 
 <hr>
 
-<ul>
-<li>优先原则二：id声明（即 # 开头的样式）&gt; class声明（即 . 开头的样式）&gt; 标签声明(即 类似 div 开头)</li>
-</ul>
+<p>CSS Sprites优点</p>
 
-<p>以上三种声明处于不同的量级，份量上，div 开头相当于 1克 重，. 开头相当于 1公斤 重，# 开头相当于 1吨 重。</p>
+<p>CSS Sprites为什么突然跑火，跟能够提升网站性能有关。显而易见，这是它的巨大优点之一。</p>
 
-<p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nf">#bb</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">pink</span><span class="p">}</span>
-<span class="nc">.def</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nt">div</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
+<p>利用CSS Sprites能很好地减少了网页的http请求，从而大大的提高了页面的性能，这是CSS Sprites最大的优点，也是其被广泛传播和应用的主要原因；
+个人认为CSS Sprites能减少图片的字节，我曾经比较过多次3张图片合并成1张图片的字节总是小于这3张图片的字节总和。
+CSS Sprites缺点</p>
 
-<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;bb&quot;</span> <span class="na">class=</span><span class="s">&quot;def&quot;</span><span class="nt">&gt;</span>测试2<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。</p>
+<p>诚然CSS Sprites是如此的强大，但是也存在一些不可忽视的缺点。</p>
+
+<p>在图片合并的时候，你要把多张图片有序的合理的合并成一张图片，还要留好只够的空间，防止板块内不会出现不必要的背景，否则可能会出现出现干扰图片的情况；这些还好，做痛苦的是在宽屏，高分辨率的屏幕下的自适应页面，你的图片如果不够宽，很容易出现背景断裂；
+CSS Sprites在开发的时候比较麻烦，你要通过photoshop或其他工具测量计算每一个背景单元的精确位置，这是针线活，没什么难度，但是很繁琐；不过网上已经有高手开发出“CSS Sprites 样式生成工具”，大家可以尝试一下。
+CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果页面背景有少许改动，一般就要改这张合并的图片，无需改的地方最好不要动，这样避 免改动更多的css，如果在原来的地方放不下，有只能（最好）往下加图片，这样图片的字节就增加了，因为每次的图片改动都得往这个图片删除或添加内容，显 得稍微繁琐，而且重新算图片的位置（尤其是这种上千px的图）也是一件颇为不爽的事情。当然，在性能的口号下，这些都是可以克服的。
+由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性。</p>
 
 <hr>
 
-<ul>
-<li>优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加</li>
-</ul>
+<p>CSS Sprites总结</p>
 
-<p>比如：#bb #tt #dd {background:red} 则重量等于3吨,</p>
-
-<p>#bb .tt ul.dd li {background:red} 则重量等于1吨2公斤2克，这么精确的重量，就不需要举例了吧。</p>
-
-<h4>再次说明：优先原则一只适用两个样式声明同样重的情况.</h4>
+<p>性能压倒一切。CSS Sprites非常值得学习和应用，特别是页面有一堆ico（图标）。总之很多时候大家要权衡一下利弊，在决定是不是应用CSS Sprites。为保持兼容性和维护性，sprites图片中的各个部分保持一定的距离是一种不错的做法。</p>
 
 <hr>
 
-<ul>
-<li>优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。</li>
-</ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span> <span class="cp">!important</span><span class="p">;</span><span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">green</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
+<p>书中示例：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">   <span class="nt">&lt;style&gt;</span> <span class="nf">#navbar</span> <span class="nt">span</span> <span class="p">{</span> <span class="k">width</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;</span> <span class="k">float</span><span class="o">:</span><span class="k">left</span><span class="p">;</span> <span class="k">background-image</span><span class="o">:</span><span class="sx">url(/images/spritebg.gif?t=1442038329)</span><span class="p">;</span> <span class="p">}</span> <span class="nc">.home</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:</span><span class="m">0</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;</span> <span class="k">margin-left</span><span class="o">:</span> <span class="m">4px</span><span class="p">;}</span> <span class="nc">.gifts</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">32px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.cart</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">64px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.settings</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">96px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.help</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">128px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">0px</span><span class="p">;}</span> 
+   <span class="nt">&lt;/style&gt;</span> 
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 def2&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
+   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;navbar&quot;</span> <span class="na">style=</span><span class="s">&quot;background-color: #F4F5EB; border: 2px ridge #333; width: 180px; height: 32px; padding: 4px 0 4px 0;&quot;</span><span class="nt">&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Home&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Home&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;home&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Gifts&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Gifts&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;gifts&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Cart&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Cart&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cart&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Settings&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Settings&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;settings&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Help&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Help&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;help&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+    <span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
-<p>结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下</p>
-
-<hr>
-
-<ul>
-<li>优先原则五：近水楼台</li>
-</ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</code></pre></div>
-<p>直接写在元素体内的style优先级别最高！（仅次于!important）用重量来形容，可以定为百万吨量级。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
-
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：black色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
-
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：red色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
-
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black !important&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：black色。</p>
-
 		  
 		  </div>
 		</div>
@@ -363,7 +472,7 @@
 	</div>
 
 	<div class="wp-pagenavi">
-	    <span class='pages'>第 4 页，共 4 页</span>
+	    <span class='pages'>第 4 页，共 6 页</span>
 
 	    
 	    	<a class="previouspostslink" rel="prev" href="/blog/page3" > « </a>
@@ -386,7 +495,17 @@
 	          <span class="current">4</span>
 	        
 	    
+	        
+	          <a class="page larger" href="/blog/page5">5</a>
+	        
+	    
+	        
+	          <a class="page larger" href="/blog/page6">6</a>
+	        
+	    
 
+	    
+	    	<a class="nextpostslink" rel="next" href="/blog/page5" > » </a>
 	    
 
 	</div>

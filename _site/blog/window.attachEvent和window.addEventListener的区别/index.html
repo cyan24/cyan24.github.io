@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>谈谈attachEvent和addEventListener | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , Javascript, 以前写JavaScript脚本时，事件都采用object.event = handler的方式绑定。这种方式对于Internet Explorer、Mozilla/Firefox和Opera来说很通用。但有一个问题，这种方式只能一个事件对应一个事件处理过程。如果希望一个事件可以依次执执行多个处理过程，就不好用了。">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Design/">
+							设计
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/iOS/">
+							iOS开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Other/">
+							其他
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">谈谈attachEvent和addEventListener</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2014年12月27日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/javascript/">Javascript</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>以前写JavaScript脚本时，事件都采用object.event = handler的方式绑定。这种方式对于Internet Explorer、Mozilla/Firefox和Opera来说很通用。但有一个问题，这种方式只能一个事件对应一个事件处理过程。如果希望一个事件可以依次执执行多个处理过程，就不好用了。</p>
+
+<p>Internet Explorer从5.0开始，提供了一个attachEvent方法，使用这个方法，可以一个事件，绑定多个处理过程。但是Mozilla/Firefox并不支持这个方法，它使用另外一个方法addEventListener。它们之间有少许区别，在attachEvent方法中，事件是以&quot;on&quot;开头的，而addEventListener，事件不是以&quot;on&quot;开头，另外，addEventListener还有第三个参数，一般指定false就可以。
+因此，在程序中，给一个事件指派多个处理过程的话。需要根据不同的浏览器，选择使用attachEvent和addEventListener。示例如下：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="c1">//IE</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s2">&quot;onload&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">//IE8以后有以及Mozilla/Firefox </span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>注释：attachEvent所绑定的多个方法的执行顺序是随机的，因此，这几个方法之间，不要有顺序依赖。另外，attachEvent和addEventListener不仅仅适用于window对象，其他的一些对象，也支持该方法</p>
+
+<p>注意： Internet Explorer 8 及更早IE版本不支持 addEventListener() 方法，，Opera 7.0 及 Opera 更早版本也不支持。 但是，对于这些不支持该函数的浏览器，你可以使用 attachEvent() 方法来添加事件句柄 (查看 &quot;更多实例&quot; 了解跨浏览器的解决方案)。</p>
+
+<p>实例
+为 &lt; button&gt; 元素添加点击事件。 当用户点击按钮时，在 id=&quot;demo&quot; 的 &lt; p&gt; 元素上输出 &quot;Hello World&quot; :</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;myBtn&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<hr>
+
+<p>上面这种绑定事件的方式，兼容主流浏览器,但如果一个元素上添加多次同一事件呢？</p>
+
+<p>obj.onclick=method1;</p>
+
+<p>obj.onclick=method2;</p>
+
+<p>obj.onclick=method3;</p>
+
+<p>如果这样写,那么只有最后绑定的事件,这里是method3会被执行,这个时候我们就不能用onclick这样的写法了,主角该登场了,在IE中我们可以使用attachEvent方法：</p>
+
+<p>//object.attachEvent(event,function);</p>
+
+<p>btn1Obj.attachEvent(&quot;onclick&quot;,method1);</p>
+
+<p>btn1Obj.attachEvent(&quot;onclick&quot;,method2);</p>
+
+<p>btn1Obj.attachEvent(&quot;onclick&quot;,method3);</p>
+
+<p>使用格式是前面是事件类型,注意的是需要加on,比如onclick,onsubmit,onchange,执行顺序是</p>
+
+<blockquote>
+<p>method3-&gt;method2-&gt;method1</p>
+</blockquote>
+
+<p>可惜这个微软的私人方法,火狐和其他浏览器都不支持,幸运的是他们都支持W3C标准的addEventListener方法：</p>
+
+<p>//element.addEventListener(type,listener,useCapture);</p>
+
+<p>btn1Obj.addEventListener(&quot;click&quot;,method1,false);</p>
+
+<p>btn1Obj.addEventListener(&quot;click&quot;,method2,false);</p>
+
+<p>btn1Obj.addEventListener(&quot;click&quot;,method3,false);
+执行顺序为</p>
+
+<blockquote>
+<p>method1-&gt;method2-&gt;method3</p>
+</blockquote>
+
+<p>做前端开发工程师,最悲剧的某过于浏览器兼容问题了,上面有两种添加事件的方法,为了同一添加事件的方法,我们不得不再重新写一个通用的添加事件函数,幸亏有前人帮我们做了这件事：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">addEvent</span><span class="p">(</span><span class="nx">elm</span><span class="p">,</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span><span class="c1">//DOM2.0</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span><span class="c1">//IE5+</span>
+    <span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
+  <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+    <span class="nx">elm</span><span class="p">[</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span><span class="c1">//DOM 0</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><em>下面是Dean Edwards 的版本</em></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">addEvent</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//为每一个事件处理函数分派一个唯一的ID</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span><span class="p">)</span> <span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span> <span class="o">=</span> <span class="nx">addEvent</span><span class="p">.</span><span class="nx">guid</span><span class="o">++</span><span class="p">;</span>
+  <span class="c1">//为元素的事件类型创建一个哈希表</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">)</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="c1">//为每一个&quot;元素/事件&quot;对创建一个事件处理程序的哈希表</span>
+  <span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">];</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">handlers</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">handlers</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="c1">//存储存在的事件处理函数(如果有)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">[</span><span class="s2">&quot;on&quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">handlers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">element</span><span class="p">[</span><span class="s2">&quot;on&quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="c1">//将事件处理函数存入哈希表</span>
+  <span class="nx">handlers</span><span class="p">[</span><span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span><span class="p">]</span> <span class="o">=</span> <span class="nx">handler</span><span class="p">;</span>
+  <span class="c1">//指派一个全局的事件处理函数来做所有的工作</span>
+  <span class="nx">element</span><span class="p">[</span><span class="s2">&quot;on&quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">]</span> <span class="o">=</span> <span class="nx">handleEvent</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//用来创建唯一的ID的计数器</span>
+<span class="nx">addEvent</span><span class="p">.</span><span class="nx">guid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="kd">function</span> <span class="nx">removeEvent</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//从哈希表中删除事件处理函数</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">events</span> <span class="o">&amp;&amp;</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">])</span> <span class="p">{</span>
+  <span class="k">delete</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">][</span><span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span><span class="p">];</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">handleEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="c1">//抓获事件对象(IE使用全局事件对象)</span>
+  <span class="nx">event</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nx">fixEvent</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">);</span>
+  <span class="c1">//取得事件处理函数的哈希表的引用</span>
+  <span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="p">];</span>
+  <span class="c1">//执行每一个处理函数</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">handlers</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">$$handleEvent</span> <span class="o">=</span> <span class="nx">handlers</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$$handleEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">returnValue</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="c1">//为IE的事件对象添加一些“缺失的”函数</span>
+<span class="kd">function</span> <span class="nx">fixEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//添加标准的W3C方法</span>
+  <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span> <span class="o">=</span> <span class="nx">fixEvent</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">;</span>
+  <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span> <span class="o">=</span> <span class="nx">fixEvent</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">event</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">fixEvent</span><span class="p">.</span><span class="nx">preventDefault</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">fixEvent</span><span class="p">.</span><span class="nx">stopPropagation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<p>功能非常强悍，解决IE的this指向问题，event总是作为第一个参数传入，跨浏览器就更不在话下。</p>
+
+<p>最后贡献一个HTML5工作组的版本：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">addEvent</span><span class="o">=</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">){</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+    <span class="nx">addEvent</span><span class="p">(</span><span class="nx">el</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
+      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">addEvent</span><span class="p">(</span><span class="nx">el</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="o">+</span><span class="nx">type</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
+      <span class="k">return</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">})();</span>
+</code></pre></div>
+<p>可能细心的你发现了IE的attachEvent和W3C标准的addEventListener绑定多个事件的执行顺序是不一样的。</p>
+
+<p><strong>移除事件</strong></p>
+
+<p>W3C 及 IE 同时支持移除指定的事件, 用途是移除设定的事件, 格式分别如下: </p>
+
+<p>W3C格式: </p>
+
+<p>removeEventListener(event,function,capture/bubble); </p>
+
+<p>Windows IE的格式如下: </p>
+
+<p>detachEvent(event,function); </p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

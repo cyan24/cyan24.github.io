@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>HTTP 头控制缓存以及header常用指令及配置方式 | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , 性能优化, 网页的缓存是由HTTP消息头中的“Cache-control”来控制的，常见的取值有private、no-cache、max-age、must-revalidate等，默认为private。其作用根据不同的重新浏览方式分为以下几种情况：">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/HTTP-%E5%A4%B4%E6%8E%A7%E5%88%B6%E7%BC%93%E5%AD%98%E4%BB%A5%E5%8F%8Aheader%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Design/">
+							设计
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/iOS/">
+							iOS开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Other/">
+							其他
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">HTTP 头控制缓存以及header常用指令及配置方式</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2014年01月7日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>网页的缓存是由HTTP消息头中的“Cache-control”来控制的，常见的取值有private、no-cache、max-age、must-revalidate等，默认为private。其作用根据不同的重新浏览方式分为以下几种情况：</p>
+
+<ol>
+<li><p>打开新窗口
+值为private、no-cache、must-revalidate，那么打开新窗口访问时都会重新访问服务器。
+而如果指定了max-age值，那么在此值内的时间里就不会重新访问服务器，例如：
+Cache-control: max-age=5(表示当访问此网页后的5秒内再次访问不会去服务器)</p></li>
+<li><p>在地址栏回车
+值为private或must-revalidate则只有第一次访问时会访问服务器，以后就不再访问。
+值为no-cache，那么每次都会访问。
+值为max-age，则在过期之前不会重复访问。</p></li>
+<li><p>按后退按扭
+值为private、must-revalidate、max-age，则不会重访问，
+值为no-cache，则每次都重复访问</p></li>
+<li><p>按刷新按扭
+　 无论为何值，都会重复访问</p></li>
+</ol>
+
+<p>Cache-control值为“no-cache”时，访问此页面不会在Internet临时文章夹留下页面备份。</p>
+
+<p>另外，通过指定“Expires”值也会影响到缓存。例如，指定Expires值为一个早已过去的时间，那么访问此网时若重复在地址栏按回车，那么每次都会重复访问： Expires: Fri, 31 Dec 1999 16:00:00 GMT</p>
+
+<p>比如：禁止页面在IE中缓存</p>
+
+<p>http响应消息头部设置：</p>
+
+<p>CacheControl = no-cache
+Pragma=no-cache
+Expires = -1</p>
+
+<p>Expires是个好东东，如果服务器上的网页经常变化，就把它设置为-1，表示立即过期。如果一个网页每天凌晨1点更新，可以把Expires设置为第二天的凌晨1点。</p>
+
+<p>当HTTP1.1服务器指定CacheControl = no-cache时，浏览器就不会缓存该网页。</p>
+
+<p>旧式 HTTP 1.0 服务器不能使用 Cache-Control 标题。
+所以为了向后兼容 HTTP 1.0 服务器，IE使用Pragma:no-cache 标题对 HTTP 提供特殊支持。
+如果客户端通过安全连接 (https://)/与服务器通讯，且服务器在响应中返回 Pragma:no-cache 标题，
+则 Internet Explorer不会缓存此响应。注意：Pragma:no-cache 仅当在安全连接中使用时才防止缓存，如果在非安全页中使用，处理方式与 Expires:-1相同，该页将被缓存，但被标记为立即过期。</p>
+
+<hr>
+
+<p>header常用指令</p>
+
+<p>header分为三部分：</p>
+
+<p>第一部分为HTTP协议的版本(HTTP-Version)；
+第二部分为状态代码(Status)；
+第三部分为原因短语(Reason-Phrase)。</p>
+
+<p>// fix 404 pages: 用这个header指令来解决URL重写产生的404 header
+header(&#39;HTTP/1.1 200 OK&#39;);</p>
+
+<p>// set 404 header: 页面没找到
+header(&#39;HTTP/1.1 404 Not Found&#39;);</p>
+
+<p>//页面永久重定向，可以告诉搜索引擎更新它们的urls
+// set Moved Permanently header (good for redrictions)
+// use with location header
+header(&#39;HTTP/1.1 301 Moved Permanently&#39;);</p>
+
+<p>// 访问受限
+header(&#39;HTTP/1.1 403 Forbidden&#39;);</p>
+
+<p>// 服务器错误
+header(&#39;HTTP/1.1 500 Internal Server Error&#39;);</p>
+
+<p>// 重定向到一个新的位置
+// redirect to a new location:
+header(&#39;Location: http://www.sina.com.cn);</p>
+
+<p>延迟一段时间后重定向
+// redrict with delay:
+header(&#39;Refresh: 10; url=http://www.sina.com.cn&#39;);
+print &#39;You will be redirected in 10 seconds&#39;;</p>
+
+<p>// 覆盖 X-Powered-By value
+// override X-Powered-By: PHP:
+header(&#39;X-Powered-By: PHP/4.4.0&#39;);
+header(&#39;X-Powered-By: Brain/0.6b&#39;);</p>
+
+<p>// 内容语言 (en = English)
+// content language (en = English)
+header(&#39;Content-language: en&#39;);</p>
+
+<p>//最后修改时间(在缓存的时候可以用到)
+// last modified (good for caching)
+$time = time() - 60; // or filemtime($fn), etc
+header(&#39;Last-Modified: &#39;.gmdate(&#39;D, d M Y H:i:s&#39;, $time).&#39; GMT&#39;);</p>
+
+<p>// 告诉浏览器要获取的内容还没有更新
+// header for telling the browser that the content
+// did not get changed
+header(&#39;HTTP/1.1 304 Not Modified&#39;);</p>
+
+<p>// 设置内容的长度 (缓存的时候可以用到):
+// set content length (good for caching):
+header(&#39;Content-Length: 1234&#39;);</p>
+
+<p>// 用来下载文件:
+// Headers for an download:
+header(&#39;Content-Type: application/octet-stream&#39;);
+header(&#39;Content-Disposition: attachment; filename=&quot;example.zip&quot;&#39;);
+header(&#39;Content-Transfer-Encoding: binary&#39;);</p>
+
+<p>// 禁止缓存当前文档:
+// load the file to send:readfile(&#39;example.zip&#39;);
+// Disable caching of the current document:
+header(&#39;Cache-Control: no-cache, no-store, max-age=0, must-revalidate&#39;);
+header(&#39;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#39;);</p>
+
+<p>// 设置内容类型:
+// Date in the pastheader(&#39;Pragma: no-cache&#39;);
+// set content type:
+header(&#39;Content-Type: text/html; charset=iso-8859-1&#39;);
+header(&#39;Content-Type: text/html; charset=utf-8&#39;);</p>
+
+<p>// plain text file
+header(&#39;Content-Type: text/plain&#39;);</p>
+
+<p>// JPG picture
+header(&#39;Content-Type: image/jpeg&#39;);</p>
+
+<p>// ZIP file
+header(&#39;Content-Type: application/zip&#39;);</p>
+
+<p>// PDF file
+header(&#39;Content-Type: application/pdf&#39;);</p>
+
+<p>// Audio MPEG (MP3,...) file
+header(&#39;Content-Type: audio/mpeg&#39;);</p>
+
+<p>// Flash animation// show sign in box
+header(&#39;Content-Type: application/x-shockwave-flash&#39;);</p>
+
+<p>// 显示登录对话框，可以用来进行HTTP认证
+header(&#39;HTTP/1.1 401 Unauthorized&#39;);
+header(&#39;WWW-Authenticate: Basic realm=&quot;Top Secret&quot;&#39;);
+print &#39;Text that will be displayed if the user hits cancel or &#39;;
+print &#39;enters wrong login data&#39;;</p>
+
+<hr>
+
+<p>当使用Expires / Cache-Control的时候，尽量给图片，样式表，脚本等设置一个足够大的缓存时间，如果在此期间，缓存文件有过修改，更新最简单的方式改名或者设置一个查询参数，比如开始图片名是logo.gif，如果做了一个新的图片，你想更新，可以把图片名字修改成logo_v2.gif，或者把图片的路径修改成logo.gif?foobar，这样，浏览器就会去请求新的图片了。不过，并不是所有的Web组件都适合有一个大的缓存时间，比如html，就不适合使用过大的缓存时间，否则你在缓存到期前，就没机会更新任何东西了。</p>
+
+<hr>
+
+<p>配置方式：</p>
+
+<ol>
+<li>如果你使用tomcat作为web服务器和容器使用的话可以编写一个filter来实现。</li>
+<li>如果使用apache+tocmat的话可以使用apache的mod_expires来实现。</li>
+</ol>
+
+<p>这里以情况1举例：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExpiresFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+<span class="c1">//log日志</span>
+<span class="kd">private</span> <span class="n">Log</span> <span class="n">log</span> <span class="o">=</span> <span class="n">LogFactory</span><span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="n">getClass</span><span class="o">());</span>
+
+<span class="c1">//记录客户端需要缓存的静态文件类型及缓存时间 KEY=文件类型(String型)，VALUE=缓存时间(Long型)</span>
+<span class="kd">private</span> <span class="n">Map</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">HashMap</span><span class="o">();</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">FilterConfig</span> <span class="n">config</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ServletException</span> <span class="o">{</span>
+<span class="n">Enumeration</span> <span class="n">en</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getInitParameterNames</span><span class="o">();</span>
+<span class="k">while</span><span class="o">(</span><span class="n">en</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">()){</span>
+<span class="c1">//取得静态文件类型</span>
+<span class="n">String</span> <span class="n">paramName</span> <span class="o">=</span> <span class="n">en</span><span class="o">.</span><span class="na">nextElement</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+<span class="k">if</span><span class="o">(</span><span class="n">paramName</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">paramName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">))</span> <span class="k">continue</span><span class="o">;</span>
+
+<span class="c1">//取得缓存时间 。单位：秒</span>
+<span class="n">String</span> <span class="n">paramValue</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="na">getInitParameter</span><span class="o">(</span><span class="n">paramName</span><span class="o">);</span>
+<span class="k">try</span><span class="o">{</span>
+<span class="kt">int</span> <span class="n">time</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">paramValue</span><span class="o">);</span>
+<span class="k">if</span><span class="o">(</span><span class="n">time</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">){</span>
+<span class="c1">//存入MAP中</span>
+<span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">paramName</span><span class="o">,</span> <span class="k">new</span> <span class="nf">Long</span><span class="o">(</span><span class="n">time</span><span class="o">));</span>
+<span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;Set &quot;</span> <span class="o">+</span> <span class="n">paramName</span> <span class="o">+</span> <span class="s">&quot;expires seconds: &quot;</span> <span class="o">+</span> <span class="n">time</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+<span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&quot;Exception in initilazing ExpiredFilter. Set &quot;</span> <span class="o">+</span> <span class="n">paramName</span> <span class="o">+</span> <span class="s">&quot; error&quot;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">destroy</span><span class="o">()</span> <span class="o">{</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span>
+<span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+<span class="c1">//取得当前访问的URI</span>
+<span class="n">String</span> <span class="n">uri</span> <span class="o">=</span> <span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span><span class="n">request</span><span class="o">).</span><span class="na">getRequestURI</span><span class="o">();</span>
+
+<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="s">&quot;.&quot;</span><span class="o">);</span>
+
+<span class="k">if</span><span class="o">(</span><span class="n">n</span> <span class="o">!=</span> <span class="o">(-</span><span class="mi">1</span><span class="o">)){</span>
+<span class="c1">//取得访问资源的扩展名</span>
+<span class="n">String</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+
+<span class="n">Long</span> <span class="n">exp</span> <span class="o">=</span> <span class="o">(</span><span class="n">Long</span><span class="o">)</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ext</span><span class="o">);</span>
+
+<span class="k">if</span><span class="o">(</span><span class="n">exp</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+<span class="n">HttpServletResponse</span> <span class="n">resp</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">response</span><span class="o">;</span>
+<span class="c1">//设置缓存</span>
+<span class="n">resp</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span><span class="s">&quot;Cache-Control&quot;</span><span class="o">,</span> <span class="s">&quot;max-age=&quot;</span> <span class="o">+</span> <span class="n">exp</span><span class="o">);</span>
+<span class="c1">//设置过期时间</span>
+<span class="n">resp</span><span class="o">.</span><span class="na">setDateHeader</span><span class="o">(</span><span class="s">&quot;Expires&quot;</span><span class="o">,</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="n">exp</span><span class="o">*</span><span class="mi">1000</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>web.xml配置</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;filter&gt;</span>
+<span class="nt">&lt;filter-name&gt;</span>expiresFilter<span class="nt">&lt;/filter-name&gt;</span>
+<span class="nt">&lt;filter-class&gt;</span>com.yinbo.common.web.filter.ExpiresFilter<span class="nt">&lt;filter-class&gt;</span>
+<span class="nt">&lt;init-param&gt;</span>
+<span class="nt">&lt;param-name&gt;</span>.css<span class="nt">&lt;/para-name&gt;</span>
+<span class="c">&lt;!-- 单位时间：秒 --&gt;</span>
+<span class="nt">&lt;param-value&gt;</span>3600<span class="nt">&lt;/para-value&gt;</span>
+<span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;init-param&gt;</span>
+<span class="nt">&lt;param-name&gt;</span>.gif<span class="nt">&lt;/para-name&gt;</span>
+<span class="c">&lt;!-- 单位时间：秒 --&gt;</span>
+<span class="nt">&lt;param-value&gt;</span>3600<span class="nt">&lt;/para-value&gt;</span>
+<span class="nt">&lt;/init-param&gt;</span>
+<span class="c">&lt;!-- 该参数在开发阶段可以不加，以方便JS调试 --&gt;</span>
+<span class="nt">&lt;init-param&gt;</span>
+<span class="nt">&lt;param-name&gt;</span>.js<span class="nt">&lt;/para-name&gt;</span>
+<span class="c">&lt;!-- 单位时间：秒 --&gt;</span>
+<span class="nt">&lt;param-value&gt;</span>3600<span class="nt">&lt;/para-value&gt;</span>
+<span class="nt">&lt;/init-param&gt;</span>
+<span class="nt">&lt;/filter&gt;</span>
+
+<span class="nt">&lt;filter-mapping&gt;</span>
+<span class="nt">&lt;filter-name&gt;</span>expiresFilter<span class="nt">&lt;/filter-name&gt;</span>
+<span class="nt">&lt;url-pattern&gt;</span>.css<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+<span class="nt">&lt;filter-name&gt;</span>expiresFilter<span class="nt">&lt;/filter-name&gt;</span>
+<span class="nt">&lt;url-pattern&gt;</span>.gif<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+<span class="nt">&lt;filter-mapping&gt;</span>
+<span class="nt">&lt;filter-name&gt;</span>expiresFilter<span class="nt">&lt;/filter-name&gt;</span>
+<span class="nt">&lt;url-pattern&gt;</span>.js<span class="nt">&lt;/url-pattern&gt;</span>
+<span class="nt">&lt;/filter-mapping&gt;</span>
+</code></pre></div>
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

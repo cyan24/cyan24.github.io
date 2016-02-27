@@ -22,6 +22,15 @@
 - slug: 性能优化
   name: 性能优化
 
+- slug: Html
+  name: Html
+
+- slug: html5
+  name: html5
+
+- slug: zepto
+  name: zepto
+
 - slug: django-template-tags
   name: Django Template Tags
 

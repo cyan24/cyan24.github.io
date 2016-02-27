@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "移动设备tab圆角图片，出现阴影解的bug"
+date:   2015-09-18
+author: cyan
+category: front
+tags: html5
+---
+
+做好的页面在手机端测试时，发现部分浏览器，tap后会出现一个半透明的灰色背景，发现是tap后的背景高亮，要重设这个表现，则需要设置-webkit-tap-highlight-color为所需色彩，直接透明吧：
+
+```css
+a,img,button,input,textarea{-webkit-tap-highlight-color:rgba(255,255,255,0);}
+```
+
+另外，如何去掉textarea,input的默认样式（IOS上的圆角及内阴影等，Android未测试）：
+
+```css
+input,textarea{-webkit-appearance:none;}
+```

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>jQuery中.bind()、.live()和.delegate()之间区别 | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , Jquery, 要理清这三者的区别，我们先从实现到原理入手来看一下，首先看DOM树：">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/jQuery%E4%B8%AD.bind()-.live()%E5%92%8C.delegate()%E4%B9%8B%E9%97%B4%E5%8C%BA%E5%88%AB/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Design/">
+							设计
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/iOS/">
+							iOS开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Other/">
+							其他
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">jQuery中.bind()、.live()和.delegate()之间区别</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2014年02月2日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Jquery/">Jquery</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>要理清这三者的区别，我们先从实现到原理入手来看一下，首先看DOM树：</p>
+
+<p>我们来可视化一个HMTL文档的DOM树是很有帮助的。一个简单的HTML页面看起来就像是这个样子：</p>
+
+<p><img src="/img/post/1402021.jpg" alt=""> </p>
+
+<p>事件冒泡(又称事件传播)
+当我们点击一个链接时，其触发了链接元素的单击事件，该事件则引发任何我们已绑定到该元素的单击事件上的函数的执行。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>因此一个单击操作会触发alert函数的执行。</p>
+
+<p><img src="/img/post/1402022.jpg" alt=""> </p>
+
+<p>click事件接着会向树的根方向传播，广播到父元素，然后接着是每个祖先元素，只要是它的某个后代元素上的单击事件被触发，事件就会传给它。</p>
+
+<p><img src="/img/post/1402023.jpg" alt=""> </p>
+
+<p>在操纵DOM的语境中，document是根节点。</p>
+
+<hr>
+
+<p>现在我们可以较容易地说明.bind()、.live()和.delegate()的不同之处了。</p>
+
+<p><strong><em>.bind()</em></strong></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>这是最简单的绑定方法了。JQuery扫描文档找出所有的$(‘a’)元素，并把alert函数绑定到每个元素的click事件上。</p>
+
+<p><strong><em>.live()</em></strong></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>JQuery把alert函数绑定到$(document)元素上，并使用’click’和’a’作为参数。任何时候只要有事件冒泡到document节点上，它就查看该事件是否是一个click事件，以及该事件的目标元素与’a’这一CSS选择器是否匹配，如果都是的话，则执行函数。
+live方法还可以被绑定到具体的元素(或context)而不是document上，像这样：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">live</span><span class="p">(...);</span>
+</code></pre></div>
+<p><strong><em>.delegate()</em></strong></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>JQuery扫描文档查找$(‘#container’)，并使用click事件和’a’这一CSS选择器作为参数把alert函数绑定到$(‘#container’)上。任何时候只要有事件冒泡到$(‘#container’)上，它就查看该事件是否是click事件，以及该事件的目标元素是否与CCS选择器相匹配。如果两种检查的结果都为真的话，它就执行函数。
+可以注意到，这一过程与.live()类似，但是其把处理程序绑定到具体的元素而非document这一根上。精明的JS’er们可能会做出这样的结论，即$(&#39;a&#39;).live() == $(document).delegate(&#39;a&#39;)，是这样吗?嗯，不，不完全是。</p>
+
+<hr>
+
+<p>下面来看看我门为什么选择.live()或.delegate()而不是.bind()。毕竟，bind看起来似乎更加的明确和直接，难道不是吗?嗯，有两个原因让我们更愿意选择delegate或live而不是bind：</p>
+
+<p>为了把处理程序附加到可能还未存在于DOM中的DOM元素之上。因为bind是直接把处理程序绑定到各个元素上，它不能把处理程序绑定到还未存在于页面中的元素之上。如果你运行了$(‘a’).bind(…)，而后新的链接经由AJAX加入到了页面中，则你的bind处理程序对于这些新加入的链接来说是无效的。</p>
+
+<p>而另一方面live和delegate则是被绑定到另一个祖先节点上，因此其对于任何目前或是将来存在于该祖先元素之内的元素都是有效的。或者为了把处理程序附加到单个元素上或是一小组元素之上，监听后代元素上的事件而不是循环遍历并把同一个函数逐个附加到DOM中的100个元素上。把处理程序附加到一个(或是一小组)祖先元素上而不是直接把处理程序附加到页面中的所有元素上，这种做法带来了性能上的好处。</p>
+
+<p><strong><em>停止传播</em></strong></p>
+
+<p>最后一个我想做的提醒与事件传播有关。通常情况下，我们可以通过使用这样的事件方法来终止处理函数的执行：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">　　</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
+<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> 
+<span class="err">　　</span><span class="c1">// 或者 </span>
+<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> 
+<span class="err">　　</span><span class="p">});</span>
+</code></pre></div>
+<p>不过，当我们使用live或是delegate方法的时候，处理函数实际上并没有在运行，需要等到事件冒泡到处理程序实际绑定的元素上时函数才会运行。而到此时为止，我们的其他的来自.bind()的处理函数早已运行了。</p>
+
+<p><strong><em>为什么.delegate()要比.live()好用?</em></strong></p>
+
+<p>基于几个原因，人们通常更愿意选用jQuery的delegate方法而不是live方法。考虑下面的例子：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span> 
+<span class="c1">// 或者 </span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span>
+</code></pre></div>
+<p><strong><em>速度</em></strong></p>
+
+<p>后者要快过前者，因为前者首先要扫描整个的文档查找所有的$(‘a’)元素，把它们存成jQuery对象。尽管live函数仅需要把’a’作为串参数传递以用做之后的判断，但是$()函数并未知道被链接的方法将会是.live()。
+而另一方面，delegate方法仅需要查找并存储$(document)元素。一种寻求避开这一问题的方法是调用在$(document).ready()之外绑定的live，这样它就会立即执行。在这种方式下，其会在DOM获得填充之前运行，因此就不会查找元素或是创建jQuery对象了。</p>
+
+<p><strong><em>灵活性和链能力</em></strong></p>
+
+<p>live函数也挺令人费解的。想想看，它被链到$(‘a’)对象集上，但其实际上是在$(document)对象上发生作用。由于这个原因，它能够试图以一种吓死人的方式来把方法链到自身上。实际上，我想说的是，以$.live(‘a’,…)这一形式作为一种全局性的jQuery方法，live方法会更具意义一些。</p>
+
+<p><strong><em>仅支持CSS选择器</em></strong></p>
+
+<p>最后一点，live方法有一个非常大的缺点，那就是它仅能针对直接的CSS选择器做操作，这使得它变得非常的不灵活。</p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

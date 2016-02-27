@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>不为人熟知的Meta http-equiv属性 | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , Html, http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&qu...">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Design/">
+							设计
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/iOS/">
+							iOS开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Other/">
+							其他
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">不为人熟知的Meta http-equiv属性</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2014年01月10日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
+meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
+
+<p>1、Expires(期限) 
+说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>2、Pragma(cache模式) 
+说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：这样设定，访问者将无法脱机浏览。 </p>
+
+<p>3、Refresh(刷新) 
+说明：自动刷新并指向新页面。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
+
+<p>4、Set-Cookie(cookie设定) 
+说明：如果网页过期，那么存盘的cookie将被删除。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>5、Window-target(显示窗口的设定) 
+说明：强制页面在当前窗口以独立页面显示。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>注意：用来防止别人在框架里调用自己的页面。 </p>
+
+<p>6、content-Type(显示字符集的设定) 
+说明：设定页面使用的字符集。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>7、Pics-label(网页等级评定) </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
+
+<p>8、Page<em>Enter、Page</em>Exit 
+设定进入页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
+</code></pre></div>
+<p>设定离开页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
+Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
+0    盒状收缩    1    盒状放射<br>
+2    圆形收缩    3    圆形放射<br>
+4    由下往上    5    由上往下<br>
+6    从左至右    7    从右至左<br>
+8    垂直百叶窗    9    水平百叶窗<br>
+10    水平格状百叶窗    11垂直格状百叶窗<br>
+12    随意溶解    13从左右两端向中间展开<br>
+14从中间向左右两端展开    15从上下两端向中间展开<br>
+16从中间向上下两端展开    17    从右上角向左下角展开<br>
+18    从右下角向左上角展开    19    从左上角向右下角展开<br>
+20    从左下角向右上角展开    21    水平线状展开<br>
+22    垂直线状展开    23    随机产生一种过渡方式  </p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

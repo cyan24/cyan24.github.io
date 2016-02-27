@@ -1,0 +1,24 @@
+---
+layout: post
+title:  "移动端h5拨打电话点标签说明"
+date:   2015-03-28
+author: cyan
+category: front
+tags: html5
+---
+
+html5中经常使用的电话协议如下:
+
+客户端       协议类型
+
+iphone_uc   ：etel
+
+iphone      ：tel
+
+android_uc  ：tel
+
+android     ：wtai
+
+default_uc  ：wtai
+
+default     ：wtai
