@@ -28,8 +28,14 @@
 - slug: html5
   name: html5
 
+- slug: 移动开发
+  name: 移动开发
+
 - slug: zepto
   name: zepto
+
+- slug: nodejs
+  name: nodejs
 
 - slug: django-template-tags
   name: Django Template Tags

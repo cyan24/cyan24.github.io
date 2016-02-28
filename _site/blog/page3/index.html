@@ -156,6 +156,8 @@
 					
 					
 					
+					
+					
 					<!-- Social icons from Font Awesome, if enabled -->
 					<li>
 						<a class="page-link" href="">Find Me</a>
@@ -258,6 +260,126 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
+		        谈谈attachEvent和addEventListener
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年12月27日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/javascript/">Javascript</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>以前写JavaScript脚本时，事件都采用object.event = handler的方式绑定。这种方式对于Internet Explorer、Mozilla/Firefox和Opera来说很通用。但有一个问题，这种方式只能一个事件对应一个事件处理过程。如果希望一个事件可以依次执执行多个处理过程，就不好用了。</p> <p>Internet Explorer从5.0开始，提供了一个attachEvent方法，使用这个方法，可以一个事件，绑定多个处理过程。但是Mozilla/Firefox并不支持这个方法，它使用另外一个方法addEventListener。它们之间有少许区别，在attachEvent方法中，事件是以&quot;on&quot;开头的，而addEventListener，事件不是以&quot;on&quot;开头，另外，addEventListener还有第三个参数，一般指定false就可以。 因此，在程序中，给一个事件指派多个处理过程的话。需要根据不同的浏览器，选择使用attachEvent和addEventListener。示例如下：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="c1">//IE</span> <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s2">&quot;onload&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">);</span> <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//IE8以后有以及Mozilla/Firefox </span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span> <span class="p">}</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">);</span> <span class="p">}</span> </code></pre></div> <p>注释：attachEvent所绑定的多个方法的执行顺序是随机的，因此，这几个方法之间，不要有顺序依赖。另外，attachEvent和addEventListener不仅仅适用于window对象，其他的一些对象，也支持该方法</p> <p>注意： Internet Explorer 8 及更早IE版本不支持 addEventListener() 方法，，Opera 7.0 及 Opera 更早版本也不支持。 但是，对于这些不支持该函数的浏览器，你可以使用 attachEvent() 方法来添加事件句柄 (查看 &quot;更多实例&quot; 了解跨浏览器的解决方案)。</p> <p>实例 为 &lt; button&gt; 元素添加点击事件。 当用户点击按钮时，在 id=&quot;demo&quot; 的 &lt; p&gt; 元素上输出 &quot;Hello World&quot; :</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;myBtn&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;</span> <span class="p">});</span> </code></pre></div> <hr> <p>上面这种绑定事件的方式，兼容主流浏览器,但如果一个元素上添加多次同一事件呢？</p> <p>obj.onclick=method1;</p> <p>obj.onclick=method2;</p> <p>obj.onclick=method3;</p> <p>如果这样写,那么只有最后绑定的事件,这里是method3会被执行,这个时候我们就不能用onclick这样的写法了,主角该登场了,在IE中我们可以使用attachEvent方法：</p> <p>//object.attachEvent(event,function);</p> <p>btn1Obj.attachEvent(&quot;onclick&quot;,method1);</p> <p>btn1Obj.attachEvent(&quot;onclick&quot;,method2);</p> <p>btn1Obj.attachEvent(&quot;onclick&quot;,method3);</p> <p>使用格式是前面是事件类型,注意的是需要加on,比如onclick,onsubmit,onchange,执行顺序是</p> <blockquote> <p>method3-&gt;method2-&gt;method1</p> </blockquote> <p>可惜这个微软的私人方法,火狐和其他浏览器都不支持,幸运的是他们都支持W3C标准的addEventListener方法：</p> <p>//element.addEventListener(type,listener,useCapture);</p> <p>btn1Obj.addEventListener(&quot;click&quot;,method1,false);</p> <p>btn1Obj.addEventListener(&quot;click&quot;,method2,false);</p> <p>btn1Obj.addEventListener(&quot;click&quot;,method3,false); 执行顺序为</p> <blockquote> <p>method1-&gt;method2-&gt;method3</p> </blockquote> <p>做前端开发工程师,最悲剧的某过于浏览器兼容问题了,上面有两种添加事件的方法,为了同一添加事件的方法,我们不得不再重新写一个通用的添加事件函数,幸亏有前人帮我们做了这件事：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">addEvent</span><span class="p">(</span><span class="nx">elm</span><span class="p">,</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span><span class="c1">//DOM2.0</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span><span class="c1">//IE5+</span> <span class="k">return</span> <span class="nx">r</span><span class="p">;</span> <span class="p">}</span><span class="k">else</span> <span class="p">{</span> <span class="nx">elm</span><span class="p">[</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span><span class="c1">//DOM 0</span> <span class="p">}</span> <span class="p">}</span> </code></pre></div> <p><em>下面是Dean Edwards 的版本</em></p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">addEvent</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span...
+		    <p>
+		    <a class="text" href="/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
+		        DOM标准与IE的html事件模型区别（转载）
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年12月27日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/javascript/">Javascript</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p><strong>事件</strong></p> <p>HTML元素事件是浏览器内在自动产生的,当有事件发生时html元素会向外界(这里主要指元素事件的订阅者)发出各种事件,如click,onmouseover,onmouseout等等。</p> <p><strong>DOM事件流</strong></p> <p>DOM(文档对象模型)结构是一个树型结构，当一个HTML元素产生一个事件时，该事件会在元素结点与根结点之间的路径传播，路径所经过的结点都会收到该事件，这个传播过程可称为DOM事件流。</p> <p><strong>主流浏览器的事件模型</strong></p> <p>早在2004前在HTML元素事件的订阅，发送，传播，处理模型上各浏览器实现并不一致，直到DOM Level3中规定后，多数主流浏览器才陆陆续续支持DOM标准的事件处理模型 — 捕获型与冒泡型。 目前除IE浏览器外，其它主流的Firefox, Opera, Safari都支持标准的DOM事件处理模型。IE仍然使用自己的模型，即冒泡型，它模型的一部份被DOM采用，这点对于开发者来说也是有好处的，只使用DOM标准，IE都共有的事件处理方式才能有效的跨浏览器。</p> <p><strong>冒泡型事件(Bubbling)</strong></p> <p>这是IE浏览器对事件模型的实现，也是最容易理解的，至少笔者觉得比较符合实际的。冒泡，顾名思义，事件像个水中的气泡一样一直往上冒，直到顶端。从DOM树型结构上理解，就是事件由叶子结点沿祖先结点一直向上传递直到根结点；从浏览器界面视图HTML元素排列层次上理解就是事件由具有从属关系的最确定的目标元素一直传递到最不确定的目标元素.</p> <p><strong>捕获型事件(Capturing)</strong></p> <p>Netscape Navigator的实现，它与冒泡型刚好相反，由DOM树最顶层元素一直到最精确的元素，这个事件模型对于开发者来说（至少是我..）有点费解，因为直观上的理解应该如同冒泡型，事件传递应该由最确定的元素，即事件产生元素开始。 但这个模型在某些情况下也是很有用的，接下来会讲解到。</p> <p><img src="/img/post/1412270.jpg" alt=""> </p> <p><strong>DOM标准事件模型</strong></p> <p>因为两个不同的模型都有其优点和解释，DOM标准支持捕获型与冒泡型，可以说是它们两者的结合体。它可以在一个DOM元素上绑定多个事件处理器，并且在处理函数内部，this关键字仍然指向被绑定的DOM元素，另外处理函数参数列表的第一个位置传递事件event对象。</p> <p>首先是捕获式传递事件，接着是冒泡式传递，所以，如果一个处理函数既注册了捕获型事件的监听，又注册冒泡型事件监听，那么在DOM事件模型中它就会被调用两次。</p> <p><img src="/img/post/1412271.jpg" alt=""> </p> <p>注册与移除事件监听器</p> <p>注册事件监听器，或又称订阅事件，当元素事件发生时浏览器回调该监听函数执行事件处理。目前主流浏览器中有两种注册事件的方法，一种是IE浏览器的，另一种是DOM标准的。</p> <p>1、直接JS或HTML挂载法</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">onclick=</span><span class="s">&quot;alert(this.innerHTML);&quot;</span><span class="nt">&gt;</span> element.onclick = function(){alert(this.innerHTML);} </code></pre></div> <p>移除时将事件属性设为nul即可，这个也是最常用的方法了，优缺点也是显然的：</p> <p>简单方便，在HTML中直接书写处理函数的代码块，在JS中给元素对应事件属性赋值即可 IE与DOM标准都支持的一种方法，它在IE与DOM标准中都是在事件冒泡过程中被调用的。 可以在处理函数块内直接用this引用注册事件的元素 要给元素注册多个监听器，就不能用这方法了</p> <p>2、IE下注册多个事件监听器与移除监听器方法</p> <p>IE浏览器中HTML元素有个attachEvent方法允许外界注册该元素多个事件监听器,例如</p> <p>element.attachEvent(&#39;onclick&#39;, observer); attachEvent接受两个参数。第一个参数是事件名称，第二个参数observer是回调处理函数。这里得说明一下，有个经常会出错的地方，IE下利用attachEvent注册的处理函数调用时this指向不再是先前注册事件的元素，这时的this为window对象了，笔者很奇怪IE为什么要这么做，完全看不出好处所在。 要移除先前注册的事件的监听器,调用element的detachEvent方法即可，参数相同。</p> <p>element.detachEvent(&#39;onclick&#39;, observer); 3、 DOM标准下注册多个事件监听器与移除监听器方法</p> <p>实现DOM标准的浏览器与IE浏览器中注册元素事件监听器方式有所不同，它通过元素的addEventListener方法注册，该方法既支持注册冒泡型事件处理，又支持捕获型事件处理。</p> <p>element.addEventListener(&#39;click&#39;, observer, useCapture); addEventListener方法接受三个参数。第一个参数是事件名称，值得注意的是，这里事件名称与IE的不同，事件名称是没’on’开头的;第二个参数observer是回调处理函数;第三个参数注明该处理回调函数是在事件传递过程中的捕获阶段被调用还是冒泡阶段被调用</p> <p>移除已注册的事件监听器调用element的removeEventListener即可，参数不变.</p> <p>element.removeEventListener(&#39;click&#39;, observer, useCapture);</p> <p>跨浏览器的注册与移除元素事件监听器方案</p> <p>弄清楚DOM标准与IE的注册元素事件监听器之间的异同后，就可以实现一个跨浏览器的注册与移除元素事件监听器方案:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//注册</span> <span class="kd">function</span> <span class="nx">addEventHandler</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//DOM标准</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span> <span class="p">}</span><span class="k">else</span> <span class="p">{</span> <span class="c1">//IE方式,忽略useCapture参数</span> <span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span> <span class="p">}</span> <span class="p">}</span> <span class="c1">//移除</span> <span class="kd">function</span> <span class="nx">removeEventHandler</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//DOM标准</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span> <span class="p">}</span><span class="k">else</span> <span class="p">{</span> <span class="c1">//IE方式,忽略useCapture参数</span> <span class="nx">element</span><span class="p">.</span><span class="nx">dettachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span> <span class="p">}</span> <span class="p">}</span> </code></pre></div> <p>如何取消浏览器事件的传递与事件传递后浏览器的默认处理</p> <p>先说明取消事件传递与浏览器事件传递后的默认处理是两个不同的概念，可能很多同学朋友分不清，或者根本不存在这两个概念。</p> <p>取消事件传递是指，停止捕获型事件或冒泡型事件的进一步传递。例如上图中的冒泡型事件传递中，在body处理停止事件传递后，位于上层的document的事件监听器就不再收到通知，不再被处理。</p> <p>事件传递后的默认处理是指，通常浏览器在事件传递并处理完后会执行与该事件关联的默认动作（如果存在这样的动作）。例如，如果表单中input type 属性是 “submit”，点击后在事件传播完浏览器就就自动提交表单。又例如，input 元素的 keydown 事件发生并处理后，浏览器默认会将用户键入的字符自动追加到 input 元素的值中。</p> <p>要取消浏览器的件传递,IE与DOM标准又有所不同。</p> <p>在IE下,通过设置event对象的cancelBubble为true即可。</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">()</span> <span class="p">{</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>DOM标准通过调用event对象的stopPropagation()方法即可。</p> <p><code>javascript function someHandle(event) { event.stopPropagation(); } </code>`</p> <p>因些，跨浏览器的停止事件传递的方法是:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span> <span class="nx">event</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span> <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">)</span> <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> <span...
+		    <p>
+		    <a class="text" href="/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
+		        返回页面顶部的三种方法(解决移动端使用zepto没有滑动的效果)
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年03月15日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/zepto/">zepto</a>, <a href="/tags/html5/">html5</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>点击返回顶部，三种方法</p> <p>1、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//zepto没有动画</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">scrollTop</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span> <span class="mi">500</span><span class="p">)</span> <span class="c1">//zepto使用</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>2、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>3、zepto使用可以有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">goTop</span><span class="p">(</span><span class="nx">acceleration</span><span class="p">,</span> <span class="nx">time</span><span class="p">)</span> <span class="p">{</span> <span class="nx">acceleration</span> <span class="o">=</span> <span class="nx">acceleration</span> <span class="o">||</span> <span class="mf">0.1</span><span class="p">;</span> <span class="nx">time</span> <span class="o">=</span> <span class="nx">time</span> <span class="o">||</span> <span class="mi">16</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollX</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 滚动条到页面顶部的水平距离</span> <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">x3</span><span class="p">));</span> <span class="c1">// 滚动条到页面顶部的垂直距离</span> <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">y1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span...
+		    <p>
+		    <a class="text" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
+		        关于页面重绘和回流以及优化
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年03月3日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Html/">Html</a>, <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>在讨论页面重绘、回流之前。需要对页面的呈现流程有些了解，页面是怎么把html结合css等显示到浏览器上的，下面的流程图显示了浏览器对页面的呈现的处理流程。可能不同的浏览器略微会有些不同。但基本上都是类似的。</p> <p><img src="/img/post/1403031.jpg" alt=""> </p> <p>1、 浏览器把获取到的HTML代码解析成1个DOM树，HTML中的每个tag都· 是DOM树中的1个节点，根节点就是我们常用的document对象。DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。</p> <p>2、 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。</p> <p>3、DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree能识别样式，render tree中每个NODE都有自己的style，而且 render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现，而且不会影响呈现的，所以就不会包含到 render tree中。注意 visibility:hidden隐藏的元素还是会包含到 render tree中的，因为visibility:hidden 会影响布局(layout)，会占有空间。根据CSS2的标准，render tree中的每个节点都称为Box (Box dimensions)，理解页面元素为一个具有填充、边距、边框和位置的盒子。</p> <p>4、 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。</p> <p>回流与重绘</p> <p>1、 当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。</p> <p>2、 当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。</p> <p>注意：回流必将引起重绘，而重绘不一定会引起回流。</p> <p>回流何时发生：</p> <p>当页面布局和几何属性改变时就需要回流。下述情况会发生浏览器回流：</p> <p>1、添加或者删除可见的DOM元素；</p> <p>2、元素位置改变；</p> <p>3、元素尺寸改变——边距、填充、边框、宽度和高度</p> <p>4、内容改变——比如文本改变或者图片大小改变而引起的计算值宽度和高度改变；</p> <p>5、页面渲染初始化；</p> <p>6、浏览器窗口尺寸改变——resize事件发生时；</p> <p>让我们看看下面的代码是如何影响回流和重绘的:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;2px&quot;</span><span class="p">;</span> <span class="c1">// 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s2">&quot;1px solid red&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span> <span class="c1">// 再一次重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">&quot;#ccc&quot;</span><span class="p">;</span> <span class="c1">// 再一次 重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="s2">&quot;14px&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="c1">// 添加node，再一次 回流+重绘</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;abc!&#39;</span><span class="p">));</span> </code></pre></div> <p>说到这里大家都知道回流比重绘的代价要更高，回流的花销跟render tree有多少节点需要重新构建有关系，假设你直接操作body，比如在body最前面插入1个元素，会导致整个render tree回流，这样代价当然会比较高，但如果是指body后面插入1个元素，则不会影响前面元素的回流。</p> <p>聪明的浏览器</p> <p>从上个实例代码中可以看到几行简单的JS代码就引起了6次左右的回流、重绘。而且我们也知道回流的花销也不小，如果每句JS操作都去回流重绘的话，浏览器可能就会受不了。所以很多浏览器都会优化这些操作，浏览器会维护1个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会flush队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</p> <p>虽然有了浏览器的优化，但有时候我们写的一些代码可能会强制浏览器提前flush队列，这样浏览器的优化可能就起不到作用了。当你请求向浏览器请求一些 style信息的时候，就会让浏览器flush队列，比如：</p> <ol> <li><p>offsetTop, offsetLeft, offsetWidth, offsetHeight</p></li> <li><p>scrollTop/Left/Width/Height</p></li> <li><p>clientTop/Left/Width/Height</p></li> <li><p>width,height</p></li> <li><p>请求了getComputedStyle(), 或者 IE的 currentStyle</p></li> </ol> <p>当你请求上面的一些属性的时候，浏览器为了给你最精确的值，需要flush队列，因为队列中可能会有影响到这些值的操作。即使你获取元素的布局和样式信息跟最近发生或改变的布局信息无关，浏览器都会强行刷新渲染队列。</p> <p><strong>如何减少回流、重绘</strong></p> <p>减少回流、重绘其实就是需要减少对render tree的操作（合并多次多DOM和样式的修改），并减少对一些style信息的请求，尽量利用好浏览器的优化策略。具体方法有：</p> <p>1、直接改变className，如果动态改变样式，则使用cssText（考虑没有优化的浏览器）</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 不好的写法</span> <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s2">&quot; className1&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">+=</span> <span class="s2">&quot;;</span> <span class="s2">left: &quot;</span> <span class="o">+</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px;</span> <span class="s2">top: &quot;</span> <span class="o">+</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px;&quot;</span><span class="p">;</span> </code></pre></div> <p>2、让要操作的元素进行”离线处理”，处理完后一起更新</p> <p>a) 使用DocumentFragment进行缓存操作,引发一次回流和重绘；</p> <p>b) 使用display:none技术，只引发两次回流和重绘；</p> <p>c) 使用cloneNode(true or false) 和 replaceChild 技术，引发一次回流和重绘；</p> <p>3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，利用缓存</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 别这样写，大哥</span> <span...
+		    <p>
+		    <a class="text" href="/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/zepto%E5%92%8Cjquery%E7%9A%84%E5%8C%BA%E5%88%AB-zepto%E7%9A%84%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A88%E6%9D%A1%E5%B0%8F%E7%BB%93/">
 		        zepto和jquery的区别，zepto的不同使用8条小结
 		      </a>
@@ -281,283 +403,10 @@
 		  </div>
 		</div>
 		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/jQuery%E4%B8%AD.bind()-.live()%E5%92%8C.delegate()%E4%B9%8B%E9%97%B4%E5%8C%BA%E5%88%AB/">
-		        jQuery中.bind()、.live()和.delegate()之间区别
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年02月2日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Jquery/">Jquery</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>要理清这三者的区别，我们先从实现到原理入手来看一下，首先看DOM树：</p>
-
-<p>我们来可视化一个HMTL文档的DOM树是很有帮助的。一个简单的HTML页面看起来就像是这个样子：</p>
-
-<p><img src="/img/post/1402021.jpg" alt=""> </p>
-
-<p>事件冒泡(又称事件传播)
-当我们点击一个链接时，其触发了链接元素的单击事件，该事件则引发任何我们已绑定到该元素的单击事件上的函数的执行。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
-<p>因此一个单击操作会触发alert函数的执行。</p>
-
-<p><img src="/img/post/1402022.jpg" alt=""> </p>
-
-<p>click事件接着会向树的根方向传播，广播到父元素，然后接着是每个祖先元素，只要是它的某个后代元素上的单击事件被触发，事件就会传给它。</p>
-
-<p><img src="/img/post/1402023.jpg" alt=""> </p>
-
-<p>在操纵DOM的语境中，document是根节点。</p>
-
-<hr>
-
-<p>现在我们可以较容易地说明.bind()、.live()和.delegate()的不同之处了。</p>
-
-<p><strong><em>.bind()</em></strong></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
-<p>这是最简单的绑定方法了。JQuery扫描文档找出所有的$(‘a’)元素，并把alert函数绑定到每个元素的click事件上。</p>
-
-<p><strong><em>.live()</em></strong></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
-<p>JQuery把alert函数绑定到$(document)元素上，并使用’click’和’a’作为参数。任何时候只要有事件冒泡到document节点上，它就查看该事件是否是一个click事件，以及该事件的目标元素与’a’这一CSS选择器是否匹配，如果都是的话，则执行函数。
-live方法还可以被绑定到具体的元素(或context)而不是document上，像这样：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">live</span><span class="p">(...);</span>
-</code></pre></div>
-<p><strong><em>.delegate()</em></strong></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
-<p>JQuery扫描文档查找$(‘#container’)，并使用click事件和’a’这一CSS选择器作为参数把alert函数绑定到$(‘#container’)上。任何时候只要有事件冒泡到$(‘#container’)上，它就查看该事件是否是click事件，以及该事件的目标元素是否与CCS选择器相匹配。如果两种检查的结果都为真的话，它就执行函数。
-可以注意到，这一过程与.live()类似，但是其把处理程序绑定到具体的元素而非document这一根上。精明的JS’er们可能会做出这样的结论，即$(&#39;a&#39;).live() == $(document).delegate(&#39;a&#39;)，是这样吗?嗯，不，不完全是。</p>
-
-<hr>
-
-<p>下面来看看我门为什么选择.live()或.delegate()而不是.bind()。毕竟，bind看起来似乎更加的明确和直接，难道不是吗?嗯，有两个原因让我们更愿意选择delegate或live而不是bind：</p>
-
-<p>为了把处理程序附加到可能还未存在于DOM中的DOM元素之上。因为bind是直接把处理程序绑定到各个元素上，它不能把处理程序绑定到还未存在于页面中的元素之上。如果你运行了$(‘a’).bind(…)，而后新的链接经由AJAX加入到了页面中，则你的bind处理程序对于这些新加入的链接来说是无效的。</p>
-
-<p>而另一方面live和delegate则是被绑定到另一个祖先节点上，因此其对于任何目前或是将来存在于该祖先元素之内的元素都是有效的。或者为了把处理程序附加到单个元素上或是一小组元素之上，监听后代元素上的事件而不是循环遍历并把同一个函数逐个附加到DOM中的100个元素上。把处理程序附加到一个(或是一小组)祖先元素上而不是直接把处理程序附加到页面中的所有元素上，这种做法带来了性能上的好处。</p>
-
-<p><strong><em>停止传播</em></strong></p>
-
-<p>最后一个我想做的提醒与事件传播有关。通常情况下，我们可以通过使用这样的事件方法来终止处理函数的执行：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">　　</span>
-<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
-<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> 
-<span class="err">　　</span><span class="c1">// 或者 </span>
-<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> 
-<span class="err">　　</span><span class="p">});</span>
-</code></pre></div>
-<p>不过，当我们使用live或是delegate方法的时候，处理函数实际上并没有在运行，需要等到事件冒泡到处理程序实际绑定的元素上时函数才会运行。而到此时为止，我们的其他的来自.bind()的处理函数早已运行了。</p>
-
-<p><strong><em>为什么.delegate()要比.live()好用?</em></strong></p>
-
-<p>基于几个原因，人们通常更愿意选用jQuery的delegate方法而不是live方法。考虑下面的例子：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span> 
-<span class="c1">// 或者 </span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span>
-</code></pre></div>
-<p><strong><em>速度</em></strong></p>
-
-<p>后者要快过前者，因为前者首先要扫描整个的文档查找所有的$(‘a’)元素，把它们存成jQuery对象。尽管live函数仅需要把’a’作为串参数传递以用做之后的判断，但是$()函数并未知道被链接的方法将会是.live()。
-而另一方面，delegate方法仅需要查找并存储$(document)元素。一种寻求避开这一问题的方法是调用在$(document).ready()之外绑定的live，这样它就会立即执行。在这种方式下，其会在DOM获得填充之前运行，因此就不会查找元素或是创建jQuery对象了。</p>
-
-<p><strong><em>灵活性和链能力</em></strong></p>
-
-<p>live函数也挺令人费解的。想想看，它被链到$(‘a’)对象集上，但其实际上是在$(document)对象上发生作用。由于这个原因，它能够试图以一种吓死人的方式来把方法链到自身上。实际上，我想说的是，以$.live(‘a’,…)这一形式作为一种全局性的jQuery方法，live方法会更具意义一些。</p>
-
-<p><strong><em>仅支持CSS选择器</em></strong></p>
-
-<p>最后一点，live方法有一个非常大的缺点，那就是它仅能针对直接的CSS选择器做操作，这使得它变得非常的不灵活。</p>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/IE6-IE7%E4%B8%8B-inline-block%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
-		        IE6/IE7下：inline-block解决方案
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年01月20日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>E6/IE7下对display:inline-block的支持性不好。比如在inline元素的display属性设置为inline-block时，所有的浏览器都支持；block元素的display属性设置为inline-block时，IE6/IE7浏览器是不支持的。</p>
-
-<h3>产生的原因</h3>
-
-<p>虽然对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行，允许空格。（准确地说，应用此特性的元素现为内联对象，周围元素保持在同一行，但可以设置宽度和高度等块元素的属性）
-IE中对内联元素使用display:inline-block，IE是不识别的，但使用display:inline-block在IE下会触发layout，从而使内联元素拥有了display:inline-block属性的表征。从上面的这个分析，也不难理解为什么IE下，对块元素设置display:inline-block属性无法实现inline-block的效果。这时块元素仅仅是被display:inline-block触发了layout，而它本身就是行布局，所以触发后，块元素依然还是行布局，而不会如Opera中块元素呈递为内联对象。</p>
-
-<h3>IE6下块元素如何实现display:inline-block的效果？</h3>
-
-<p>有两种方法：</p>
-
-<p>1、先使用display:inline-block属性触发块元素，然后再定义display:inline，让块元素呈递为内联对象（两个display 要先后放在两个CSS声明中才有效果，这是IE的一个经典bug，如果先定义了display:inline-block，然后再将display设回 inline或block，layout不会消失）。代码如下（...为省略的其他属性内容）： </p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span><span class="o">...</span><span class="p">}</span> 
-<span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span>
-</code></pre></div>
-<p>2、直接让块元素设置为内联对象呈递（设置属性display:inline），然后触发块元素的layout（如：zoom:1 或float属性等）。代码如下：</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="n">_display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐*/</span>
-<span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="o">*</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐:IE67*/</span>
-</code></pre></div>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
-		        不为人熟知的Meta http-equiv属性
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年01月10日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
-meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
-
-<p>1、Expires(期限) 
-说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>注意：必须使用GMT的时间格式。 </p>
-
-<p>2、Pragma(cache模式) 
-说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>注意：这样设定，访问者将无法脱机浏览。 </p>
-
-<p>3、Refresh(刷新) 
-说明：自动刷新并指向新页面。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
-</code></pre></div>
-<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
-
-<p>4、Set-Cookie(cookie设定) 
-说明：如果网页过期，那么存盘的cookie将被删除。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>注意：必须使用GMT的时间格式。 </p>
-
-<p>5、Window-target(显示窗口的设定) 
-说明：强制页面在当前窗口以独立页面显示。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
-</code></pre></div>
-<p>注意：用来防止别人在框架里调用自己的页面。 </p>
-
-<p>6、content-Type(显示字符集的设定) 
-说明：设定页面使用的字符集。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
-</code></pre></div>
-<p>7、Pics-label(网页等级评定) </p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
-</code></pre></div>
-<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
-
-<p>8、Page<em>Enter、Page</em>Exit 
-设定进入页面时的特殊效果</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
-</code></pre></div>
-<p>设定离开页面时的特殊效果</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
-</code></pre></div>
-<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
-Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
-0    盒状收缩    1    盒状放射<br>
-2    圆形收缩    3    圆形放射<br>
-4    由下往上    5    由上往下<br>
-6    从左至右    7    从右至左<br>
-8    垂直百叶窗    9    水平百叶窗<br>
-10    水平格状百叶窗    11垂直格状百叶窗<br>
-12    随意溶解    13从左右两端向中间展开<br>
-14从中间向左右两端展开    15从上下两端向中间展开<br>
-16从中间向上下两端展开    17    从右上角向左下角展开<br>
-18    从右下角向左上角展开    19    从左上角向右下角展开<br>
-20    从左下角向右上角展开    21    水平线状展开<br>
-22    垂直线状展开    23    随机产生一种过渡方式  </p>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/HTTP-%E5%A4%B4%E6%8E%A7%E5%88%B6%E7%BC%93%E5%AD%98%E4%BB%A5%E5%8F%8Aheader%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">
-		        HTTP 头控制缓存以及header常用指令及配置方式
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年01月7日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>网页的缓存是由HTTP消息头中的“Cache-control”来控制的，常见的取值有private、no-cache、max-age、must-revalidate等，默认为private。其作用根据不同的重新浏览方式分为以下几种情况：</p> <ol> <li><p>打开新窗口 值为private、no-cache、must-revalidate，那么打开新窗口访问时都会重新访问服务器。 而如果指定了max-age值，那么在此值内的时间里就不会重新访问服务器，例如： Cache-control: max-age=5(表示当访问此网页后的5秒内再次访问不会去服务器)</p></li> <li><p>在地址栏回车 值为private或must-revalidate则只有第一次访问时会访问服务器，以后就不再访问。 值为no-cache，那么每次都会访问。 值为max-age，则在过期之前不会重复访问。</p></li> <li><p>按后退按扭 值为private、must-revalidate、max-age，则不会重访问， 值为no-cache，则每次都重复访问</p></li> <li><p>按刷新按扭 　 无论为何值，都会重复访问</p></li> </ol> <p>Cache-control值为“no-cache”时，访问此页面不会在Internet临时文章夹留下页面备份。</p> <p>另外，通过指定“Expires”值也会影响到缓存。例如，指定Expires值为一个早已过去的时间，那么访问此网时若重复在地址栏按回车，那么每次都会重复访问： Expires: Fri, 31 Dec 1999 16:00:00 GMT</p> <p>比如：禁止页面在IE中缓存</p> <p>http响应消息头部设置：</p> <p>CacheControl = no-cache Pragma=no-cache Expires = -1</p> <p>Expires是个好东东，如果服务器上的网页经常变化，就把它设置为-1，表示立即过期。如果一个网页每天凌晨1点更新，可以把Expires设置为第二天的凌晨1点。</p> <p>当HTTP1.1服务器指定CacheControl = no-cache时，浏览器就不会缓存该网页。</p> <p>旧式 HTTP 1.0 服务器不能使用 Cache-Control 标题。 所以为了向后兼容 HTTP 1.0 服务器，IE使用Pragma:no-cache 标题对 HTTP 提供特殊支持。 如果客户端通过安全连接 (https://)/与服务器通讯，且服务器在响应中返回 Pragma:no-cache 标题， 则 Internet Explorer不会缓存此响应。注意：Pragma:no-cache 仅当在安全连接中使用时才防止缓存，如果在非安全页中使用，处理方式与 Expires:-1相同，该页将被缓存，但被标记为立即过期。</p> <hr> <p>header常用指令</p> <p>header分为三部分：</p> <p>第一部分为HTTP协议的版本(HTTP-Version)； 第二部分为状态代码(Status)； 第三部分为原因短语(Reason-Phrase)。</p> <p>// fix 404 pages: 用这个header指令来解决URL重写产生的404 header header(&#39;HTTP/1.1 200 OK&#39;);</p> <p>// set 404 header: 页面没找到 header(&#39;HTTP/1.1 404 Not Found&#39;);</p> <p>//页面永久重定向，可以告诉搜索引擎更新它们的urls // set Moved Permanently header (good for redrictions) // use with location header header(&#39;HTTP/1.1 301 Moved Permanently&#39;);</p> <p>// 访问受限 header(&#39;HTTP/1.1 403 Forbidden&#39;);</p> <p>// 服务器错误 header(&#39;HTTP/1.1 500 Internal Server Error&#39;);</p> <p>// 重定向到一个新的位置 // redirect to a new location: header(&#39;Location: http://www.sina.com.cn);</p> <p>延迟一段时间后重定向 // redrict with delay: header(&#39;Refresh: 10; url=http://www.sina.com.cn&#39;); print &#39;You will be redirected in 10 seconds&#39;;</p> <p>// 覆盖 X-Powered-By value // override X-Powered-By: PHP: header(&#39;X-Powered-By: PHP/4.4.0&#39;); header(&#39;X-Powered-By: Brain/0.6b&#39;);</p> <p>// 内容语言 (en = English) // content language (en = English) header(&#39;Content-language: en&#39;);</p> <p>//最后修改时间(在缓存的时候可以用到) // last modified (good for caching) $time = time() - 60; // or filemtime($fn), etc header(&#39;Last-Modified: &#39;.gmdate(&#39;D, d M Y H:i:s&#39;, $time).&#39; GMT&#39;);</p> <p>// 告诉浏览器要获取的内容还没有更新 // header for telling the browser that the content // did not get changed header(&#39;HTTP/1.1 304 Not Modified&#39;);</p> <p>// 设置内容的长度 (缓存的时候可以用到): // set content length (good for caching): header(&#39;Content-Length: 1234&#39;);</p> <p>// 用来下载文件: // Headers for an download: header(&#39;Content-Type: application/octet-stream&#39;); header(&#39;Content-Disposition: attachment; filename=&quot;example.zip&quot;&#39;); header(&#39;Content-Transfer-Encoding: binary&#39;);</p> <p>// 禁止缓存当前文档: // load the file to send:readfile(&#39;example.zip&#39;); // Disable caching of the current document: header(&#39;Cache-Control: no-cache, no-store, max-age=0, must-revalidate&#39;); header(&#39;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#39;);</p> <p>// 设置内容类型: // Date in the pastheader(&#39;Pragma: no-cache&#39;); // set content type: header(&#39;Content-Type: text/html; charset=iso-8859-1&#39;); header(&#39;Content-Type: text/html; charset=utf-8&#39;);</p> <p>// plain text file header(&#39;Content-Type: text/plain&#39;);</p> <p>// JPG picture header(&#39;Content-Type: image/jpeg&#39;);</p> <p>// ZIP file header(&#39;Content-Type: application/zip&#39;);</p> <p>// PDF...
-		    <p>
-		    <a class="text" href="/blog/HTTP-%E5%A4%B4%E6%8E%A7%E5%88%B6%E7%BC%93%E5%AD%98%E4%BB%A5%E5%8F%8Aheader%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
 	</div>
 
 	<div class="wp-pagenavi">
-	    <span class='pages'>第 3 页，共 6 页</span>
+	    <span class='pages'>第 3 页，共 7 页</span>
 
 	    
 	    	<a class="previouspostslink" rel="prev" href="/blog/page2" > « </a>
@@ -586,6 +435,10 @@ Transition是过渡方式，它的值为0到23，分别对应24种过渡方式�
 	    
 	        
 	          <a class="page larger" href="/blog/page6">6</a>
+	        
+	    
+	        
+	          <a class="page larger" href="/blog/page7">7</a>
 	        
 	    
 

@@ -1,0 +1,241 @@
+---
+layout: post
+title:  "移动端上前端开发的一些问题与总结（1）"
+date:   2015-02-24
+author: cyan
+category: front
+tags: html5 移动开发
+---
+
+在工作中遇到的一些问题和fix方法，做一个汇总：
+
+###样式表:
+
+```html
+<link rel="apple-touch-startup-image" href="startup.png" /> // 设置开始页面图片
+<link rel="apple-touch-icon" href="iphon_tetris_icon.png"/> // 在设置书签的时候可以显示好看的图标
+<link rel="stylesheet" media="all and (orientation:portrait)" href="portrait.css">    // 肖像模式样式
+<link rel="stylesheet" media="all and (orientation:landscape)"href="landscape.css">   // 风景模式样式
+
+//竖屏时使用的样式
+<style media="all and (orientation:portrait)" type="text/css">
+#landscape { display: none; }
+</style>
+
+//横屏时使用的样式
+<style media="all and (orientation:landscape)" type="text/css">#portrait { display: none; }</style>
+```
+___
+
+###meta标签:
+
+这些meta标签在开发webapp时起到非常重要的作用
+
+```html
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+```
+第一个meta标签表示：强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；
+
+其中：
+
+width - viewport的宽度
+
+height - viewport的高度
+
+initial-scale - 初始的缩放比例
+
+minimum-scale - 允许用户缩放到的最小比例
+
+maximum-scale - 允许用户缩放到的最大比例
+
+user-scalable - 用户是否可以手动缩放 
+
+第二个meta标签是iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；
+
+第三个meta标签也是iphone的私有标签，它指定的iphone中safari顶端的状态条的样式；
+
+第四个meta标签表示：告诉设备忽略将页面中的数字识别为电话号码
+
+___
+
+###页面描述(iOS)
+
+```html
+<link rel="apple-touch-icon-precomposed" href="http://www.xxx.com/App_icon_114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.xxx.com/App_icon_72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.xxx.com/App_icon_114.png" />
+```
+这个属性是当用户把连接保存到手机桌面时使用的图标，如果不设置，则会用网页的截图。有了这，就可以让你的网页像APP一样存在手机里了
+
+```html
+<link rel="apple-touch-startup-image" href="/img/startup.png" />
+```
+这个是APP启动画面图片，用途和上面的类似，如果不设置，启动画面就是白屏，图片像素就是手机全屏的像素
+
+```html
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+```
+这个描述是表示打开的web app的最上面的时间、信号栏是黑色的，当然也可以设置其它参数，详细参数说明在：Supported Meta Tags
+
+```html
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+```
+
+这2个描述也很有用的，如果没有它，你的web app会用safari浏览器打开，有了它，就会用独立进程的无地址栏的打开，完全可以和普通的APP比拟了
+
+下面还有个不错的css，是用来区分视网膜屏幕的，这样你可以在iphone这样的手机里载入2x的图片，就不会模糊了
+
+```css
+
+@media only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min--moz-device-pixel-ratio:1.5),only screen and (min-device-pixel-ratio:1.5),only screen and (min-resolution:200dpi)
+{
+#logo{background-image: url(logo@2x.png);}
+}
+```
+___
+
+###关于点击和click事件
+
+对于a标记的点击导航，默认是在onclick事件中处理的。而移动客户端对onclick的响应相比PC浏览器有着明显的几百毫秒延迟。
+
+在移动浏览器中对触摸事件的响应顺序应当是：
+
+ontouchstart -> ontouchmove -> ontouchend -> onclick
+因此，如果确实要加快对点击事件的响应，就应当绑定ontouchend事件。
+
+使用click会出现绑定点击区域闪一下的情况，解决：给该元素一个样式如下
+
+```css
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+```
+
+如果不使用click，也不能简单的用touchstart或touchend替代，需要用touchstart的模拟一个click事件，并且不能发生touchmove事件，或者用zepto中的tap（轻击）事件。
+
+```css
+body{-webkit-overflow-scrolling: touch;}
+```
+
+用iphone或ipad浏览很长的网页滚动时的滑动效果很不错吧？不过如果是一个div，然后设置height:200px;overflow:auto;的话，可以滚动但是完全没有那滑动效果，很郁闷吧？ 我看到很多网站为了实现这一效果，用了第三方类库，最常用的是iscroll（包括新浪手机页，百度等） 我一开始也使用，不过自从用了-webkit-overflow-scrolling:touch;样式后，就完全可以抛弃第三方类库了，把它加在body{}区域，所有的overflow需要滚动的都可以生效了。
+
+___
+
+###手机浏览器常用手势动作监听封装(配合zepto,from mansonchor) 
+
+<a href="http://wo.poco.cn/manson/post/id/268780" alt="手机浏览器常用手势动作监听封装">手机浏览器常用手势动作监听封装</a>
+
+
+___
+
+###事件：(参考：引用了指尖上的js系列，在此向作者表示感谢)
+<a href="http://www.cnblogs.com/pifoo/archive/2011/05/23/webkit-touch-event-1.html">对于Touch的处理</a>
+<a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-2.html">处理简单手势</a>
+
+<a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-3.html">处理复杂手势</a>
+___
+
+###手势事件
+
+touchstart //当手指接触屏幕时触发
+
+touchmove //当已经接触屏幕的手指开始移动后触发
+
+touchend //当手指离开屏幕时触发
+
+touchcancel
+
+###触摸事件
+
+gesturestart //当两个手指接触屏幕时触发
+
+gesturechange //当两个手指接触屏幕后开始移动时触发
+
+gestureend
+
+###屏幕旋转事件
+
+onorientationchange //检测触摸屏幕的手指何时改变方向
+
+orientationchange //touch事件支持的相关属性
+
+touches
+
+targetTouches
+
+changedTouches
+
+clientX　　　　// X coordinate of touch relative to the viewport (excludes scroll offset)
+
+clientY　　　　// Y coordinate of touch relative to the viewport (excludes scroll offset)
+
+screenX　　　 // Relative to the screen
+
+screenY 　　 // Relative to the screen
+
+pageX　　 　　// Relative to the full page (includes scrolling)
+
+pageY　　　　 // Relative to the full page (includes scrolling)
+
+target　　　　 // Node the touch event originated from
+
+identifier　　 // An identifying number, unique to each touch event
+
+屏幕旋转事件：onorientationchange 添加屏幕旋转事件侦听，可随时发现屏幕旋转状态（左旋、右旋还是没旋）
+
+___
+
+###判断屏幕是否旋转
+
+```javascript
+
+function orientationChange() { 
+	switch (window.orientation) {
+		case 0: alert("肖像模式 0,screen-width: " + screen.width + ";screen-height:" + screen.height);
+		break;
+		case -90: alert("左旋 -90,screen-width: " + screen.width + "; screen-height:" + screen.height);
+		break;
+		case 90: alert("右旋 90,screen-width: " + screen.width + "; screen-height:" + screen.height); 
+		break;
+		case 180: alert("风景模式 180,screen-width: " + screen.width + "; screen-height:" + screen.height);
+		break; 
+	}; 
+};
+
+```
+___
+
+###添加事件监听
+
+addEventListener('load', function(){
+    orientationChange();
+    window.onorientationchange = orientationChange;
+});
+
+___
+
+
+###双手指滑动事件：
+```js
+// 双手指滑动事件
+
+addEventListener('load',function(){ window.onmousewheel = twoFingerScroll;},
+    false // 兼容各浏览器，表示在冒泡阶段调用事件处理程序 (true 捕获阶段)
+);
+
+function twoFingerScroll(ev) {
+    var delta =ev.wheelDelta/120; //对 delta 值进行判断(比如正负) ，而后执行相应操作
+    return true;
+};
+
+```
+
+### localStorage:
+
+```js
+var v = localStorage.getItem('n') ? localStorage.getItem('n') : ""; // 如果名称是  n 的数据存在 ，则将其读出 ，赋予变量  v  。
+localStorage.setItem('n', v); // 写入名称为 n、值为  v  的数据
+localStorage.removeItem('n'); // 删除名称为  n  的数据
+```
