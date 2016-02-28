@@ -260,6 +260,129 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/H5%E5%BC%80%E5%8F%91%E4%B8%AD%E5%9B%9B%E7%A7%8D%E9%A1%B5%E9%9D%A2%E6%A8%AA%E5%90%91%E6%BB%91%E5%8A%A8%E6%A8%A1%E5%BC%8F/">
+		        H5开发中四种页面横向滑动模式
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2015年09月20日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/html5/">html5</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>近年来移动网络速率的提升以及设备硬件水平的不断提高，webapp朝着更趋向于native化的水平发展，其表现效果和性能也会越来越好，现在来看未来很有可能替代native或者平起平坐，那么我们研究更好的交互体验是非常有必要的。</p> <p>目前我们所常见的webapp越来越多的是以SPA(single page application)的模式进行开发，同时嵌套在android或者ios本地壳里面，也就是hybrid应用，这种开发方式所带来的优势就不多讨论，本文研究的重点是在SPA模式中，页面间横向滑动切换场景时模式是怎样设计的，将展示并阐述四种横向滑动模式的架构布局及CSS设计方案，供大家参考。</p> <p>一、容器整体滑动（DEMO只演示A-B-C-B，下同） 模拟动画效果见下图(上)，滑动分解见下图(下)：</p> <p><img src="/img/post/1509201.gif" alt=""> </p> <p><img src="/img/post/1509202.jpg" alt=""> </p> <p><a href="http://nirvana.sinaapp.com/demo_slider/slider_1.html">demo</a></p> <p>布局方式：父容器相对定位并撑满整个device的viewport，子页面绝对定位并依次并排排列在viewport中（从左到右）</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.view-container</span> <span class="p">{</span> <span class="o">//</span> <span class="err">父容器布局方式</span> <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span> <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span> <span class="k">padding-top</span><span class="o">:</span> <span class="m">44px</span><span class="p">;</span> <span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate3d</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span> <span class="o">//</span><span class="err">激活</span><span class="n">GPU</span> <span class="m">3</span><span class="n">D</span><span class="err">加速</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">backface</span><span class="o">-</span><span class="k">visibility</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span> <span class="p">}</span> <span class="nc">.page-container</span> <span class="p">{</span> <span class="o">//</span> <span class="err">子页面布局方式</span> <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span> <span class="k">z-index</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span> <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="o">//</span> <span class="err">初始化为</span><span class="m">0</span><span class="err">，动态计算第</span><span class="n">N</span><span class="err">个</span><span class="k">page</span><span class="err">，并赋值</span><span class="p">(</span><span class="n">N</span><span class="m">-1</span><span class="p">)</span><span class="o">*</span><span class="m">100%</span> <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span> <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#F8F8F8</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>滑动方式：父容器利用CSS3的动画transform3D进行X轴的滑动(JS控制直接喷到DOM节点中)</p> <hr> <p>二、单个页面滑动 模拟动画效果，见下图：</p> <p><img src="/img/post/1509202.gif" alt=""> </p> <p><img src="/img/post/1509203.jpg" alt=""> </p> <p><a href="http://nirvana.sinaapp.com/demo_slider/slider_2.html">demo</a></p> <p>布局方式：父容器高度100%，子容器正常文档流布局（X轴隐藏，Y轴默认原生滚动）</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.view-container</span> <span class="p">{</span> <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span> <span class="p">}</span> <span class="nc">.page-container</span> <span class="p">{</span> <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span> <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span> <span class="k">min-height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span> <span class="k">overflow-x</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#F8F8F8</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>滑动方式：利用class添加动画样式（keyframes animation），左右进出各一种</p> <div class="highlight"><pre><code class="language-css" data-lang="css"> <span class="k">@-webkit-keyframes</span> <span class="nt">sliderightout</span><span class="p">{</span><span class="nt">from</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">0px</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">1</span><span class="p">}</span><span class="nt">to</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">50%</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">0</span><span class="p">}}</span> <span class="k">@-webkit-keyframes</span> <span class="nt">slideleftin</span><span class="p">{</span><span class="nt">from</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">-50%</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">0</span><span...
+		    <p>
+		    <a class="text" href="/blog/H5%E5%BC%80%E5%8F%91%E4%B8%AD%E5%9B%9B%E7%A7%8D%E9%A1%B5%E9%9D%A2%E6%A8%AA%E5%90%91%E6%BB%91%E5%8A%A8%E6%A8%A1%E5%BC%8F/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87tab%E5%9C%86%E8%A7%92%E5%9B%BE%E7%89%87-%E5%87%BA%E7%8E%B0%E9%98%B4%E5%BD%B1%E8%A7%A3%E7%9A%84bug/">
+		        移动设备tab圆角图片，出现阴影解的bug
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2015年09月18日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/html5/">html5</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>做好的页面在手机端测试时，发现部分浏览器，tap后会出现一个半透明的灰色背景，发现是tap后的背景高亮，要重设这个表现，则需要设置-webkit-tap-highlight-color为所需色彩，直接透明吧：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">a</span><span class="o">,</span><span class="nt">img</span><span class="o">,</span><span class="nt">button</span><span class="o">,</span><span class="nt">input</span><span class="o">,</span><span class="nt">textarea</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">tap</span><span class="o">-</span><span class="n">highlight</span><span class="o">-</span><span class="k">color</span><span class="o">:</span><span class="n">rgba</span><span class="p">(</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">255</span><span class="o">,</span><span class="m">0</span><span class="p">);}</span>
+</code></pre></div>
+<p>另外，如何去掉textarea,input的默认样式（IOS上的圆角及内阴影等，Android未测试）：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">input</span><span class="o">,</span><span class="nt">textarea</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">appearance</span><span class="o">:</span><span class="k">none</span><span class="p">;}</span>
+</code></pre></div>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/zepto-lazyload%E5%9B%BE%E7%89%87/">
+		        zepto lazyload图片
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2015年04月24日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/zepto/">zepto</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>图片懒加载有很多js插件，非常著名的属jQuery的Lazy Load了。自己做手机项目上也需要图片懒加载，而且手机上的图片懒加载有两种：一种是普通img标签的，一种是div标签（或者其他标签）上加背景图片的。所以就练手写了个支持以上两种情况的Zepto小插件。</p>
+
+<h3>功能：</h3>
+
+<p>支持img标签图片懒加载、div标签（或者其他标签）的背景图片懒加载；
+支持预加载。默认是图片出现在屏幕时开始加载，可以设置threshold参数，如threshold:100，此时图片出现在屏幕之前100px时开始加载；
+背景图片懒加载时，自动添加base64的1*1透明图片做默认背景图。也可以自定义默认背景图，参数为placeholder。</p>
+
+<h3>使用方法：</h3>
+
+<p>引用1.1.3的Zepto（我只测过这个目前最新版），并引用picLazyLoad.js</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;1.1.3/zepto.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;1.0/zepto.picLazyLoad.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+<p>在要懒加载的标签上，加类名或者id名，方便调用。在标签上加data-original=&quot;original.jpg&quot;，original.jpg为实际加载图片路径。如果是img标签，还需要加src=&quot;blank.png&quot;。blank.png为默认背景图，建议用base64图。例如：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;test-lazyload&quot;</span> <span class="na">src=</span><span class="s">&quot;blank.png&quot;</span> <span class="na">data-original=</span><span class="s">&quot;original.jpg&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;test-lazyload&quot;</span> <span class="na">data-original=</span><span class="s">&quot;original.jpg&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div>
+<p><strong><em>调用:</em></strong></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.test-lazyload&#39;</span><span class="p">).</span><span class="nx">picLazyLoad</span><span class="p">();</span>
+</code></pre></div>
+<p>如需加参数：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.test-lazyload&#39;</span><span class="p">).</span><span class="nx">picLazyLoad</span><span class="p">({</span>
+    <span class="nx">threshold</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nx">placeholder</span><span class="o">:</span> <span class="s1">&#39;http://image.yihaodianimg.com/front-homepage/global/images/blank.gif&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+<p><a href="http://ons.me/wp-content/uploads/2014/05/picLazyLoad/">→示例DEMO←</a></p>
+
+<ul>
+<li>已知问题：
+iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不执行onscroll方法，获取不到scrolltop值。导致此时刷新网页，网页下方的图片没有默认加载。</li>
+<li><p>待增加功能：
+现在是直接显示图片show，以后增加fadeIn图片淡入；
+现在是只能根据窗口懒加载图片，待增加根据容器、tab选项卡等。</p></li>
+<li><p>小提示：
+使用背景图片比使用img标签懒加载浏览器显示速度要快，不知道是不是后者多了一步替换src路径操作导致的；
+如果要兼容更多的设备，使用背景图片可以显示更清晰，因为可以设置background-size，之前的文章有提到过。</p></li>
+</ul>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFh5%E6%8B%A8%E6%89%93%E7%94%B5%E8%AF%9D%E7%82%B9%E6%A0%87%E7%AD%BE%E8%AF%B4%E6%98%8E/">
 		        移动端h5拨打电话点标签说明
 		      </a>
@@ -289,96 +412,6 @@
 
 <p>default     ：wtai</p>
 
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
-		        移动端上前端开发的一些问题与总结（3）
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年03月13日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/html5/">html5</a>, <a href="/tags/移动开发/">移动开发</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <h3>关于ios系统中，webapp启动图片在不同设备上的适应性设置</h3> <p><a href="http://stackoverflow.com/questions/4687698/mulitple-apple-touch-startup-image-resolutions-for-ios-web-app-esp-for-ipad/10011893#10011893">不同设备上的适应性设置</a></p> <hr> <h3>关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h3> <p>可以通过正则去掉</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\u2006/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span> </code></pre></div> <hr> <h3>关于android webview中，input元素输入时出现的怪异情况</h3> <p>见图:</p> <p><img src="/img/post/15030131.jpg" alt=""> </p> <p>Android web视图,至少在HTC EVO和三星的Galaxy Nexus中，文本输入框在输入时表现的就像占位符。情况为一个类似水印的东西在用户输入区域，一旦用户开始输入便会消失(见图片)。 在android的默认样式下当输入框获得焦点后,若存在一个绝对定位或者fixed的元素，布局会被破坏,其他元素与系统输入字段会发生重叠(如搜索图标将消失为搜索字段),可以观察到布局与原始输入字段有偏差(见截图)。 这是一个相当复杂的问题，以下简单布局可以重现这个问题:</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;phone&quot;</span><span class="nt">&gt;</span>Phone: *<span class="nt">&lt;/label&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;tel&quot;</span> <span class="na">name=</span><span class="s">&quot;phone&quot;</span> <span class="na">id=</span><span class="s">&quot;phone&quot;</span> <span class="na">minlength=</span><span class="s">&quot;10&quot;</span> <span class="na">maxlength=</span><span class="s">&quot;10&quot;</span> <span class="na">inputmode=</span><span class="s">&quot;latin digits&quot;</span> <span class="na">required=</span><span class="s">&quot;required&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>解决方法</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-user-modify</span><span class="o">:</span> <span class="nt">read-write-plaintext-only</span> </code></pre></div> <p>详细参考<a href="http://www.bielousov.com/2012/android-label-text-appears-in-input-field-as-a-placeholder/">[Android]: Input Field Issues</a></p> <p>注意，该属性会导致中文不能输入词组，只能单个字。感谢鬼哥与飞（游勇飞）贡献此问题与解决方案</p> <p>另外，在position:fixed后的元素里，尽量不要使用输入框。##更多的bug可参考(移动端web页面应用position:fixed题目总结)[http://www.cosdiv.com/page/M0/S882/882353.html]##</p> <p>依旧无法解决（摩托罗拉ME863手机），则使用input:text类型而非password类型，并设置其设置 -webkit-text-security: disc; 隐藏输入密码从而解决。</p> <hr> <h3>ios6跟iphone5的那些事</h3> <p>ip5的媒体查询</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">media</span> <span class="p">(</span><span class="nx">device</span><span class="o">-</span><span class="nx">height</span><span class="o">:</span> <span class="mi">568</span><span class="nx">px</span><span class="p">)</span> <span class="nx">and</span> <span class="p">(</span><span class="o">-</span><span class="nx">webkit</span><span class="o">-</span><span class="nx">min</span><span class="o">-</span><span class="nx">device</span><span class="o">-</span><span class="nx">pixel</span><span class="o">-</span><span class="nx">ratio</span><span class="o">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span><span class="cm">/* iPhone 5 or iPod Touch 5th generation */</span><span class="p">}</span> </code></pre></div> <p>使用媒体查询，提供不同的启动图片：</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;startup-568h.png&quot;</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">media=</span><span class="s">&quot;(device-height: 568px)&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;startup.png&quot;</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">sizes=</span><span class="s">&quot;640x920&quot;</span> <span class="na">media=</span><span class="s">&quot;(device-height: 480px)&quot;</span><span class="nt">&gt;</span> 　　 拍照上传 <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">file</span> <span class="na">accept=</span><span class="s">&quot;video/*&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">file</span> <span class="na">accept=</span><span class="s">&quot;image/*&quot;</span><span class="nt">&gt;</span> </code></pre></div> <p>不支持其他类型的文件 ，如音频，Pages文档或PDF文件。 也没有getUserMedia摄像头的实时流媒体支持。</p> <p>可以使用的html5高级api: multipart POST表单提交上传 XMLHttpRequest 2 AJAX上传（甚至进度支持） 文件API ，在iOS 6允许JavaScript直接读取的字节数和客户端操作文件。</p> <p>智能应用程序横幅</p> <p>有了智能应用程序横幅，当网站上有一个相关联的本机应用程序时，Safari浏览器可以显示一个横幅。 如果用户没有安装这个应用程序将显示“安装”按钮，或已经安装的显示“查看”按钮可打开它。</p> <p>在iTunes Link Maker搜索我们的应用程序和应用程序ID。</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-itunes-app&quot;</span> <span class="na">content=</span><span class="s">&quot;app-id=9999999&quot;</span><span class="nt">&gt;</span> </code></pre></div> <p>可以使用 app-argument 提供字符串值，如果参加iTunes联盟计划，可以添加元标记数据</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-itunes-app&quot;</span> <span class="na">content=</span><span class="s">&quot;app-id=9999999, app-argument=xxxxxx&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-itunes-app&quot;</span> <span class="na">content=</span><span class="s">&quot;app-id=9999999, app-argument=xxxxxx, affiliate-data=partnerId=99&amp;siteID=XXXX&quot;</span><span class="nt">&gt;</span> </code></pre></div> <p>横幅需要156像素（设备是312 hi-dpi）在顶部，直到用户在下方点击内容或关闭按钮，你的网站才会展现全部的高度。 它就像HTML的DOM对象，但它不是一个真正的DOM。</p> <p>CSS 3滤镜</p> <div class="highlight"><pre><code class="language-html" data-lang="html">-webkit-filter: blur(5px) grayscale (.5) opacity(0.66) hue-rotate(100deg); </code></pre></div> <hr> <h3>Cache开启和设置</h3> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCachePath</span><span class="p">(</span><span...
-		    <p>
-		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-2/">
-		        移动端上前端开发的一些问题与总结（2）
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年03月5日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/html5/">html5</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <h3>使用特殊链接：</h3> <p>如果你关闭自动识别后 ，又希望某些电话号码能够链接到 iPhone 的拨号功能 ，那么可以通过这样来声明电话链接 ,</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;tel:12345654321&quot;</span><span class="nt">&gt;</span>打电话给我<span class="nt">&lt;/a&gt;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;sms:12345654321&quot;</span><span class="nt">&gt;</span>发短信<span class="nt">&lt;/a&gt;</span> </code></pre></div> <p>或用于单元格：</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;td</span> <span class="na">onclick=</span><span class="s">&quot;location.href=&#39;tel:122&#39;&quot;</span><span class="nt">&gt;&lt;/td&gt;</span> </code></pre></div> <p>“文本”描述属性的特定文字样式，间距和自动滚屏。</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">text-shadow</span><span class="o">:</span> <span class="nf">#00FFFC</span> <span class="nt">10px</span> <span class="nt">10px</span> <span class="nt">5px</span><span class="o">;</span> <span class="nt">text-transform</span><span class="o">:</span> <span class="nt">capitalize</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">capitalize</span><span class="o">/</span><span class="nt">lowercase</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">uppercase</span> <span class="nt">word-wrap</span><span class="o">:</span> <span class="nt">break-word</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">break-word</span><span class="o">/</span><span class="nt">normal</span> <span class="nt">-webkit-marquee</span><span class="o">:</span> <span class="nt">right</span> <span class="nt">large</span> <span class="nt">infinite</span> <span class="nt">normal</span> <span class="nt">10s</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">direction</span><span class="o">(</span><span class="err">方向</span><span class="o">)</span> <span class="nt">increment</span><span class="o">(</span><span class="err">迭代次数</span><span class="o">)</span> <span class="nt">repetition</span><span class="o">(</span><span class="err">重复</span><span class="o">)</span> <span class="nt">style</span><span class="o">(</span><span class="err">样式</span><span class="o">)</span> <span class="nt">speed</span><span class="o">(</span><span class="err">速度</span><span class="o">);</span> <span class="nt">-webkit-marquee-direction</span><span class="o">:</span> <span class="nt">ahead</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">backwards</span><span class="o">/</span><span class="nt">down</span><span class="o">/</span><span class="nt">forwards</span><span class="o">/</span><span class="nt">left</span><span class="o">/</span><span class="nt">reverse</span><span class="o">/</span><span class="nt">right</span><span class="o">/</span><span class="nt">up</span> <span class="nt">-webkit-marquee-incrementt</span><span class="o">:</span> <span class="nt">1-n</span><span class="o">/</span><span class="nt">infinite</span><span class="o">(</span><span class="err">无穷次</span><span class="o">)</span> <span class="nt">-webkit-marquee-speed</span><span class="o">:</span> <span class="nt">fast</span><span class="o">/</span><span class="nt">normal</span><span class="o">/</span><span class="nt">slow</span> <span class="nt">-webkit-marquee-style</span><span class="o">:</span> <span class="nt">alternate</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">scroll</span><span class="o">/</span><span class="nt">slide</span> <span class="nt">-webkit-text-fill-color</span><span class="o">:</span> <span class="nf">#ff6600</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">capitalize</span><span class="o">,</span> <span class="nt">lowercase</span><span class="o">,</span> <span class="nt">none</span><span class="o">,</span> <span class="nt">uppercase</span> <span class="nt">-webkit-text-security</span><span class="o">:</span> <span class="nt">circle</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">circle</span><span class="o">/</span><span class="nt">disc</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">square</span> <span class="nt">-webkit-text-size-adjust</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span> <span class="err">常量</span><span class="nd">:auto</span><span class="o">/</span><span class="nt">none</span><span class="o">;</span> <span class="nt">-webkit-text-stroke</span><span class="o">:</span> <span class="nt">15px</span> <span class="nf">#fff</span><span class="o">;</span> <span class="nt">-webkit-line-break</span><span class="o">:</span> <span class="nt">after-white-space</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">normal</span><span class="o">/</span><span class="nt">after-white-space</span> <span class="nt">-webkit-appearance</span><span class="o">:</span> <span class="nt">caps-lock-indicator</span><span class="o">;</span> <span class="nt">-webkit-nbsp-mode</span><span class="o">:</span> <span class="nt">space</span><span class="o">;</span> <span class="err">常量：</span> <span class="nt">normal</span><span class="o">/</span><span class="nt">space</span> <span class="nt">-webkit-rtl-ordering</span><span class="o">:</span> <span class="nt">logical</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">visual</span><span class="o">/</span><span class="nt">logical</span> <span class="nt">-webkit-user-drag</span><span class="o">:</span> <span class="nt">element</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">element</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">none</span> <span class="nt">-webkit-user-modify</span><span class="o">:</span> <span class="nt">read-</span> <span class="nt">only</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">read-write-plaintext-only</span><span class="o">/</span><span class="nt">read-write</span><span class="o">/</span><span class="nt">read-only</span> <span class="nt">-webkit-user-select</span><span class="o">:</span> <span class="nt">text</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">text</span><span class="o">/</span><span...
-		    <p>
-		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-2/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/">
-		        移动端上前端开发的一些问题与总结（1）
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年02月24日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/html5/">html5</a>, <a href="/tags/移动开发/">移动开发</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>在工作中遇到的一些问题和fix方法，做一个汇总：</p> <h3>样式表:</h3> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">href=</span><span class="s">&quot;startup.png&quot;</span> <span class="nt">/&gt;</span> // 设置开始页面图片 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon&quot;</span> <span class="na">href=</span><span class="s">&quot;iphon_tetris_icon.png&quot;</span><span class="nt">/&gt;</span> // 在设置书签的时候可以显示好看的图标 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;all and (orientation:portrait)&quot;</span> <span class="na">href=</span><span class="s">&quot;portrait.css&quot;</span><span class="nt">&gt;</span> // 肖像模式样式 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;all and (orientation:landscape)&quot;</span><span class="na">href=</span><span class="s">&quot;landscape.css&quot;</span><span class="nt">&gt;</span> // 风景模式样式 //竖屏时使用的样式 <span class="nt">&lt;style </span><span class="na">media=</span><span class="s">&quot;all and (orientation:portrait)&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span> <span class="nf">#landscape</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> //横屏时使用的样式 <span class="nt">&lt;style </span><span class="na">media=</span><span class="s">&quot;all and (orientation:landscape)&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span><span class="nf">#portrait</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span><span class="nt">&lt;/style&gt;</span> </code></pre></div> <hr> <h3>meta标签:</h3> <p>这些meta标签在开发webapp时起到非常重要的作用</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;black&quot;</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;telephone=no&quot;</span> <span class="na">name=</span><span class="s">&quot;format-detection&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>第一个meta标签表示：强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；</p> <p>其中：</p> <p>width - viewport的宽度</p> <p>height - viewport的高度</p> <p>initial-scale - 初始的缩放比例</p> <p>minimum-scale - 允许用户缩放到的最小比例</p> <p>maximum-scale - 允许用户缩放到的最大比例</p> <p>user-scalable - 用户是否可以手动缩放 </p> <p>第二个meta标签是iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；</p> <p>第三个meta标签也是iphone的私有标签，它指定的iphone中safari顶端的状态条的样式；</p> <p>第四个meta标签表示：告诉设备忽略将页面中的数字识别为电话号码</p> <hr> <h3>页面描述(iOS)</h3> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_114.png&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;72x72&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_72.png&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;114x114&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_114.png&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这个属性是当用户把连接保存到手机桌面时使用的图标，如果不设置，则会用网页的截图。有了这，就可以让你的网页像APP一样存在手机里了</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">href=</span><span class="s">&quot;/img/startup.png&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这个是APP启动画面图片，用途和上面的类似，如果不设置，启动画面就是白屏，图片像素就是手机全屏的像素</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="na">content=</span><span class="s">&quot;black-translucent&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这个描述是表示打开的web app的最上面的时间、信号栏是黑色的，当然也可以设置其它参数，详细参数说明在：Supported Meta Tags</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-touch-fullscreen&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这2个描述也很有用的，如果没有它，你的web app会用safari浏览器打开，有了它，就会用独立进程的无地址栏的打开，完全可以和普通的APP比拟了</p> <p>下面还有个不错的css，是用来区分视网膜屏幕的，这样你可以在iphone这样的手机里载入2x的图片，就不会模糊了</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="k">@media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span...
-		    <p>
-		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/">
-		      Continue Reading...
-		    </a>
-		    </p>
 		  
 		  </div>
 		</div>
