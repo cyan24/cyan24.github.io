@@ -18,8 +18,8 @@
 	
 <head>
 	<meta charset="utf-8">
-	<title>移动端h5拨打电话点标签说明 | Cyan的技术笔记</title>
-	<meta name="description" content="  前端 , html5, html5中经常使用的电话协议如下:">
+	<title>.jpg、.png转换成.webp | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , 性能优化, 一、什么是Webp       WebP是Google新推出的影像技术，它可让网页图档有效进行压缩，同时在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，进而让整体网页下载速度加快。为了改善JPEG的图片压缩技术，他们使用了一种基于VP8编码(已在2010五月开源)的图片压缩器，利用预测编码...">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,7 +38,7 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFh5%E6%8B%A8%E6%89%93%E7%94%B5%E8%AF%9D%E7%82%B9%E6%A0%87%E7%AD%BE%E8%AF%B4%E6%98%8E/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
@@ -249,29 +249,245 @@
 <!--article  >
   <div style="background-image: url('/')"/>
   <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
-    <h1 class="title">移动端h5拨打电话点标签说明</h1>
+    <h1 class="title">.jpg、.png转换成.webp</h1>
     <p id="subtitletrans" class="subtitlecontainer">
-    <a class="subtitle">2015年03月28日</a>
+    <a class="subtitle">2015年07月18日</a>
      | <a class="subtitle" href="/About/">cyan</a>
-	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/html5/">html5</a></a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
     </p>
   </header>
   <section class="post-content">
-  <p>html5中经常使用的电话协议如下:</p>
+  <p>一、什么是Webp
+       WebP是Google新推出的影像技术，它可让网页图档有效进行压缩，同时在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，进而让整体网页下载速度加快。为了改善JPEG的图片压缩技术，他们使用了一种基于VP8编码(已在2010五月开源)的图片压缩器，利用预测编码技术，同时还采用了一种基于RIFF的非常轻量级的容器。这种容器只会给每张图片增加20字节，但能让图片作者保存他们想要存储的元数据。
+与JPEG相同，WebP是一种有损压缩利用预测编码技术。</p>
 
-<p>客户端       协议类型</p>
+<p>二、Webp文件制作准备</p>
 
-<p>iphone_uc   ：etel</p>
+<p>Google开发并放出了不同操作系统的WebP文件解码器(libvpx)和命令行工具(webpconv)。
+下载地址：
+<a href="http://code.google.com/intl/zh-CN/speed/webp/download.html">http://code.google.com/intl/zh-CN/speed/webp/download.html</a></p>
 
-<p>iphone      ：tel</p>
+<p>我下载了用于Windows的WebpCodecSetup.exe 和libwebp-0.1.3-windows-x86.zip</p>
 
-<p>android_uc  ：tel</p>
+<ol>
+<li>先安装WebpCodecSetup.exe，</li>
+<li>解压libwebp-0.1.3-windows-x86.zip（无需安装）</li>
+</ol>
 
-<p>android     ：wtai</p>
+<p>三、Jpg或png转换到Webp方法</p>
 
-<p>default_uc  ：wtai</p>
+<p>进入libwebp-0.1.3-windows-x86.zip的解压目录，可以看到cwebp.exe和dwebp.exe，其中cwebp.exe是将jpg或png文件转换成webp文件，dwebp.exe是将webp文件转换成png、pp或pgm。这两个程序只能在dos命令行环境下运行</p>
 
-<p>default     ：wtai</p>
+<ol>
+<li><p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p></li>
+<li><p>输入路径进入解压文件夹，以下是我安装的路径</p></li>
+</ol>
+
+<p>C:\Documents andSettings\Administrator&gt;e:
+E:&gt;cd libwebp-0.1.3-windows-x86
+E:\libwebp-0.1.3-windows-x86&gt;</p>
+
+<ol>
+<li>输入命令，将jpg或png转换成webp</li>
+</ol>
+
+<p>命令行结构：cwebp [-preset &lt;...&gt;] [options] in<em>file [-o out</em>file]</p>
+
+<p>E:\libwebp-0.1.3-windows-x86&gt; cwebp -qquality e:\photo\png1.png -o e:\webp1.webp （回车）
+（e:\photo\png1.png是原文件路径，e:\webp1.webp是目标文件路径）</p>
+
+<p>Saving file ‘ webp1.webp’</p>
+
+<p>27672 bytes Y-U-V-All-PSNR 30.30 32.22 32.78   30.91 dB</p>
+
+<p>block count:  intra4: 1372</p>
+
+<p>intra16: 10378  (-&gt; 88.32%)</p>
+
+<p>skipped block: 6204 (52.80%)</p>
+
+<p>bytes used: header: 131  (0.5%)</p>
+
+<p>mode-partition: 13138  (47.5%)</p>
+
+<p>Residuals bytes  |segment 1|segment 2|segment 3|segment4|  total</p>
+
+<p>intra4-coeffs:      |    3918 |    911 |     268 |      65 |   5162  (18.7%)</p>
+
+<p>intra16-coeffs:  |   3086 |    1964 |     881 |    240 |    6171 (22.3%)</p>
+
+<p>chroma coeffs: |    1627 |     902 |    408 |     105 |    3042 (11.0%)</p>
+
+<p>macroblocks:  |      27%|     33%|      26%|      12%|  11750</p>
+
+<p>quantizer:        |      127 |     127 |     127 |      127 |</p>
+
+<p>filter level:         |      19 |       14|       11|        9 |</p>
+
+<p>——————————————————————————————————————</p>
+
+<p>segments total:  |   8631 |    3777 |    1557 |    410 |   14375  (51.9%)</p>
+
+<ol>
+<li><p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件</p></li>
+<li><p>cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。
+E:\libwebp-0.1.3-windows-x86&gt;cwebp.exe –H（回车）
+options:</p></li>
+</ol>
+
+<p>-h / -help ………… short help</p>
+
+<p>-H / -longhelp  …….. long help</p>
+
+<p>-q …………. qualityfactor (0:small..100:big)</p>
+
+<p>-preset ……. Presetsetting, one of:</p>
+
+<p>default, photo, picture,</p>
+
+<p>drawing, icon, text</p>
+
+<p>-preset must come first, as it overwritesother parameters.</p>
+
+<p>-m …………… compressionmethod (0=fast, 6=slowest)</p>
+
+<p>-segments …….. number ofsegments to use (1..4)</p>
+
+<p>-s ……… Inputsize (width x height) for YUV</p>
+
+<p>-sns …………. SpatialNoise Shaping (0:off, 100:max)</p>
+
+<p>-f …………… filterstrength (0=off..100)</p>
+
+<p>-sharpness ……. filtersharpness (0:most .. 7:least sharp)</p>
+
+<p>-strong ……………. use strong filterinstead of simple.</p>
+
+<p>-partition_limit . limitquality to fit the 512k limit on the first partition (0=no degradation …100=full)</p>
+
+<p>-pass ………… analysispass number (1..10)</p>
+
+<p>-partitions …… number ofpartitions to use (0..3)</p>
+
+<p>-crop .. crop picture with the given rectangle</p>
+
+<p>-resize …….. resizepicture (after any cropping)</p>
+
+<p>-map …………. print map ofextra info.</p>
+
+<p>-d ………. dump thecompressed output (PGM file).</p>
+
+<p>-short …………….. condense printedmessage</p>
+
+<p>-quiet …………….. don’t printanything.</p>
+
+<p>-version …………… print versionnumber and exit.</p>
+
+<p>-noasm …………….. disable allassembly optimizations.</p>
+
+<p>-v ………………… verbose, e.g.print encoding/decoding times</p>
+
+<p>Experimental Options:
+-size ………… Target size(in bytes)</p>
+
+<p>-psnr ………. Target PSNR(in dB. typically: 42)</p>
+
+<p>-af ………….. adjustfilter strength (0=off, 1=on)</p>
+
+<p>-pre ………….pre-processing filter</p>
+
+<p>四、Webp文件转换成png/ppm/pgm文件</p>
+
+<p>通过dwebp命令可以将Webp文件转换成png/ppm/pgm文件</p>
+
+<ol>
+<li><p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p></li>
+<li><p>输入路径进入解压文件夹，以下是我安装的路径</p></li>
+</ol>
+
+<p>C:\Documents andSettings\Administrator&gt;e:</p>
+
+<p>E:&gt;cd libwebp-0.1.3-windows-x86</p>
+
+<p>E:\libwebp-0.1.3-windows-x86&gt;</p>
+
+<ol>
+<li>输入命令，将Webp转换成png/ppm/pgm</li>
+</ol>
+
+<p>Webp to png</p>
+
+<p>E:\libwebp-0.1.3-windows-x86&gt;dwebpwebp1.webp –o png1.png</p>
+
+<p>Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…</p>
+
+<p>Saved file png1.png</p>
+
+<p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个png1.png文件</p>
+
+<p>Webp to ppm
+E:\libwebp-0.1.3-windows-x86&gt;dwebpwebp1.webp –ppm –o ppm1.ppm</p>
+
+<p>Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…</p>
+
+<p>Saved file ppm1.ppm</p>
+
+<p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个ppm1.ppm文件</p>
+
+<p>Webp to pgm</p>
+
+<p>E:\libwebp-0.1.3-windows-x86&gt;dwebpwebp1.webp –ppm –o ppm1.pgm</p>
+
+<p>Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…</p>
+
+<p>Saved file pgm1.pgm</p>
+
+<p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个pgm1.ppm文件</p>
+
+<ol>
+<li>dwebp通过不同命令的选项，可以对图片进行一些设置。</li>
+</ol>
+
+<p>E:\libwebp-0.1.3-windows-x86&gt;dwebp.exe –H（回车）</p>
+
+<p>Options:</p>
+
+<p>-ppm ……… save the raw RGB samples ascolor PPM</p>
+
+<p>-pgm ……… save the raw YUV samples asa grayscale PGM</p>
+
+<p>file with IMC4 layout.</p>
+
+<p>Other options are:</p>
+
+<p>-version …. print version number and exit.</p>
+
+<p>-nofancy ….. don’t use the fancy YUV420upscaler.</p>
+
+<p>-nofilter …. disable in-loop filtering.</p>
+
+<p>-mt ………. use multi-threading</p>
+
+<p>-crop … crop output with the given rectangle</p>
+
+<p>-scale ………. scalethe output (<em>after</em> any cropping)</p>
+
+<p>-h    ……. this help message.</p>
+
+<p>-v    ……. verbose (e.g. print encoding/decoding times)</p>
+
+<p>-noasm ……. disable all assemblyoptimizations.</p>
+
+<p>五、在PC上查看webp文件</p>
+
+<ol>
+<li><p>安装Google chrome浏览器
+安装后打开chrome浏览器，然后将webp文件直接拖到浏览器中</p></li>
+<li><p>安装chrome内嵌框架插件</p></li>
+</ol>
+
+<p>地址：<a href="http://code.google.com/intl/zh-CN/speed/webp/">http://code.google.com/intl/zh-CN/speed/webp/</a>
+点击“接收并激活”开始在线安装</p>
 
   </section>
   

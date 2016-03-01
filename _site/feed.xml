@@ -5,7 +5,84 @@
     <atom:link href="http://cyan24.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://cyan24.github.io/</link>
     <description>used by search engines</description>
-    <pubDate>Tue, 01 Mar 2016 23:49:15 +0800</pubDate>
+    <pubDate>Wed, 02 Mar 2016 00:45:42 +0800</pubDate>
+    
+      <item>
+        <title>不为人熟知的Meta http-equiv属性</title>
+        <link>http://cyan24.github.io/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/</link>
+        <guid isPermaLink="true">http://cyan24.github.io/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/</guid>
+        <description>&lt;p&gt;http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
+meat标签的http-equiv属性语法格式是：＜meta http-equiv=&amp;quot;参数&amp;quot; content=&amp;quot;参数变量值&amp;quot;＞ ；其中http-equiv属性主要有以下几种参数：&lt;/p&gt;
+
+&lt;p&gt;1、Expires(期限) 
+说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
+用法：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;expires&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Wed, 20 Jun 2007 22:33:00 GMT&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意：必须使用GMT的时间格式。 &lt;/p&gt;
+
+&lt;p&gt;2、Pragma(cache模式) 
+说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
+用法：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt; meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Pragma&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;no-cache&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意：这样设定，访问者将无法脱机浏览。 &lt;/p&gt;
+
+&lt;p&gt;3、Refresh(刷新) 
+说明：自动刷新并指向新页面。 
+用法：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Refresh&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2；URL=http://www.net.cn/&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意：其中的2是指停留2秒钟后自动刷新到URL网址。 &lt;/p&gt;
+
+&lt;p&gt;4、Set-Cookie(cookie设定) 
+说明：如果网页过期，那么存盘的cookie将被删除。 
+用法：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Set-Cookie&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意：必须使用GMT的时间格式。 &lt;/p&gt;
+
+&lt;p&gt;5、Window-target(显示窗口的设定) 
+说明：强制页面在当前窗口以独立页面显示。 
+用法：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Window-target&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;_top&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注意：用来防止别人在框架里调用自己的页面。 &lt;/p&gt;
+
+&lt;p&gt;6、content-Type(显示字符集的设定) 
+说明：设定页面使用的字符集。 
+用法：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;content-Type&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;contect=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/html; charset=gb2312&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;7、Pics-label(网页等级评定) &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Pics-label&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;contect=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 &lt;/p&gt;
+
+&lt;p&gt;8、Page&lt;em&gt;Enter、Page&lt;/em&gt;Exit 
+设定进入页面时的特殊效果&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Page-Enter&amp;quot;&lt;/span&gt;    &lt;span class=&quot;na&quot;&gt;contect=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;revealTrans(duration=1.0,transtion=12)&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;    
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;设定离开页面时的特殊效果&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;http-equiv=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Page-Exit&amp;quot;&lt;/span&gt;    &lt;span class=&quot;na&quot;&gt;contect=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;revealTrans(duration=1.0,transtion=12)&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Duration的值为网页动态过渡的时间，单位为秒。&lt;br&gt;
+Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：&lt;br&gt;
+0    盒状收缩    1    盒状放射&lt;br&gt;
+2    圆形收缩    3    圆形放射&lt;br&gt;
+4    由下往上    5    由上往下&lt;br&gt;
+6    从左至右    7    从右至左&lt;br&gt;
+8    垂直百叶窗    9    水平百叶窗&lt;br&gt;
+10    水平格状百叶窗    11垂直格状百叶窗&lt;br&gt;
+12    随意溶解    13从左右两端向中间展开&lt;br&gt;
+14从中间向左右两端展开    15从上下两端向中间展开&lt;br&gt;
+16从中间向上下两端展开    17    从右上角向左下角展开&lt;br&gt;
+18    从右下角向左上角展开    19    从左上角向右下角展开&lt;br&gt;
+20    从左下角向右上角展开    21    水平线状展开&lt;br&gt;
+22    垂直线状展开    23    随机产生一种过渡方式  &lt;/p&gt;
+</description>
+        <pubDate>Thu, 10 Dec 2015 00:00:00 +0800</pubDate>
+      </item>
     
       <item>
         <title>D2前端论坛分享之阿里篇</title>
@@ -229,6 +306,245 @@
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;textarea&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;appearance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
         <pubDate>Fri, 18 Sep 2015 00:00:00 +0800</pubDate>
+      </item>
+    
+      <item>
+        <title>.jpg、.png转换成.webp</title>
+        <link>http://cyan24.github.io/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/</link>
+        <guid isPermaLink="true">http://cyan24.github.io/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/</guid>
+        <description>&lt;p&gt;一、什么是Webp
+       WebP是Google新推出的影像技术，它可让网页图档有效进行压缩，同时在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，进而让整体网页下载速度加快。为了改善JPEG的图片压缩技术，他们使用了一种基于VP8编码(已在2010五月开源)的图片压缩器，利用预测编码技术，同时还采用了一种基于RIFF的非常轻量级的容器。这种容器只会给每张图片增加20字节，但能让图片作者保存他们想要存储的元数据。
+与JPEG相同，WebP是一种有损压缩利用预测编码技术。&lt;/p&gt;
+
+&lt;p&gt;二、Webp文件制作准备&lt;/p&gt;
+
+&lt;p&gt;Google开发并放出了不同操作系统的WebP文件解码器(libvpx)和命令行工具(webpconv)。
+下载地址：
+&lt;a href=&quot;http://code.google.com/intl/zh-CN/speed/webp/download.html&quot;&gt;http://code.google.com/intl/zh-CN/speed/webp/download.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;我下载了用于Windows的WebpCodecSetup.exe 和libwebp-0.1.3-windows-x86.zip&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;先安装WebpCodecSetup.exe，&lt;/li&gt;
+&lt;li&gt;解压libwebp-0.1.3-windows-x86.zip（无需安装）&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;三、Jpg或png转换到Webp方法&lt;/p&gt;
+
+&lt;p&gt;进入libwebp-0.1.3-windows-x86.zip的解压目录，可以看到cwebp.exe和dwebp.exe，其中cwebp.exe是将jpg或png文件转换成webp文件，dwebp.exe是将webp文件转换成png、pp或pgm。这两个程序只能在dos命令行环境下运行&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;点击“开始”-&amp;gt;“运行”-&amp;gt;输入 cmd 后回车进入dos环境&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;输入路径进入解压文件夹，以下是我安装的路径&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;C:\Documents andSettings\Administrator&amp;gt;e:
+E:&amp;gt;cd libwebp-0.1.3-windows-x86
+E:\libwebp-0.1.3-windows-x86&amp;gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;输入命令，将jpg或png转换成webp&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;命令行结构：cwebp [-preset &amp;lt;...&amp;gt;] [options] in&lt;em&gt;file [-o out&lt;/em&gt;file]&lt;/p&gt;
+
+&lt;p&gt;E:\libwebp-0.1.3-windows-x86&amp;gt; cwebp -qquality e:\photo\png1.png -o e:\webp1.webp （回车）
+（e:\photo\png1.png是原文件路径，e:\webp1.webp是目标文件路径）&lt;/p&gt;
+
+&lt;p&gt;Saving file ‘ webp1.webp’&lt;/p&gt;
+
+&lt;p&gt;27672 bytes Y-U-V-All-PSNR 30.30 32.22 32.78   30.91 dB&lt;/p&gt;
+
+&lt;p&gt;block count:  intra4: 1372&lt;/p&gt;
+
+&lt;p&gt;intra16: 10378  (-&amp;gt; 88.32%)&lt;/p&gt;
+
+&lt;p&gt;skipped block: 6204 (52.80%)&lt;/p&gt;
+
+&lt;p&gt;bytes used: header: 131  (0.5%)&lt;/p&gt;
+
+&lt;p&gt;mode-partition: 13138  (47.5%)&lt;/p&gt;
+
+&lt;p&gt;Residuals bytes  |segment 1|segment 2|segment 3|segment4|  total&lt;/p&gt;
+
+&lt;p&gt;intra4-coeffs:      |    3918 |    911 |     268 |      65 |   5162  (18.7%)&lt;/p&gt;
+
+&lt;p&gt;intra16-coeffs:  |   3086 |    1964 |     881 |    240 |    6171 (22.3%)&lt;/p&gt;
+
+&lt;p&gt;chroma coeffs: |    1627 |     902 |    408 |     105 |    3042 (11.0%)&lt;/p&gt;
+
+&lt;p&gt;macroblocks:  |      27%|     33%|      26%|      12%|  11750&lt;/p&gt;
+
+&lt;p&gt;quantizer:        |      127 |     127 |     127 |      127 |&lt;/p&gt;
+
+&lt;p&gt;filter level:         |      19 |       14|       11|        9 |&lt;/p&gt;
+
+&lt;p&gt;——————————————————————————————————————&lt;/p&gt;
+
+&lt;p&gt;segments total:  |   8631 |    3777 |    1557 |    410 |   14375  (51.9%)&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。
+E:\libwebp-0.1.3-windows-x86&amp;gt;cwebp.exe –H（回车）
+options:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;-h / -help ………… short help&lt;/p&gt;
+
+&lt;p&gt;-H / -longhelp  …….. long help&lt;/p&gt;
+
+&lt;p&gt;-q …………. qualityfactor (0:small..100:big)&lt;/p&gt;
+
+&lt;p&gt;-preset ……. Presetsetting, one of:&lt;/p&gt;
+
+&lt;p&gt;default, photo, picture,&lt;/p&gt;
+
+&lt;p&gt;drawing, icon, text&lt;/p&gt;
+
+&lt;p&gt;-preset must come first, as it overwritesother parameters.&lt;/p&gt;
+
+&lt;p&gt;-m …………… compressionmethod (0=fast, 6=slowest)&lt;/p&gt;
+
+&lt;p&gt;-segments …….. number ofsegments to use (1..4)&lt;/p&gt;
+
+&lt;p&gt;-s ……… Inputsize (width x height) for YUV&lt;/p&gt;
+
+&lt;p&gt;-sns …………. SpatialNoise Shaping (0:off, 100:max)&lt;/p&gt;
+
+&lt;p&gt;-f …………… filterstrength (0=off..100)&lt;/p&gt;
+
+&lt;p&gt;-sharpness ……. filtersharpness (0:most .. 7:least sharp)&lt;/p&gt;
+
+&lt;p&gt;-strong ……………. use strong filterinstead of simple.&lt;/p&gt;
+
+&lt;p&gt;-partition_limit . limitquality to fit the 512k limit on the first partition (0=no degradation …100=full)&lt;/p&gt;
+
+&lt;p&gt;-pass ………… analysispass number (1..10)&lt;/p&gt;
+
+&lt;p&gt;-partitions …… number ofpartitions to use (0..3)&lt;/p&gt;
+
+&lt;p&gt;-crop .. crop picture with the given rectangle&lt;/p&gt;
+
+&lt;p&gt;-resize …….. resizepicture (after any cropping)&lt;/p&gt;
+
+&lt;p&gt;-map …………. print map ofextra info.&lt;/p&gt;
+
+&lt;p&gt;-d ………. dump thecompressed output (PGM file).&lt;/p&gt;
+
+&lt;p&gt;-short …………….. condense printedmessage&lt;/p&gt;
+
+&lt;p&gt;-quiet …………….. don’t printanything.&lt;/p&gt;
+
+&lt;p&gt;-version …………… print versionnumber and exit.&lt;/p&gt;
+
+&lt;p&gt;-noasm …………….. disable allassembly optimizations.&lt;/p&gt;
+
+&lt;p&gt;-v ………………… verbose, e.g.print encoding/decoding times&lt;/p&gt;
+
+&lt;p&gt;Experimental Options:
+-size ………… Target size(in bytes)&lt;/p&gt;
+
+&lt;p&gt;-psnr ………. Target PSNR(in dB. typically: 42)&lt;/p&gt;
+
+&lt;p&gt;-af ………….. adjustfilter strength (0=off, 1=on)&lt;/p&gt;
+
+&lt;p&gt;-pre ………….pre-processing filter&lt;/p&gt;
+
+&lt;p&gt;四、Webp文件转换成png/ppm/pgm文件&lt;/p&gt;
+
+&lt;p&gt;通过dwebp命令可以将Webp文件转换成png/ppm/pgm文件&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;点击“开始”-&amp;gt;“运行”-&amp;gt;输入 cmd 后回车进入dos环境&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;输入路径进入解压文件夹，以下是我安装的路径&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;C:\Documents andSettings\Administrator&amp;gt;e:&lt;/p&gt;
+
+&lt;p&gt;E:&amp;gt;cd libwebp-0.1.3-windows-x86&lt;/p&gt;
+
+&lt;p&gt;E:\libwebp-0.1.3-windows-x86&amp;gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;输入命令，将Webp转换成png/ppm/pgm&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Webp to png&lt;/p&gt;
+
+&lt;p&gt;E:\libwebp-0.1.3-windows-x86&amp;gt;dwebpwebp1.webp –o png1.png&lt;/p&gt;
+
+&lt;p&gt;Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…&lt;/p&gt;
+
+&lt;p&gt;Saved file png1.png&lt;/p&gt;
+
+&lt;p&gt;转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个png1.png文件&lt;/p&gt;
+
+&lt;p&gt;Webp to ppm
+E:\libwebp-0.1.3-windows-x86&amp;gt;dwebpwebp1.webp –ppm –o ppm1.ppm&lt;/p&gt;
+
+&lt;p&gt;Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…&lt;/p&gt;
+
+&lt;p&gt;Saved file ppm1.ppm&lt;/p&gt;
+
+&lt;p&gt;转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个ppm1.ppm文件&lt;/p&gt;
+
+&lt;p&gt;Webp to pgm&lt;/p&gt;
+
+&lt;p&gt;E:\libwebp-0.1.3-windows-x86&amp;gt;dwebpwebp1.webp –ppm –o ppm1.pgm&lt;/p&gt;
+
+&lt;p&gt;Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…&lt;/p&gt;
+
+&lt;p&gt;Saved file pgm1.pgm&lt;/p&gt;
+
+&lt;p&gt;转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个pgm1.ppm文件&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;dwebp通过不同命令的选项，可以对图片进行一些设置。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;E:\libwebp-0.1.3-windows-x86&amp;gt;dwebp.exe –H（回车）&lt;/p&gt;
+
+&lt;p&gt;Options:&lt;/p&gt;
+
+&lt;p&gt;-ppm ……… save the raw RGB samples ascolor PPM&lt;/p&gt;
+
+&lt;p&gt;-pgm ……… save the raw YUV samples asa grayscale PGM&lt;/p&gt;
+
+&lt;p&gt;file with IMC4 layout.&lt;/p&gt;
+
+&lt;p&gt;Other options are:&lt;/p&gt;
+
+&lt;p&gt;-version …. print version number and exit.&lt;/p&gt;
+
+&lt;p&gt;-nofancy ….. don’t use the fancy YUV420upscaler.&lt;/p&gt;
+
+&lt;p&gt;-nofilter …. disable in-loop filtering.&lt;/p&gt;
+
+&lt;p&gt;-mt ………. use multi-threading&lt;/p&gt;
+
+&lt;p&gt;-crop … crop output with the given rectangle&lt;/p&gt;
+
+&lt;p&gt;-scale ………. scalethe output (&lt;em&gt;after&lt;/em&gt; any cropping)&lt;/p&gt;
+
+&lt;p&gt;-h    ……. this help message.&lt;/p&gt;
+
+&lt;p&gt;-v    ……. verbose (e.g. print encoding/decoding times)&lt;/p&gt;
+
+&lt;p&gt;-noasm ……. disable all assemblyoptimizations.&lt;/p&gt;
+
+&lt;p&gt;五、在PC上查看webp文件&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;安装Google chrome浏览器
+安装后打开chrome浏览器，然后将webp文件直接拖到浏览器中&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;安装chrome内嵌框架插件&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;地址：&lt;a href=&quot;http://code.google.com/intl/zh-CN/speed/webp/&quot;&gt;http://code.google.com/intl/zh-CN/speed/webp/&lt;/a&gt;
+点击“接收并激活”开始在线安装&lt;/p&gt;
+</description>
+        <pubDate>Sat, 18 Jul 2015 00:00:00 +0800</pubDate>
       </item>
     
       <item>
@@ -602,7 +918,7 @@ translate(&lt;/em&gt;,&lt;em&gt;) 坐标移动。translateX 和translateY，可�
       </item>
     
       <item>
-        <title>移动端上前端开发的一些问题与总结(1)</title>
+        <title>移动端上前端开发的一些问题与总结（1）</title>
         <link>http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/</link>
         <guid isPermaLink="true">http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/</guid>
         <description>&lt;p&gt;在工作中遇到的一些问题和fix方法，做一个汇总：&lt;/p&gt;
@@ -1111,214 +1427,6 @@ https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage&lt;/p&gt;
       </item>
     
       <item>
-        <title>移动端上前端开发的一些问题与总结（1）</title>
-        <link>http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93/</link>
-        <guid isPermaLink="true">http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93/</guid>
-        <description>&lt;p&gt;在工作中遇到的一些问题和fix方法，做一个汇总：&lt;/p&gt;
-
-&lt;h3&gt;样式表:&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-touch-startup-image&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;startup.png&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; // 设置开始页面图片
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-touch-icon&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;iphon_tetris_icon.png&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; // 在设置书签的时候可以显示好看的图标
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;media=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;all and (orientation:portrait)&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;portrait.css&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;    // 肖像模式样式
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stylesheet&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;media=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;all and (orientation:landscape)&amp;quot;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;landscape.css&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;   // 风景模式样式
-
-//竖屏时使用的样式
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;style &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;media=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;all and (orientation:portrait)&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/css&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nf&quot;&gt;#landscape&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
-
-//横屏时使用的样式
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;style &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;media=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;all and (orientation:landscape)&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;text/css&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;#portrait&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;h3&gt;meta标签:&lt;/h3&gt;
-
-&lt;p&gt;这些meta标签在开发webapp时起到非常重要的作用&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;viewport&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-mobile-web-app-capable&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;black&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-mobile-web-app-status-bar-style&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;telephone=no&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;format-detection&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;第一个meta标签表示：强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；&lt;/p&gt;
-
-&lt;p&gt;其中：&lt;/p&gt;
-
-&lt;p&gt;width - viewport的宽度&lt;/p&gt;
-
-&lt;p&gt;height - viewport的高度&lt;/p&gt;
-
-&lt;p&gt;initial-scale - 初始的缩放比例&lt;/p&gt;
-
-&lt;p&gt;minimum-scale - 允许用户缩放到的最小比例&lt;/p&gt;
-
-&lt;p&gt;maximum-scale - 允许用户缩放到的最大比例&lt;/p&gt;
-
-&lt;p&gt;user-scalable - 用户是否可以手动缩放 &lt;/p&gt;
-
-&lt;p&gt;第二个meta标签是iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；&lt;/p&gt;
-
-&lt;p&gt;第三个meta标签也是iphone的私有标签，它指定的iphone中safari顶端的状态条的样式；&lt;/p&gt;
-
-&lt;p&gt;第四个meta标签表示：告诉设备忽略将页面中的数字识别为电话号码&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;页面描述(iOS)&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-touch-icon-precomposed&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xxx.com/App_icon_114.png&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-touch-icon-precomposed&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;sizes=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;72x72&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xxx.com/App_icon_72.png&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-touch-icon-precomposed&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;sizes=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;114x114&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.xxx.com/App_icon_114.png&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;这个属性是当用户把连接保存到手机桌面时使用的图标，如果不设置，则会用网页的截图。有了这，就可以让你的网页像APP一样存在手机里了&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-touch-startup-image&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/img/startup.png&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;这个是APP启动画面图片，用途和上面的类似，如果不设置，启动画面就是白屏，图片像素就是手机全屏的像素&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-mobile-web-app-status-bar-style&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;black-translucent&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;这个描述是表示打开的web app的最上面的时间、信号栏是黑色的，当然也可以设置其它参数，详细参数说明在：Supported Meta Tags&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-touch-fullscreen&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;meta&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;apple-mobile-web-app-capable&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;content=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;yes&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;这2个描述也很有用的，如果没有它，你的web app会用safari浏览器打开，有了它，就会用独立进程的无地址栏的打开，完全可以和普通的APP比拟了&lt;/p&gt;
-
-&lt;p&gt;下面还有个不错的css，是用来区分视网膜屏幕的，这样你可以在iphone这样的手机里载入2x的图片，就不会模糊了&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;k&quot;&gt;@media&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;only&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-webkit-min-device-pixel-ratio&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:1&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;only&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min--moz-device-pixel-ratio&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:1&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;only&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-device-pixel-ratio&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:1&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;only&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;screen&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;min-resolution&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;:200dpi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;nf&quot;&gt;#logo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;background-image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;url(logo@2x.png)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;h3&gt;关于点击和click事件&lt;/h3&gt;
-
-&lt;p&gt;对于a标记的点击导航，默认是在onclick事件中处理的。而移动客户端对onclick的响应相比PC浏览器有着明显的几百毫秒延迟。&lt;/p&gt;
-
-&lt;p&gt;在移动浏览器中对触摸事件的响应顺序应当是：&lt;/p&gt;
-
-&lt;p&gt;ontouchstart -&amp;gt; ontouchmove -&amp;gt; ontouchend -&amp;gt; onclick
-因此，如果确实要加快对点击事件的响应，就应当绑定ontouchend事件。&lt;/p&gt;
-
-&lt;p&gt;使用click会出现绑定点击区域闪一下的情况，解决：给该元素一个样式如下&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;-webkit-tap-highlight-color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;rgba&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;如果不使用click，也不能简单的用touchstart或touchend替代，需要用touchstart的模拟一个click事件，并且不能发生touchmove事件，或者用zepto中的tap（轻击）事件。&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nt&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;webkit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scrolling&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;touch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;用iphone或ipad浏览很长的网页滚动时的滑动效果很不错吧？不过如果是一个div，然后设置height:200px;overflow:auto;的话，可以滚动但是完全没有那滑动效果，很郁闷吧？ 我看到很多网站为了实现这一效果，用了第三方类库，最常用的是iscroll（包括新浪手机页，百度等） 我一开始也使用，不过自从用了-webkit-overflow-scrolling:touch;样式后，就完全可以抛弃第三方类库了，把它加在body{}区域，所有的overflow需要滚动的都可以生效了。&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;手机浏览器常用手势动作监听封装(配合zepto,from mansonchor)&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://wo.poco.cn/manson/post/id/268780&quot; alt=&quot;手机浏览器常用手势动作监听封装&quot;&gt;手机浏览器常用手势动作监听封装&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;事件：(参考：引用了指尖上的js系列，在此向作者表示感谢)&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/pifoo/archive/2011/05/23/webkit-touch-event-1.html&quot;&gt;对于Touch的处理&lt;/a&gt;
-&lt;a href=&quot;http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-2.html&quot;&gt;处理简单手势&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-3.html&quot;&gt;处理复杂手势&lt;/a&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;手势事件&lt;/h3&gt;
-
-&lt;p&gt;touchstart //当手指接触屏幕时触发&lt;/p&gt;
-
-&lt;p&gt;touchmove //当已经接触屏幕的手指开始移动后触发&lt;/p&gt;
-
-&lt;p&gt;touchend //当手指离开屏幕时触发&lt;/p&gt;
-
-&lt;p&gt;touchcancel&lt;/p&gt;
-
-&lt;h3&gt;触摸事件&lt;/h3&gt;
-
-&lt;p&gt;gesturestart //当两个手指接触屏幕时触发&lt;/p&gt;
-
-&lt;p&gt;gesturechange //当两个手指接触屏幕后开始移动时触发&lt;/p&gt;
-
-&lt;p&gt;gestureend&lt;/p&gt;
-
-&lt;h3&gt;屏幕旋转事件&lt;/h3&gt;
-
-&lt;p&gt;onorientationchange //检测触摸屏幕的手指何时改变方向&lt;/p&gt;
-
-&lt;p&gt;orientationchange //touch事件支持的相关属性&lt;/p&gt;
-
-&lt;p&gt;touches&lt;/p&gt;
-
-&lt;p&gt;targetTouches&lt;/p&gt;
-
-&lt;p&gt;changedTouches&lt;/p&gt;
-
-&lt;p&gt;clientX　　　　// X coordinate of touch relative to the viewport (excludes scroll offset)&lt;/p&gt;
-
-&lt;p&gt;clientY　　　　// Y coordinate of touch relative to the viewport (excludes scroll offset)&lt;/p&gt;
-
-&lt;p&gt;screenX　　　 // Relative to the screen&lt;/p&gt;
-
-&lt;p&gt;screenY 　　 // Relative to the screen&lt;/p&gt;
-
-&lt;p&gt;pageX　　 　　// Relative to the full page (includes scrolling)&lt;/p&gt;
-
-&lt;p&gt;pageY　　　　 // Relative to the full page (includes scrolling)&lt;/p&gt;
-
-&lt;p&gt;target　　　　 // Node the touch event originated from&lt;/p&gt;
-
-&lt;p&gt;identifier　　 // An identifying number, unique to each touch event&lt;/p&gt;
-
-&lt;p&gt;屏幕旋转事件：onorientationchange 添加屏幕旋转事件侦听，可随时发现屏幕旋转状态（左旋、右旋还是没旋）&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;判断屏幕是否旋转&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;orientationChange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; 
-    &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;orientation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;肖像模式 0,screen-width: &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;;screen-height:&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;左旋 -90,screen-width: &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;; screen-height:&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;90&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;右旋 90,screen-width: &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;; screen-height:&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;风景模式 180,screen-width: &amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;; screen-height:&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;screen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; 
-    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt; 
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;h3&gt;添加事件监听&lt;/h3&gt;
-
-&lt;p&gt;addEventListener(&amp;#39;load&amp;#39;, function(){
-    orientationChange();
-    window.onorientationchange = orientationChange;
-});&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3&gt;双手指滑动事件：&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// 双手指滑动事件&lt;/span&gt;
-
-&lt;span class=&quot;nx&quot;&gt;addEventListener&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;load&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onmousewheel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;twoFingerScroll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;},&lt;/span&gt;
-    &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 兼容各浏览器，表示在冒泡阶段调用事件处理程序 (true 捕获阶段)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;twoFingerScroll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;delta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;ev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;wheelDelta&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;120&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//对 delta 值进行判断(比如正负) ，而后执行相应操作&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;localStorage:&lt;/h3&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 如果名称是  n 的数据存在 ，则将其读出 ，赋予变量  v  。&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 写入名称为 n、值为  v  的数据&lt;/span&gt;
-&lt;span class=&quot;nx&quot;&gt;localStorage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeItem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;n&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// 删除名称为  n  的数据&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
-        <pubDate>Tue, 24 Feb 2015 00:00:00 +0800</pubDate>
-      </item>
-    
-      <item>
         <title>nodejs npm常用命令</title>
         <link>http://cyan24.github.io/blog/nodejs-npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</link>
         <guid isPermaLink="true">http://cyan24.github.io/blog/nodejs-npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</guid>
@@ -1796,45 +1904,7 @@ current is div2&lt;/p&gt;
 
 &lt;p&gt;转载于：http://www.cnblogs.com/ilexcai/archive/2011/09/05/2168094.html&lt;/p&gt;
 </description>
-        <pubDate>Sat, 27 Dec 2014 00:00:00 +0800</pubDate>
-      </item>
-    
-      <item>
-        <title>谈谈200 OK (from cache) 与 304 Not Modified</title>
-        <link>http://cyan24.github.io/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/</link>
-        <guid isPermaLink="true">http://cyan24.github.io/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/</guid>
-        <description>&lt;p&gt;为什么有的缓存是 200 OK (from cache)，有的缓存是 304 Not Modified 呢？很简单，看运维是否移除了 Entity Tag。移除了，就总是 200 OK (from cache)。没有移除，就两者交替出现。&lt;/p&gt;
-
-&lt;p&gt;其实， 200 OK (from cache)  是浏览器没有跟服务器确认，直接用了浏览器缓存；而 304 Not Modified 是浏览器和服务器多确认了一次缓存有效性，再用的缓存。&lt;/p&gt;
-
-&lt;p&gt;它们都是在设置了缓存的情况下触发的。&lt;/p&gt;
-
-&lt;p&gt;那么，两者触发的时机有什么区别呢？200 OK (from cache) 是直接点击链接访问，输入网址按回车访问也能触发；而 304 Not Modified 是刷新页面时触发，或是设置了长缓存、但 Entity Tags 没有移除时触发。这是经过查阅资料得出的结论。博主实际测试了一下，结论与之相符：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1404271.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;直接访问有缓存的网站都触发 200 OK (from cache)&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1404272.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;图2 – 刷新浏览器则会触发 304 Not Modifie&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1404273.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;同一域名下，没有 Entity Tag 的资源直接访问，是 200 OK (from cache) 的结果&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1404274.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;同一域名下，有 Entity Tag ，直接访问就会触发 304 Not Modified
-现在一般都会设置长时间的缓存，正确设置方式参考这两篇笔记：&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.bokeyy.com/post/high-performance-web-sites-rule3.html&quot;&gt;如何正确设置 Expires Header 及其原理&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.bokeyy.com/post/high-performance-web-sites-rule-13.html&quot;&gt;如何正确移除 Entity Tags 及其原理&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;本文并不是说影响浏览器缓存只有 ETag 这一个因素的意思，请大家不要误解。只是就“为什么我加了缓存，有的却是 304 Not Modified， 而不是 200 OK(from cache)”这件事给出一个一针见血的原因和解答.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 27 Apr 2014 00:00:00 +0800</pubDate>
+        <pubDate>Sat, 15 Nov 2014 00:00:00 +0800</pubDate>
       </item>
     
   </channel>

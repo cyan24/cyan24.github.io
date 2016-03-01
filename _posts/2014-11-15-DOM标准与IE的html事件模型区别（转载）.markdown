@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "DOM标准与IE的html事件模型区别（转载）"
-date:   2014-12-27
+date:   2014-11-15
 author: cyan
 category: front
 tags: javascript

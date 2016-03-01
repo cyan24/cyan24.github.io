@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "不为人熟知的Meta http-equiv属性"
-date:   2014-01-10
+date:   2015-12-10
 author: cyan
 category: front
 tags: Html

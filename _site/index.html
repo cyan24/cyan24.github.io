@@ -109,14 +109,6 @@
 					
 					
 					
-					<li>
-						<a class="page-link" href="/Design/">
-							设计
-						</a>
-					</li>
-					
-					
-					
 					
 					
 					
@@ -128,8 +120,8 @@
 					
 					
 					<li>
-						<a class="page-link" href="/iOS/">
-							iOS开发
+						<a class="page-link" href="/front/">
+							前端开发
 						</a>
 					</li>
 					
@@ -140,10 +132,12 @@
 					
 					
 					<li>
-						<a class="page-link" href="/Other/">
-							其他
+						<a class="page-link" href="/server/">
+							后端开发
 						</a>
 					</li>
+					
+					
 					
 					
 					
@@ -253,6 +247,100 @@
 
 	<div class="posts">
 	
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
+		        不为人熟知的Meta http-equiv属性
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2015年12月10日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
+meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
+
+<p>1、Expires(期限) 
+说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>2、Pragma(cache模式) 
+说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：这样设定，访问者将无法脱机浏览。 </p>
+
+<p>3、Refresh(刷新) 
+说明：自动刷新并指向新页面。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
+
+<p>4、Set-Cookie(cookie设定) 
+说明：如果网页过期，那么存盘的cookie将被删除。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>5、Window-target(显示窗口的设定) 
+说明：强制页面在当前窗口以独立页面显示。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>注意：用来防止别人在框架里调用自己的页面。 </p>
+
+<p>6、content-Type(显示字符集的设定) 
+说明：设定页面使用的字符集。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>7、Pics-label(网页等级评定) </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
+
+<p>8、Page<em>Enter、Page</em>Exit 
+设定进入页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
+</code></pre></div>
+<p>设定离开页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
+Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
+0    盒状收缩    1    盒状放射<br>
+2    圆形收缩    3    圆形放射<br>
+4    由下往上    5    由上往下<br>
+6    从左至右    7    从右至左<br>
+8    垂直百叶窗    9    水平百叶窗<br>
+10    水平格状百叶窗    11垂直格状百叶窗<br>
+12    随意溶解    13从左右两端向中间展开<br>
+14从中间向左右两端展开    15从上下两端向中间展开<br>
+16从中间向上下两端展开    17    从右上角向左下角展开<br>
+18    从右下角向左上角展开    19    从左上角向右下角展开<br>
+20    从左下角向右上角展开    21    水平线状展开<br>
+22    垂直线状展开    23    随机产生一种过渡方式  </p>
+
+		  
+		  </div>
+		</div>
+		
 		
 	
 
@@ -389,40 +477,10 @@
 		  </div>
 		</div>
 		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
-		        移动端上前端开发的一些问题与总结（3）
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年05月19日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/html5/">html5</a>, <a href="/tags/移动开发/">移动开发</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <h3>关于ios系统中，webapp启动图片在不同设备上的适应性设置</h3> <p><a href="http://stackoverflow.com/questions/4687698/mulitple-apple-touch-startup-image-resolutions-for-ios-web-app-esp-for-ipad/10011893#10011893">不同设备上的适应性设置</a></p> <h3>关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h3> <p>可以通过正则去掉</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\u2006/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span> </code></pre></div> <h3>Cache开启和设置</h3> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCachePath</span><span class="p">(</span><span class="s2">&quot;/data/data/[com.packagename]/cache&quot;</span><span class="p">);</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheMaxSize</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span> <span class="c1">// 5MB</span> </code></pre></div> <h3>LocalStorage相关设置</h3> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabaseEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDomStorageEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="n">String</span> <span class="n">databasePath</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="na">getContext</span><span class="o">().</span><span class="na">getDir</span><span class="o">(</span><span class="s">&quot;databases&quot;</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">).</span><span class="na">getPath</span><span class="o">();</span> <span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabasePath</span><span class="o">(</span><span class="n">databasePath</span><span class="o">);</span><span class="c1">//Android　webview的LocalStorage有个问题，关闭APP或者重启后，就清楚了，所以需要browser.getSettings().setDatabase相关的操作，把LocalStoarge存到DB中</span> <span class="n">myWebView</span><span class="o">.</span><span class="na">setWebChromeClient</span><span class="o">(</span><span class="k">new</span> <span class="nf">WebChromeClient</span><span class="o">(){</span> 　　　<span class="nd">@Override</span> 　　　<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onExceededDatabaseQuota</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">String</span> <span class="n">databaseIdentifier</span><span class="o">,</span> <span class="kt">long</span> <span class="n">currentQuota</span><span class="o">,</span> <span class="kt">long</span> <span class="n">estimatedSize</span><span class="o">,</span> <span class="kt">long</span> <span class="n">totalUsedQuota</span><span class="o">,</span> <span class="n">WebStorage</span><span class="o">.</span><span class="na">QuotaUpdater</span> <span class="n">quotaUpdater</span><span class="o">){</span> 　　　　　　　<span class="n">quotaUpdater</span><span class="o">.</span><span class="na">updateQuota</span><span class="o">(</span><span class="n">estimatedSize</span> <span class="o">*</span> <span class="mi">2</span><span class="o">);</span> 　　　<span class="o">}</span> <span class="o">}</span> </code></pre></div> <h3>浏览器自带缩放按钮取消显示</h3> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setBuiltInZoomControls</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span> </code></pre></div> <h3>几个比较好的实践</h3> <p>使用localstorage缓存html</p> <p>使用lazyload，还要记得lazyload占位图虽然小，但是最好能提前加载到缓存</p> <p>延时加载执行js</p> <p>主要原因就在于Android Webview的onPageFinished事件，Android端一般是用这个事件来标识页面加载完成并显示的，也就是说在此之前，会一直loading，但是Android的OnPageFinished事件会在Javascript脚本执行完成之后才会触发。如果在页面中使用JQuery，会在处理完DOM对象，执行完$(document).ready(function() {});事件自会后才会渲染并显示页面。</p> <h3>移动浏览器篇</h3> <ul> <li>UC浏览器 video标签脱离文档流</li> </ul> <p>场景：标签的父元素(祖辈元素)设置transform样式后，标签会脱离文档流。</p> <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p> <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zj3xiyu</a></p> <p>解决方案：不使用transform属性。translate用 top、 margin等属性替代。</p> <ul> <li>UC浏览器 video标签总在最前场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</li> </ul> <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p> <ul> <li>UC浏览器position:fixed 属性在UC浏览器的奇葩现象</li> </ul> <p>场景：设置了position: fixed 的元素会遮挡z-index值更高的同辈元素。</p> <p>在8.6的版本,这个情况直接出现。</p> <p>在8.7之后的版本,当同辈元素的height大于713这个「神奇」的数值时,才会被遮挡。</p> <p>测试环境：UC浏览器 8.8_beta/8.7/8.6 + Android 2.3/4.0 。</p> <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zYLTSg6</a></p> <ul> <li>QQ手机浏览器不支持HttpOnly</li> </ul> <p>场景：带有HttpOnly属性的Cookie，在QQ手机浏览器版本从4.0开始失效。JavaScript可以直接读取设置了HttpOnly的Cookie值。</p> <p>测试环境：QQ手机浏览器 4.0/4.1/4.2 + Android 4.0 。</p> <ul> <li>(MIUI原生浏览器)浏览器地址栏hash不改变</li> </ul> <p>场景：location.hash 被赋值后，地址栏的地址不会改变。</p> <p>但实际上 location.href 已经更新了，通过JavaScript可以顺利获取到更新后的地址。</p> <p>虽然不影响正常访问，但用户无法将访问过程中改变hash后的地址存为书签。</p> <p>测试环境：MIUI 4.0</p> <ul> <li> (Chrome Mobile )fixed元素无法点击</li> </ul> <p>场景：父元素设置position: fixed;</p> <p>子元素设置position: absolute;</p> <p>此时，如果父元素/子元素还设置了overflow: hidden 则出现“父元素遮挡该子元素“的bug。</p> <p>视觉(view)层并没有出现遮挡，只是无法触发绑定在该子元素上的事件。可理解为：「看到点不到」。</p> <p>补充： 页面往下滚动，触发position: fixed;的特性时，才会出现这个bug，在最顶不会出现。</p> <p>测试平台： 小米1S，Android4.0的Chrome18</p> <p>demo： <a href="http://maplejan.sinaapp.com/demo/fixed_chromemobile.html">http://maplejan.sinaapp.com/demo/fixed_chromemobile.html</a></p> <p>解决办法： 把父元素和子元素的overflow: hidden去掉。</p> <p>以上来源于 http://www.cnblogs.com/maplejan/archive/2013/04/26/3045928.html</p> <ul>...
-		    <p>
-		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
 	</div>
 
 	<div class="wp-pagenavi">
-	    <span class='pages'>第 1 页，共 7 页</span>
+	    <span class='pages'>第 1 页，共 8 页</span>
 
 	    
 
@@ -453,6 +511,10 @@
 	    
 	        
 	          <a class="page larger" href="/blog/page7">7</a>
+	        
+	    
+	        
+	          <a class="page larger" href="/blog/page8">8</a>
 	        
 	    
 

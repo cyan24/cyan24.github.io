@@ -1,0 +1,233 @@
+---
+layout: post
+title:  ".jpg、.png转换成.webp"
+date:   2015-07-18
+author: cyan
+category: front
+tags: 性能优化
+---
+
+一、什么是Webp
+       WebP是Google新推出的影像技术，它可让网页图档有效进行压缩，同时在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，进而让整体网页下载速度加快。为了改善JPEG的图片压缩技术，他们使用了一种基于VP8编码(已在2010五月开源)的图片压缩器，利用预测编码技术，同时还采用了一种基于RIFF的非常轻量级的容器。这种容器只会给每张图片增加20字节，但能让图片作者保存他们想要存储的元数据。
+与JPEG相同，WebP是一种有损压缩利用预测编码技术。
+
+二、Webp文件制作准备
+ 
+Google开发并放出了不同操作系统的WebP文件解码器(libvpx)和命令行工具(webpconv)。
+下载地址：
+<a href="http://code.google.com/intl/zh-CN/speed/webp/download.html">http://code.google.com/intl/zh-CN/speed/webp/download.html</a>
+
+我下载了用于Windows的WebpCodecSetup.exe 和libwebp-0.1.3-windows-x86.zip
+ 
+1. 先安装WebpCodecSetup.exe，
+2. 解压libwebp-0.1.3-windows-x86.zip（无需安装）
+
+三、Jpg或png转换到Webp方法
+ 
+进入libwebp-0.1.3-windows-x86.zip的解压目录，可以看到cwebp.exe和dwebp.exe，其中cwebp.exe是将jpg或png文件转换成webp文件，dwebp.exe是将webp文件转换成png、pp或pgm。这两个程序只能在dos命令行环境下运行
+ 
+1. 点击“开始”->“运行”->输入 cmd 后回车进入dos环境
+ 
+2. 输入路径进入解压文件夹，以下是我安装的路径
+
+C:\Documents andSettings\Administrator>e:
+E:\>cd libwebp-0.1.3-windows-x86
+E:\libwebp-0.1.3-windows-x86>
+ 
+3. 输入命令，将jpg或png转换成webp
+
+命令行结构：cwebp [-preset <...>] [options] in_file [-o out_file]
+ 
+ 
+E:\libwebp-0.1.3-windows-x86> cwebp -qquality e:\photo\png1.png -o e:\webp1.webp （回车）
+（e:\photo\png1.png是原文件路径，e:\webp1.webp是目标文件路径）
+ 
+Saving file ‘ webp1.webp’
+ 
+27672 bytes Y-U-V-All-PSNR 30.30 32.22 32.78   30.91 dB
+
+block count:  intra4: 1372
+
+intra16: 10378  (-> 88.32%)
+
+skipped block: 6204 (52.80%)
+
+bytes used: header: 131  (0.5%)
+
+mode-partition: 13138  (47.5%)
+
+Residuals bytes  |segment 1|segment 2|segment 3|segment4|  total
+
+intra4-coeffs:      |    3918 |    911 |     268 |      65 |   5162  (18.7%)
+
+intra16-coeffs:  |   3086 |    1964 |     881 |    240 |    6171 (22.3%)
+
+chroma coeffs: |    1627 |     902 |    408 |     105 |    3042 (11.0%)
+
+macroblocks:  |      27%|     33%|      26%|      12%|  11750
+
+quantizer:        |      127 |     127 |     127 |      127 |
+
+filter level:         |      19 |       14|       11|        9 |
+
+——————————————————————————————————————
+
+segments total:  |   8631 |    3777 |    1557 |    410 |   14375  (51.9%)
+ 
+4. 转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件
+ 
+5. cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。
+E:\libwebp-0.1.3-windows-x86>cwebp.exe –H（回车）
+options:
+
+-h / -help ………… short help
+
+-H / -longhelp  …….. long help
+
+-q …………. qualityfactor (0:small..100:big)
+
+-preset ……. Presetsetting, one of:
+
+default, photo, picture,
+
+drawing, icon, text
+
+-preset must come first, as it overwritesother parameters.
+
+-m …………… compressionmethod (0=fast, 6=slowest)
+
+-segments …….. number ofsegments to use (1..4)
+ 
+
+-s ……… Inputsize (width x height) for YUV
+
+-sns …………. SpatialNoise Shaping (0:off, 100:max)
+
+-f …………… filterstrength (0=off..100)
+
+-sharpness ……. filtersharpness (0:most .. 7:least sharp)
+
+-strong ……………. use strong filterinstead of simple.
+
+-partition_limit . limitquality to fit the 512k limit on the first partition (0=no degradation …100=full)
+
+-pass ………… analysispass number (1..10)
+
+-partitions …… number ofpartitions to use (0..3)
+
+-crop .. crop picture with the given rectangle
+
+-resize …….. resizepicture (after any cropping)
+
+-map …………. print map ofextra info.
+
+-d ………. dump thecompressed output (PGM file).
+
+-short …………….. condense printedmessage
+
+-quiet …………….. don’t printanything.
+
+-version …………… print versionnumber and exit.
+
+-noasm …………….. disable allassembly optimizations.
+
+-v ………………… verbose, e.g.print encoding/decoding times
+ 
+Experimental Options:
+-size ………… Target size(in bytes)
+
+-psnr ………. Target PSNR(in dB. typically: 42)
+
+-af ………….. adjustfilter strength (0=off, 1=on)
+
+-pre ………….pre-processing filter
+
+四、Webp文件转换成png/ppm/pgm文件
+ 
+通过dwebp命令可以将Webp文件转换成png/ppm/pgm文件
+ 
+1. 点击“开始”->“运行”->输入 cmd 后回车进入dos环境
+ 
+2. 输入路径进入解压文件夹，以下是我安装的路径
+
+C:\Documents andSettings\Administrator>e:
+
+E:\>cd libwebp-0.1.3-windows-x86
+
+E:\libwebp-0.1.3-windows-x86>
+
+ 
+3. 输入命令，将Webp转换成png/ppm/pgm
+ 
+Webp to png
+
+E:\libwebp-0.1.3-windows-x86>dwebpwebp1.webp –o png1.png
+
+Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…
+
+Saved file png1.png
+
+转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个png1.png文件
+
+ 
+Webp to ppm
+E:\libwebp-0.1.3-windows-x86>dwebpwebp1.webp –ppm –o ppm1.ppm
+
+Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…
+
+Saved file ppm1.ppm
+
+转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个ppm1.ppm文件
+
+ 
+Webp to pgm
+
+E:\libwebp-0.1.3-windows-x86>dwebpwebp1.webp –ppm –o ppm1.pgm
+
+Decoded webp1.webp. Dimensions: 2000 x1500. Now saving…
+
+Saved file pgm1.pgm
+
+转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个pgm1.ppm文件
+ 
+4. dwebp通过不同命令的选项，可以对图片进行一些设置。
+
+E:\libwebp-0.1.3-windows-x86>dwebp.exe –H（回车）
+
+Options:
+
+-ppm ……… save the raw RGB samples ascolor PPM
+
+-pgm ……… save the raw YUV samples asa grayscale PGM
+
+file with IMC4 layout.
+
+Other options are:
+
+-version …. print version number and exit.
+
+-nofancy ….. don’t use the fancy YUV420upscaler.
+
+-nofilter …. disable in-loop filtering.
+
+-mt ………. use multi-threading
+
+-crop … crop output with the given rectangle
+
+-scale ………. scalethe output (*after* any cropping)
+
+-h    ……. this help message.
+
+-v    ……. verbose (e.g. print encoding/decoding times)
+
+-noasm ……. disable all assemblyoptimizations.
+
+五、在PC上查看webp文件
+ 
+1. 安装Google chrome浏览器
+安装后打开chrome浏览器，然后将webp文件直接拖到浏览器中
+ 
+2. 安装chrome内嵌框架插件
+
+地址：<a href="http://code.google.com/intl/zh-CN/speed/webp/">http://code.google.com/intl/zh-CN/speed/webp/</a>
+点击“接收并激活”开始在线安装

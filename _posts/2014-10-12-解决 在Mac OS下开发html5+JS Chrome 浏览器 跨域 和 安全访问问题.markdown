@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "解决在Mac OS下开发html5+JS Chrome跨域和安全访问问题"
-date:   2013-10-12
+date:   2014-10-12
 author: cyan
 category: front
 tags: 浏览器 跨域 安全
