@@ -18,8 +18,8 @@
 	
 <head>
 	<meta charset="utf-8">
-	<title>移动端上前端开发的一些问题与总结(1) | Cyan的技术笔记</title>
-	<meta name="description" content="  前端 , html5, 移动开发, 在工作中遇到的一些问题和fix方法，做一个汇总：">
+	<title>移动端上前端开发的一些问题与总结（1） | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , html5, 在工作中遇到的一些问题和fix方法，做一个汇总：">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,7 +38,7 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93/">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
@@ -255,11 +255,11 @@
 <!--article  >
   <div style="background-image: url('/')"/>
   <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
-    <h1 class="title">移动端上前端开发的一些问题与总结(1)</h1>
+    <h1 class="title">移动端上前端开发的一些问题与总结（1）</h1>
     <p id="subtitletrans" class="subtitlecontainer">
-    <a class="subtitle">2015年04月24日</a>
+    <a class="subtitle">2015年02月24日</a>
      | <a class="subtitle" href="/About/">cyan</a>
-	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/html5/">html5</a>, <a href="/tags/移动开发/">移动开发</a></a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/html5/">html5</a></a>
     </p>
   </header>
   <section class="post-content">
@@ -279,6 +279,8 @@
 //横屏时使用的样式
 <span class="nt">&lt;style </span><span class="na">media=</span><span class="s">&quot;all and (orientation:landscape)&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span><span class="nf">#portrait</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span><span class="nt">&lt;/style&gt;</span>
 </code></pre></div>
+<hr>
+
 <h3>meta标签:</h3>
 
 <p>这些meta标签在开发webapp时起到非常重要的作用</p>
@@ -309,6 +311,8 @@
 
 <p>第四个meta标签表示：告诉设备忽略将页面中的数字识别为电话号码</p>
 
+<hr>
+
 <h3>页面描述(iOS)</h3>
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_114.png&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;72x72&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_72.png&quot;</span> <span class="nt">/&gt;</span>
@@ -332,6 +336,8 @@
 <span class="nf">#logo</span><span class="p">{</span><span class="k">background-image</span><span class="o">:</span> <span class="sx">url(logo@2x.png)</span><span class="p">;}</span>
 <span class="p">}</span>
 </code></pre></div>
+<hr>
+
 <h3>关于点击和click事件</h3>
 
 <p>对于a标记的点击导航，默认是在onclick事件中处理的。而移动客户端对onclick的响应相比PC浏览器有着明显的几百毫秒延迟。</p>
@@ -349,9 +355,13 @@
 </code></pre></div>
 <p>用iphone或ipad浏览很长的网页滚动时的滑动效果很不错吧？不过如果是一个div，然后设置height:200px;overflow:auto;的话，可以滚动但是完全没有那滑动效果，很郁闷吧？ 我看到很多网站为了实现这一效果，用了第三方类库，最常用的是iscroll（包括新浪手机页，百度等） 我一开始也使用，不过自从用了-webkit-overflow-scrolling:touch;样式后，就完全可以抛弃第三方类库了，把它加在body{}区域，所有的overflow需要滚动的都可以生效了。</p>
 
+<hr>
+
 <h3>手机浏览器常用手势动作监听封装(配合zepto,from mansonchor)</h3>
 
 <p><a href="http://wo.poco.cn/manson/post/id/268780" alt="手机浏览器常用手势动作监听封装">手机浏览器常用手势动作监听封装</a></p>
+
+<hr>
 
 <h3>事件：(参考：引用了指尖上的js系列，在此向作者表示感谢)</h3>
 
@@ -359,6 +369,8 @@
 <a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-2.html">处理简单手势</a></p>
 
 <p><a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-3.html">处理复杂手势</a></p>
+
+<hr>
 
 <h3>手势事件</h3>
 
@@ -408,6 +420,8 @@
 
 <p>屏幕旋转事件：onorientationchange 添加屏幕旋转事件侦听，可随时发现屏幕旋转状态（左旋、右旋还是没旋）</p>
 
+<hr>
+
 <h3>判断屏幕是否旋转</h3>
 <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">orientationChange</span><span class="p">()</span> <span class="p">{</span> 
     <span class="k">switch</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">orientation</span><span class="p">)</span> <span class="p">{</span>
@@ -422,12 +436,16 @@
     <span class="p">};</span> 
 <span class="p">};</span>
 </code></pre></div>
+<hr>
+
 <h3>添加事件监听</h3>
 
 <p>addEventListener(&#39;load&#39;, function(){
     orientationChange();
     window.onorientationchange = orientationChange;
 });</p>
+
+<hr>
 
 <h3>双手指滑动事件：</h3>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 双手指滑动事件</span>

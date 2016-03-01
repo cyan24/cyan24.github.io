@@ -1,10 +1,10 @@
 ---
 layout: post
 title:  "移动端上前端开发的一些问题与总结（1）"
-date:   2015-11-24
+date:   2015-02-24
 author: cyan
 category: front
-tags: html5 移动开发
+tags: html5
 ---
 
 在工作中遇到的一些问题和fix方法，做一个汇总：

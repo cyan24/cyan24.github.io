@@ -257,7 +257,7 @@
   <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
     <h1 class="title">移动端上前端开发的一些问题与总结（3）</h1>
     <p id="subtitletrans" class="subtitlecontainer">
-    <a class="subtitle">2015年12月13日</a>
+    <a class="subtitle">2015年05月19日</a>
      | <a class="subtitle" href="/About/">cyan</a>
 	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/html5/">html5</a>, <a href="/tags/移动开发/">移动开发</a></a>
     </p>
@@ -267,81 +267,16 @@
 
 <p><a href="http://stackoverflow.com/questions/4687698/mulitple-apple-touch-startup-image-resolutions-for-ios-web-app-esp-for-ipad/10011893#10011893">不同设备上的适应性设置</a></p>
 
-<hr>
-
 <h3>关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h3>
 
 <p>可以通过正则去掉</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\u2006/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
 </code></pre></div>
-<hr>
-
-<h3>关于android webview中，input元素输入时出现的怪异情况</h3>
-
-<p>见图:</p>
-
-<p><img src="/img/post/15030131.jpg" alt=""> </p>
-
-<p>Android web视图,至少在HTC EVO和三星的Galaxy Nexus中，文本输入框在输入时表现的就像占位符。情况为一个类似水印的东西在用户输入区域，一旦用户开始输入便会消失(见图片)。 在android的默认样式下当输入框获得焦点后,若存在一个绝对定位或者fixed的元素，布局会被破坏,其他元素与系统输入字段会发生重叠(如搜索图标将消失为搜索字段),可以观察到布局与原始输入字段有偏差(见截图)。 这是一个相当复杂的问题，以下简单布局可以重现这个问题:</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;phone&quot;</span><span class="nt">&gt;</span>Phone: *<span class="nt">&lt;/label&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;tel&quot;</span> <span class="na">name=</span><span class="s">&quot;phone&quot;</span> <span class="na">id=</span><span class="s">&quot;phone&quot;</span> <span class="na">minlength=</span><span class="s">&quot;10&quot;</span> <span class="na">maxlength=</span><span class="s">&quot;10&quot;</span> <span class="na">inputmode=</span><span class="s">&quot;latin digits&quot;</span> <span class="na">required=</span><span class="s">&quot;required&quot;</span> <span class="nt">/&gt;</span>
-</code></pre></div>
-<p>解决方法</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-user-modify</span><span class="o">:</span> <span class="nt">read-write-plaintext-only</span>
-</code></pre></div>
-<p>详细参考<a href="http://www.bielousov.com/2012/android-label-text-appears-in-input-field-as-a-placeholder/">[Android]: Input Field Issues</a></p>
-
-<p>注意，该属性会导致中文不能输入词组，只能单个字。感谢鬼哥与飞（游勇飞）贡献此问题与解决方案</p>
-
-<p>另外，在position:fixed后的元素里，尽量不要使用输入框。##更多的bug可参考(移动端web页面应用position:fixed题目总结)[http://www.cosdiv.com/page/M0/S882/882353.html]##</p>
-
-<p>依旧无法解决（摩托罗拉ME863手机），则使用input:text类型而非password类型，并设置其设置 -webkit-text-security: disc; 隐藏输入密码从而解决。</p>
-
-<hr>
-
-<h3>ios6跟iphone5的那些事</h3>
-
-<p>ip5的媒体查询</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">media</span> <span class="p">(</span><span class="nx">device</span><span class="o">-</span><span class="nx">height</span><span class="o">:</span> <span class="mi">568</span><span class="nx">px</span><span class="p">)</span> <span class="nx">and</span> <span class="p">(</span><span class="o">-</span><span class="nx">webkit</span><span class="o">-</span><span class="nx">min</span><span class="o">-</span><span class="nx">device</span><span class="o">-</span><span class="nx">pixel</span><span class="o">-</span><span class="nx">ratio</span><span class="o">:</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span><span class="cm">/* iPhone 5 or iPod Touch 5th generation */</span><span class="p">}</span>
-</code></pre></div>
-<p>使用媒体查询，提供不同的启动图片：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;startup-568h.png&quot;</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">media=</span><span class="s">&quot;(device-height: 568px)&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;startup.png&quot;</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">sizes=</span><span class="s">&quot;640x920&quot;</span> <span class="na">media=</span><span class="s">&quot;(device-height: 480px)&quot;</span><span class="nt">&gt;</span>
-　　 拍照上传
-
-
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">file</span> <span class="na">accept=</span><span class="s">&quot;video/*&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">file</span> <span class="na">accept=</span><span class="s">&quot;image/*&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>不支持其他类型的文件 ，如音频，Pages文档或PDF文件。 也没有getUserMedia摄像头的实时流媒体支持。</p>
-
-<p>可以使用的html5高级api: multipart POST表单提交上传 XMLHttpRequest 2 AJAX上传（甚至进度支持） 文件API ，在iOS 6允许JavaScript直接读取的字节数和客户端操作文件。</p>
-
-<p>智能应用程序横幅</p>
-
-<p>有了智能应用程序横幅，当网站上有一个相关联的本机应用程序时，Safari浏览器可以显示一个横幅。 如果用户没有安装这个应用程序将显示“安装”按钮，或已经安装的显示“查看”按钮可打开它。</p>
-
-<p>在iTunes Link Maker搜索我们的应用程序和应用程序ID。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-itunes-app&quot;</span> <span class="na">content=</span><span class="s">&quot;app-id=9999999&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>可以使用 app-argument 提供字符串值，如果参加iTunes联盟计划，可以添加元标记数据</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-itunes-app&quot;</span> <span class="na">content=</span><span class="s">&quot;app-id=9999999, app-argument=xxxxxx&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-itunes-app&quot;</span> <span class="na">content=</span><span class="s">&quot;app-id=9999999, app-argument=xxxxxx, affiliate-data=partnerId=99&amp;siteID=XXXX&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>横幅需要156像素（设备是312 hi-dpi）在顶部，直到用户在下方点击内容或关闭按钮，你的网站才会展现全部的高度。 它就像HTML的DOM对象，但它不是一个真正的DOM。</p>
-
-<p>CSS 3滤镜</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">-webkit-filter: blur(5px) grayscale (.5) opacity(0.66) hue-rotate(100deg);
-</code></pre></div>
-<hr>
-
 <h3>Cache开启和设置</h3>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
 <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCachePath</span><span class="p">(</span><span class="s2">&quot;/data/data/[com.packagename]/cache&quot;</span><span class="p">);</span>
 <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheMaxSize</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span> <span class="c1">// 5MB</span>
 </code></pre></div>
-<hr>
-
 <h3>LocalStorage相关设置</h3>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabaseEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDomStorageEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
@@ -355,13 +290,9 @@
 　　　<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div>
-<hr>
-
 <h3>浏览器自带缩放按钮取消显示</h3>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setBuiltInZoomControls</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
 </code></pre></div>
-<hr>
-
 <h3>几个比较好的实践</h3>
 
 <p>使用localstorage缓存html</p>
@@ -372,26 +303,29 @@
 
 <p>主要原因就在于Android Webview的onPageFinished事件，Android端一般是用这个事件来标识页面加载完成并显示的，也就是说在此之前，会一直loading，但是Android的OnPageFinished事件会在Javascript脚本执行完成之后才会触发。如果在页面中使用JQuery，会在处理完DOM对象，执行完$(document).ready(function() {});事件自会后才会渲染并显示页面。</p>
 
-<hr>
-
 <h3>移动浏览器篇</h3>
 
-<p>[UC浏览器]video标签脱离文档流
-场景：标签的父元素(祖辈元素)设置transform样式后，标签会脱离文档流。</p>
+<ul>
+<li>UC浏览器 video标签脱离文档流</li>
+</ul>
+
+<p>场景：标签的父元素(祖辈元素)设置transform样式后，标签会脱离文档流。</p>
 
 <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p>
 
 <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zj3xiyu</a></p>
 
-<p>解决方案：不使用transform属性。translate用top、margin等属性替代。</p>
+<p>解决方案：不使用transform属性。translate用 top、 margin等属性替代。</p>
 
-<p>UC浏览器]video标签总在最前</p>
-
-<p>场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</p>
+<ul>
+<li>UC浏览器 video标签总在最前场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</li>
+</ul>
 
 <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p>
 
-<p>[UC浏览器]position:fixed 属性在UC浏览器的奇葩现象</p>
+<ul>
+<li>UC浏览器position:fixed 属性在UC浏览器的奇葩现象</li>
+</ul>
 
 <p>场景：设置了position: fixed 的元素会遮挡z-index值更高的同辈元素。</p>
 
@@ -403,13 +337,17 @@
 
 <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zYLTSg6</a></p>
 
-<p>[QQ手机浏览器]不支持HttpOnly</p>
+<ul>
+<li>QQ手机浏览器不支持HttpOnly</li>
+</ul>
 
 <p>场景：带有HttpOnly属性的Cookie，在QQ手机浏览器版本从4.0开始失效。JavaScript可以直接读取设置了HttpOnly的Cookie值。</p>
 
 <p>测试环境：QQ手机浏览器 4.0/4.1/4.2 + Android 4.0 。</p>
 
-<p>[MIUI原生浏览器]浏览器地址栏hash不改变</p>
+<ul>
+<li>(MIUI原生浏览器)浏览器地址栏hash不改变</li>
+</ul>
 
 <p>场景：location.hash 被赋值后，地址栏的地址不会改变。</p>
 
@@ -419,7 +357,9 @@
 
 <p>测试环境：MIUI 4.0</p>
 
-<p>[Chrome Mobile]fixed元素无法点击</p>
+<ul>
+<li> (Chrome Mobile )fixed元素无法点击</li>
+</ul>
 
 <p>场景：父元素设置position: fixed;</p>
 
@@ -439,7 +379,9 @@
 
 <p>以上来源于 http://www.cnblogs.com/maplejan/archive/2013/04/26/3045928.html</p>
 
-<p>[微信浏览器]</p>
+<ul>
+<li>(微信浏览器)</li>
+</ul>
 
 <p>因为微信浏览器屏蔽了一部分链接图片，所以需要引导用户去打开新页面，可以用以下方式判断微信浏览器的ua</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">is_weixn</span><span class="p">(){</span>
@@ -454,8 +396,6 @@
 <p>后端判断也很简单，比如php</p>
 <div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function is_weixin(){ if ( strpos($_SERVER[&#39;HTTP_USER_AGENT&#39;], &#39;MicroMessenger&#39;) !== false ) { return true; } return false;}</span>
 </code></pre></div>
-<hr>
-
 <h3>库的使用实践</h3>
 
 <p>zepto.js</p>
@@ -465,8 +405,6 @@
 <p><a href="http://blog.youyo.name/archives/zepto-tap-click-through-research.html">zepto的著名的tap“点透”bug</a></p>
 
 <p><a href="http://www.cnblogs.com/sky000/archive/2013/03/29/2988952.html">zepto源码注释</a></p>
-
-<hr>
 
 <h3>跨域问题</h3>
 
@@ -482,8 +420,6 @@
 <span class="nx">Access</span><span class="o">-</span><span class="nx">Control</span><span class="o">-</span><span class="nx">Allow</span><span class="o">-</span><span class="nx">Headers</span> <span class="s2">&quot;Origin, X-Requested-With, Content-Type, Accept&quot;</span>
 </code></pre></div>
 <p>第一个头可以避免跨域问题，第二个头可以方便ajax请求设置content-type等配置项</p>
-
-<hr>
 
 <h3>调试篇</h3>
 
@@ -505,13 +441,9 @@
 
 <p>此时你会发现，用手机上网，走的其实是PC上的fiddler，所有的请求包都会在fiddler中列出来，配合willow使用，即可实现配host，甚至是反向代理的操作。</p>
 
-<hr>
-
 <h3>相关收藏</h3>
 
 <p><a href="https://github.com/AlloyTeam/Mars">腾讯移动Web前端知识库</a></p>
-
-<hr>
 
 <p>一些非常重要的工具类网站</p>
 
