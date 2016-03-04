@@ -1,0 +1,137 @@
+---
+layout: post
+title:  "D2前端论坛分享——阿里篇"
+date:   2016-01-10
+author: cyan
+category: front
+tags: nodejs
+---
+
+前段时间回顾了一下d2论坛上阿里的分享环节，由sima分享的关于天猫的node改造历程。
+首先看对事改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：
+
+<img src="{{ '/img/post/1511031.jpg' | prepend: site.baseurl }}" alt=""> 
+
+由上图看出，node 的RT 和 QPS 性能数据较php有大幅度优势。
+
+从页面渲染的本质来看，可以从三个维度来看：
+
+1.前端开发编写维护的模版；
+
+2.运营维护或者后端系统产出的数据；
+
+3.通过一个渲染容器进行合并产出页面。
+
+示例如下：
+
+<img src="{{ '/img/post/1601101.jpg' | prepend: site.baseurl }}" alt=""> 
+
+通过扩展上下文，可以使前端写出简单的逻辑判断。
+
+
+<img src="{{ '/img/post/1601102.jpg' | prepend: site.baseurl }}" alt=""> 
+
+关于模版中的静态资源管理，他们是这么处理的：
+
+1.前后端使用统一的资源加载器；
+
+2.基于统一的seed控制依赖以及版本；
+
+3.输出combo url到页面；
+
+4.依赖自动去重，css/js头尾加载。
+
+<img src="{{ '/img/post/1601103.jpg' | prepend: site.baseurl }}" alt=""> 
+
+渲染出来后的页面：
+
+<img src="{{ '/img/post/1601104.jpg' | prepend: site.baseurl }}" alt=""> 
+
+另外，也做了大量点模块化工作。通过模块化，前端写的90个模块被运营组合扩展成700个页面：
+
+<img src="{{ '/img/post/1601105.jpg' | prepend: site.baseurl }}" alt=""> 
+
+<img src="{{ '/img/post/1601106.jpg' | prepend: site.baseurl }}" alt=""> 
+
+搭建出来大概是这样的：
+
+<img src="{{ '/img/post/1601107.jpg' | prepend: site.baseurl }}" alt=""> 
+
+阿里从模块化到规模化大概要经历这三个过程：
+
+* 跨业务共享模块；
+* 面向运营的可视化页面搭建平台；
+* Native 页面搭建。
+
+###如何用NODE架构起服务###
+
+他们的服务并没有使用express,而是使用了koa,在渲染页面方面使用了扩展的xtemplate模版，通过阿里云oss提供模板和数据的存储支持，而cdn使用了阿里的的cdn缓存支持。
+
+作为koa的github维护者之一，本次分享中，sima对koa的讲解占了一定的篇幅.
+
+koa不仅仅作为generator，相比于express的作为中间件顺序执行的特点，他是包裹在后面所有中间件的装饰器。
+
+
+<img src="{{ '/img/post/1601109.jpg' | prepend: site.baseurl }}" alt=""> 
+
+
+<img src="{{ '/img/post/1601108.jpg' | prepend: site.baseurl }}" alt=""> 
+
+**测试覆盖率和集成测试**
+
+让测试覆盖率告诉你bug在哪儿
+
+<img src="{{ '/img/post/16011010.jpg' | prepend: site.baseurl }}" alt=""> 
+
+一般很难覆盖的地方都是比较容易出bug的地方.
+
+持续集成察觉每次代码变更引入的风险。
+
+<img src="{{ '/img/post/16011011.jpg' | prepend: site.baseurl }}" alt="">
+
+**关于Cluster**
+
+* Master 只做进程管理;
+
+* worker 异常退出后自动重启（cfork）;
+
+* http 服务优雅退出（graceful)。
+
+对关键指标做了监控，而异常对信息，做了警告处理。
+所以一定要有日志记录。
+
+**关于日志**
+
+做了以下处理：
+
+* 所有的请求都有accesslog追踪；
+
+* 所有异常统一记录，并分类输出；
+
+* 依赖系统调用tracelog,记录请求和响应情况。
+
+基于这些监控，可以获得到警告信息（如果有的话）。
+
+**关于警告**
+
+在以下情况作了警告的处理：
+
+系统/服务状态异常的情况下如RT增高/Load增高情、依赖异常如调用失败/调用超时、服务异常如出现日常日志的情况。对于异常日志信息通过短信或者邮件反应。
+
+
+这样就可以通过警告快速感知错误信息，通过日志和监控快速定位问题，目的是快速恢复服务。但是sima也提醒，最好是通过完善的单元测试去避免这些线上故障。
+
+**双十一==DDOS**
+
+每次双十一，对于阿里来说无疑都是一次类似ddos攻击，阿里的应对策略是合理利用CDN,在未改造之前需要使用几百台实体机做渲染，而改造完后用几十台虚拟机久完成了响应的活儿。
+
+<img src="{{ '/img/post/16011012.jpg' | prepend: site.baseurl }}" alt="">
+
+为了保证在CDN情况下能保证一些业务逻辑能正常运行，比如基于CDN的URL统一，比如输入www.tmall.com, 在手机上看到的和pc上看到的页面一定是不一样的，而对cdn来说却是同一份缓存内容，所以需要处理成不同终端请求同一个url时，cdn能识别设备型号，渲染服务返回不同的页面。处理方式是在cdn安装了插件来做识别.
+
+
+**容灾和预案**
+
+给出的建议是消灭单点，做异地双机房部属，oss双节点主备容灾，数据模板磁盘文件容灾。也做了预案自动化，cdn会在机房间不停得做回源健康检查，如果有异常能在10s内自动切换到健康的机房。oss健康检查，异常自动切换主备。系统load过高，自动切换静态备份。渲染异常自动切换静态备份。
+
+

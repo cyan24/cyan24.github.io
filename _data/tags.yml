@@ -37,6 +37,12 @@
 - slug: nodejs
   name: nodejs
 
+- slug: Redis
+  name: Redis
+
+- slug: Memcached
+  name: Memcached
+
 - slug: django-template-tags
   name: Django Template Tags
 

@@ -18,8 +18,8 @@
 	
 <head>
 	<meta charset="utf-8">
-	<title>后端开发 | Cyan的技术笔记</title>
-	<meta name="description" content="used by search engines">
+	<title>D2前端论坛分享——阿里篇 | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , nodejs, 前段时间回顾了一下d2论坛上阿里的分享环节，由sima分享的关于天猫的node改造历程。首先看对事改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,7 +38,7 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/server/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/D2%E5%89%8D%E7%AB%AF%E8%AE%BA%E5%9D%9B%E5%88%86%E4%BA%AB%E4%B9%8B%E9%98%BF%E9%87%8C%E7%AF%87/">
 
 	<!-- RSS -->
 	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
@@ -237,65 +237,159 @@
 </header> <!-- #main-header -->
 
     		<div id="et-main-area">
-      			<div class="home">
-  <article class="feature-image" >
-  	<div style="background-image: url('/img/sample_feature_img.png')"/>
-  	<header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')">
-    <h1 class="call-out-title">后端开发</h1>
-    </header>
-  </article>
+      			
 
-<div class="posts">
-    
-        
-            
 	
 
-				
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-            <a id="post-link-trans" class="post-link" href="/blog/Redis%E4%B8%8EMemcached%E6%AF%94%E8%BE%83/">
-		        Redis与Memcached比较
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年08月12日</a>
-		       | <a class="subtitle" href="/About/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Redis/">Redis</a>, <a href="/tags/Memcached/">Memcached</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>如果简单地比较Redis与Memcached的区别：</p>
+	
 
-<p>1、  Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</p>
+<article >
+  <header style="background-image: url('/')">
 
-<p>2、  Redis支持数据的备份，即master-slave模式的数据备份。</p>
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">D2前端论坛分享——阿里篇</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2016年01月10日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/nodejs/">nodejs</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>前段时间回顾了一下d2论坛上阿里的分享环节，由sima分享的关于天猫的node改造历程。
+首先看对事改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：</p>
 
-<p>3 、 Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用。</p>
+<p><img src="/img/post/1511031.jpg" alt=""> </p>
 
-<p>在Redis中，并不是所有的数据都一直存储在内存中的。这是和Memcached相比一个最大的区别。Redis只会缓存所有的 key的信息，如果Redis发现内存的使用量超过了某一个阀值，将触发swap的操作，Redis根据“swappability = age*log(size<em>in</em>memory)”计 算出哪些key对应的value需要swap到磁盘。然后再将这些key对应的value持久化到磁盘中，同时在内存中清除。这种特性使得Redis可以 保持超过其机器本身内存大小的数据。当然，机器本身的内存必须要能够保持所有的key，毕竟这些数据是不会进行swap操作的。同时由于Redis将内存 中的数据swap到磁盘中的时候，提供服务的主线程和进行swap操作的子线程会共享这部分内存，所以如果更新需要swap的数据，Redis将阻塞这个 操作，直到子线程完成swap操作后才可以进行修改。</p>
+<p>由上图看出，node 的RT 和 QPS 性能数据较php有大幅度优势。</p>
 
-<p>总结：</p>
+<p>从页面渲染的本质来看，可以从三个维度来看：</p>
 
-<p>　　1.Redis使用最佳方式是全部数据in-memory。</p>
+<p>1.前端开发编写维护的模版；</p>
 
-<p>　　2.Redis更多场景是作为Memcached的替代者来使用。</p>
+<p>2.运营维护或者后端系统产出的数据；</p>
 
-<p>　　3.当需要除key/value之外的更多数据类型支持时，使用Redis更合适。</p>
+<p>3.通过一个渲染容器进行合并产出页面。</p>
 
-<p>　　4.当存储的数据不能被剔除时，使用Redis更合适。</p>
+<p>示例如下：</p>
 
-		  
-		  </div>
-		</div>
-        
+<p><img src="/img/post/1601101.jpg" alt=""> </p>
 
-    
-</div>
-</div>
+<p>通过扩展上下文，可以使前端写出简单的逻辑判断。</p>
+
+<p><img src="/img/post/1601102.jpg" alt=""> </p>
+
+<p>关于模版中的静态资源管理，他们是这么处理的：</p>
+
+<p>1.前后端使用统一的资源加载器；</p>
+
+<p>2.基于统一的seed控制依赖以及版本；</p>
+
+<p>3.输出combo url到页面；</p>
+
+<p>4.依赖自动去重，css/js头尾加载。</p>
+
+<p><img src="/img/post/1601103.jpg" alt=""> </p>
+
+<p>渲染出来后的页面：</p>
+
+<p><img src="/img/post/1601104.jpg" alt=""> </p>
+
+<p>另外，也做了大量点模块化工作。通过模块化，前端写的90个模块被运营组合扩展成700个页面：</p>
+
+<p><img src="/img/post/1601105.jpg" alt=""> </p>
+
+<p><img src="/img/post/1601106.jpg" alt=""> </p>
+
+<p>搭建出来大概是这样的：</p>
+
+<p><img src="/img/post/1601107.jpg" alt=""> </p>
+
+<p>阿里从模块化到规模化大概要经历这三个过程：</p>
+
+<ul>
+<li>跨业务共享模块；</li>
+<li>面向运营的可视化页面搭建平台；</li>
+<li>Native 页面搭建。</li>
+</ul>
+
+<h3>如何用NODE架构起服务</h3>
+
+<p>他们的服务并没有使用express,而是使用了koa,在渲染页面方面使用了扩展的xtemplate模版，通过阿里云oss提供模板和数据的存储支持，而cdn使用了阿里的的cdn缓存支持。</p>
+
+<p>作为koa的github维护者之一，本次分享中，sima对koa的讲解占了一定的篇幅.</p>
+
+<p>koa不仅仅作为generator，相比于express的作为中间件顺序执行的特点，他是包裹在后面所有中间件的装饰器。</p>
+
+<p><img src="/img/post/1601109.jpg" alt=""> </p>
+
+<p><img src="/img/post/1601108.jpg" alt=""> </p>
+
+<p><strong>测试覆盖率和集成测试</strong></p>
+
+<p>让测试覆盖率告诉你bug在哪儿</p>
+
+<p><img src="/img/post/16011010.jpg" alt=""> </p>
+
+<p>一般很难覆盖的地方都是比较容易出bug的地方.</p>
+
+<p>持续集成察觉每次代码变更引入的风险。</p>
+
+<p><img src="/img/post/16011011.jpg" alt=""></p>
+
+<p><strong>关于Cluster</strong></p>
+
+<ul>
+<li><p>Master 只做进程管理;</p></li>
+<li><p>worker 异常退出后自动重启（cfork）;</p></li>
+<li><p>http 服务优雅退出（graceful)。</p></li>
+</ul>
+
+<p>对关键指标做了监控，而异常对信息，做了警告处理。
+所以一定要有日志记录。</p>
+
+<p><strong>关于日志</strong></p>
+
+<p>做了以下处理：</p>
+
+<ul>
+<li><p>所有的请求都有accesslog追踪；</p></li>
+<li><p>所有异常统一记录，并分类输出；</p></li>
+<li><p>依赖系统调用tracelog,记录请求和响应情况。</p></li>
+</ul>
+
+<p>基于这些监控，可以获得到警告信息（如果有的话）。</p>
+
+<p><strong>关于警告</strong></p>
+
+<p>在以下情况作了警告的处理：</p>
+
+<p>系统/服务状态异常的情况下如RT增高/Load增高情、依赖异常如调用失败/调用超时、服务异常如出现日常日志的情况。对于异常日志信息通过短信或者邮件反应。</p>
+
+<p>这样就可以通过警告快速感知错误信息，通过日志和监控快速定位问题，目的是快速恢复服务。但是sima也提醒，最好是通过完善的单元测试去避免这些线上故障。</p>
+
+<p><strong>双十一==DDOS</strong></p>
+
+<p>每次双十一，对于阿里来说无疑都是一次类似ddos攻击，阿里的应对策略是合理利用CDN,在未改造之前需要使用几百台实体机做渲染，而改造完后用几十台虚拟机久完成了响应的活儿。</p>
+
+<p><img src="/img/post/16011012.jpg" alt=""></p>
+
+<p>为了保证在CDN情况下能保证一些业务逻辑能正常运行，比如基于CDN的URL统一，比如输入www.tmall.com, 在手机上看到的和pc上看到的页面一定是不一样的，而对cdn来说却是同一份缓存内容，所以需要处理成不同终端请求同一个url时，cdn能识别设备型号，渲染服务返回不同的页面。处理方式是在cdn安装了插件来做识别.</p>
+
+<p><strong>容灾和预案</strong></p>
+
+<p>给出的建议是消灭单点，做异地双机房部属，oss双节点主备容灾，数据模板磁盘文件容灾。也做了预案自动化，cdn会在机房间不停得做回源健康检查，如果有异常能在10s内自动切换到健康的机房。oss健康检查，异常自动切换主备。系统load过高，自动切换静态备份。渲染异常自动切换静态备份。</p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
 
     		</div> <!-- #et-main-area -->
 		</div> <!-- #page-container -->
