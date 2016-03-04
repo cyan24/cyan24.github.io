@@ -403,100 +403,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-            <a id="post-link-trans" class="post-link" href="/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
-		        不为人熟知的Meta http-equiv属性
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年12月10日</a>
-		       | <a class="subtitle" href="/About/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
-meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
-
-<p>1、Expires(期限) 
-说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>注意：必须使用GMT的时间格式。 </p>
-
-<p>2、Pragma(cache模式) 
-说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>注意：这样设定，访问者将无法脱机浏览。 </p>
-
-<p>3、Refresh(刷新) 
-说明：自动刷新并指向新页面。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
-</code></pre></div>
-<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
-
-<p>4、Set-Cookie(cookie设定) 
-说明：如果网页过期，那么存盘的cookie将被删除。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
-</code></pre></div>
-<p>注意：必须使用GMT的时间格式。 </p>
-
-<p>5、Window-target(显示窗口的设定) 
-说明：强制页面在当前窗口以独立页面显示。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
-</code></pre></div>
-<p>注意：用来防止别人在框架里调用自己的页面。 </p>
-
-<p>6、content-Type(显示字符集的设定) 
-说明：设定页面使用的字符集。 
-用法：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
-</code></pre></div>
-<p>7、Pics-label(网页等级评定) </p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
-</code></pre></div>
-<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
-
-<p>8、Page<em>Enter、Page</em>Exit 
-设定进入页面时的特殊效果</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
-</code></pre></div>
-<p>设定离开页面时的特殊效果</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
-</code></pre></div>
-<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
-Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
-0    盒状收缩    1    盒状放射<br>
-2    圆形收缩    3    圆形放射<br>
-4    由下往上    5    由上往下<br>
-6    从左至右    7    从右至左<br>
-8    垂直百叶窗    9    水平百叶窗<br>
-10    水平格状百叶窗    11垂直格状百叶窗<br>
-12    随意溶解    13从左右两端向中间展开<br>
-14从中间向左右两端展开    15从上下两端向中间展开<br>
-16从中间向上下两端展开    17    从右上角向左下角展开<br>
-18    从右下角向左上角展开    19    从左上角向右下角展开<br>
-20    从左下角向右上角展开    21    水平线状展开<br>
-22    垂直线状展开    23    随机产生一种过渡方式  </p>
-
-		  
-		  </div>
-		</div>
-        
-            
-	
-
-				
-		<div class="post-teaser">
-		  <header>
-		    <h1>
             <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFa%E6%A0%87%E7%AD%BEhref%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BD%AC%E5%88%B0%E4%B8%8B%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E5%90%8C%E4%BD%8D%E7%BD%AE%E4%B8%8A%E7%9A%84-a-href-%E7%A9%BF%E9%80%8F%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A3%E5%86%B3/">
 		        移动端a标签href点击跳转到下一个页面同位置上的< a href>穿透点击事件解决
 		      </a>
@@ -1564,6 +1470,100 @@ IE中对内联元素使用display:inline-block，IE是不识别的，但使用di
 <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="n">_display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐*/</span>
 <span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="o">*</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐:IE67*/</span>
 </code></pre></div>
+		  
+		  </div>
+		</div>
+        
+            
+	
+
+				
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+            <a id="post-link-trans" class="post-link" href="/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
+		        不为人熟知的Meta http-equiv属性
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年01月10日</a>
+		       | <a class="subtitle" href="/About/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
+meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
+
+<p>1、Expires(期限) 
+说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>2、Pragma(cache模式) 
+说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：这样设定，访问者将无法脱机浏览。 </p>
+
+<p>3、Refresh(刷新) 
+说明：自动刷新并指向新页面。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
+
+<p>4、Set-Cookie(cookie设定) 
+说明：如果网页过期，那么存盘的cookie将被删除。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>5、Window-target(显示窗口的设定) 
+说明：强制页面在当前窗口以独立页面显示。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>注意：用来防止别人在框架里调用自己的页面。 </p>
+
+<p>6、content-Type(显示字符集的设定) 
+说明：设定页面使用的字符集。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>7、Pics-label(网页等级评定) </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
+
+<p>8、Page<em>Enter、Page</em>Exit 
+设定进入页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
+</code></pre></div>
+<p>设定离开页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
+Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
+0    盒状收缩    1    盒状放射<br>
+2    圆形收缩    3    圆形放射<br>
+4    由下往上    5    由上往下<br>
+6    从左至右    7    从右至左<br>
+8    垂直百叶窗    9    水平百叶窗<br>
+10    水平格状百叶窗    11垂直格状百叶窗<br>
+12    随意溶解    13从左右两端向中间展开<br>
+14从中间向左右两端展开    15从上下两端向中间展开<br>
+16从中间向上下两端展开    17    从右上角向左下角展开<br>
+18    从右下角向左上角展开    19    从左上角向右下角展开<br>
+20    从左下角向右上角展开    21    水平线状展开<br>
+22    垂直线状展开    23    随机产生一种过渡方式  </p>
+
 		  
 		  </div>
 		</div>

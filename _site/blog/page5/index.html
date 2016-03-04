@@ -254,36 +254,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
-		        返回页面顶部的三种方法(解决移动端使用zepto没有滑动的效果)
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年03月15日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/zepto/">zepto</a>, <a href="/tags/html5/">html5</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>点击返回顶部，三种方法</p> <p>1、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//zepto没有动画</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">scrollTop</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span> <span class="mi">500</span><span class="p">)</span> <span class="c1">//zepto使用</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>2、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>3、zepto使用可以有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">goTop</span><span class="p">(</span><span class="nx">acceleration</span><span class="p">,</span> <span class="nx">time</span><span class="p">)</span> <span class="p">{</span> <span class="nx">acceleration</span> <span class="o">=</span> <span class="nx">acceleration</span> <span class="o">||</span> <span class="mf">0.1</span><span class="p">;</span> <span class="nx">time</span> <span class="o">=</span> <span class="nx">time</span> <span class="o">||</span> <span class="mi">16</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollX</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 滚动条到页面顶部的水平距离</span> <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">x3</span><span class="p">));</span> <span class="c1">// 滚动条到页面顶部的垂直距离</span> <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">y1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span...
-		    <p>
-		    <a class="text" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
 		        关于页面重绘和回流以及优化
 		      </a>
@@ -482,6 +452,100 @@ IE中对内联元素使用display:inline-block，IE是不识别的，但使用di
 <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="n">_display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐*/</span>
 <span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="o">*</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐:IE67*/</span>
 </code></pre></div>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
+		        不为人熟知的Meta http-equiv属性
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年01月10日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
+meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
+
+<p>1、Expires(期限) 
+说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>2、Pragma(cache模式) 
+说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：这样设定，访问者将无法脱机浏览。 </p>
+
+<p>3、Refresh(刷新) 
+说明：自动刷新并指向新页面。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
+
+<p>4、Set-Cookie(cookie设定) 
+说明：如果网页过期，那么存盘的cookie将被删除。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>5、Window-target(显示窗口的设定) 
+说明：强制页面在当前窗口以独立页面显示。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>注意：用来防止别人在框架里调用自己的页面。 </p>
+
+<p>6、content-Type(显示字符集的设定) 
+说明：设定页面使用的字符集。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>7、Pics-label(网页等级评定) </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
+
+<p>8、Page<em>Enter、Page</em>Exit 
+设定进入页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
+</code></pre></div>
+<p>设定离开页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
+Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
+0    盒状收缩    1    盒状放射<br>
+2    圆形收缩    3    圆形放射<br>
+4    由下往上    5    由上往下<br>
+6    从左至右    7    从右至左<br>
+8    垂直百叶窗    9    水平百叶窗<br>
+10    水平格状百叶窗    11垂直格状百叶窗<br>
+12    随意溶解    13从左右两端向中间展开<br>
+14从中间向左右两端展开    15从上下两端向中间展开<br>
+16从中间向上下两端展开    17    从右上角向左下角展开<br>
+18    从右下角向左上角展开    19    从左上角向右下角展开<br>
+20    从左下角向右上角展开    21    水平线状展开<br>
+22    垂直线状展开    23    随机产生一种过渡方式  </p>
+
 		  
 		  </div>
 		</div>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>如何通过编程发现Java死锁 | Cyan的技术笔记</title>
+	<meta name="description" content="  后端 , , 先看下死锁的定义:死锁是指，两个或多个动作一直在等待其他动作完成而使得所有动作都始终处在阻塞的状态。想要在开发阶段检测到死锁是非常困难的，而想要解除死锁往 往需要重新启动程序。更糟的是，死锁通常发生在负载最重的生产过程中，而想要在测试中发现它，十分不易。之所以这么说，是因为测试线程之间所有可能的交叉 是不现实的。...">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/front/">
+							前端开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/server/">
+							后端开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">如何通过编程发现Java死锁</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2013年03月11日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: </a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>先看下死锁的定义:死锁是指，两个或多个动作一直在等待其他动作完成而使得所有动作都始终处在阻塞的状态。想要在开发阶段检测到死锁是非常困难的，而想要解除死锁往 往需要重新启动程序。更糟的是，死锁通常发生在负载最重的生产过程中，而想要在测试中发现它，十分不易。之所以这么说，是因为测试线程之间所有可能的交叉 是不现实的。尽管出现了一些静态分析库可以帮助我们发现可能出现的死锁，我们还是有必要在运行时检测到死锁，并且得到有用的信息，以便我们解决这个问题或 者重启程序，或者做些其他的事情。</p>
+
+<p>在编程中使用ThreadMXBean类来检测死锁</p>
+
+<p>Java 5引入了 ThreadMXBean 接口，它提供了多种监视线程的方法。我建议您了解所有这些方法，因为当您没使用外部工具时，它们会为您提供很多有用的操作以便您监测程序性能。这里，我们感兴趣的方法是 findMonitorDeadlockedThreads ，如过您使用的是Java 6，对应的方法是 findDeadlockedThreads 。二者的区别的是，findDeadlockedThreads还可以检测到owner locks（java.util.concurrent）引起的死锁，而findMonitorDeadlockedThreads只能检测 monitor locks（例如，同步块）。由于保留老版本的方法只是出于兼容性的考虑，所以我将使用新版本的方法。在这里，编程的思想是把对死锁的周期性检测封装到一 个可重用组件里，之后我们只需启动它、随它去。</p>
+
+<p>一种实现调度的方法是通过执行器框架，即一组良好抽象并易于使用的多线程类。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+<span class="k">this</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">scheduleAtFixedRate</span><span class="o">(</span><span class="n">deadlockCheck</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">unit</span><span class="o">);</span>
+</code></pre></div>
+<p>就是那么简单，在我们通过选择周期和时间单位而设置了一个特定时间后，就得到了一个周期性调用的线程。接着，我们想使功用得以拓展从而允许用户提供在程序检测到死锁时所触发的行为。最后，我们需要一个方法来接收用于描述死锁中所有线程的一系列对象。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span>
+</code></pre></div>
+<p>现在，实现死锁检测类已经万事俱备了。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DeadlockHandler</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeadlockDetector</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">ThreadMXBean</span> <span class="n">mbean</span> <span class="o">=</span> <span class="n">ManagementFactory</span><span class="o">.</span><span class="na">getThreadMXBean</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> 
+  <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+  <span class="kd">final</span> <span class="n">Runnable</span> <span class="n">deadlockCheck</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+      <span class="kt">long</span><span class="o">[]</span> <span class="n">deadlockedThreadIds</span> <span class="o">=</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">findDeadlockedThreads</span><span class="o">();</span>
+
+      <span class="k">if</span> <span class="o">(</span><span class="n">deadlockedThreadIds</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">threadInfos</span> <span class="o">=</span> 
+        <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">getThreadInfo</span><span class="o">(</span><span class="n">deadlockedThreadIds</span><span class="o">);</span>
+
+        <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">deadlockHandler</span><span class="o">.</span><span class="na">handleDeadlock</span><span class="o">(</span><span class="n">threadInfos</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">};</span>
+
+  <span class="kd">public</span> <span class="nf">DeadlockDetector</span><span class="o">(</span><span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">,</span> 
+    <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">,</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">deadlockHandler</span> <span class="o">=</span> <span class="n">deadlockHandler</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">period</span> <span class="o">=</span> <span class="n">period</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">unit</span> <span class="o">=</span> <span class="n">unit</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">scheduleAtFixedRate</span><span class="o">(</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">deadlockCheck</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">period</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">period</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">unit</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>让我们动手试试。首先，我们要创建一个handler用来向System.err输出死锁线程的信息。在现实场景中，我们可以用它发送邮件，比如：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeadlockConsoleHandler</span> <span class="kd">implements</span> <span class="n">DeadlockHandler</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">deadlockedThreads</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Deadlock detected!&quot;</span><span class="o">);</span>
+
+      <span class="n">Map</span><span class="o">&lt;</span><span class="n">Thread</span><span class="o">,</span> <span class="n">StackTraceElement</span><span class="o">[]&gt;</span> <span class="n">stackTraceMap</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">getAllStackTraces</span><span class="o">();</span>
+      <span class="k">for</span> <span class="o">(</span><span class="n">ThreadInfo</span> <span class="n">threadInfo</span> <span class="o">:</span> <span class="n">deadlockedThreads</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="k">if</span> <span class="o">(</span><span class="n">threadInfo</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+
+          <span class="k">for</span> <span class="o">(</span><span class="n">Thread</span> <span class="n">thread</span> <span class="o">:</span> <span class="n">Thread</span><span class="o">.</span><span class="na">getAllStackTraces</span><span class="o">().</span><span class="na">keySet</span><span class="o">())</span> <span class="o">{</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">thread</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="n">threadInfo</span><span class="o">.</span><span class="na">getThreadId</span><span class="o">())</span> <span class="o">{</span>
+              <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">threadInfo</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">());</span>
+
+              <span class="k">for</span> <span class="o">(</span><span class="n">StackTraceElement</span> <span class="n">ste</span> <span class="o">:</span> <span class="n">thread</span><span class="o">.</span><span class="na">getStackTrace</span><span class="o">())</span> <span class="o">{</span>
+                  <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;t&quot;</span> <span class="o">+</span> <span class="n">ste</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">());</span>
+              <span class="o">}</span>
+            <span class="o">}</span>
+          <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>这一过程在所有的堆栈追踪中反复进行并为每个线程信息打印对应的堆栈踪迹。通过这种方式，我们可以准确知道每个线程等待的位置和对象。但这个方法 有一个缺陷——当一个线程只是暂时等待时，可能会被当作一个暂时的死锁，从而引发错误的警报。出于此，当我们处理死锁时，原始线程不能继续存在而 findDeadlockedThreads方法会返回没有此类线程。为了避免可能出现的NullPointerException，我们需要警惕这种情 况。最后，让我们促成一个死锁来看看系统是如何运行的。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DeadlockDetector</span> <span class="n">deadlockDetector</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">DeadlockDetector</span><span class="o">(</span><span class="k">new</span> <span class="nf">DeadlockConsoleHandler</span><span class="o">(),</span> <span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+<span class="n">deadlockDetector</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+<span class="kd">final</span> <span class="n">Object</span> <span class="n">lock1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Object</span><span class="o">();</span>
+<span class="kd">final</span> <span class="n">Object</span> <span class="n">lock2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Object</span><span class="o">();</span>
+
+<span class="n">Thread</span> <span class="n">thread1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock1</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread1 acquired lock1&quot;</span><span class="o">);</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{</span>
+      <span class="o">}</span>
+      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread1 acquired lock2&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="o">});</span>
+<span class="n">thread1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+<span class="n">Thread</span> <span class="n">thread2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock2</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread2 acquired lock2&quot;</span><span class="o">);</span>
+      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread2 acquired lock1&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">});</span>
+<span class="n">thread2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+</code></pre></div>
+<p>输出：</p>
+
+<p>Thread1 acquired lock1
+Thread2 acquired lock2
+Deadlock detected!
+“Thread-1” Id=11 BLOCKED on java.lang.Object@68ab95e6 owned by “Thread-0” Id=10
+deadlock.DeadlockTester$2.run(DeadlockTester.java:42) 
+ java.lang.Thread.run(Thread.java:662)
+“Thread-0” Id=10 BLOCKED on java.lang.Object@58fe64b9 owned by “Thread-1” Id=11
+ deadlock.DeadlockTester$1.run(DeadlockTester.java:28)
+ java.lang.Thread.run(Thread.java:662)</p>
+
+<p>记住，死锁检测的开销可能会很大，你需要用你的程序来测试一下你是否真的需要死锁检测以及多久检测一次。我建议死锁检测的时间间隔至少为几分钟， 因为更加频繁的检测并没有太大的意义，原因是我们并没有一个复原计划，我们能做的只是调试和处理错误或者重启程序并祈祷不会再次发生死锁。</p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

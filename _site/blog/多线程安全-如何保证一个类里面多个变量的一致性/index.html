@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>多线程安全-如何保证一个类里面多个变量的一致性 | Cyan的技术笔记</title>
+	<meta name="description" content="  后端 , , 多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/front/">
+							前端开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/server/">
+							后端开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">多线程安全-如何保证一个类里面多个变量的一致性</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2013年05月26日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: </a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">setBalance</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>但是，如果多个变量的话，这种方法虽然能够保持每个变量的安全，但不能保证多个变量的一致性，因为方法上的synchronized关键字只对本方法加锁，对其他方法没有影响。方法之间是相互独立的。
+可以采用的方法是：</p>
+
+<p>1.将整个类加锁 （代码为synchronized(this)）</p>
+
+<p>2.定义一个object，访问某些相关变量时，对该对象加锁（代码为synchronized(lockobj)）。</p>
+
+<p>下面是对这个类加锁的代码</p>
+
+<p>---RGB类--- </p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RGB</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">red</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">green</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">blue</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getRed</span><span class="o">()</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">red</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addRed</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> 
+      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
+      <span class="n">print</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getGreen</span><span class="o">()</span> <span class="o">{</span>
+<span class="k">return</span> <span class="n">green</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">addGreen</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
+      <span class="n">ret</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
+      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
+      <span class="n">print</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBlue</span><span class="o">()</span> <span class="o">{</span>
+<span class="k">return</span> <span class="n">blue</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="o">---</span><span class="n">Painter类</span><span class="o">---</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Painter</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+<span class="kd">private</span> <span class="n">RGB</span> <span class="n">rgb</span><span class="o">;</span>
+<span class="kd">private</span> <span class="kt">int</span> <span class="n">interval</span><span class="o">;</span>
+
+<span class="n">Painter</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">RGB</span> <span class="n">rgb</span><span class="o">,</span> <span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">rgb</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">;</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">interval</span> <span class="o">=</span> <span class="n">interval</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">rgb</span><span class="o">.</span><span class="na">addBlue</span><span class="o">(</span><span class="n">interval</span><span class="o">);</span>
+  <span class="n">rgb</span><span class="o">.</span><span class="na">addRed</span><span class="o">(</span><span class="n">interval</span><span class="o">);</span>
+  <span class="n">rgb</span><span class="o">.</span><span class="na">addGreen</span><span class="o">(</span><span class="n">interval</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">RGB</span> <span class="n">rgb</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">RGB</span><span class="o">();</span>
+
+  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-1&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="mi">20</span><span class="o">));</span>
+  <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-2&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="o">-</span><span class="mi">15</span><span class="o">));</span>
+  <span class="n">Thread</span> <span class="n">t3</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-3&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="mi">30</span><span class="o">));</span>
+  <span class="n">Thread</span> <span class="n">t4</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-3&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="o">-</span><span class="mi">22</span><span class="o">));</span>
+  <span class="n">Thread</span> <span class="n">t5</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-3&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="o">-</span><span class="mi">10</span><span class="o">));</span>
+
+  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+  <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+  <span class="n">t3</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+  <span class="n">t4</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+  <span class="n">t5</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+  <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="nf">addBlue</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
+    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
+    <span class="n">print</span><span class="o">();</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+  <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getBlue</span><span class="o">()</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getGreen</span><span class="o">()</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getRed</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Red+Green+Blue = &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getRed</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;+&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getGreen</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;+&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getBlue</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;=&quot;</span> <span class="o">+</span> <span class="n">total</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>---执行结果---
+Red+Green+Blue = -10+-10+50=30</p>
+
+<p>Red+Green+Blue = 5+5+20=30</p>
+
+<p>Red+Green+Blue = -25+-25+80=30</p>
+
+<p>Red+Green+Blue = -3+-3+36=30</p>
+
+<p>Red+Green+Blue = 7+7+16=30</p>
+
+<p>Red+Green+Blue = 47+-13+-4=30</p>
+
+<p>Red+Green+Blue = 17+2+11=30</p>
+
+<p>Red+Green+Blue = 77+-28+-19=30</p>
+
+<p>Red+Green+Blue = 33+-6+3=30</p>
+
+<p>Red+Green+Blue = 13+4+13=30</p>
+
+<p>Red+Green+Blue = -7+44+-7=30</p>
+
+<p>Red+Green+Blue = 8+14+8=30</p>
+
+<p>Red+Green+Blue = -22+74+-22=30</p>
+
+<p>Red+Green+Blue = 0+30+0=30</p>
+
+<p>Red+Green+Blue = 10+10+10=30</p>
+
+<p>三个变量的和永远不变</p>
+
+<p>如果去掉synchronized关键字，则打印结果为：
+Red+Green+Blue = 27+7+16=-4</p>
+
+<p>Red+Green+Blue = 7+7+16=30</p>
+
+<p>Red+Green+Blue = 7+7+16=30</p>
+
+<p>Red+Green+Blue = 7+7+16=30</p>
+
+<p>Red+Green+Blue = 7+7+16=30</p>
+
+<p>Red+Green+Blue = 13+34+-2=21</p>
+
+<p>Red+Green+Blue = 13+34+-2=45</p>
+
+<p>Red+Green+Blue = 13+34+-2=45</p>
+
+<p>Red+Green+Blue = 13+34+-2=45</p>
+
+<p>Red+Green+Blue = 13+34+-2=45</p>
+
+<p>Red+Green+Blue = 15+40+-20=95</p>
+
+<p>Red+Green+Blue = 10+40+-5=45</p>
+
+<p>Red+Green+Blue = 10+40+-5=45</p>
+
+<p>Red+Green+Blue = 10+40+-5=45</p>
+
+<p>Red+Green+Blue = 10+40+-5=45</p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+---
+layout: post
+title:  "多线程安全-如何保证一个类里面多个变量的一致性"
+date:   2013-05-26
+author: cyan
+category: server
+tags: java
+---
+
+多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:
+
+```java
+private int balance;
+
+public synchronized int setBalance(int value){
+  this.balance = value;
+}
+```
+
+但是，如果多个变量的话，这种方法虽然能够保持每个变量的安全，但不能保证多个变量的一致性，因为方法上的synchronized关键字只对本方法加锁，对其他方法没有影响。方法之间是相互独立的。
+可以采用的方法是：
+
+1.将整个类加锁 （代码为synchronized(this)）
+
+2.定义一个object，访问某些相关变量时，对该对象加锁（代码为synchronized(lockobj)）。
+
+下面是对这个类加锁的代码
+
+---RGB类--- 
+
+```java
+
+public class RGB {
+private int red = 10;
+private int green = 10;
+private int blue = 10;
+
+public int getRed() {
+  return red;
+}
+
+public void addRed(int interval) {
+  synchronized (this) {
+    try {
+      Thread.sleep(200L);
+      this.red += interval * 2; 
+      Thread.sleep(200L);
+      this.green -= interval;
+      this.blue -= interval;
+      print();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+  }
+
+public int getGreen() {
+return green;
+}
+
+public int addGreen(int interval) {
+  int ret = 0;
+  synchronized (this) {
+    try {
+      Thread.sleep(200L);
+      ret = this.green += interval * 2;
+      Thread.sleep(200L);
+      this.red -= interval;
+      this.blue -= interval;
+      print();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+  return ret;
+}
+
+public int getBlue() {
+return blue;
+}
+---Painter类---
+public class Painter implements Runnable {
+private String name;
+private RGB rgb;
+private int interval;
+
+Painter(String name, RGB rgb, int interval) {
+  this.name = name;
+  this.rgb = rgb;
+  this.interval = interval;
+}
+
+public void run() {
+  rgb.addBlue(interval);
+  rgb.addRed(interval);
+  rgb.addGreen(interval);
+}
+
+public static void main(String[] args) {
+  RGB rgb = new RGB();
+
+  Thread t1 = new Thread(new Painter("Painter-1", rgb, 20));
+  Thread t2 = new Thread(new Painter("Painter-2", rgb, -15));
+  Thread t3 = new Thread(new Painter("Painter-3", rgb, 30));
+  Thread t4 = new Thread(new Painter("Painter-3", rgb, -22));
+  Thread t5 = new Thread(new Painter("Painter-3", rgb, -10));
+
+  t1.start();
+  t2.start();
+  t3.start();
+  t4.start();
+  t5.start();
+
+  }
+}
+public int addBlue(int interval) {
+  int ret = 0;
+  synchronized (this) {
+  try {
+    Thread.sleep(200L);
+    ret = this.blue += interval * 2;
+    Thread.sleep(200L);
+    this.red -= interval;
+    this.green -= interval;
+    print();
+  } catch (InterruptedException e) {
+    e.printStackTrace();
+  }
+  }
+  return ret;
+}
+
+public void print() {
+  synchronized (this) {
+    int total = this.getBlue() + this.getGreen() + this.getRed();
+    System.out.println("Red+Green+Blue = " + this.getRed() + "+" + this.getGreen() + "+" + this.getBlue() + "=" + total);
+    }
+  }
+}
+```
+---执行结果---
+Red+Green+Blue = -10+-10+50=30
+
+Red+Green+Blue = 5+5+20=30
+
+Red+Green+Blue = -25+-25+80=30
+
+Red+Green+Blue = -3+-3+36=30
+
+Red+Green+Blue = 7+7+16=30
+
+Red+Green+Blue = 47+-13+-4=30
+
+Red+Green+Blue = 17+2+11=30
+
+Red+Green+Blue = 77+-28+-19=30
+
+Red+Green+Blue = 33+-6+3=30
+
+Red+Green+Blue = 13+4+13=30
+
+Red+Green+Blue = -7+44+-7=30
+
+Red+Green+Blue = 8+14+8=30
+
+Red+Green+Blue = -22+74+-22=30
+
+Red+Green+Blue = 0+30+0=30
+
+Red+Green+Blue = 10+10+10=30
+
+三个变量的和永远不变
+
+如果去掉synchronized关键字，则打印结果为：
+Red+Green+Blue = 27+7+16=-4
+
+Red+Green+Blue = 7+7+16=30
+
+Red+Green+Blue = 7+7+16=30
+
+Red+Green+Blue = 7+7+16=30
+
+Red+Green+Blue = 7+7+16=30
+
+Red+Green+Blue = 13+34+-2=21
+
+Red+Green+Blue = 13+34+-2=45
+
+Red+Green+Blue = 13+34+-2=45
+
+Red+Green+Blue = 13+34+-2=45
+
+Red+Green+Blue = 13+34+-2=45
+
+Red+Green+Blue = 15+40+-20=95
+
+Red+Green+Blue = 10+40+-5=45
+
+Red+Green+Blue = 10+40+-5=45
+
+Red+Green+Blue = 10+40+-5=45
+
+Red+Green+Blue = 10+40+-5=45

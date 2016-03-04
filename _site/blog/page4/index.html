@@ -254,61 +254,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E8%A7%A3%E5%86%B3-%E5%9C%A8Mac-OS%E4%B8%8B%E5%BC%80%E5%8F%91html5+JS-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%B7%A8%E5%9F%9F-%E5%92%8C-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">
-		        解决在Mac OS下开发html5+JS Chrome跨域和安全访问问题
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年10月12日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/跨域/">跨域</a>, <a href="/tags/安全/">安全</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>从去年到今年一直从事 Hybrid开发模式，发现在mac os下开发html5 ＋js代码会遇到好多问题，各个浏览器兼容性 做的最好的就是chrome，chrome也是最好的调试工具。</p>
-
-<p>而且我们在一个团队的开发中经常遇到 AJAX  请求跨域的问题，跨域是让人非常头疼的问题，或者遇到  Https  证书 没有授权的问题。这些问题在goolge 的 chrome 浏览器下都可以解决的， 方法是：</p>
-
-<p>用命令行打开 Google Chrome 就好了</p>
-
-<p>Mac os 下面用</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  </span>
-</code></pre></div>
-<p>or</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">open</span> <span class="o">-</span><span class="nx">a</span> <span class="s2">&quot;Google Chrome&quot;</span> <span class="o">--</span><span class="nx">args</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
-<p>然后就可以看到下面的效果了：
-<img src="/img/131012.jpg" alt=""> </p>
-
-<p>Ubuntu Linux:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chromium</span><span class="o">-</span><span class="nx">browser</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
-<p>windows</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chrome</span><span class="p">.</span><span class="nx">exe</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
-<p>用命令行打开 Apple Safafi 方法是：</p>
-
-<p>Mac OS 下：</p>
-
-<p>open -a &#39;/Applications/Safari.app&#39; --args --disable-web-security  </p>
-
-<p>Windows：</p>
-
-<p>C:\Program Files\Safari\Safari.exe --disable-web-security  </p>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E7%90%86%E8%A7%A3HTML%E8%AF%AD%E4%B9%89%E5%8C%96/">
 		        理解HTML语义化
 		      </a>
@@ -577,6 +522,36 @@
 
 <p>本文并不是说影响浏览器缓存只有 ETag 这一个因素的意思，请大家不要误解。只是就“为什么我加了缓存，有的却是 304 Not Modified， 而不是 200 OK(from cache)”这件事给出一个一针见血的原因和解答.</p>
 
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
+		        返回页面顶部的三种方法(解决移动端使用zepto没有滑动的效果)
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年03月15日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/zepto/">zepto</a>, <a href="/tags/html5/">html5</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>点击返回顶部，三种方法</p> <p>1、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//zepto没有动画</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">scrollTop</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span> <span class="mi">500</span><span class="p">)</span> <span class="c1">//zepto使用</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>2、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>3、zepto使用可以有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">goTop</span><span class="p">(</span><span class="nx">acceleration</span><span class="p">,</span> <span class="nx">time</span><span class="p">)</span> <span class="p">{</span> <span class="nx">acceleration</span> <span class="o">=</span> <span class="nx">acceleration</span> <span class="o">||</span> <span class="mf">0.1</span><span class="p">;</span> <span class="nx">time</span> <span class="o">=</span> <span class="nx">time</span> <span class="o">||</span> <span class="mi">16</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollX</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 滚动条到页面顶部的水平距离</span> <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">x3</span><span class="p">));</span> <span class="c1">// 滚动条到页面顶部的垂直距离</span> <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">y1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span...
+		    <p>
+		    <a class="text" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
+		      Continue Reading...
+		    </a>
+		    </p>
 		  
 		  </div>
 		</div>
