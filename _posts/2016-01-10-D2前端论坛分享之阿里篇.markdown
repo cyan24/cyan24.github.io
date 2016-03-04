@@ -8,7 +8,7 @@ tags: nodejs
 ---
 
 前段时间回顾了一下d2论坛上阿里的分享环节，由sima分享的关于天猫的node改造历程。
-首先看对事改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：
+首先看对比改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：
 
 <img src="{{ '/img/post/1511031.jpg' | prepend: site.baseurl }}" alt=""> 
 
