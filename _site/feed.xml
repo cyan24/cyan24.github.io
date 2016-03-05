@@ -5,7 +5,7 @@
     <atom:link href="http://cyan24.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://cyan24.github.io/</link>
     <description>used by search engines</description>
-    <pubDate>Sat, 05 Mar 2016 16:03:18 +0800</pubDate>
+    <pubDate>Sat, 05 Mar 2016 16:15:20 +0800</pubDate>
     
       <item>
         <title>D2前端论坛分享——阿里篇</title>
@@ -198,11 +198,13 @@
 
 &lt;p&gt;&lt;strong&gt;局部滚动长列表的优化&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;方案1:使用div局部滚动
-&lt;img src=&quot;/img/post/15111418.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;方案1:使用div局部滚动&lt;/p&gt;
 
-&lt;p&gt;方案2:div原生滚动连动内容层
-折中的方案：分离滚动层与内容层，滚动的加速减速仍由滚动层div局部滚动控制，通过监听div的scroll事件，联动内容层：
+&lt;p&gt;&lt;img src=&quot;/img/post/15111418.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;方案2:div原生滚动连动内容层&lt;/p&gt;
+
+&lt;p&gt;折中的方案：分离滚动层与内容层，滚动的加速减速仍由滚动层div局部滚动控制，通过监听div的scroll事件，联动内容层：
 &lt;img src=&quot;/img/post/15111419.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;这种方案在小米手机上出现了严重的问题，滚动时，内容直接从起始位置瞬间跳到了终点位置。虽然div 的scroll事件可以触发，但是scroll过程中产生的样式变更，却要等到滚动结束后才能渲染。
