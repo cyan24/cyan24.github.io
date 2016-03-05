@@ -1,0 +1,158 @@
+---
+layout: post
+title:  "移动端开发用户体验提升的几个方案"
+date:   2015-11-14
+author: cyan
+category: front
+tags: 性能优化
+---
+
+H5在移动端的运用中由于种种原因，用户体验一直无法媲美原生开发的使用体验，最近对AC前端大会上腾讯前端组的分享做一个总结。
+
+下面有几点方式可以尽可能的使用户体验接近原生的体验。
+
+**使用点击态**
+
+点击态能够给用户明确的点击反馈，提升用户体验。
+
+* 方案1:使用active伪类，其缺点是滚动的时候也会触发样式。
+
+我们一般使用以下方案：
+
+* 方案2:
+
+```js
+
+$el.on('tap',function(e){
+   var $target = $(e.target);
+   $target.addClass('active');
+   
+   setTimeout(function(){
+      $target.removeClass('active');
+   },150)
+
+})
+```
+**关于页面滚动**
+
+先看一个页面滚动的定义：
+页面滚动可以分为局部滚动和全局滚动。全局滚动是指滚动条在body节点或者更顶层。局部滚动是指滚动条在body下的某个dom节点上。
+
+在ios上 默认支持全局滚动，对于局部滚动，默认没有滚动条，且滑动起来干涩。
+
+在ios局部滚动用以下代码实现弹性滚动效果。
+
+<img src="{{ '/img/post/1511141.png' | prepend: site.baseurl }}" alt=""> 
+
+建议：将属性挂在body上，可以避免很多奇怪的bug.
+
+在安卓方面，因为定制版本比较多，表现各异。默认没有弹性滚动效果。
+以下效果默认浏览器不支持，安卓版的chrome下支持。
+<img src="{{ '/img/post/1511142.png' | prepend: site.baseurl }}" alt=""> 
+
+
+在ios下如使用局部滚动，解决方案是：
+使用scrollFix:
+
+```js
+if(startTopScroll <=0)
+   elem.scrollTop = 1;
+
+if(startTopScroll + elem.offsetHeight >= elem.scrollHeight)
+   elem.scrollTop = elem.scrollHeight - elem.offsetHeight - 1 ;
+   
+```
+
+<img src="{{ '/img/post/1511147.png' | prepend: site.baseurl }}" alt=""> 
+
+
+**局部滚动长列表的优化**
+
+方案1:使用div局部滚动
+<img src="{{ '/img/post/15111418.png' | prepend: site.baseurl }}" alt=""> 
+
+方案2:div原生滚动连动内容层
+折中的方案：分离滚动层与内容层，滚动的加速减速仍由滚动层div局部滚动控制，通过监听div的scroll事件，联动内容层：
+<img src="{{ '/img/post/15111419.png' | prepend: site.baseurl }}" alt=""> 
+
+这种方案在小米手机上出现了严重的问题，滚动时，内容直接从起始位置瞬间跳到了终点位置。虽然div 的scroll事件可以触发，但是scroll过程中产生的样式变更，却要等到滚动结束后才能渲染。
+资料中对旧版ios的描述，与小米手机相似：
+
+<img src="{{ '/img/post/15111420.png' | prepend: site.baseurl }}" alt=""> 
+<img src="{{ '/img/post/15111421.png' | prepend: site.baseurl }}" alt=""> 
+___
+
+
+**关于键盘定制**
+
+
+在英文输入法下，输入首字母如果要取消自动首字母大写，可以使用autocapitalize = 'off' 这个属性：
+
+<img src="{{ '/img/post/1511144.png' | prepend: site.baseurl }}" alt=""> 
+
+
+关于键盘定制的行为和样式，在ios下基本支持，在安卓下不同系统不同定制版本支持情况不同。
+
+
+**移动web首屏时间概念**
+
+移动web首屏优化实践：
+
+<img src="{{ '/img/post/1511148.png' | prepend: site.baseurl }}" alt=""> 
+
+通过网络阶段后在服务端渲染时，以webp为例，过程如下：
+
+<img src="{{ '/img/post/15111410.png' | prepend: site.baseurl }}" alt=""> 
+
+从可优化幅度到角度看，网络层面的优化比渲染方面的优化带来的红利更多。
+
+
+<img src="{{ '/img/post/1511149.png' | prepend: site.baseurl }}" alt=""> 
+
+<img src="{{ '/img/post/15111411.png' | prepend: site.baseurl }}" alt=""> 
+
+这里我们要关注一个概念，也就是RTT,RTT是指一个回路时间。
+
+<img src="{{ '/img/post/15111412.png' | prepend: site.baseurl }}" alt=""> 
+
+<img src="{{ '/img/post/15111413.png' | prepend: site.baseurl }}" alt=""> 
+
+**网络耗时的测定**
+
+* html5提供了网络测速方法；
+
+* Navigation Timing:获得主页相关性能数据；
+
+* Resource Timing:获得主页相关资源的性能数据（iframe,image,script,audio,vedio...）;
+
+我们的最终目标是：
+
+* 减小请求数；
+
+* 减小传输提及；
+
+* 尽可能得利用缓存；
+
+* 缩短关键路径；
+
+* 合理安排请求顺序。
+
+
+具体方案：
+
+1.DNS 预解析
+
+<img src="{{ '/img/post/15111414.png' | prepend: site.baseurl }}" alt=""> 
+
+2.域名收敛
+
+<img src="{{ '/img/post/15111415.png' | prepend: site.baseurl }}" alt=""> 
+
+3.链路复用
+
+<img src="{{ '/img/post/15111416.png' | prepend: site.baseurl }}" alt=""> 
+
+
+
+
+

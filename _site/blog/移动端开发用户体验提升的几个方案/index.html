@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" lang="zh-CN">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" lang="zh-CN">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" lang="zh-CN">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html lang="zh-CN" class="js">
+<!--<![endif]-->
+  
+
+	
+
+	
+<head>
+	<meta charset="utf-8">
+	<title>移动端开发用户体验提升的几个方案 | Cyan的技术笔记</title>
+	<meta name="description" content="  前端 , 性能优化, H5在移动端的运用中由于种种原因，用户体验一直无法媲美原生开发的使用体验，最近对AC前端大会上腾讯前端组的分享做一个总结。">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-Frame-Options" content="sameorigin">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel='stylesheet' id='divi-style-css'  href="/css/style.css" type='text/css' media='all' />
+	<link rel="stylesheet" href="/css/post.style.css">
+
+	<script type='text/javascript' src="/js/jquery.js"></script>
+	<script type='text/javascript' src="/js/soundmanager2-nodebug-jsmin.js"></script>
+
+	<!--Favicon-->
+	<link rel="icon" href="favicon.ico" type="image/x-icon"/>
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+	<!-- Canonical -->
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E6%8F%90%E5%8D%87%E7%9A%84%E5%87%A0%E4%B8%AA%E6%96%B9%E6%A1%88/">
+
+	<!-- RSS -->
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+
+	<!-- Font Awesome -->
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<!-- Google Fonts -->
+	
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet" type="text/css">
+	
+
+	<!-- KaTeX -->
+	
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"></script>
+	
+
+	<!-- Google Analytics -->
+	
+
+	<script type="text/javascript">
+    var host = "cyan24.com";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+        window.location.protocol = "https";
+    </script>
+    
+</head>
+
+	<body class="home blog et_pb_button_helper_class home-posts et_fixed_nav et_show_nav et_cover_background et_pb_gutter windows et_pb_gutters3 et_primary_nav_dropdown_animation_fade et_secondary_nav_dropdown_animation_fade et_pb_footer_columns4 et_header_style_left et_right_sidebar chrome">
+		<div id="page-container">
+    		<header id="main-header" data-height-onload="66">
+	<div class="container clearfix et_menu_container">
+		<div class="logo_container">
+			<span class="logo_helper"></span>
+			<a href="/">
+				<!--img src="http://blog.ibireme.com/wp-content/uploads/2015/05/logo1.png" alt="Garan no dou" id="logo" data-height-percentage="54" /-->
+				Cyan的技术笔记
+			</a>
+		</div>
+		<div id="et-top-navigation" data-height="66" data-fixed-height="40">
+			<nav id="top-menu-nav">
+				<ul id="top-menu" class="nav">
+					<li>
+						<a class="page-link" href="/">
+							首页
+						</a>
+					</li>
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/About/">
+							关于我
+						</a>
+					</li>
+					
+					
+					
+					<li>
+						<a class="page-link" href="/Archives/">
+							所有文章
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/front/">
+							前端开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					<li>
+						<a class="page-link" href="/server/">
+							后端开发
+						</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<!-- Social icons from Font Awesome, if enabled -->
+					<li>
+						<a class="page-link" href="">Find Me</a>
+						<ul class="children">
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://github.com/cyan24" title="Follow on GitHub">
+		<i class="fa fa-fw fa-github"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li>
+	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
+		<i class="fa fa-fw fa-twitter"></i>
+	</a>
+</li>
+
+
+
+
+
+
+
+<li>
+	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+		<i class="fa fa-fw fa-envelope"></i>
+	</a>
+</li>
+</ul>
+					</li>
+					
+				</ul>
+			</nav>
+
+			<div id="et_mobile_nav_menu">
+				<div class="mobile_nav closed">
+					<span class="select_page"></span>
+					<span class="mobile_menu_bar"></span>
+				</div>
+			</div>				
+		</div> <!-- #et-top-navigation -->
+	</div> <!-- .container -->
+	<div class="et_search_outer">
+		<div class="container et_search_form_container">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
+			<span class="et_close_search_field"></span>
+		</div>
+	</div>
+</header> <!-- #main-header -->
+
+    		<div id="et-main-area">
+      			
+
+	
+
+	
+
+<article >
+  <header style="background-image: url('/')">
+
+<!--article  >
+  <div style="background-image: url('/')"/>
+  <header style="background-image: url('https://source.unsplash.com/category/nature/2600x500')"-->
+    <h1 class="title">移动端开发用户体验提升的几个方案</h1>
+    <p id="subtitletrans" class="subtitlecontainer">
+    <a class="subtitle">2015年11月14日</a>
+     | <a class="subtitle" href="/About/">cyan</a>
+	 | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
+    </p>
+  </header>
+  <section class="post-content">
+  <p>H5在移动端的运用中由于种种原因，用户体验一直无法媲美原生开发的使用体验，最近对AC前端大会上腾讯前端组的分享做一个总结。</p>
+
+<p>下面有几点方式可以尽可能的使用户体验接近原生的体验。</p>
+
+<p><strong>使用点击态</strong></p>
+
+<p>点击态能够给用户明确的点击反馈，提升用户体验。</p>
+
+<ul>
+<li>方案1:使用active伪类，其缺点是滚动的时候也会触发样式。</li>
+</ul>
+
+<p>我们一般使用以下方案：</p>
+
+<ul>
+<li>方案2:</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$el</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;tap&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+   <span class="kd">var</span> <span class="nx">$target</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
+   <span class="nx">$target</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+
+   <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">$target</span><span class="p">.</span><span class="nx">removeClass</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">);</span>
+   <span class="p">},</span><span class="mi">150</span><span class="p">)</span>
+
+<span class="p">})</span>
+</code></pre></div>
+<p><strong>关于页面滚动</strong></p>
+
+<p>先看一个页面滚动的定义：
+页面滚动可以分为局部滚动和全局滚动。全局滚动是指滚动条在body节点或者更顶层。局部滚动是指滚动条在body下的某个dom节点上。</p>
+
+<p>在ios上 默认支持全局滚动，对于局部滚动，默认没有滚动条，且滑动起来干涩。</p>
+
+<p>在ios局部滚动用以下代码实现弹性滚动效果。</p>
+
+<p><img src="/img/post/1511141.png" alt=""> </p>
+
+<p>建议：将属性挂在body上，可以避免很多奇怪的bug.</p>
+
+<p>在安卓方面，因为定制版本比较多，表现各异。默认没有弹性滚动效果。
+以下效果默认浏览器不支持，安卓版的chrome下支持。
+<img src="/img/post/1511142.png" alt=""> </p>
+
+<p>在ios下如使用局部滚动，解决方案是：
+使用scrollFix:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">if</span><span class="p">(</span><span class="nx">startTopScroll</span> <span class="o">&lt;=</span><span class="mi">0</span><span class="p">)</span>
+   <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">startTopScroll</span> <span class="o">+</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">&gt;=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollHeight</span><span class="p">)</span>
+   <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">=</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">scrollHeight</span> <span class="o">-</span> <span class="nx">elem</span><span class="p">.</span><span class="nx">offsetHeight</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">;</span>
+</code></pre></div>
+<p><img src="/img/post/1511147.png" alt=""> </p>
+
+<p><strong>局部滚动长列表的优化</strong></p>
+
+<p>方案1:使用div局部滚动
+<img src="/img/post/15111418.png" alt=""> </p>
+
+<p>方案2:div原生滚动连动内容层
+折中的方案：分离滚动层与内容层，滚动的加速减速仍由滚动层div局部滚动控制，通过监听div的scroll事件，联动内容层：
+<img src="/img/post/15111419.png" alt=""> </p>
+
+<p>这种方案在小米手机上出现了严重的问题，滚动时，内容直接从起始位置瞬间跳到了终点位置。虽然div 的scroll事件可以触发，但是scroll过程中产生的样式变更，却要等到滚动结束后才能渲染。
+资料中对旧版ios的描述，与小米手机相似：</p>
+
+<p><img src="/img/post/15111420.png" alt=""> 
+<img src="/img/post/15111421.png" alt=""> </p>
+
+<hr>
+
+<p><strong>关于键盘定制</strong></p>
+
+<p>在英文输入法下，输入首字母如果要取消自动首字母大写，可以使用autocapitalize = &#39;off&#39; 这个属性：</p>
+
+<p><img src="/img/post/1511144.png" alt=""> </p>
+
+<p>关于键盘定制的行为和样式，在ios下基本支持，在安卓下不同系统不同定制版本支持情况不同。</p>
+
+<p><strong>移动web首屏时间概念</strong></p>
+
+<p>移动web首屏优化实践：</p>
+
+<p><img src="/img/post/1511148.png" alt=""> </p>
+
+<p>通过网络阶段后在服务端渲染时，以webp为例，过程如下：</p>
+
+<p><img src="/img/post/15111410.png" alt=""> </p>
+
+<p>从可优化幅度到角度看，网络层面的优化比渲染方面的优化带来的红利更多。</p>
+
+<p><img src="/img/post/1511149.png" alt=""> </p>
+
+<p><img src="/img/post/15111411.png" alt=""> </p>
+
+<p>这里我们要关注一个概念，也就是RTT,RTT是指一个回路时间。</p>
+
+<p><img src="/img/post/15111412.png" alt=""> </p>
+
+<p><img src="/img/post/15111413.png" alt=""> </p>
+
+<p><strong>网络耗时的测定</strong></p>
+
+<ul>
+<li><p>html5提供了网络测速方法；</p></li>
+<li><p>Navigation Timing:获得主页相关性能数据；</p></li>
+<li><p>Resource Timing:获得主页相关资源的性能数据（iframe,image,script,audio,vedio...）;</p></li>
+</ul>
+
+<p>我们的最终目标是：</p>
+
+<ul>
+<li><p>减小请求数；</p></li>
+<li><p>减小传输提及；</p></li>
+<li><p>尽可能得利用缓存；</p></li>
+<li><p>缩短关键路径；</p></li>
+<li><p>合理安排请求顺序。</p></li>
+</ul>
+
+<p>具体方案：</p>
+
+<p>1.DNS 预解析</p>
+
+<p><img src="/img/post/15111414.png" alt=""> </p>
+
+<p>2.域名收敛</p>
+
+<p><img src="/img/post/15111415.png" alt=""> </p>
+
+<p>3.链路复用</p>
+
+<p><img src="/img/post/15111416.png" alt=""> </p>
+
+  </section>
+  
+</article>
+
+<!-- Post navigation -->
+
+
+<!-- Disqus -->
+
+
+    		</div> <!-- #et-main-area -->
+		</div> <!-- #page-container -->
+		
+<script src="/js/katex_init.js"></script>
+
+
+
+<footer id="page-footer-trans" class="page-footer">
+	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+</p>-->
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+ All Rights Reserved. 
+	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
+</footer>
+
+
+    
+<!-- WP Audio player plugin v1.9.3 - https://www.tipsandtricks-hq.com/wordpress-audio-music-player-plugin-4556/ -->
+    <script type="text/javascript">
+        soundManager.useFlashBlock = true; // optional - if used, required flashblock.css
+        soundManager.url = '/plugins/soundmanager2.swf';
+        function play_mp3(flg, ids, mp3url, volume, loops)
+        {
+            //Check the file URL parameter value
+            var pieces = mp3url.split("|");
+            if (pieces.length > 1) {//We have got an .ogg file too
+                mp3file = pieces[0];
+                oggfile = pieces[1];
+                //set the file URL to be an array with the mp3 and ogg file
+                mp3url = new Array(mp3file, oggfile);
+            }
+
+            soundManager.createSound({
+                id: 'btnplay_' + ids,
+                volume: volume,
+                url: mp3url
+            });
+
+            if (flg == 'play') {
+                    soundManager.play('btnplay_' + ids, {
+                    onfinish: function() {
+                        if (loops == 'true') {
+                            loopSound('btnplay_' + ids);
+                        }
+                        else {
+                            document.getElementById('btnplay_' + ids).style.display = 'inline';
+                            document.getElementById('btnstop_' + ids).style.display = 'none';
+                        }
+                    }
+                });
+            }
+            else if (flg == 'stop') {
+    //soundManager.stop('btnplay_'+ids);
+                soundManager.pause('btnplay_' + ids);
+            }
+        }
+        function show_hide(flag, ids)
+        {
+            if (flag == 'play') {
+                document.getElementById('btnplay_' + ids).style.display = 'none';
+                document.getElementById('btnstop_' + ids).style.display = 'inline';
+            }
+            else if (flag == 'stop') {
+                document.getElementById('btnplay_' + ids).style.display = 'inline';
+                document.getElementById('btnstop_' + ids).style.display = 'none';
+            }
+        }
+        function loopSound(soundID)
+        {
+            window.setTimeout(function() {
+                soundManager.play(soundID, {onfinish: function() {
+                        loopSound(soundID);
+                    }});
+            }, 1);
+        }
+        function stop_all_tracks()
+        {
+            soundManager.stopAll();
+            var inputs = document.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].id.indexOf("btnplay_") == 0) {
+                    inputs[i].style.display = 'inline';//Toggle the play button
+                }
+                if (inputs[i].id.indexOf("btnstop_") == 0) {
+                    inputs[i].style.display = 'none';//Hide the stop button
+                }
+            }
+        }
+    </script>
+    <script type='text/javascript' src="/js/frontend-builder-global-functions.js"></script>
+<script type='text/javascript' src="/js/custom.js"></script>
+<script type='text/javascript' src="/js/jquery.fitvids.js"></script>
+<script type='text/javascript' src="/js/waypoints.min.js"></script>
+<script type='text/javascript' src="/js/jquery.magnific-popup.js"></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var et_custom = {"ajaxurl":"http:\/\/blog.ibireme.com\/wp-admin\/admin-ajax.php","images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/images","builder_images_uri":"http:\/\/blog.ibireme.com\/wp-content\/themes\/Divi\/includes\/builder\/images","et_load_nonce":"ae39988568","subscription_failed":"Please, check the fields below to make sure you entered the correct information.","fill":"Fill","field":"field","invalid":"Invalid email","captcha":"Captcha","prev":"Prev","previous":"\u4e0a\u4e00\u9875","next":"\u4e0b\u4e00\u9875","is_builder_plugin_used":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src="/js/frontend-builder-scripts.js"></script>
+  </body>
+</html>

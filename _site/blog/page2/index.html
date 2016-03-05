@@ -152,6 +152,8 @@
 					
 					
 					
+					
+					
 					<!-- Social icons from Font Awesome, if enabled -->
 					<li>
 						<a class="page-link" href="">Find Me</a>
@@ -247,6 +249,36 @@
 
 	<div class="posts">
 	
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/">
+		        .jpg、.png转换成.webp
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2015年07月18日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>一、什么是Webp WebP是Google新推出的影像技术，它可让网页图档有效进行压缩，同时在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，进而让整体网页下载速度加快。为了改善JPEG的图片压缩技术，他们使用了一种基于VP8编码(已在2010五月开源)的图片压缩器，利用预测编码技术，同时还采用了一种基于RIFF的非常轻量级的容器。这种容器只会给每张图片增加20字节，但能让图片作者保存他们想要存储的元数据。 与JPEG相同，WebP是一种有损压缩利用预测编码技术。</p> <p>二、Webp文件制作准备</p> <p>Google开发并放出了不同操作系统的WebP文件解码器(libvpx)和命令行工具(webpconv)。 下载地址： <a href="http://code.google.com/intl/zh-CN/speed/webp/download.html">http://code.google.com/intl/zh-CN/speed/webp/download.html</a></p> <p>我下载了用于Windows的WebpCodecSetup.exe 和libwebp-0.1.3-windows-x86.zip</p> <ol> <li>先安装WebpCodecSetup.exe，</li> <li>解压libwebp-0.1.3-windows-x86.zip（无需安装）</li> </ol> <p>三、Jpg或png转换到Webp方法</p> <p>进入libwebp-0.1.3-windows-x86.zip的解压目录，可以看到cwebp.exe和dwebp.exe，其中cwebp.exe是将jpg或png文件转换成webp文件，dwebp.exe是将webp文件转换成png、pp或pgm。这两个程序只能在dos命令行环境下运行</p> <ol> <li><p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p></li> <li><p>输入路径进入解压文件夹，以下是我安装的路径</p></li> </ol> <p>C:\Documents andSettings\Administrator&gt;e: E:&gt;cd libwebp-0.1.3-windows-x86 E:\libwebp-0.1.3-windows-x86&gt;</p> <ol> <li>输入命令，将jpg或png转换成webp</li> </ol> <p>命令行结构：cwebp [-preset &lt;...&gt;] [options] in<em>file [-o out</em>file]</p> <p>E:\libwebp-0.1.3-windows-x86&gt; cwebp -qquality e:\photo\png1.png -o e:\webp1.webp （回车） （e:\photo\png1.png是原文件路径，e:\webp1.webp是目标文件路径）</p> <p>Saving file ‘ webp1.webp’</p> <p>27672 bytes Y-U-V-All-PSNR 30.30 32.22 32.78 30.91 dB</p> <p>block count: intra4: 1372</p> <p>intra16: 10378 (-&gt; 88.32%)</p> <p>skipped block: 6204 (52.80%)</p> <p>bytes used: header: 131 (0.5%)</p> <p>mode-partition: 13138 (47.5%)</p> <p>Residuals bytes |segment 1|segment 2|segment 3|segment4| total</p> <p>intra4-coeffs: | 3918 | 911 | 268 | 65 | 5162 (18.7%)</p> <p>intra16-coeffs: | 3086 | 1964 | 881 | 240 | 6171 (22.3%)</p> <p>chroma coeffs: | 1627 | 902 | 408 | 105 | 3042 (11.0%)</p> <p>macroblocks: | 27%| 33%| 26%| 12%| 11750</p> <p>quantizer: | 127 | 127 | 127 | 127 |</p> <p>filter level: | 19 | 14| 11| 9 |</p> <p>——————————————————————————————————————</p> <p>segments total: | 8631 | 3777 | 1557 | 410 | 14375 (51.9%)</p> <ol> <li><p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件</p></li> <li><p>cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。 E:\libwebp-0.1.3-windows-x86&gt;cwebp.exe –H（回车） options:</p></li> </ol> <p>-h / -help ………… short help</p> <p>-H / -longhelp …….. long help</p> <p>-q …………. qualityfactor (0:small..100:big)</p> <p>-preset ……. Presetsetting, one of:</p> <p>default, photo, picture,</p> <p>drawing, icon, text</p> <p>-preset must come first, as it overwritesother parameters.</p> <p>-m …………… compressionmethod (0=fast, 6=slowest)</p> <p>-segments …….. number ofsegments to use (1..4)</p> <p>-s ……… Inputsize (width x height) for YUV</p> <p>-sns …………. SpatialNoise Shaping (0:off, 100:max)</p> <p>-f …………… filterstrength (0=off..100)</p> <p>-sharpness ……. filtersharpness (0:most .. 7:least sharp)</p> <p>-strong ……………. use strong filterinstead of simple.</p> <p>-partition_limit . limitquality to fit the 512k limit on the first partition (0=no degradation …100=full)</p> <p>-pass ………… analysispass number (1..10)</p> <p>-partitions …… number ofpartitions to use (0..3)</p> <p>-crop .. crop picture with the given rectangle</p> <p>-resize …….. resizepicture (after any cropping)</p> <p>-map …………. print map ofextra info.</p> <p>-d ………. dump thecompressed output (PGM...
+		    <p>
+		    <a class="text" href="/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
 		
 	
 
@@ -400,40 +432,10 @@ iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不�
 		  </div>
 		</div>
 		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E4%B9%9D%E7%A7%8D%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">
-		        九种浏览器端缓存机制
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年04月12日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>浏览器缓存（Browser Caching）是浏览器端保存数据用于快速读取或避免重复资源请求的优化机制，有效的缓存使用可以避免重复的网络请求和浏览器快速地读取本地数据，整体上加速网页展示给用户。浏览器端缓存的机制种类较多，总体归纳为九种，这里详细分析下这九种缓存机制的原理和使用场景。打开浏览器的调试模式-&gt;resources左侧就有浏览器的8种缓存机制:</p> <p><img src="/img/post/1405121.jpg" alt=""> </p> <p>一、http缓存</p> <p>  http缓存是基于HTTP协议的浏览器文件级缓存机制。即针对文件的重复请求情况下，浏览器可以根据协议头判断从服务器端请求文件还是从本地读取文件，chrome控制台下的Frames即展示的是浏览器的http文件级缓存。以下是浏览器缓存的整个机制流程。主要是针对重复的http请求，在有缓存的情况下判断过程主要分3步：</p> <ul> <li>判断expires，如果未过期，直接读取http缓存文件，不发http请求，否则进入下一步</li> <li>判断是否含有etag，有则带上if-none-match发送请求，未修改返回304，修改返回200，否则进入下一步</li> <li>判断是否含有last-modified，有则带上if-modified-since发送请求，无效返回200，有效返回304，否则直接向服务器请求</li> </ul> <p><img src="/img/post/1405122.jpg" alt=""> </p> <p>如果通过etag和last-modified判断，即使返回304有至少有一次http请求，只不过返回的是304的返回内容，而不是文件内容。所以合理设计实现expires参数可以减少较多的浏览器请求。</p> <p>二、websql</p> <p>   websql这种方式只有较新的chrome浏览器支持，并以一个独立规范形式出现，主要有以下特点</p> <ul> <li>Web Sql 数据库API 实际上不是HTML5规范的组成部分；</li> <li>在HTML5之前就已经存在了，是单独的规范；</li> <li>它是将数据以数据库的形式存储在客户端，根据需求去读取；</li> <li>跟Storage的区别是： Storage和Cookie都是以键值对的形式存在的；</li> <li>Web Sql 更方便于检索，允许sql语句查询；</li> <li>让浏览器实现小型数据库存储功能；</li> <li>这个数据库是集成在浏览器里面的，目前主流浏览器基本都已支持；</li> </ul> <p>  websql API主要包含三个核心方法：</p> <ul> <li>openDatabase : 这个方法使用现有数据库或创建新数据库创建数据库对象。</li> <li>transaction : 这个方法允许我们根据情况控制事务提交或回滚。</li> <li>*executeSql : 这个方法用于执行真实的SQL查询。    openDatabase方法可以打开已经存在的数据库，不存在则创建</li> </ul> <div class="highlight"><pre><code class="language-js" data-lang="js"> <span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openDatabase</span><span class="p">(</span><span class="s1">&#39;mydatabase&#39;</span><span class="p">,</span> <span class="s1">&#39;2.0&#39;</span><span class="p">,</span> <span class="s1">&#39;my db&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">);</span> </code></pre></div> <p>openDatabasek中五个参数分别为：数据库名、版本号、描述、数据库大小、创建回调。创建回调没有也可以创建数据库。</p> <p>database.transaction() 函数用来查询，executeSql()用于执行sql语句</p> <p>  例如在mydatabase数据库中创建表t1：</p> <div class="highlight"><pre><code class="language-js" data-lang="js"> <span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openDatabase</span><span class="p">(</span><span class="s1">&#39; mydatabase &#39;</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">,</span> <span class="s1">&#39;Test DB&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">);</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">tx</span><span class="p">)</span> <span class="p">{</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">executeSql</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE IF NOT EXISTS t1 (id unique, log)&#39;</span><span class="p">);</span> <span class="p">});</span> </code></pre></div> <p>  插入操作</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openDatabase</span><span class="p">(</span><span class="s1">&#39;mydatabase&#39;</span><span class="p">,</span> <span class="s1">&#39;2.0&#39;</span><span class="p">,</span> <span class="s1">&#39;my db&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">);</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">tx</span><span class="p">)</span> <span class="p">{</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">executeSql</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE IF NOT EXISTS t1 (id unique, log)&#39;</span><span class="p">);</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">executeSql</span><span class="p">(</span><span class="s1">&#39;INSERT INTO t1 (id, log) VALUES (1, &quot;foobar&quot;)&#39;</span><span class="p">);</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">executeSql</span><span class="p">(</span><span class="s1">&#39;INSERT INTO t1 (id, log) VALUES (2, &quot;logmsg&quot;)&#39;</span><span class="p">);</span> <span class="p">});</span> </code></pre></div> <p>  在插入新记录时，我们还可以传递动态值，如：</p> <div class="highlight"><pre><code class="language-js" data-lang="js"> <span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">openDatabase</span><span class="p">(</span><span class="s1">&#39; mydatabase &#39;</span><span class="p">,</span> <span class="s1">&#39;2.0&#39;</span><span class="p">,</span> <span class="s1">&#39;my db&#39;</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">);</span> <span class="nx">db</span><span class="p">.</span><span class="nx">transaction</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">tx</span><span class="p">)</span> <span class="p">{</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">executeSql</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE IF NOT EXISTS t1 (id unique, log)&#39;</span><span class="p">);</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">executeSql</span><span...
-		    <p>
-		    <a class="text" href="/blog/%E4%B9%9D%E7%A7%8D%E6%B5%8F%E8%A7%88%E5%99%A8%E7%AB%AF%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
 	</div>
 
 	<div class="wp-pagenavi">
-	    <span class='pages'>第 2 页，共 8 页</span>
+	    <span class='pages'>第 2 页，共 9 页</span>
 
 	    
 	    	<a class="previouspostslink" rel="prev" href="/" > « </a>
@@ -470,6 +472,10 @@ iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不�
 	    
 	        
 	          <a class="page larger" href="/blog/page8">8</a>
+	        
+	    
+	        
+	          <a class="page larger" href="/blog/page9">9</a>
 	        
 	    
 

@@ -152,6 +152,8 @@
 					
 					
 					
+					
+					
 					<!-- Social icons from Font Awesome, if enabled -->
 					<li>
 						<a class="page-link" href="">Find Me</a>
@@ -247,6 +249,100 @@
 
 	<div class="posts">
 	
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
+		        不为人熟知的Meta http-equiv属性
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年01月10日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
+meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
+
+<p>1、Expires(期限) 
+说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>2、Pragma(cache模式) 
+说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：这样设定，访问者将无法脱机浏览。 </p>
+
+<p>3、Refresh(刷新) 
+说明：自动刷新并指向新页面。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
+
+<p>4、Set-Cookie(cookie设定) 
+说明：如果网页过期，那么存盘的cookie将被删除。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
+
+<p>5、Window-target(显示窗口的设定) 
+说明：强制页面在当前窗口以独立页面显示。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>注意：用来防止别人在框架里调用自己的页面。 </p>
+
+<p>6、content-Type(显示字符集的设定) 
+说明：设定页面使用的字符集。 
+用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>7、Pics-label(网页等级评定) </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
+
+<p>8、Page<em>Enter、Page</em>Exit 
+设定进入页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
+</code></pre></div>
+<p>设定离开页面时的特殊效果</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
+Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
+0    盒状收缩    1    盒状放射<br>
+2    圆形收缩    3    圆形放射<br>
+4    由下往上    5    由上往下<br>
+6    从左至右    7    从右至左<br>
+8    垂直百叶窗    9    水平百叶窗<br>
+10    水平格状百叶窗    11垂直格状百叶窗<br>
+12    随意溶解    13从左右两端向中间展开<br>
+14从中间向左右两端展开    15从上下两端向中间展开<br>
+16从中间向上下两端展开    17    从右上角向左下角展开<br>
+18    从右下角向左上角展开    19    从左上角向右下角展开<br>
+20    从左下角向右上角展开    21    水平线状展开<br>
+22    垂直线状展开    23    随机产生一种过渡方式  </p>
+
+		  
+		  </div>
+		</div>
+		
 		
 	
 
@@ -389,46 +485,10 @@
 		  </div>
 		</div>
 		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8BCSS3-webkit-font-smoothing-%E5%B1%9E%E6%80%A7/">
-		        高性能网站建设指南读书笔记之CSS3 -webkit-font-smoothing 属性
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年11月7日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/css/">css</a>, <a href="/tags/性能优化/">性能优化</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>CSS3里面加入了一个“-webkit-font-smoothing”属性。这个属性可以使页面上的字体抗锯齿,使用后字体看起来会更清晰舒服。加上之后就顿时感觉页面小清晰了。</p>
-
-<p>在测试中将 -webkit-font-smoothing设置为none，非常模糊。</p>
-
-<p>将-webkit-font-smoothing设置为antialiased，变得非常平滑，效果非常不错。</p>
-
-<p>其默认可以支持6个值（如图），暂时我能看到效果的就是三个：
-none | subpixel-antialiased | antialiased
-其他的三个，我设置了，好像没什么变化。大家可以自己在控制台调试看看。</p>
-
-<p><img src="/img/post/1312193.jpg" alt=""> </p>
-
-		  
-		  </div>
-		</div>
-		
 	</div>
 
 	<div class="wp-pagenavi">
-	    <span class='pages'>第 6 页，共 8 页</span>
+	    <span class='pages'>第 6 页，共 9 页</span>
 
 	    
 	    	<a class="previouspostslink" rel="prev" href="/blog/page5" > « </a>
@@ -465,6 +525,10 @@ none | subpixel-antialiased | antialiased
 	    
 	        
 	          <a class="page larger" href="/blog/page8">8</a>
+	        
+	    
+	        
+	          <a class="page larger" href="/blog/page9">9</a>
 	        
 	    
 

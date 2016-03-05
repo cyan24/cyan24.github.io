@@ -5,14 +5,14 @@
     <atom:link href="http://cyan24.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://cyan24.github.io/</link>
     <description>used by search engines</description>
-    <pubDate>Fri, 04 Mar 2016 22:40:48 +0800</pubDate>
+    <pubDate>Sat, 05 Mar 2016 16:03:18 +0800</pubDate>
     
       <item>
         <title>D2前端论坛分享——阿里篇</title>
         <link>http://cyan24.github.io/blog/D2%E5%89%8D%E7%AB%AF%E8%AE%BA%E5%9D%9B%E5%88%86%E4%BA%AB%E4%B9%8B%E9%98%BF%E9%87%8C%E7%AF%87/</link>
         <guid isPermaLink="true">http://cyan24.github.io/blog/D2%E5%89%8D%E7%AB%AF%E8%AE%BA%E5%9D%9B%E5%88%86%E4%BA%AB%E4%B9%8B%E9%98%BF%E9%87%8C%E7%AF%87/</guid>
         <description>&lt;p&gt;前段时间回顾了一下d2论坛上阿里的分享环节，由sima分享的关于天猫的node改造历程。
-首先看对事改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：&lt;/p&gt;
+首先看对比改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/img/post/1511031.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
@@ -136,6 +136,146 @@
 &lt;p&gt;给出的建议是消灭单点，做异地双机房部属，oss双节点主备容灾，数据模板磁盘文件容灾。也做了预案自动化，cdn会在机房间不停得做回源健康检查，如果有异常能在10s内自动切换到健康的机房。oss健康检查，异常自动切换主备。系统load过高，自动切换静态备份。渲染异常自动切换静态备份。&lt;/p&gt;
 </description>
         <pubDate>Sun, 10 Jan 2016 00:00:00 +0800</pubDate>
+      </item>
+    
+      <item>
+        <title>移动端开发用户体验提升的几个方案</title>
+        <link>http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E6%8F%90%E5%8D%87%E7%9A%84%E5%87%A0%E4%B8%AA%E6%96%B9%E6%A1%88/</link>
+        <guid isPermaLink="true">http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BC%80%E5%8F%91%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E6%8F%90%E5%8D%87%E7%9A%84%E5%87%A0%E4%B8%AA%E6%96%B9%E6%A1%88/</guid>
+        <description>&lt;p&gt;H5在移动端的运用中由于种种原因，用户体验一直无法媲美原生开发的使用体验，最近对AC前端大会上腾讯前端组的分享做一个总结。&lt;/p&gt;
+
+&lt;p&gt;下面有几点方式可以尽可能的使用户体验接近原生的体验。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;使用点击态&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;点击态能够给用户明确的点击反馈，提升用户体验。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;方案1:使用active伪类，其缺点是滚动的时候也会触发样式。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们一般使用以下方案：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;方案2:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;$el&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;tap&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+   &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$target&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;$target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;active&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+   &lt;span class=&quot;nx&quot;&gt;setTimeout&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+      &lt;span class=&quot;nx&quot;&gt;$target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;removeClass&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;active&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;关于页面滚动&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;先看一个页面滚动的定义：
+页面滚动可以分为局部滚动和全局滚动。全局滚动是指滚动条在body节点或者更顶层。局部滚动是指滚动条在body下的某个dom节点上。&lt;/p&gt;
+
+&lt;p&gt;在ios上 默认支持全局滚动，对于局部滚动，默认没有滚动条，且滑动起来干涩。&lt;/p&gt;
+
+&lt;p&gt;在ios局部滚动用以下代码实现弹性滚动效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/1511141.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;建议：将属性挂在body上，可以避免很多奇怪的bug.&lt;/p&gt;
+
+&lt;p&gt;在安卓方面，因为定制版本比较多，表现各异。默认没有弹性滚动效果。
+以下效果默认浏览器不支持，安卓版的chrome下支持。
+&lt;img src=&quot;/img/post/1511142.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;在ios下如使用局部滚动，解决方案是：
+使用scrollFix:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;startTopScroll&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scrollTop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;startTopScroll&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scrollHeight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scrollTop&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;scrollHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;elem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;offsetHeight&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/img/post/1511147.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;局部滚动长列表的优化&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;方案1:使用div局部滚动
+&lt;img src=&quot;/img/post/15111418.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;方案2:div原生滚动连动内容层
+折中的方案：分离滚动层与内容层，滚动的加速减速仍由滚动层div局部滚动控制，通过监听div的scroll事件，联动内容层：
+&lt;img src=&quot;/img/post/15111419.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;这种方案在小米手机上出现了严重的问题，滚动时，内容直接从起始位置瞬间跳到了终点位置。虽然div 的scroll事件可以触发，但是scroll过程中产生的样式变更，却要等到滚动结束后才能渲染。
+资料中对旧版ios的描述，与小米手机相似：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111420.png&quot; alt=&quot;&quot;&gt; 
+&lt;img src=&quot;/img/post/15111421.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;关于键盘定制&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;在英文输入法下，输入首字母如果要取消自动首字母大写，可以使用autocapitalize = &amp;#39;off&amp;#39; 这个属性：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/1511144.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;关于键盘定制的行为和样式，在ios下基本支持，在安卓下不同系统不同定制版本支持情况不同。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;移动web首屏时间概念&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;移动web首屏优化实践：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/1511148.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;通过网络阶段后在服务端渲染时，以webp为例，过程如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111410.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;从可优化幅度到角度看，网络层面的优化比渲染方面的优化带来的红利更多。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/1511149.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111411.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;这里我们要关注一个概念，也就是RTT,RTT是指一个回路时间。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111412.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111413.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;网络耗时的测定&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;html5提供了网络测速方法；&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Navigation Timing:获得主页相关性能数据；&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Resource Timing:获得主页相关资源的性能数据（iframe,image,script,audio,vedio...）;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们的最终目标是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;减小请求数；&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;减小传输提及；&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;尽可能得利用缓存；&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;缩短关键路径；&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;合理安排请求顺序。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;具体方案：&lt;/p&gt;
+
+&lt;p&gt;1.DNS 预解析&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111414.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;2.域名收敛&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111415.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;3.链路复用&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/img/post/15111416.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+</description>
+        <pubDate>Sat, 14 Nov 2015 00:00:00 +0800</pubDate>
       </item>
     
       <item>
@@ -1944,44 +2084,6 @@ current is div2&lt;/p&gt;
 &lt;p&gt;转载于：http://www.cnblogs.com/ilexcai/archive/2011/09/05/2168094.html&lt;/p&gt;
 </description>
         <pubDate>Sat, 15 Nov 2014 00:00:00 +0800</pubDate>
-      </item>
-    
-      <item>
-        <title>解决在Mac OS下开发html5+JS Chrome跨域和安全访问问题</title>
-        <link>http://cyan24.github.io/blog/%E8%A7%A3%E5%86%B3-%E5%9C%A8Mac-OS%E4%B8%8B%E5%BC%80%E5%8F%91html5+JS-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%B7%A8%E5%9F%9F-%E5%92%8C-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/</link>
-        <guid isPermaLink="true">http://cyan24.github.io/blog/%E8%A7%A3%E5%86%B3-%E5%9C%A8Mac-OS%E4%B8%8B%E5%BC%80%E5%8F%91html5+JS-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%B7%A8%E5%9F%9F-%E5%92%8C-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/</guid>
-        <description>&lt;p&gt;从去年到今年一直从事 Hybrid开发模式，发现在mac os下开发html5 ＋js代码会遇到好多问题，各个浏览器兼容性 做的最好的就是chrome，chrome也是最好的调试工具。&lt;/p&gt;
-
-&lt;p&gt;而且我们在一个团队的开发中经常遇到 AJAX  请求跨域的问题，跨域是让人非常头疼的问题，或者遇到  Https  证书 没有授权的问题。这些问题在goolge 的 chrome 浏览器下都可以解决的， 方法是：&lt;/p&gt;
-
-&lt;p&gt;用命令行打开 Google Chrome 就好了&lt;/p&gt;
-
-&lt;p&gt;Mac os 下面用&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;err&quot;&gt;/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  &lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;or&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;open&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Google Chrome&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;args&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;disable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;security&lt;/span&gt;  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;然后就可以看到下面的效果了：
-&lt;img src=&quot;/img/131012.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;Ubuntu Linux:&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;chromium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;browser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;disable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;security&lt;/span&gt;  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;windows&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;nx&quot;&gt;chrome&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exe&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;disable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;web&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;security&lt;/span&gt;  
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;用命令行打开 Apple Safafi 方法是：&lt;/p&gt;
-
-&lt;p&gt;Mac OS 下：&lt;/p&gt;
-
-&lt;p&gt;open -a &amp;#39;/Applications/Safari.app&amp;#39; --args --disable-web-security  &lt;/p&gt;
-
-&lt;p&gt;Windows：&lt;/p&gt;
-
-&lt;p&gt;C:\Program Files\Safari\Safari.exe --disable-web-security  &lt;/p&gt;
-</description>
-        <pubDate>Sun, 12 Oct 2014 00:00:00 +0800</pubDate>
       </item>
     
   </channel>
