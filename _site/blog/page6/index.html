@@ -198,12 +198,6 @@
 
 
 
-<li>
-	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
-		<i class="fa fa-fw fa-twitter"></i>
-	</a>
-</li>
-
 
 
 
@@ -211,7 +205,7 @@
 
 
 <li>
-	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+	<a href="mailto:chinazjcy@aliyun.com" title="Email">
 		<i class="fa fa-fw fa-envelope"></i>
 	</a>
 </li>
@@ -249,6 +243,155 @@
 
 	<div class="posts">
 	
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/jQuery%E4%B8%AD.bind()-.live()%E5%92%8C.delegate()%E4%B9%8B%E9%97%B4%E5%8C%BA%E5%88%AB/">
+		        jQuery中.bind()、.live()和.delegate()之间区别
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年02月2日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Jquery/">Jquery</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>要理清这三者的区别，我们先从实现到原理入手来看一下，首先看DOM树：</p>
+
+<p>我们来可视化一个HMTL文档的DOM树是很有帮助的。一个简单的HTML页面看起来就像是这个样子：</p>
+
+<p><img src="/img/post/1402021.jpg" alt=""> </p>
+
+<p>事件冒泡(又称事件传播)
+当我们点击一个链接时，其触发了链接元素的单击事件，该事件则引发任何我们已绑定到该元素的单击事件上的函数的执行。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>因此一个单击操作会触发alert函数的执行。</p>
+
+<p><img src="/img/post/1402022.jpg" alt=""> </p>
+
+<p>click事件接着会向树的根方向传播，广播到父元素，然后接着是每个祖先元素，只要是它的某个后代元素上的单击事件被触发，事件就会传给它。</p>
+
+<p><img src="/img/post/1402023.jpg" alt=""> </p>
+
+<p>在操纵DOM的语境中，document是根节点。</p>
+
+<hr>
+
+<p>现在我们可以较容易地说明.bind()、.live()和.delegate()的不同之处了。</p>
+
+<p><strong><em>.bind()</em></strong></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>这是最简单的绑定方法了。JQuery扫描文档找出所有的$(‘a’)元素，并把alert函数绑定到每个元素的click事件上。</p>
+
+<p><strong><em>.live()</em></strong></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>JQuery把alert函数绑定到$(document)元素上，并使用’click’和’a’作为参数。任何时候只要有事件冒泡到document节点上，它就查看该事件是否是一个click事件，以及该事件的目标元素与’a’这一CSS选择器是否匹配，如果都是的话，则执行函数。
+live方法还可以被绑定到具体的元素(或context)而不是document上，像这样：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">live</span><span class="p">(...);</span>
+</code></pre></div>
+<p><strong><em>.delegate()</em></strong></p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
+</code></pre></div>
+<p>JQuery扫描文档查找$(‘#container’)，并使用click事件和’a’这一CSS选择器作为参数把alert函数绑定到$(‘#container’)上。任何时候只要有事件冒泡到$(‘#container’)上，它就查看该事件是否是click事件，以及该事件的目标元素是否与CCS选择器相匹配。如果两种检查的结果都为真的话，它就执行函数。
+可以注意到，这一过程与.live()类似，但是其把处理程序绑定到具体的元素而非document这一根上。精明的JS’er们可能会做出这样的结论，即$(&#39;a&#39;).live() == $(document).delegate(&#39;a&#39;)，是这样吗?嗯，不，不完全是。</p>
+
+<hr>
+
+<p>下面来看看我门为什么选择.live()或.delegate()而不是.bind()。毕竟，bind看起来似乎更加的明确和直接，难道不是吗?嗯，有两个原因让我们更愿意选择delegate或live而不是bind：</p>
+
+<p>为了把处理程序附加到可能还未存在于DOM中的DOM元素之上。因为bind是直接把处理程序绑定到各个元素上，它不能把处理程序绑定到还未存在于页面中的元素之上。如果你运行了$(‘a’).bind(…)，而后新的链接经由AJAX加入到了页面中，则你的bind处理程序对于这些新加入的链接来说是无效的。</p>
+
+<p>而另一方面live和delegate则是被绑定到另一个祖先节点上，因此其对于任何目前或是将来存在于该祖先元素之内的元素都是有效的。或者为了把处理程序附加到单个元素上或是一小组元素之上，监听后代元素上的事件而不是循环遍历并把同一个函数逐个附加到DOM中的100个元素上。把处理程序附加到一个(或是一小组)祖先元素上而不是直接把处理程序附加到页面中的所有元素上，这种做法带来了性能上的好处。</p>
+
+<p><strong><em>停止传播</em></strong></p>
+
+<p>最后一个我想做的提醒与事件传播有关。通常情况下，我们可以通过使用这样的事件方法来终止处理函数的执行：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">　　</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
+<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> 
+<span class="err">　　</span><span class="c1">// 或者 </span>
+<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> 
+<span class="err">　　</span><span class="p">});</span>
+</code></pre></div>
+<p>不过，当我们使用live或是delegate方法的时候，处理函数实际上并没有在运行，需要等到事件冒泡到处理程序实际绑定的元素上时函数才会运行。而到此时为止，我们的其他的来自.bind()的处理函数早已运行了。</p>
+
+<p><strong><em>为什么.delegate()要比.live()好用?</em></strong></p>
+
+<p>基于几个原因，人们通常更愿意选用jQuery的delegate方法而不是live方法。考虑下面的例子：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span> 
+<span class="c1">// 或者 </span>
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span>
+</code></pre></div>
+<p><strong><em>速度</em></strong></p>
+
+<p>后者要快过前者，因为前者首先要扫描整个的文档查找所有的$(‘a’)元素，把它们存成jQuery对象。尽管live函数仅需要把’a’作为串参数传递以用做之后的判断，但是$()函数并未知道被链接的方法将会是.live()。
+而另一方面，delegate方法仅需要查找并存储$(document)元素。一种寻求避开这一问题的方法是调用在$(document).ready()之外绑定的live，这样它就会立即执行。在这种方式下，其会在DOM获得填充之前运行，因此就不会查找元素或是创建jQuery对象了。</p>
+
+<p><strong><em>灵活性和链能力</em></strong></p>
+
+<p>live函数也挺令人费解的。想想看，它被链到$(‘a’)对象集上，但其实际上是在$(document)对象上发生作用。由于这个原因，它能够试图以一种吓死人的方式来把方法链到自身上。实际上，我想说的是，以$.live(‘a’,…)这一形式作为一种全局性的jQuery方法，live方法会更具意义一些。</p>
+
+<p><strong><em>仅支持CSS选择器</em></strong></p>
+
+<p>最后一点，live方法有一个非常大的缺点，那就是它仅能针对直接的CSS选择器做操作，这使得它变得非常的不灵活。</p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/IE6-IE7%E4%B8%8B-inline-block%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+		        IE6/IE7下：inline-block解决方案
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年01月20日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>E6/IE7下对display:inline-block的支持性不好。比如在inline元素的display属性设置为inline-block时，所有的浏览器都支持；block元素的display属性设置为inline-block时，IE6/IE7浏览器是不支持的。</p>
+
+<h3>产生的原因</h3>
+
+<p>虽然对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行，允许空格。（准确地说，应用此特性的元素现为内联对象，周围元素保持在同一行，但可以设置宽度和高度等块元素的属性）
+IE中对内联元素使用display:inline-block，IE是不识别的，但使用display:inline-block在IE下会触发layout，从而使内联元素拥有了display:inline-block属性的表征。从上面的这个分析，也不难理解为什么IE下，对块元素设置display:inline-block属性无法实现inline-block的效果。这时块元素仅仅是被display:inline-block触发了layout，而它本身就是行布局，所以触发后，块元素依然还是行布局，而不会如Opera中块元素呈递为内联对象。</p>
+
+<h3>IE6下块元素如何实现display:inline-block的效果？</h3>
+
+<p>有两种方法：</p>
+
+<p>1、先使用display:inline-block属性触发块元素，然后再定义display:inline，让块元素呈递为内联对象（两个display 要先后放在两个CSS声明中才有效果，这是IE的一个经典bug，如果先定义了display:inline-block，然后再将display设回 inline或block，layout不会消失）。代码如下（...为省略的其他属性内容）： </p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span><span class="o">...</span><span class="p">}</span> 
+<span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span>
+</code></pre></div>
+<p>2、直接让块元素设置为内联对象呈递（设置属性display:inline），然后触发块元素的layout（如：zoom:1 或float属性等）。代码如下：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="n">_display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐*/</span>
+<span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="o">*</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐:IE67*/</span>
+</code></pre></div>
+		  
+		  </div>
+		</div>
+		
 		
 	
 
@@ -399,88 +542,6 @@ Transition是过渡方式，它的值为0到23，分别对应24种过渡方式�
 		      Continue Reading...
 		    </a>
 		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
-		        CSS 元素垂直居中的 7种方法
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年12月15日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/css/">css</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p> <p>方法1 ： IE 10 以下不兼容 transform: </p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nf">#child</span> <span class="p">{</span> <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span> <span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">z-index</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">30%</span><span class="p">;</span> <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="o">,-</span><span class="m">50%</span><span class="p">);</span> <span class="c">/*margin: -15% 0 0 -25%;*/</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法2: FLEX BOX 弹性布局 IE10以下不适用</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span> <span class="k">display</span><span class="o">:-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;;</span> <span class="k">justify</span><span class="o">-</span><span class="k">content</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="n">align</span><span class="o">-</span><span class="n">items</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nc">.child</span> <span class="p">{</span> <span class="n">flex</span><span class="o">:</span><span class="m">1</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">#999999</span> <span class="k">solid</span> <span class="m">1px</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法3:Line-Height Method</p> <p><img src="/img/post/1312151.jpg" alt=""> </p> <p>适用：单行文本垂直居中</p> <p>html</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Text here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span> </code></pre></div> <p>css</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">line-height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> </code></pre></div> <hr> <p>垂直居中一张图片，代码如下</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;image.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;&lt;/div&gt;</span> ```css #parent {line-height: 200px;}#parent img...
-		    <p>
-		    <a class="text" href="/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/padding-ie-%E4%B8%8D%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
-		        padding ie 不兼容问题
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年11月10日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>在使用padding时，在ie 兼容时通常我们遇到3种情况：</p>
-
-<ul>
-<li>IE6 正常 IE7/FF不正常</li>
-</ul>
-
-<p>这种情况下我们这样处理：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px !important;（针对FF/IE7）
-   padding: 6px;（针对IE6）
-</code></pre></div>
-<ul>
-<li>IE6 IE7正常 FF不正常</li>
-</ul>
-
-<p>这种情况我们要这么处理，因为!important IE7也是能识别的！</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">  padding: 7px;（针对FF）
- *padding: 6px;（针对IE6/IE7）
-</code></pre></div>
-<ul>
-<li>E6 IE7 FF都不一样
-```</li>
-</ul>
-
-<p>这种情况我们这样来处理：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px;（针对FF）
-  *padding: 6px;（针对IE7）
-  _padding: 5px; （针对IE6）
-</code></pre></div>
 		  
 		  </div>
 		</div>

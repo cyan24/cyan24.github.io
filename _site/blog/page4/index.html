@@ -198,12 +198,6 @@
 
 
 
-<li>
-	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
-		<i class="fa fa-fw fa-twitter"></i>
-	</a>
-</li>
-
 
 
 
@@ -211,7 +205,7 @@
 
 
 <li>
-	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+	<a href="mailto:chinazjcy@aliyun.com" title="Email">
 		<i class="fa fa-fw fa-envelope"></i>
 	</a>
 </li>
@@ -256,6 +250,66 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
+		        谈谈attachEvent和addEventListener
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年12月27日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/javascript/">Javascript</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>以前写JavaScript脚本时，事件都采用object.event = handler的方式绑定。这种方式对于Internet Explorer、Mozilla/Firefox和Opera来说很通用。但有一个问题，这种方式只能一个事件对应一个事件处理过程。如果希望一个事件可以依次执执行多个处理过程，就不好用了。</p> <p>Internet Explorer从5.0开始，提供了一个attachEvent方法，使用这个方法，可以一个事件，绑定多个处理过程。但是Mozilla/Firefox并不支持这个方法，它使用另外一个方法addEventListener。它们之间有少许区别，在attachEvent方法中，事件是以&quot;on&quot;开头的，而addEventListener，事件不是以&quot;on&quot;开头，另外，addEventListener还有第三个参数，一般指定false就可以。 因此，在程序中，给一个事件指派多个处理过程的话。需要根据不同的浏览器，选择使用attachEvent和addEventListener。示例如下：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="c1">//IE</span> <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s2">&quot;onload&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">);</span> <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//IE8以后有以及Mozilla/Firefox </span> <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span> <span class="p">}</span> <span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">);</span> <span class="p">}</span> </code></pre></div> <p>注释：attachEvent所绑定的多个方法的执行顺序是随机的，因此，这几个方法之间，不要有顺序依赖。另外，attachEvent和addEventListener不仅仅适用于window对象，其他的一些对象，也支持该方法</p> <p>注意： Internet Explorer 8 及更早IE版本不支持 addEventListener() 方法，，Opera 7.0 及 Opera 更早版本也不支持。 但是，对于这些不支持该函数的浏览器，你可以使用 attachEvent() 方法来添加事件句柄 (查看 &quot;更多实例&quot; 了解跨浏览器的解决方案)。</p> <p>实例 为 &lt; button&gt; 元素添加点击事件。 当用户点击按钮时，在 id=&quot;demo&quot; 的 &lt; p&gt; 元素上输出 &quot;Hello World&quot; :</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;myBtn&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;</span> <span class="p">});</span> </code></pre></div> <hr> <p>上面这种绑定事件的方式，兼容主流浏览器,但如果一个元素上添加多次同一事件呢？</p> <p>obj.onclick=method1;</p> <p>obj.onclick=method2;</p> <p>obj.onclick=method3;</p> <p>如果这样写,那么只有最后绑定的事件,这里是method3会被执行,这个时候我们就不能用onclick这样的写法了,主角该登场了,在IE中我们可以使用attachEvent方法：</p> <p>//object.attachEvent(event,function);</p> <p>btn1Obj.attachEvent(&quot;onclick&quot;,method1);</p> <p>btn1Obj.attachEvent(&quot;onclick&quot;,method2);</p> <p>btn1Obj.attachEvent(&quot;onclick&quot;,method3);</p> <p>使用格式是前面是事件类型,注意的是需要加on,比如onclick,onsubmit,onchange,执行顺序是</p> <blockquote> <p>method3-&gt;method2-&gt;method1</p> </blockquote> <p>可惜这个微软的私人方法,火狐和其他浏览器都不支持,幸运的是他们都支持W3C标准的addEventListener方法：</p> <p>//element.addEventListener(type,listener,useCapture);</p> <p>btn1Obj.addEventListener(&quot;click&quot;,method1,false);</p> <p>btn1Obj.addEventListener(&quot;click&quot;,method2,false);</p> <p>btn1Obj.addEventListener(&quot;click&quot;,method3,false); 执行顺序为</p> <blockquote> <p>method1-&gt;method2-&gt;method3</p> </blockquote> <p>做前端开发工程师,最悲剧的某过于浏览器兼容问题了,上面有两种添加事件的方法,为了同一添加事件的方法,我们不得不再重新写一个通用的添加事件函数,幸亏有前人帮我们做了这件事：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">addEvent</span><span class="p">(</span><span class="nx">elm</span><span class="p">,</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span> <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span><span class="c1">//DOM2.0</span> <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="p">{</span> <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span><span class="c1">//IE5+</span> <span class="k">return</span> <span class="nx">r</span><span class="p">;</span> <span class="p">}</span><span class="k">else</span> <span class="p">{</span> <span class="nx">elm</span><span class="p">[</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span><span class="c1">//DOM 0</span> <span class="p">}</span> <span class="p">}</span> </code></pre></div> <p><em>下面是Dean Edwards 的版本</em></p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">addEvent</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span...
+		    <p>
+		    <a class="text" href="/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
+		        DOM标准与IE的html事件模型区别（转载）
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年11月15日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/javascript/">Javascript</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p><strong>事件</strong></p> <p>HTML元素事件是浏览器内在自动产生的,当有事件发生时html元素会向外界(这里主要指元素事件的订阅者)发出各种事件,如click,onmouseover,onmouseout等等。</p> <p><strong>DOM事件流</strong></p> <p>DOM(文档对象模型)结构是一个树型结构，当一个HTML元素产生一个事件时，该事件会在元素结点与根结点之间的路径传播，路径所经过的结点都会收到该事件，这个传播过程可称为DOM事件流。</p> <p><strong>主流浏览器的事件模型</strong></p> <p>早在2004前在HTML元素事件的订阅，发送，传播，处理模型上各浏览器实现并不一致，直到DOM Level3中规定后，多数主流浏览器才陆陆续续支持DOM标准的事件处理模型 — 捕获型与冒泡型。 目前除IE浏览器外，其它主流的Firefox, Opera, Safari都支持标准的DOM事件处理模型。IE仍然使用自己的模型，即冒泡型，它模型的一部份被DOM采用，这点对于开发者来说也是有好处的，只使用DOM标准，IE都共有的事件处理方式才能有效的跨浏览器。</p> <p><strong>冒泡型事件(Bubbling)</strong></p> <p>这是IE浏览器对事件模型的实现，也是最容易理解的，至少笔者觉得比较符合实际的。冒泡，顾名思义，事件像个水中的气泡一样一直往上冒，直到顶端。从DOM树型结构上理解，就是事件由叶子结点沿祖先结点一直向上传递直到根结点；从浏览器界面视图HTML元素排列层次上理解就是事件由具有从属关系的最确定的目标元素一直传递到最不确定的目标元素.</p> <p><strong>捕获型事件(Capturing)</strong></p> <p>Netscape Navigator的实现，它与冒泡型刚好相反，由DOM树最顶层元素一直到最精确的元素，这个事件模型对于开发者来说（至少是我..）有点费解，因为直观上的理解应该如同冒泡型，事件传递应该由最确定的元素，即事件产生元素开始。 但这个模型在某些情况下也是很有用的，接下来会讲解到。</p> <p><img src="/img/post/1412270.jpg" alt=""> </p> <p><strong>DOM标准事件模型</strong></p> <p>因为两个不同的模型都有其优点和解释，DOM标准支持捕获型与冒泡型，可以说是它们两者的结合体。它可以在一个DOM元素上绑定多个事件处理器，并且在处理函数内部，this关键字仍然指向被绑定的DOM元素，另外处理函数参数列表的第一个位置传递事件event对象。</p> <p>首先是捕获式传递事件，接着是冒泡式传递，所以，如果一个处理函数既注册了捕获型事件的监听，又注册冒泡型事件监听，那么在DOM事件模型中它就会被调用两次。</p> <p><img src="/img/post/1412271.jpg" alt=""> </p> <p>注册与移除事件监听器</p> <p>注册事件监听器，或又称订阅事件，当元素事件发生时浏览器回调该监听函数执行事件处理。目前主流浏览器中有两种注册事件的方法，一种是IE浏览器的，另一种是DOM标准的。</p> <p>1、直接JS或HTML挂载法</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">onclick=</span><span class="s">&quot;alert(this.innerHTML);&quot;</span><span class="nt">&gt;</span> element.onclick = function(){alert(this.innerHTML);} </code></pre></div> <p>移除时将事件属性设为nul即可，这个也是最常用的方法了，优缺点也是显然的：</p> <p>简单方便，在HTML中直接书写处理函数的代码块，在JS中给元素对应事件属性赋值即可 IE与DOM标准都支持的一种方法，它在IE与DOM标准中都是在事件冒泡过程中被调用的。 可以在处理函数块内直接用this引用注册事件的元素 要给元素注册多个监听器，就不能用这方法了</p> <p>2、IE下注册多个事件监听器与移除监听器方法</p> <p>IE浏览器中HTML元素有个attachEvent方法允许外界注册该元素多个事件监听器,例如</p> <p>element.attachEvent(&#39;onclick&#39;, observer); attachEvent接受两个参数。第一个参数是事件名称，第二个参数observer是回调处理函数。这里得说明一下，有个经常会出错的地方，IE下利用attachEvent注册的处理函数调用时this指向不再是先前注册事件的元素，这时的this为window对象了，笔者很奇怪IE为什么要这么做，完全看不出好处所在。 要移除先前注册的事件的监听器,调用element的detachEvent方法即可，参数相同。</p> <p>element.detachEvent(&#39;onclick&#39;, observer); 3、 DOM标准下注册多个事件监听器与移除监听器方法</p> <p>实现DOM标准的浏览器与IE浏览器中注册元素事件监听器方式有所不同，它通过元素的addEventListener方法注册，该方法既支持注册冒泡型事件处理，又支持捕获型事件处理。</p> <p>element.addEventListener(&#39;click&#39;, observer, useCapture); addEventListener方法接受三个参数。第一个参数是事件名称，值得注意的是，这里事件名称与IE的不同，事件名称是没’on’开头的;第二个参数observer是回调处理函数;第三个参数注明该处理回调函数是在事件传递过程中的捕获阶段被调用还是冒泡阶段被调用</p> <p>移除已注册的事件监听器调用element的removeEventListener即可，参数不变.</p> <p>element.removeEventListener(&#39;click&#39;, observer, useCapture);</p> <p>跨浏览器的注册与移除元素事件监听器方案</p> <p>弄清楚DOM标准与IE的注册元素事件监听器之间的异同后，就可以实现一个跨浏览器的注册与移除元素事件监听器方案:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//注册</span> <span class="kd">function</span> <span class="nx">addEventHandler</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//DOM标准</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span> <span class="p">}</span><span class="k">else</span> <span class="p">{</span> <span class="c1">//IE方式,忽略useCapture参数</span> <span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span> <span class="p">}</span> <span class="p">}</span> <span class="c1">//移除</span> <span class="kd">function</span> <span class="nx">removeEventHandler</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//DOM标准</span> <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">)</span> <span class="p">{</span> <span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span> <span class="p">}</span><span class="k">else</span> <span class="p">{</span> <span class="c1">//IE方式,忽略useCapture参数</span> <span class="nx">element</span><span class="p">.</span><span class="nx">dettachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span> <span class="p">}</span> <span class="p">}</span> </code></pre></div> <p>如何取消浏览器事件的传递与事件传递后浏览器的默认处理</p> <p>先说明取消事件传递与浏览器事件传递后的默认处理是两个不同的概念，可能很多同学朋友分不清，或者根本不存在这两个概念。</p> <p>取消事件传递是指，停止捕获型事件或冒泡型事件的进一步传递。例如上图中的冒泡型事件传递中，在body处理停止事件传递后，位于上层的document的事件监听器就不再收到通知，不再被处理。</p> <p>事件传递后的默认处理是指，通常浏览器在事件传递并处理完后会执行与该事件关联的默认动作（如果存在这样的动作）。例如，如果表单中input type 属性是 “submit”，点击后在事件传播完浏览器就就自动提交表单。又例如，input 元素的 keydown 事件发生并处理后，浏览器默认会将用户键入的字符自动追加到 input 元素的值中。</p> <p>要取消浏览器的件传递,IE与DOM标准又有所不同。</p> <p>在IE下,通过设置event对象的cancelBubble为true即可。</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">()</span> <span class="p">{</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>DOM标准通过调用event对象的stopPropagation()方法即可。</p> <p><code>javascript function someHandle(event) { event.stopPropagation(); } </code>`</p> <p>因些，跨浏览器的停止事件传递的方法是:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span> <span class="nx">event</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span> <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">)</span> <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> <span...
+		    <p>
+		    <a class="text" href="/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E8%A7%A3%E5%86%B3-%E5%9C%A8Mac-OS%E4%B8%8B%E5%BC%80%E5%8F%91html5+JS-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%B7%A8%E5%9F%9F-%E5%92%8C-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">
 		        解决在Mac OS下开发html5+JS Chrome跨域和安全访问问题
 		      </a>
@@ -263,7 +317,7 @@
 		    <p id="subtitletrans" class="subtitlecontainer">
 		      <a class="subtitle">2014年10月12日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/跨域/">跨域</a>, <a href="/tags/安全/">安全</a></a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/javascript/">Javascript</a>, <a href="/tags/跨域/">跨域</a>, <a href="/tags/安全/">安全</a></a>
 		    </p>
 		  </header>
 		  <div class="excerpt">
@@ -389,195 +443,6 @@
 <li>非装饰性图片必须加alt；</li>
 <li>提高网站速度：网站速度是搜索引擎排序的一个重要指标。</li>
 </ol>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/JS%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83-CommonJS-AMD-CMD/">
-		        JS中的模块规范(CommonJS，AMD，CMD)
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年06月10日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/javascript/">Javascript</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>如果你听过js模块化这个东西，那么你就应该听过或CommonJS或AMD甚至是CMD这些规范咯，我也听过，但之前也真的是听听而已。</p>
-
-<p>现在就看看吧，这些规范到底是啥东西，干嘛的。</p>
-
-<p>一、CommonJS</p>
-
-<p>CommonJS就是为JS的表现来制定规范，因为js没有模块的功能所以CommonJS应运而生，它希望js可以在任何地方运行，不只是浏览器中。</p>
-
-<p>CommonJS能有一定的影响力，我觉得绝对离不开Node的人气，不过喔，Node，CommonJS，浏览器甚至是W3C之间有什么关系呢，我找到了个贴切的图：</p>
-
-<p>|---------------浏览器----- ------------------|        |--------------------------CommonJS----------------------------------|</p>
-
-<p>|  BOM  |       | DOM |        | ECMAScript |         | FS |           | TCP |         | Stream |        | Buffer |          |........|</p>
-
-<p>|-------W3C-----------|       |---------------------------------------Node--------------------------------------------------|</p>
-
-<p>CommonJS定义的模块分为:{模块引用(require)} {模块定义(exports)} {模块标识(module)}</p>
-
-<p>require()用来引入外部模块；exports对象用于导出当前模块的方法或变量，唯一的导出口；module对象就代表模块本身。</p>
-
-<p>比如说我们就可以这样用了：</p>
-
-<p>复制代码
-1 //sum.js
-2 exports.sum = function(){...做加操作..};
-3 
-4 //calculate.js
-5 var math = require(&#39;sum&#39;);
-6 exports.add = function(n){
-7     return math.sum(val,n);
-8 };
-复制代码</p>
-
-<p>虽说Node遵循CommonJS的规范，但是相比也是做了一些取舍，填了一些新东西的。</p>
-
-<p>不过，说了CommonJS也说了Node，那么我觉得也得先了解下NPM了。NPM作为Node的包管理器，不是为了帮助Node解决依赖包的安装问题嘛，那它肯定也要遵循CommonJS规范啦，它遵循包规范（还是理论）的。</p>
-
-<p>CommonJS WIKI讲了它的历史，还介绍了modules和packages等。</p>
-
-<p>二、AMD</p>
-
-<p>CommonJS是主要为了JS在后端的表现制定的，他是不适合前端的，为什么这么说呢？</p>
-
-<p>这需要分析一下浏览器端的js和服务器端js都主要做了哪些事，有什么不同了：</p>
-
-<p>---------------------------------------服务器端JS   | 浏览器端JS-------------------------------------------</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">            相同的代码需要多次执行  |    代码需要从一个服务器端分发到多个客户端执行
-
-            CPU和内存资源是瓶颈   |    带宽是瓶颈
-
-            加载时从磁盘中加载   |    加载时需要通过网络加载
-</code></pre></div>
-<hr>
-
-<p>于是乎，AMD(异步模块定义)出现了，它就主要为前端JS的表现制定规范。</p>
-
-<p>AMD就只有一个接口：define(id?,dependencies?,factory);</p>
-
-<p>它要在声明模块的时候制定所有的依赖(dep)，并且还要当做形参传到factory中，像这样：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){...});</span>
-</code></pre></div>
-<p>要是没什么依赖，就定义简单的模块，下面这样就可以啦：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="nx">exports</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){...};</span>
-    <span class="k">return</span> <span class="nx">exports</span><span class="p">;</span> <span class="p">});</span>
-</code></pre></div>
-<p>咦，这里有define，把东西包装起来啦，那Node实现中怎么没看到有define关键字呢，它也要把东西包装起来呀，其实吧，只是Node隐式包装了而已.....</p>
-
-<p>RequireJS就是实现了AMD规范的呢。</p>
-
-<p>这有AMD的WIKI中文版，讲了很多蛮详细的东西，用到的时候可以查看：AMD的WIKI中文版</p>
-
-<p>三、CMD</p>
-
-<p>大名远扬的玉伯写了seajs，就是遵循他提出的CMD规范，与AMD蛮相近的，不过用起来感觉更加方便些，最重要的是中文版。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){...});</span>
-</code></pre></div>
-<p>用过seajs吧，这个不陌生吧，对吧.</p>
-
-<p>四、AMD与CMD的区别</p>
-
-<p>CMD相当于按需加载，定义一个模块的时候不需要立即制定依赖模块，在需要的时候require就可以了，比较方便；而AMD则相反，定义模块的时候需要制定依赖模块，并以形参的方式引入factory中</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//AMD方式定义模块</span>
-<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
-     <span class="c1">//内部只能使用制定的模块</span>
-      <span class="k">return</span> <span class="kd">function</span><span class="p">(){};</span>
-<span class="p">});</span>
-<span class="c1">//CMD</span>
-<span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){</span>
-   <span class="c1">//此处如果需要某XX模块，可以引入</span>
-   <span class="kd">var</span> <span class="nx">xx</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;XX&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>而SEAJS也有use功能也是需要先引入所有依赖的模块，如</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//SEAJS.Use方式</span>
-<span class="nx">seajs</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
-     <span class="c1">//这里实现事务</span>
-<span class="p">});</span>
-</code></pre></div>
-<p>五、插件支持</p>
-
-<p>但全球有两种比较流行的 JavaScript 模块化体系，一个是 Node 实现的 CommonJS，另外一个是 AMD。很多类库都同时支持 AMD 和 CommonJS，但是不支持 CMD。或许国内有很多 CMD 模块，但并没有在世界上流行起来。</p>
-
-<p>现在比较火的 React 及周边类库，就是直接使用 CommonJS 的模块体系，使用 npm 管理模块，使用 Browserify 打包输出模块。</p>
-
-<p>不久的将来 ES6 中新的模块化标准，可能就都得遵循新的标准了，什么AMD、CMD可能到时也不会怎么用了。</p>
-
-<p>但是目前来说，前端开发没有用模块化编程就真的out的了，而目前的模块化编程，本人还是建议用SEAJS，虽然很多插件需要追加或修改一小块代码才能支持。但改过一次就能反复使用，也不会影响其它标准的支持。总体还算是比较方便实用的</p>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/">
-		        谈谈200 OK (from cache) 与 304 Not Modified
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年04月27日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>为什么有的缓存是 200 OK (from cache)，有的缓存是 304 Not Modified 呢？很简单，看运维是否移除了 Entity Tag。移除了，就总是 200 OK (from cache)。没有移除，就两者交替出现。</p>
-
-<p>其实， 200 OK (from cache)  是浏览器没有跟服务器确认，直接用了浏览器缓存；而 304 Not Modified 是浏览器和服务器多确认了一次缓存有效性，再用的缓存。</p>
-
-<p>它们都是在设置了缓存的情况下触发的。</p>
-
-<p>那么，两者触发的时机有什么区别呢？200 OK (from cache) 是直接点击链接访问，输入网址按回车访问也能触发；而 304 Not Modified 是刷新页面时触发，或是设置了长缓存、但 Entity Tags 没有移除时触发。这是经过查阅资料得出的结论。博主实际测试了一下，结论与之相符：</p>
-
-<p><img src="/img/post/1404271.jpg" alt=""> </p>
-
-<p>直接访问有缓存的网站都触发 200 OK (from cache)</p>
-
-<p><img src="/img/post/1404272.jpg" alt=""></p>
-
-<p>图2 – 刷新浏览器则会触发 304 Not Modifie</p>
-
-<p><img src="/img/post/1404273.jpg" alt=""> </p>
-
-<p>同一域名下，没有 Entity Tag 的资源直接访问，是 200 OK (from cache) 的结果</p>
-
-<p><img src="/img/post/1404274.jpg" alt=""> </p>
-
-<p>同一域名下，有 Entity Tag ，直接访问就会触发 304 Not Modified
-现在一般都会设置长时间的缓存，正确设置方式参考这两篇笔记：</p>
-
-<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule3.html">如何正确设置 Expires Header 及其原理</a></p>
-
-<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule-13.html">如何正确移除 Entity Tags 及其原理</a></p>
-
-<p>本文并不是说影响浏览器缓存只有 ETag 这一个因素的意思，请大家不要误解。只是就“为什么我加了缓存，有的却是 304 Not Modified， 而不是 200 OK(from cache)”这件事给出一个一针见血的原因和解答.</p>
 
 		  
 		  </div>

@@ -198,12 +198,6 @@
 
 
 
-<li>
-	<a href="https://twitter.com/cyan24" title="Follow on Twitter">
-		<i class="fa fa-fw fa-twitter"></i>
-	</a>
-</li>
-
 
 
 
@@ -211,7 +205,7 @@
 
 
 <li>
-	<a href="mailto:chianzjcy@aliyun.com" title="Email">
+	<a href="mailto:chinazjcy@aliyun.com" title="Email">
 		<i class="fa fa-fw fa-envelope"></i>
 	</a>
 </li>
@@ -249,6 +243,128 @@
 
 	<div class="posts">
 	
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/css-%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/">
+		        css 原理及其优化
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年10月26日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/css/">css</a>, <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>在写css代码时 做一些简单的优化，这样css的渲染速率会有一定的提高的。</p>
+
+<h3>浏览器是如何渲染页面和加载页面</h3>
+
+<p>为什么有些网站打开的时候会加载会很慢，而且是整个页面同时显示的，而有些网站是从顶到下逐步显示出来的？要搞懂这个可以先从下面这个常规流程开始：</p>
+
+<ul>
+<li><p>浏览器下载的顺序是从上到下，渲染的顺序也是从上到下，下载和渲染是同时进行的。</p></li>
+<li><p>在渲染到页面的某一部分时，其上面的所有部分都已经下载完成（并不是说所有相关联的元素都已经下载完）。</p></li>
+<li><p>如果遇到语义解释性的标签嵌入文件（JS脚本，CSS样式），那么此时IE的下载过程会启用单独连接进行下载。</p></li>
+<li><p>并且在下载后进行解析，解析过程中，停止页面所有往下元素的下载。</p></li>
+<li><p>样式表在下载完成后，将和以前下载的所有样式表一起进行解析，解析完成后，将对此前所有元素（含以前已经渲染的）重新进行渲染。</p></li>
+<li><p>JS、CSS中如有重定义，后定义函数将覆盖前定义函数。</p></li>
+<li><p>这里关键的是第2-5这三点。渲染效率与下面三点有关：</p>
+
+<ul>
+<li>css选择器的查询定位效率</li>
+<li>浏览器的渲染模式和算法</li>
+<li>要进行渲染内容的大小</li>
+</ul></li>
+</ul>
+
+<h3>什么是CSS以及CSS的优点</h3>
+
+<p>什么是CascadingStyleSheets（层叠样式表）</p>
+
+<ul>
+<li>CSS是CascadingStyleSheets(层叠样式表)的简称.</li>
+<li>CSS 语言是一种标记语言,它不需要编译,可以直接由浏览器解释执行(属于浏览器解释型语言).</li>
+<li>在标准网页设计中CSS负责网页内容 (XHTML)的表 现.</li>
+<li>CSS文件也可以说是一个文本文件,它包含了一些CSS标记,CSS文件必须使用css为文件名后缀.</li>
+<li>可以通过简单的更改 CSS文件,改变网页 的整体表现形式,可以减少我们的工作量,所以她是每一个网页设计人员的必修课.</li>
+<li>CSS是由W3C的CSS工作组产生和维护的.</li>
+</ul>
+
+<p><strong><em>采用CSS+DIV进行网页重构相对与传统的TABLE网页布局而具有以下3个显著优势：</em></strong></p>
+
+<ul>
+<li><p>表现和内容相分离将设计部分剥离出来放在一个独立样式文件中，HTML文件中只存放文本信息。这样的页面对搜索引擎更加友好。</p></li>
+<li><p>提高页面浏览速度对于同一个页面视觉效果，采用CSS+DIV重构的页面容量要比TABLE编码的页面文件容量小得多，前者一般只有后者的1/2大小。浏览器就不用去编译大量冗长的标签。</p></li>
+<li><p>易于维护和改版你只要简单的修改几个CSS文件就可以重新设计整个网站的页面。</p></li>
+</ul>
+
+<p><strong><em>浏览器对CSS的匹配原理</em></strong></p>
+
+<p>浏览器CSS匹配是从右到左进行查找。比如之前说的DIV#divBoxpspan.red{color:red;}，浏览器的查找顺序如下：先查找html中所有class=’red’的span元素，找到后，再查找其父辈元素中是否有p元素，再判断p的父元素中是否有id为 divBox的div元素，如果都存在则CSS匹配上。</p>
+
+<p>浏览器从右到左进行查找的好处是为了尽早过滤掉一些无关的样式规则和元素。firefox称这种查 找方式为keyselector(关键字查询)，所谓的关键字就是样式规则中最后(最右边)的规则，上面的key就是span.red。</p>
+
+<h3>优化你的CSS</h3>
+
+<ul>
+<li>css 命名 、书写规范；（好的代码看上去就很整齐 很有条理性这样方便日后的维护和管理）。</li>
+<li><p>css优先级； 选择器权重：内联样式：1000，id选择器：1000， class选择器：10，标签选择器：1  注意权重的问题。</p></li>
+<li><p>少用滤镜，少用hack，少用position：absolute。</p></li>
+<li><p>多用继承属性。</p></li>
+<li><p>使用简写样式：例如margin: 10px; 浏览器会解释为上下左右各有10px的外补丁。margin： 0 10px 浏览器解析为 左右有10px的外补丁。</p></li>
+<li><p>不要在ID选择器和class选择器前 使用标签名 例如：div.box { color: #f00; }; 直接 可以 用类名， .box { color:#f00;}  这样浏览器找到这个class后 就不用再匹配是否存在div标签.从而提高了渲染效率。当然同一级的 有不同的样式可以这样写，但是不建议这样。</p></li>
+<li><p>css的层级关系不要太深 用class直接代替多余的层级元素。例如 .box .box-con .box-list li { line-height: 24px; } 这么长。。。增加代码量减小开发效率。刚也说了，css渲染是从上到下，从右到左的
+所以直接这样写就可以了.box-list li { line-height: 24px; };</p></li>
+<li><p>平铺背景图片不要过小，影响渲染速率。</p></li>
+<li><p>float使用要谨慎。</p></li>
+<li><p>合理化布局（模块化布局）；可以把样式划分为 基类 和扩展类 ;模块化布局 ：模块基本相同的样式写在 基类里，不同的在重新用class来定义称为扩展类 。</p></li>
+<li><p>在css渲染效率中id和class的效率是基本相当的</p></li>
+</ul>
+
+<p>class最在第一次载入中被缓存，在层叠中会有更加好的效果，在根部元素采用id会具有更加好（id有微妙的速度优势）。</p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E7%94%A8jQuery%E4%B8%8EJSONP%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
+		        用jQuery与JSONP轻松解决跨域访问的问题
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年09月27日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Jquery/">Jquery</a>, <a href="/tags/跨域/">跨域</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>跨域的安全限制都是指浏览器端来说的.服务器端是不存在跨域安全限制的,所以通过本机服务器端通过类似httpclient方式完成“跨域访问”的 工作，然后在浏览器端用AJAX获取本机服务器端“跨域访问”对应的url.来间接完成跨域访问也是可以的.但很显然开发量比较大,但限制也最少,很多 widget开放平台server端(如sohu博客开放平台)其实就么搞的.不在本次讨论范围.</p> <p>我们要讨论的是浏览器端的真正跨域访问,推荐的是目前jQuery $.ajax()支持get方式的跨域,这其实是采用jsonp的方式来完成的.</p> <p>真实案例:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">qsData</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;searchWord&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#searchWord&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">),</span><span class="s1">&#39;currentUserId&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#currentUserId&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">),</span><span class="s1">&#39;conditionBean.pageSize&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#pageSize&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)};</span> <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> <span class="nx">async</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="nx">http</span><span class="o">:</span><span class="sr">/ /</span><span class="err">跨域的</span><span class="nx">dns</span><span class="o">/</span><span class="nb">document</span><span class="o">!</span><span class="nx">searchJSONResult</span><span class="p">.</span><span class="nx">action</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span> <span class="nx">jsonp</span><span class="o">:</span> <span class="s1">&#39;jsoncallback&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">qsData</span><span class="p">,</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">5000</span><span class="p">,</span> <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="c1">//jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了</span> <span class="p">},</span> <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数</span> <span class="k">if</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">actionErrors</span><span class="p">.</span><span class="nx">length</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">actionErrors</span><span class="p">);</span> <span class="p">}</span> <span class="nx">genDynamicContent</span><span class="p">(</span><span class="nx">qsData</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">json</span><span class="p">);</span> <span class="p">},</span> <span class="nx">complete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">XMLHttpRequest</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">){</span> <span class="nx">$</span><span class="p">.</span><span class="nx">unblockUI</span><span class="p">({</span> <span class="nx">fadeOut</span><span class="o">:</span> <span class="mi">10</span> <span class="p">});</span> <span class="p">},</span> <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">){</span> <span class="c1">//jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了</span> <span class="c1">//请求出错处理</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;请求出错(请检查相关度网络状况.)&quot;</span><span class="p">);</span> <span class="p">}</span> <span class="p">});</span> </code></pre></div> <p>注意:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot; http://跨域的dns/document!searchJSONResult.action?name1=&quot;</span><span class="o">+</span><span class="nx">value1</span><span class="o">+</span><span class="s2">&quot;&amp;jsoncallback=?&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">){</span> <span class="k">if</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="err">属性名</span><span class="o">==</span><span class="err">值</span><span class="p">){</span> <span class="c1">// 执行代码</span> <span class="p">}</span> <span class="p">});</span> </code></pre></div> <p>这种方式其实是上例$.ajax({..}) api的一种高级封装,有些$.ajax api底层的参数就被封装而不可见了. 这样,jquery就会拼装成如下的url get请求</p> <p>http:/ / 跨域的 dns/document!searchJSONResult.action?&amp;jsoncallback=jsonp1236827957501&amp;_=1236828192549&amp;searchWord=%E7%94%A8%E4%BE%8B¤tUserId=5351&amp;conditionBean.pageSize=15</p> <p>在响应端(http://跨域的dns/document!searchJSONResult.action), 通过 jsoncallback = request.getParameter(&quot;jsoncallback&quot;) 得到jquery端随后要回调的js function name:jsonp1236827957501 然后 response的内容为一个Script Tags:&quot;jsonp1236827957501(&quot;+按请求参数生成的json数组+&quot;)&quot;; jquery就会通过回调方法动态加载调用这个js tag:jsonp1236827957501(json数组); 这样就达到了跨域数据交换的目的.</p> <p>jsonp的最基本的原理是:动态添加一个script标签，而script标签的src属性是没有跨域的限制的。这样说来,这种跨域方式其实与ajax XmlHttpRequest协议无关了. 这样其实&quot;jQuery AJAX跨域问题&quot;就成了个伪命题了,jquery $.ajax方法名有误导人之嫌.</p> <p>如果设为dataType: &#39;jsonp&#39;, 这个$.ajax方法就和ajax XmlHttpRequest没什么关系了,取而代之的则是JSONP协议.</p> <p>JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问JSONP即JSON with Padding。由于同源策略的限制，XmlHttpRequest只允许请求当前源（域名、协议、端口）的资源。如果要进行跨域请求，我们可以通过使用 html的script标记来进行跨域请求，并在响应中返回要执行的script代码，其中可以直接使用JSON传递javascript对象。这种跨域 的通讯方式称为JSONP。</p> <p>jsonCallback 函数jsonp1236827957501(....): 是浏览器客户端注册的，获取跨域服务器上的json数据后，回调的函数.</p> <ul> <li>Jsonp原理：</li> </ul> <p>首先在客户端注册一个callback (如:&#39;jsoncallback&#39;), 然后把callback的名字(如:jsonp1236827957501)传给服务器。注意：服务端得到callback的数值后，要用 jsonp1236827957501(......)把将要输出的json内容包括起来，此时，服务器生成 json 数据才能被客户端正确接收。</p> <p>然后以 javascript 语法的方式，生成一个function ,...
+		    <p>
+		    <a class="text" href="/blog/%E7%94%A8jQuery%E4%B8%8EJSONP%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
 		
 	
 
@@ -472,66 +588,6 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 
 <p>　　4.当存储的数据不能被剔除时，使用Redis更合适。</p>
 
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
-		        多线程安全-如何保证一个类里面多个变量的一致性
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年05月26日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Memcached/">Memcached</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span> <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">setBalance</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span> <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span> </code></pre></div> <p>但是，如果多个变量的话，这种方法虽然能够保持每个变量的安全，但不能保证多个变量的一致性，因为方法上的synchronized关键字只对本方法加锁，对其他方法没有影响。方法之间是相互独立的。 可以采用的方法是：</p> <p>1.将整个类加锁 （代码为synchronized(this)）</p> <p>2.定义一个object，访问某些相关变量时，对该对象加锁（代码为synchronized(lockobj)）。</p> <p>下面是对这个类加锁的代码</p> <p>---RGB类--- </p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RGB</span> <span class="o">{</span> <span class="kd">private</span> <span class="kt">int</span> <span class="n">red</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="kd">private</span> <span class="kt">int</span> <span class="n">green</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="kd">private</span> <span class="kt">int</span> <span class="n">blue</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getRed</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">red</span><span class="o">;</span> <span class="o">}</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addRed</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span> <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> <span class="k">try</span> <span class="o">{</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span> <span class="n">print</span><span class="o">();</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> <span class="o">}</span> <span class="o">}</span> <span class="o">}</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getGreen</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">green</span><span class="o">;</span> <span class="o">}</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">addGreen</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span> <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> <span class="k">try</span> <span class="o">{</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>...
-		    <p>
-		    <a class="text" href="/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
-		        如何通过编程发现Java死锁
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年03月11日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Memcached/">Memcached</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>先看下死锁的定义:死锁是指，两个或多个动作一直在等待其他动作完成而使得所有动作都始终处在阻塞的状态。想要在开发阶段检测到死锁是非常困难的，而想要解除死锁往 往需要重新启动程序。更糟的是，死锁通常发生在负载最重的生产过程中，而想要在测试中发现它，十分不易。之所以这么说，是因为测试线程之间所有可能的交叉 是不现实的。尽管出现了一些静态分析库可以帮助我们发现可能出现的死锁，我们还是有必要在运行时检测到死锁，并且得到有用的信息，以便我们解决这个问题或 者重启程序，或者做些其他的事情。</p> <p>在编程中使用ThreadMXBean类来检测死锁</p> <p>Java 5引入了 ThreadMXBean 接口，它提供了多种监视线程的方法。我建议您了解所有这些方法，因为当您没使用外部工具时，它们会为您提供很多有用的操作以便您监测程序性能。这里，我们感兴趣的方法是 findMonitorDeadlockedThreads ，如过您使用的是Java 6，对应的方法是 findDeadlockedThreads 。二者的区别的是，findDeadlockedThreads还可以检测到owner locks（java.util.concurrent）引起的死锁，而findMonitorDeadlockedThreads只能检测 monitor locks（例如，同步块）。由于保留老版本的方法只是出于兼容性的考虑，所以我将使用新版本的方法。在这里，编程的思想是把对死锁的周期性检测封装到一 个可重用组件里，之后我们只需启动它、随它去。</p> <p>一种实现调度的方法是通过执行器框架，即一组良好抽象并易于使用的多线程类。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">scheduleAtFixedRate</span><span class="o">(</span><span class="n">deadlockCheck</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">unit</span><span class="o">);</span> </code></pre></div> <p>就是那么简单，在我们通过选择周期和时间单位而设置了一个特定时间后，就得到了一个周期性调用的线程。接着，我们想使功用得以拓展从而允许用户提供在程序检测到死锁时所触发的行为。最后，我们需要一个方法来接收用于描述死锁中所有线程的一系列对象。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span> </code></pre></div> <p>现在，实现死锁检测类已经万事俱备了。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DeadlockHandler</span> <span class="o">{</span> <span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span> <span class="o">}</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeadlockDetector</span> <span class="o">{</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">ThreadMXBean</span> <span class="n">mbean</span> <span class="o">=</span> <span class="n">ManagementFactory</span><span class="o">.</span><span class="na">getThreadMXBean</span><span class="o">();</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="kd">final</span> <span class="n">Runnable</span> <span class="n">deadlockCheck</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span> <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span> <span class="kt">long</span><span class="o">[]</span> <span class="n">deadlockedThreadIds</span> <span class="o">=</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">findDeadlockedThreads</span><span class="o">();</span> <span class="k">if</span> <span class="o">(</span><span class="n">deadlockedThreadIds</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">threadInfos</span> <span class="o">=</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">getThreadInfo</span><span class="o">(</span><span class="n">deadlockedThreadIds</span><span class="o">);</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">deadlockHandler</span><span class="o">.</span><span class="na">handleDeadlock</span><span class="o">(</span><span class="n">threadInfos</span><span class="o">);</span> <span class="o">}</span> <span class="o">}</span> <span class="o">};</span> <span class="kd">public</span> <span class="nf">DeadlockDetector</span><span class="o">(</span><span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">,</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">deadlockHandler</span> <span class="o">=</span> <span class="n">deadlockHandler</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">period</span> <span class="o">=</span> <span class="n">period</span><span class="o">;</span> <span class="k">this</span><span...
-		    <p>
-		    <a class="text" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
-		      Continue Reading...
-		    </a>
-		    </p>
 		  
 		  </div>
 		</div>
