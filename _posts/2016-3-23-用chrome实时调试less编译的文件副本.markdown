@@ -65,7 +65,7 @@ lessc —source-map duang.less duang.css
 
 ```html
 
-wr 'lessc --source-map duang.less duang.css' duang.lessc
+wr 'lessc --source-map duang.less duang.css' duang.less
 
 ```
 
