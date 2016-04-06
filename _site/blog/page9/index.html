@@ -250,6 +250,50 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/Redis%E4%B8%8EMemcached%E6%AF%94%E8%BE%83/">
+		        Redis与Memcached比较
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年08月12日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Redis/">Redis</a>, <a href="/tags/Memcached/">Memcached</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>如果简单地比较Redis与Memcached的区别：</p>
+
+<p>1、  Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</p>
+
+<p>2、  Redis支持数据的备份，即master-slave模式的数据备份。</p>
+
+<p>3 、 Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用。</p>
+
+<p>在Redis中，并不是所有的数据都一直存储在内存中的。这是和Memcached相比一个最大的区别。Redis只会缓存所有的 key的信息，如果Redis发现内存的使用量超过了某一个阀值，将触发swap的操作，Redis根据“swappability = age*log(size<em>in</em>memory)”计 算出哪些key对应的value需要swap到磁盘。然后再将这些key对应的value持久化到磁盘中，同时在内存中清除。这种特性使得Redis可以 保持超过其机器本身内存大小的数据。当然，机器本身的内存必须要能够保持所有的key，毕竟这些数据是不会进行swap操作的。同时由于Redis将内存 中的数据swap到磁盘中的时候，提供服务的主线程和进行swap操作的子线程会共享这部分内存，所以如果更新需要swap的数据，Redis将阻塞这个 操作，直到子线程完成swap操作后才可以进行修改。</p>
+
+<p>总结：</p>
+
+<p>　　1.Redis使用最佳方式是全部数据in-memory。</p>
+
+<p>　　2.Redis更多场景是作为Memcached的替代者来使用。</p>
+
+<p>　　3.当需要除key/value之外的更多数据类型支持时，使用Redis更合适。</p>
+
+<p>　　4.当存储的数据不能被剔除时，使用Redis更合适。</p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
 		        多线程安全-如何保证一个类里面多个变量的一致性
 		      </a>
@@ -257,7 +301,7 @@
 		    <p id="subtitletrans" class="subtitlecontainer">
 		      <a class="subtitle">2013年05月26日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: </a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Memcached/">Memcached</a></a>
 		    </p>
 		  </header>
 		  <div class="excerpt">
@@ -287,7 +331,7 @@
 		    <p id="subtitletrans" class="subtitlecontainer">
 		      <a class="subtitle">2013年03月11日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: </a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Memcached/">Memcached</a></a>
 		    </p>
 		  </header>
 		  <div class="excerpt">
@@ -317,7 +361,7 @@
 		    <p id="subtitletrans" class="subtitlecontainer">
 		      <a class="subtitle">2013年02月2日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: </a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Memcached/">Memcached</a></a>
 		    </p>
 		  </header>
 		  <div class="excerpt">

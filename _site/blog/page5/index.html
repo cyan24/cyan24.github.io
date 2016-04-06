@@ -250,6 +250,40 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%B8%80%E4%BA%9BSEO/">
+		        前端需要注意的一些SEO
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年07月28日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <ol>
+<li>合理的title、description、keywords：搜索对着三项的权重逐个减小，title值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面title要有所不同；description把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面description有所不同；keywords列举出重要关键词即可；</li>
+<li>语义化的HTML代码，符合W3C规范：语义化代码让搜索引擎容易理解网页；</li>
+<li>重要内容HTML代码放在最前：搜索引擎抓取HTML顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取；</li>
+<li>重要内容不要用js输出：爬虫不会执行js获取内容；
+少用iframe：搜索引擎不会抓取iframe中的内容；</li>
+<li>非装饰性图片必须加alt；</li>
+<li>提高网站速度：网站速度是搜索引擎排序的一个重要指标。</li>
+</ol>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/JS%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83-CommonJS-AMD-CMD/">
 		        JS中的模块规范(CommonJS，AMD，CMD)
 		      </a>
@@ -485,36 +519,6 @@
 		    <p>在讨论页面重绘、回流之前。需要对页面的呈现流程有些了解，页面是怎么把html结合css等显示到浏览器上的，下面的流程图显示了浏览器对页面的呈现的处理流程。可能不同的浏览器略微会有些不同。但基本上都是类似的。</p> <p><img src="/img/post/1403031.jpg" alt=""> </p> <p>1、 浏览器把获取到的HTML代码解析成1个DOM树，HTML中的每个tag都· 是DOM树中的1个节点，根节点就是我们常用的document对象。DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。</p> <p>2、 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。</p> <p>3、DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree能识别样式，render tree中每个NODE都有自己的style，而且 render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现，而且不会影响呈现的，所以就不会包含到 render tree中。注意 visibility:hidden隐藏的元素还是会包含到 render tree中的，因为visibility:hidden 会影响布局(layout)，会占有空间。根据CSS2的标准，render tree中的每个节点都称为Box (Box dimensions)，理解页面元素为一个具有填充、边距、边框和位置的盒子。</p> <p>4、 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。</p> <p>回流与重绘</p> <p>1、 当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。</p> <p>2、 当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。</p> <p>注意：回流必将引起重绘，而重绘不一定会引起回流。</p> <p>回流何时发生：</p> <p>当页面布局和几何属性改变时就需要回流。下述情况会发生浏览器回流：</p> <p>1、添加或者删除可见的DOM元素；</p> <p>2、元素位置改变；</p> <p>3、元素尺寸改变——边距、填充、边框、宽度和高度</p> <p>4、内容改变——比如文本改变或者图片大小改变而引起的计算值宽度和高度改变；</p> <p>5、页面渲染初始化；</p> <p>6、浏览器窗口尺寸改变——resize事件发生时；</p> <p>让我们看看下面的代码是如何影响回流和重绘的:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;2px&quot;</span><span class="p">;</span> <span class="c1">// 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s2">&quot;1px solid red&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span> <span class="c1">// 再一次重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">&quot;#ccc&quot;</span><span class="p">;</span> <span class="c1">// 再一次 重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="s2">&quot;14px&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="c1">// 添加node，再一次 回流+重绘</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;abc!&#39;</span><span class="p">));</span> </code></pre></div> <p>说到这里大家都知道回流比重绘的代价要更高，回流的花销跟render tree有多少节点需要重新构建有关系，假设你直接操作body，比如在body最前面插入1个元素，会导致整个render tree回流，这样代价当然会比较高，但如果是指body后面插入1个元素，则不会影响前面元素的回流。</p> <p>聪明的浏览器</p> <p>从上个实例代码中可以看到几行简单的JS代码就引起了6次左右的回流、重绘。而且我们也知道回流的花销也不小，如果每句JS操作都去回流重绘的话，浏览器可能就会受不了。所以很多浏览器都会优化这些操作，浏览器会维护1个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会flush队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</p> <p>虽然有了浏览器的优化，但有时候我们写的一些代码可能会强制浏览器提前flush队列，这样浏览器的优化可能就起不到作用了。当你请求向浏览器请求一些 style信息的时候，就会让浏览器flush队列，比如：</p> <ol> <li><p>offsetTop, offsetLeft, offsetWidth, offsetHeight</p></li> <li><p>scrollTop/Left/Width/Height</p></li> <li><p>clientTop/Left/Width/Height</p></li> <li><p>width,height</p></li> <li><p>请求了getComputedStyle(), 或者 IE的 currentStyle</p></li> </ol> <p>当你请求上面的一些属性的时候，浏览器为了给你最精确的值，需要flush队列，因为队列中可能会有影响到这些值的操作。即使你获取元素的布局和样式信息跟最近发生或改变的布局信息无关，浏览器都会强行刷新渲染队列。</p> <p><strong>如何减少回流、重绘</strong></p> <p>减少回流、重绘其实就是需要减少对render tree的操作（合并多次多DOM和样式的修改），并减少对一些style信息的请求，尽量利用好浏览器的优化策略。具体方法有：</p> <p>1、直接改变className，如果动态改变样式，则使用cssText（考虑没有优化的浏览器）</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 不好的写法</span> <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s2">&quot; className1&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">+=</span> <span class="s2">&quot;;</span> <span class="s2">left: &quot;</span> <span class="o">+</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px;</span> <span class="s2">top: &quot;</span> <span class="o">+</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px;&quot;</span><span class="p">;</span> </code></pre></div> <p>2、让要操作的元素进行”离线处理”，处理完后一起更新</p> <p>a) 使用DocumentFragment进行缓存操作,引发一次回流和重绘；</p> <p>b) 使用display:none技术，只引发两次回流和重绘；</p> <p>c) 使用cloneNode(true or false) 和 replaceChild 技术，引发一次回流和重绘；</p> <p>3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，利用缓存</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 别这样写，大哥</span> <span...
 		    <p>
 		    <a class="text" href="/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/zepto%E5%92%8Cjquery%E7%9A%84%E5%8C%BA%E5%88%AB-zepto%E7%9A%84%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A88%E6%9D%A1%E5%B0%8F%E7%BB%93/">
-		        zepto和jquery的区别，zepto的不同使用8条小结
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年02月11日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Jquery/">Jquery</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>1、Zepto 对象 不能自定义事件.</p> <p>例如执行： </p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">({}).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cust&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span> </code></pre></div> <p>结果：</p> <p>TypeError: Object has no method &#39;addEventListener&#39;</p> <p>解决办法是创建一个脱离文档流的节点作为事件对象：</p> <p>例如： </p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cust&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span> </code></pre></div> <p>2、 Zepto 的选择器表达式: [name=value] 中value 必须用 双引号 &quot; or 单引号 &#39; 括起来.</p> <p>例如执行：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-userid=123123123]&#39;</span><span class="p">)</span> </code></pre></div> <p>结果：Error: SyntaxError: DOM Exception </p> <p>解决办法:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-userid=&quot;123123123]&quot;&#39;</span><span class="p">)</span> <span class="nx">or</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;[data-userid=&#39;123123123&#39;]&quot;</span><span class="p">)</span> </code></pre></div> <p>2-1、zepto的选择器没有办法选出 $(&quot;div[name!=&#39;abc&#39;]&quot;) 的元素.</p> <p>2-2、zepto获取select元素的选中option不能用类似jq的方法$(&#39;option[selected]&#39;),因为selected属性不是css的标准属性 应该使用.</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span> <span class="p">})</span> </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">比如：jq: </code></pre></div><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$this</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;option[selected]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-v&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span> </code></pre></div> <p>zepto:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$this</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span><span class="p">}).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-v&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span> </code></pre></div> <p>但是获取有select中含有disabled属性的元素可以用 $this.find(&quot;option:not(:disabled)&quot;) 因为disabled是标准属性 参考网址：https://github.com/madrobby/zepto/issues/503</p> <p>2-3、zepto在操作dom的selected和checked属性时尽量使用prop方法，以下是官方说明：</p> <p><img src="/img/post/140211.png" alt=""> </p> <p>3、Zepto 是根据标准浏览器写的，所以对于节点尺寸的方法只提供 width() 和 height()，省去了 innerWidth(), innerHeight(),outerWidth(),outerHeight() Zepto.js: 由盒模型（ box-sizing ）决定 jQuery: 忽略盒模型，始终返回内容区域的宽/高（不包含 padding 、 border ）解决方式就是使用 .css(&#39;width&#39;) 而不是 .width() 。</p> <p>3-1、边框三角形宽高的获取. 假设用下面的 HTML 和 CSS 画了一个小三角形：</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;caret&quot;</span><span class="nt">&gt;&lt;/div&gt;</span> .caret { width: 0; height: 0; border-width: 0 20px 20px; border-color: transparent transparent blue; border-style: none dotted solid; } </code></pre></div> <p>jQuery 使用 .width() 和 .css(&#39;width&#39;) 都返回 ，高度也一样； Zepto 使用 .width() 返回 ，使用 .css(&#39;width&#39;) 返回 0px 。 所以，这种场景，jQuery 使用 .outerWidth() / .outerHeight() ；Zepto 使用 .width() / .height() 。</p> <p>3-2、offset() Zepto.js: 返回 top 、 left 、 width 、 height jQuery: 返回 width 、 height</p> <p>3-3、隐藏元素 Zepto.js: 无法获取宽高； jQuery: 可以获取。</p> <p>4、Zepto 的each 方法只能遍历 数组，不能遍历JSON对象.</p> <p>5、Zepto 的animate 方法参数说明 ：详情点击-&gt; zepto中animate的用法.</p> <p>6、zepto的jsonp callback函数名无法自定义.</p> <p>7、DOM 操作区别 jq代码：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span...
-		    <p>
-		    <a class="text" href="/blog/zepto%E5%92%8Cjquery%E7%9A%84%E5%8C%BA%E5%88%AB-zepto%E7%9A%84%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A88%E6%9D%A1%E5%B0%8F%E7%BB%93/">
 		      Continue Reading...
 		    </a>
 		    </p>

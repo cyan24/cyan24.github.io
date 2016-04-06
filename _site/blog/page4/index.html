@@ -250,6 +250,94 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/nodejs-npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+		        nodejs npm常用命令
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2015年01月9日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/nodejs/">nodejs</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>npm是一个node包管理和分发工具，已经成为了非官方的发布node模块（包）的标准。有了npm，可以很快的找到特定服务要使用的包，进行下载、安装以及管理已经安装的包。</p>
+
+<p>1、npm install moduleNames：安装Node模块
+安装完毕后会产生一个node_modules目录，其目录下就是安装的各个node模块。</p>
+
+<p>node的安装分为全局模式和本地模式。
+一般情况下会以本地模式运行，包会被安装到和你的应用程序代码的本地node<em>modules目录下。
+在全局模式下，Node包会被安装到Node的安装目录下的node</em>modules下。</p>
+
+<p>全局安装命令为$npm install -g moduleName。
+获知使用$npm set global=true来设定安装模式，$npm get global可以查看当前使用的安装模式。</p>
+
+<p>示例：
+npm install express 
+默认会安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6</p>
+
+<p>npm install <name> -g 
+将包安装到全局环境中</p>
+
+<p>但是代码中，直接通过require()的方式是没有办法调用全局安装的包的。全局的安装是供命令行使用的，就好像全局安装了vmarket后，就可以在命令行中直接运行vm命令</p>
+
+<p>npm install <name> --save 
+安装的同时，将信息写入package.json中项目路径中如果有package.json文件时，直接使用npm install方法就可以根据dependencies配置安装所有的依赖包，这样代码提交到github时，就不用提交node_modules这个文件夹了。</p>
+
+<p>2、npm view moduleNames：查看node模块的package.json文件夹
+注意事项：如果想要查看package.json文件夹下某个标签的内容，可以使用$npm view moduleName labelName</p>
+
+<p>3、npm list：查看当前目录下已安装的node包
+注意事项：Node模块搜索是从代码执行的当前目录开始的，搜索结果取决于当前使用的目录中的node_modules下的内容。$ npm list parseable=true可以目录的形式来展现当前安装的所有node包</p>
+
+<p>4、npm help：查看帮助命令</p>
+
+<p>5、npm view moudleName dependencies：查看包的依赖关系</p>
+
+<p>6、npm view moduleName repository.url：查看包的源文件地址</p>
+
+<p>7、npm view moduleName engines：查看包所依赖的Node的版本</p>
+
+<p>8、npm help folders：查看npm使用的所有文件夹</p>
+
+<p>9、npm rebuild moduleName：用于更改包内容后进行重建</p>
+
+<p>10、npm outdated：检查包是否已经过时，此命令会列出所有已经过时的包，可以及时进行包的更新</p>
+
+<p>11、npm update moduleName：更新node模块</p>
+
+<p>12、npm uninstall moudleName：卸载node模块</p>
+
+<p>13、一个npm包是包含了package.json的文件夹，package.json描述了这个文件夹的结构。访问npm的json文件夹的方法如下：
+$ npm help json 
+此命令会以默认的方式打开一个网页，如果更改了默认打开程序则可能不会以网页的形式打开。</p>
+
+<p>14、发布一个npm包的时候，需要检验某个包名是否已存在
+$ npm search packageName</p>
+
+<p>15、npm init：会引导你创建一个package.json文件，包括名称、版本、作者这些信息等</p>
+
+<p>16、npm root：查看当前包的安装路径
+npm root -g：查看全局的包的安装路径</p>
+
+<p>17、npm -v：查看npm安装的版本</p>
+
+<p>更多命令请参看npm官方文档：https://www.npmjs.org/doc/</p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
 		        谈谈attachEvent和addEventListener
 		      </a>
@@ -409,40 +497,6 @@
 <p>HTML5新增了哪些语义标签，详述之。</p>
 
 <p><a href="http://www.html5jscss.com/html5-semantics-section.html">见这位前端大拿的blog。</a></p>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%B8%80%E4%BA%9BSEO/">
-		        前端需要注意的一些SEO
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年07月28日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <ol>
-<li>合理的title、description、keywords：搜索对着三项的权重逐个减小，title值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面title要有所不同；description把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面description有所不同；keywords列举出重要关键词即可；</li>
-<li>语义化的HTML代码，符合W3C规范：语义化代码让搜索引擎容易理解网页；</li>
-<li>重要内容HTML代码放在最前：搜索引擎抓取HTML顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取；</li>
-<li>重要内容不要用js输出：爬虫不会执行js获取内容；
-少用iframe：搜索引擎不会抓取iframe中的内容；</li>
-<li>非装饰性图片必须加alt；</li>
-<li>提高网站速度：网站速度是搜索引擎排序的一个重要指标。</li>
-</ol>
 
 		  
 		  </div>

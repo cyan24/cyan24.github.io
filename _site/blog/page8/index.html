@@ -250,6 +250,68 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8B%E5%9B%BE%E7%89%87%E5%9C%B0%E5%9B%BE%E5%9C%A8CSS%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8/">
+		        高性能网站建设指南读书笔记之图片地图在CSS中的使用
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年11月3日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/css/">css</a>, <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>最近看了《 High Performance Web Site》，书上对网站性能优化方面从多个角度做了剖析，本文就总结一下书中css优化方面涉及到的图片地图在CSS中的使用。</p>
+
+<p>在HTML中还可以把图片划分成多个热点区域，每一个热点域链接到不同网页的资源。这种效果的实质是把一幅图片划分为不同的热点区域，再让不同的区域进行 超链接。这就是影像地图。要完成地图区域超链接要用到三种标签：&lt; img&gt;&lt; map&gt;&lt; area&gt;下面分别介绍这些 标签的用法：</p>
+
+<p>影像地图（Image Map）标签的使用格式：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;图形文件名&quot;</span> <span class="na">usemap=</span><span class="s">&quot;#图的名称&quot;</span><span class="nt">&gt;</span>
+
+      <span class="c">&lt;!-- 插入图片时要在&lt;img&gt;标记中设置参数usemap=&quot;#图的名称&quot; ismap，以表示对图像地图（图的名称）的引用；--&gt;</span>
+
+    <span class="nt">&lt;map</span> <span class="na">name=</span><span class="s">&quot;图的名称&quot;</span><span class="nt">&gt;</span>
+
+       <span class="c">&lt;!--用&lt;map&gt;标记设定图像地图的作用区域，并用name属性爲图像起一个名字--&gt;</span>
+
+     <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">形状</span> <span class="na">coords=</span><span class="s">区域座标列表</span> <span class="na">href=</span><span class="s">&quot;URL资源地址&quot;</span><span class="nt">&gt;</span>
+
+     ......可根据需要定义多少个热点区域
+
+     <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">形状</span> <span class="na">coords=</span><span class="s">区域座标列表</span> <span class="na">href=</span><span class="s">&quot;URL资源地址&quot;</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;/map&gt;</span>
+</code></pre></div>
+<hr>
+
+<p>提示和注释：</p>
+
+<p>注释：area 元素永远嵌套在 map 元素内部。area 元素可定义图像映射中的区域。</p>
+
+<p>注释：&lt; img&gt;中的 usemap 属性可引用 &lt; map&gt; 中的 id 或 name 属性（取决于浏览器），所以我们应同时向 &lt; map&gt; 添加 id 和 name 属性。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;planets.jpg&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">usemap=</span><span class="s">&quot;#planetmap&quot;</span> <span class="na">alt=</span><span class="s">&quot;Planets&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;map</span> <span class="na">name=</span><span class="s">&quot;planetmap&quot;</span> <span class="na">id=</span><span class="s">&quot;planetmap&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;circle&quot;</span> <span class="na">coords=</span><span class="s">&quot;180,139,14&quot;</span> <span class="na">href =</span><span class="s">&quot;venus.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Venus&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;circle&quot;</span> <span class="na">coords=</span><span class="s">&quot;129,161,10&quot;</span> <span class="na">href =</span><span class="s">&quot;mercur.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mercury&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;rect&quot;</span> <span class="na">coords=</span><span class="s">&quot;0,0,110,260&quot;</span> <span class="na">href =</span><span class="s">&quot;sun.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Sun&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/map&gt;</span>
+</code></pre></div>
+<p><a href="http://stevesouders.com/hpws/imagemap.php">点我看示例</a></p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/css-%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/">
 		        css 原理及其优化
 		      </a>
@@ -543,50 +605,6 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black !important&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
 </code></pre></div>
 <p>结果：black色。</p>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/Redis%E4%B8%8EMemcached%E6%AF%94%E8%BE%83/">
-		        Redis与Memcached比较
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年08月12日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Redis/">Redis</a>, <a href="/tags/Memcached/">Memcached</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>如果简单地比较Redis与Memcached的区别：</p>
-
-<p>1、  Redis不仅仅支持简单的k/v类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</p>
-
-<p>2、  Redis支持数据的备份，即master-slave模式的数据备份。</p>
-
-<p>3 、 Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用。</p>
-
-<p>在Redis中，并不是所有的数据都一直存储在内存中的。这是和Memcached相比一个最大的区别。Redis只会缓存所有的 key的信息，如果Redis发现内存的使用量超过了某一个阀值，将触发swap的操作，Redis根据“swappability = age*log(size<em>in</em>memory)”计 算出哪些key对应的value需要swap到磁盘。然后再将这些key对应的value持久化到磁盘中，同时在内存中清除。这种特性使得Redis可以 保持超过其机器本身内存大小的数据。当然，机器本身的内存必须要能够保持所有的key，毕竟这些数据是不会进行swap操作的。同时由于Redis将内存 中的数据swap到磁盘中的时候，提供服务的主线程和进行swap操作的子线程会共享这部分内存，所以如果更新需要swap的数据，Redis将阻塞这个 操作，直到子线程完成swap操作后才可以进行修改。</p>
-
-<p>总结：</p>
-
-<p>　　1.Redis使用最佳方式是全部数据in-memory。</p>
-
-<p>　　2.Redis更多场景是作为Memcached的替代者来使用。</p>
-
-<p>　　3.当需要除key/value之外的更多数据类型支持时，使用Redis更合适。</p>
-
-<p>　　4.当存储的数据不能被剔除时，使用Redis更合适。</p>
 
 		  
 		  </div>

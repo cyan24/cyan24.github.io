@@ -250,12 +250,12 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E5%85%B3%E4%BA%8Ecss3-%E5%8A%A8%E7%94%BB%E7%9A%84%E4%B8%80%E7%82%B9%E7%AC%94%E8%AE%B0/">
-		        关于css3 动画的一点笔记
+		      <a id="post-link-trans" class="post-link" href="/blog/web%E5%8A%A8%E7%94%BB%E4%B8%AD%E7%9A%84requestAnimationFrame/">
+		        web动画中的requestAnimationFrame
 		      </a>
 		    </h1>
 		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2016年03月21日</a>
+		      <a class="subtitle">2016年04月5日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
 		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/动画/">动画</a></a>
 		    </p>
@@ -263,20 +263,12 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>代码中当要使用transform 和 opicity 比如同时0.3秒过渡时，下面这种写法不推荐，因为all会引起性能问题。</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
-     <span class="n">transform</span> <span class="o">:</span><span class="n">translate</span> <span class="p">(</span><span class="m">0</span> <span class="o">,-</span><span class="m">20px</span><span class="p">);</span>
-     <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>推荐使用下面这种写法：</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
-     <span class="n">transform</span> <span class="o">:</span><span class="n">translate</span> <span class="p">(</span><span class="m">0</span> <span class="o">,-</span><span class="m">20px</span><span class="p">);</span>
-     <span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="o">,</span><span class="n">transform</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>另外，在兼容各种webkit 的写法时，可以使用autoprefixer 插件，在less编译成css时再编译一次，可以高效得把各种前缀都自动加了。</p>
-
+		    <p>在HTML5/CSS3普遍应用的今天，在web里做动画选择其实已经很多了:</p> <p>CSS3的animattion+keyframes;</p> <p>css3的transition;</p> <p>或者是canvas上作图来实现动画，也可以借助jQuery动画相关的API方便地实现;</p> <p>当然最原始的你还可以使用window.setTimout()或者window.setInterval()通过不断更新元素的状态位置等来实现动画，前提是画面的更新频率要达到每秒60次也就是16.7ms ,才能让肉眼看到流畅的动画效果。</p> <p>以上方法几乎可以完成平时的百分之九十的需求，那requestAnimationFrame还有什么存在的价值呢～～？ 先来一步步认识一下他吧！</p> <hr> <h3>requestAnimationFrame是什么</h3> <p>我们先看看<a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">MND</a>上怎么说明的：</p> <blockquote> <p><em>The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint.</em> <em>window.requestAnimationFrame() 将告知浏览器你马上要开始动画效果了，后者需要在下次动画前调用相应方法来更新画面。这个方法就是传递给window.requestAnimationFrame()的回调函数。</em></p> </blockquote> <p>其实就是和我们熟悉的setTimeout/setInterval差不多，通过递归调用同一方法来不断更新画面以达到动起来的效果，但它优于setTimeout/setInterval的地方在于它是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销。</p> <hr> <h3>我们怎么用</h3> <p>可以直接调用，也可以通过window来调用，接收一个函数作为回调，返回一个ID值，通过把这个ID值传给window.cancelAnimationFrame()可以取消该次动画。</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span><span class="c1">//callback为回调函数</span> </code></pre></div> <hr> <h3>一个煎蛋的栗子</h3> <p>模拟一个进度条动画，初始div宽度为1px,在step函数中将进度加1然后再更新到div宽度上，在进度达到100之前，一直重复这一过程。</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;test&quot;</span> <span class="na">style=</span><span class="s">&quot;width:1px;height:17px;background:#0f0;&quot;</span><span class="nt">&gt;</span>0%<span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Run&quot;</span> <span class="na">id=</span><span class="s">&quot;run&quot;</span><span class="nt">/&gt;</span> </code></pre></div><div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">mozRequestAnimationFrame</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitRequestAnimationFrame</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">msRequestAnimationFrame</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">start</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">ele</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">);</span> <span class="kd">var</span> <span class="nx">progress</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">function</span> <span class="nx">step</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">)</span> <span class="p">{</span> <span class="nx">progress</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">ele</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">progress</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span><span class="p">;</span> <span class="nx">ele</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">progress</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span><span class="p">;</span> <span class="k">if</span> <span class="p">(</span><span class="nx">progress</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">step</span><span class="p">);</span> <span class="p">}</span> <span class="p">}</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">step</span><span class="p">);</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">ele</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s2">&quot;1px&quot;</span><span class="p">;</span> <span class="nx">progress</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">step</span><span class="p">);</span> <span class="p">},</span> <span class="kc">false</span><span class="p">);</span> </code></pre></div> <hr> <h3>兼容情况</h3> <p>来看看它的<a href="http://caniuse.com/#search=requestAnimationFrame">兼容</a>情况：</p> <p><img src="/img/post/1604051.png" alt=""></p> <hr> <h3>备胎这件事</h3> <p>是的你没有看错，我们要插播一下Polyfill ，也就是相当于兼容方案中的备胎。</p> <p>Polyfill也有称作垫片，按发明这个词的人的原话来说，它就是一段这样的代码，让浏览器原生地支持我们期望使用的一些API。</p> <p>就比如这里的requestAnimationFrame，在看到了上面的浏览器支持情况后，你就知道了比上面列出的浏览器版本老的就不支持该方法，但为了让代码能够有更好的浏览器兼容性在老机器上也能运行不报错，我们可以写一些代码让浏览器在不支持requestAnimationFrame的情况下使用window.setTimeout()，这是一种回退（fallback）到过去的方法。</p> <p>这样一来，就可以通俗一点的理解polyfill了，它就是备胎。</p> <p>下面是由Paul Irish及其他贡献者放在GitHub Gist上的代码片段，用于在浏览器不支持requestAnimationFrame情况下的备胎方案，回退到使用setTmeout的情况。当然，如果你确定代码是工作在较新大浏览器中，下面的代码是不必的。</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//...
+		    <p>
+		    <a class="text" href="/blog/web%E5%8A%A8%E7%94%BB%E4%B8%AD%E7%9A%84requestAnimationFrame/">
+		      Continue Reading...
+		    </a>
+		    </p>
 		  
 		  </div>
 		</div>
@@ -288,12 +280,12 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%94%A8chrome%E5%AE%9E%E6%97%B6%E8%B0%83%E8%AF%95less%E7%BC%96%E8%AF%91%E7%9A%84%E6%96%87%E4%BB%B6%E5%89%AF%E6%9C%AC/">
+		      <a id="post-link-trans" class="post-link" href="/blog/%E7%94%A8chrome%E5%AE%9E%E6%97%B6%E8%B0%83%E8%AF%95less%E7%BC%96%E8%AF%91%E7%9A%84%E6%96%87%E4%BB%B6%E5%89%AF%E6%9C%AC-2/">
 		        用chrome实时调试less编译的文件
 		      </a>
 		    </h1>
 		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2016年02月23日</a>
+		      <a class="subtitle">2016年03月23日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
 		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/less/">less</a></a>
 		    </p>
@@ -356,6 +348,44 @@
 <p><img src="/img/post/16022311.jpg" alt=""></p>
 
 <p>以上说的这种方式在chrome调试工具的elements - Styles 下暂时没有办法做实时调试，着也是比较遗憾的一点。</p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E5%85%B3%E4%BA%8Ecss3-%E5%8A%A8%E7%94%BB%E7%9A%84%E4%B8%80%E7%82%B9%E7%AC%94%E8%AE%B0/">
+		        关于css3 动画的一点笔记
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2016年03月21日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/动画/">动画</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>代码中当要使用transform 和 opicity 比如同时0.3秒过渡时，下面这种写法不推荐，因为all会引起性能问题。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
+     <span class="n">transform</span> <span class="o">:</span><span class="n">translate</span> <span class="p">(</span><span class="m">0</span> <span class="o">,-</span><span class="m">20px</span><span class="p">);</span>
+     <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>推荐使用下面这种写法：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
+     <span class="n">transform</span> <span class="o">:</span><span class="n">translate</span> <span class="p">(</span><span class="m">0</span> <span class="o">,-</span><span class="m">20px</span><span class="p">);</span>
+     <span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="o">,</span><span class="n">transform</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>另外，在兼容各种webkit 的写法时，可以使用autoprefixer 插件，在less编译成css时再编译一次，可以高效得把各种前缀都自动加了。</p>
 
 		  
 		  </div>
@@ -664,50 +694,6 @@
 
 <p><img src="/img/post/15111416.png" alt=""> </p>
 
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFa%E6%A0%87%E7%AD%BEhref%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BD%AC%E5%88%B0%E4%B8%8B%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E5%90%8C%E4%BD%8D%E7%BD%AE%E4%B8%8A%E7%9A%84-a-href-%E7%A9%BF%E9%80%8F%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A3%E5%86%B3/">
-		        移动端a标签href点击跳转到下一个页面同位置上的< a href>穿透点击事件解决
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年10月22日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/html5/">html5</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>项目中遇到的一个问题。移动开发的h5页面上(部分安卓机型)，点击前一个页面的a标签，进入下一个页面后，此时下一个页面的相同位置上也有一个a标签，此时会将后一个页面中的a标签点击触发。</p>
-
-<p><strong><em>解决方案：</em></strong></p>
-
-<p>将原来的&lt; a&gt;标签改为 div ，用移动端的 ontouchstart 事件代替，此时前一个页面点击事件不会穿透到下一个页面同位置的点击区域。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-         <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;operate_tbkp&quot;</span><span class="p">);</span>
-         <span class="c1">//touchstart类似mousedown</span>
-         <span class="c1">//div.ontouchstart = function(e){</span>
-         <span class="nx">div</span><span class="p">.</span><span class="nx">ontouchstart</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-         <span class="c1">//事件的touches属性是一个数组，其中一个元素代表同一时刻的一个触控点，从而可以通过touches获取多点触控的每个触控点</span>
-         <span class="c1">//由于我们只有一点触控，所以直接指向[0]</span>
-         <span class="c1">//var touch = e.touches[0];</span>
-         <span class="c1">//获取当前触控点的坐标，等同于MouseEvent事件的clientX/clientY</span>
-         <span class="c1">//var x = touch.clientX;</span>
-         <span class="c1">//var y = touch.clientY;</span>
-         <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="o">=</span><span class="s1">&#39;../applicationformAppcs/formBilling&#39;</span><span class="p">;</span>
-         <span class="p">};</span>
- <span class="p">})</span>
-</code></pre></div>
 		  
 		  </div>
 		</div>
