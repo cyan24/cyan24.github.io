@@ -250,6 +250,36 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
+		        移动端上前端开发的一些问题与总结（3）
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2015年05月19日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/html5/">html5</a>, <a href="/tags/移动开发/">移动开发</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <h3>关于ios系统中，webapp启动图片在不同设备上的适应性设置</h3> <p><a href="http://stackoverflow.com/questions/4687698/mulitple-apple-touch-startup-image-resolutions-for-ios-web-app-esp-for-ipad/10011893#10011893">不同设备上的适应性设置</a></p> <h3>关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h3> <p>可以通过正则去掉</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\u2006/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span> </code></pre></div> <h3>Cache开启和设置</h3> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCachePath</span><span class="p">(</span><span class="s2">&quot;/data/data/[com.packagename]/cache&quot;</span><span class="p">);</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheMaxSize</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span> <span class="c1">// 5MB</span> </code></pre></div> <h3>LocalStorage相关设置</h3> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabaseEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDomStorageEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="n">String</span> <span class="n">databasePath</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="na">getContext</span><span class="o">().</span><span class="na">getDir</span><span class="o">(</span><span class="s">&quot;databases&quot;</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">).</span><span class="na">getPath</span><span class="o">();</span> <span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabasePath</span><span class="o">(</span><span class="n">databasePath</span><span class="o">);</span><span class="c1">//Android　webview的LocalStorage有个问题，关闭APP或者重启后，就清楚了，所以需要browser.getSettings().setDatabase相关的操作，把LocalStoarge存到DB中</span> <span class="n">myWebView</span><span class="o">.</span><span class="na">setWebChromeClient</span><span class="o">(</span><span class="k">new</span> <span class="nf">WebChromeClient</span><span class="o">(){</span> 　　　<span class="nd">@Override</span> 　　　<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onExceededDatabaseQuota</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">String</span> <span class="n">databaseIdentifier</span><span class="o">,</span> <span class="kt">long</span> <span class="n">currentQuota</span><span class="o">,</span> <span class="kt">long</span> <span class="n">estimatedSize</span><span class="o">,</span> <span class="kt">long</span> <span class="n">totalUsedQuota</span><span class="o">,</span> <span class="n">WebStorage</span><span class="o">.</span><span class="na">QuotaUpdater</span> <span class="n">quotaUpdater</span><span class="o">){</span> 　　　　　　　<span class="n">quotaUpdater</span><span class="o">.</span><span class="na">updateQuota</span><span class="o">(</span><span class="n">estimatedSize</span> <span class="o">*</span> <span class="mi">2</span><span class="o">);</span> 　　　<span class="o">}</span> <span class="o">}</span> </code></pre></div> <h3>浏览器自带缩放按钮取消显示</h3> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setBuiltInZoomControls</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span> </code></pre></div> <h3>几个比较好的实践</h3> <p>使用localstorage缓存html</p> <p>使用lazyload，还要记得lazyload占位图虽然小，但是最好能提前加载到缓存</p> <p>延时加载执行js</p> <p>主要原因就在于Android Webview的onPageFinished事件，Android端一般是用这个事件来标识页面加载完成并显示的，也就是说在此之前，会一直loading，但是Android的OnPageFinished事件会在Javascript脚本执行完成之后才会触发。如果在页面中使用JQuery，会在处理完DOM对象，执行完$(document).ready(function() {});事件自会后才会渲染并显示页面。</p> <h3>移动浏览器篇</h3> <ul> <li>UC浏览器 video标签脱离文档流</li> </ul> <p>场景：标签的父元素(祖辈元素)设置transform样式后，标签会脱离文档流。</p> <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p> <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zj3xiyu</a></p> <p>解决方案：不使用transform属性。translate用 top、 margin等属性替代。</p> <ul> <li>UC浏览器 video标签总在最前场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</li> </ul> <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p> <ul> <li>UC浏览器position:fixed 属性在UC浏览器的奇葩现象</li> </ul> <p>场景：设置了position: fixed 的元素会遮挡z-index值更高的同辈元素。</p> <p>在8.6的版本,这个情况直接出现。</p> <p>在8.7之后的版本,当同辈元素的height大于713这个「神奇」的数值时,才会被遮挡。</p> <p>测试环境：UC浏览器 8.8_beta/8.7/8.6 + Android 2.3/4.0 。</p> <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zYLTSg6</a></p> <ul> <li>QQ手机浏览器不支持HttpOnly</li> </ul> <p>场景：带有HttpOnly属性的Cookie，在QQ手机浏览器版本从4.0开始失效。JavaScript可以直接读取设置了HttpOnly的Cookie值。</p> <p>测试环境：QQ手机浏览器 4.0/4.1/4.2 + Android 4.0 。</p> <ul> <li>(MIUI原生浏览器)浏览器地址栏hash不改变</li> </ul> <p>场景：location.hash 被赋值后，地址栏的地址不会改变。</p> <p>但实际上 location.href 已经更新了，通过JavaScript可以顺利获取到更新后的地址。</p> <p>虽然不影响正常访问，但用户无法将访问过程中改变hash后的地址存为书签。</p> <p>测试环境：MIUI 4.0</p> <ul> <li> (Chrome Mobile )fixed元素无法点击</li> </ul> <p>场景：父元素设置position: fixed;</p> <p>子元素设置position: absolute;</p> <p>此时，如果父元素/子元素还设置了overflow: hidden 则出现“父元素遮挡该子元素“的bug。</p> <p>视觉(view)层并没有出现遮挡，只是无法触发绑定在该子元素上的事件。可理解为：「看到点不到」。</p> <p>补充： 页面往下滚动，触发position: fixed;的特性时，才会出现这个bug，在最顶不会出现。</p> <p>测试平台： 小米1S，Android4.0的Chrome18</p> <p>demo： <a href="http://maplejan.sinaapp.com/demo/fixed_chromemobile.html">http://maplejan.sinaapp.com/demo/fixed_chromemobile.html</a></p> <p>解决办法： 把父元素和子元素的overflow: hidden去掉。</p> <p>以上来源于 http://www.cnblogs.com/maplejan/archive/2013/04/26/3045928.html</p> <ul>...
+		    <p>
+		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-2/">
 		        移动端上前端开发的一些问题与总结（2）
 		      </a>
@@ -392,46 +422,6 @@ iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不�
 		      Continue Reading...
 		    </a>
 		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFh5%E6%8B%A8%E6%89%93%E7%94%B5%E8%AF%9D%E7%82%B9%E6%A0%87%E7%AD%BE%E8%AF%B4%E6%98%8E/">
-		        移动端h5拨打电话点标签说明
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2015年03月28日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/html5/">html5</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>html5中经常使用的电话协议如下:</p>
-
-<p>客户端       协议类型</p>
-
-<p>iphone_uc   ：etel</p>
-
-<p>iphone      ：tel</p>
-
-<p>android_uc  ：tel</p>
-
-<p>android     ：wtai</p>
-
-<p>default_uc  ：wtai</p>
-
-<p>default     ：wtai</p>
-
 		  
 		  </div>
 		</div>

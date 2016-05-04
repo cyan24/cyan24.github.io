@@ -5,7 +5,204 @@
     <atom:link href="http://cyan24.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://cyan24.github.io/</link>
     <description>used by search engines</description>
-    <pubDate>Wed, 06 Apr 2016 11:04:10 +0800</pubDate>
+    <pubDate>Wed, 04 May 2016 15:17:06 +0800</pubDate>
+    
+      <item>
+        <title>js中继承的几种方式总结</title>
+        <link>http://cyan24.github.io/blog/js%E4%B8%AD%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</link>
+        <guid isPermaLink="true">http://cyan24.github.io/blog/js%E4%B8%AD%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</guid>
+        <description>&lt;p&gt;总结一下js中继承的几种方式，主要从 apply,call,prototype 展开。&lt;/p&gt;
+
+&lt;h3&gt;js中对象继承&lt;/h3&gt;
+
+&lt;p&gt;js中有三种继承方式：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;1.js原型（prototype）实现继承&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;    function Person(name,age){  
+        this.name=name;  
+        this.age=age;  
+    }  
+    Person.prototype.sayHello=function(){  
+        console.log(&amp;quot;使用原型得到Name：&amp;quot;+this.name);  
+    }  
+    var per=new Person(&amp;quot;cyan&amp;quot;,21);  
+    per.sayHello(); //输出：使用原型得到Name:cyan 
+
+
+    function Student(){}  
+    Student.prototype=new Person(&amp;quot;cyan24&amp;quot;,21);  
+    var stu=new Student();  
+    Student.prototype.grade=5;  
+    Student.prototype.intr=function(){  
+        console.log(this.grade);  
+    }  
+    stu.sayHello();//输出：使用原型得到Name:cyan24 
+    stu.intr();//输出：5  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;2.构造函数实现继承&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;    function Parent(name){  
+        this.name=name;  
+        this.sayParent=function(){  
+            console.log(&amp;quot;Parent:&amp;quot;+this.name);  
+        }  
+    }  
+
+    function Child(name,age){  
+        this.tempMethod=Parent;  
+        this.tempMethod(name);  
+        this.age=age;  
+        this.sayChild=function(){  
+            console.log(&amp;quot;Child:&amp;quot;+this.name+&amp;quot;age:&amp;quot;+this.age);  
+        }  
+    }  
+
+    var parent=new Parent(&amp;quot;cctest&amp;quot;);  
+    parent.sayParent(); //输出：“Parent:cctest”  
+    var child=new Child(&amp;quot;Jack&amp;quot;,24); //输出：“Child:Jack age:24”  
+    child.sayChild();  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;3.call , apply实现继承&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;    function  Person(name,age,love){  
+        this.name=name;  
+        this.age=age;  
+        this.love=love;  
+        this.say=function say(){  
+            alert(&amp;quot;姓名：&amp;quot;+name);  
+        }  
+    }  
+
+    //call方式  
+    function student(name,age){  
+        Person.call(this,name,age);  
+    }  
+
+    //apply方式  
+    function teacher(name,love){  
+        Person.apply(this,[name,love]);  
+        //Person.apply(this,arguments); //跟上句一样的效果，arguments  
+    }  
+
+    //call与aplly的异同：  
+    //1,第一个参数this都一样,指当前对象  
+    //2,第二个参数不一样：call的是一个个的参数列表；apply的是一个数组（arguments也可以）  
+
+    var per=new Person(&amp;quot;Andy&amp;quot;,25,&amp;quot;Mike&amp;quot;); //输出：“Andy”  
+    per.say();  
+    var stu=new student(&amp;quot;曲筱绡&amp;quot;,18);//输出：“曲筱绡”  
+    stu.say();  
+    var tea=new teacher(&amp;quot;关关&amp;quot;,16);//输出：“关关”  
+    tea.say();  
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;h3&gt;call和apply的用法（详细介绍）&lt;/h3&gt;
+
+&lt;p&gt;js中call和apply都可以实现继承，唯一的一点参数不同，func.call(func1,var1,var2,var3)对应的apply写法为：func.apply(func1,[var1,var2,var3])。&lt;/p&gt;
+
+&lt;p&gt;JS手册中对call的解释：&lt;/p&gt;
+
+&lt;p&gt;call 方法调用一个对象的一个方法，以另一个对象替换当前对象。  &lt;/p&gt;
+
+&lt;p&gt;call([thisObj[,arg1[, arg2[,   [,.argN]]]]])  &lt;/p&gt;
+
+&lt;p&gt;参数 thisObj :可选项。将被用作当前对象的对象。  &lt;/p&gt;
+
+&lt;p&gt;arg1, arg2,  , argN  :可选项。将被传递方法参数序列。  &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;说明 :&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。  &lt;/p&gt;
+
+&lt;p&gt;如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。 &lt;/p&gt;
+
+&lt;p&gt;说简单一点，这两函数的作用其实就是更改对象的内部指针，即改变对象的this指向的内容。这在面向对象的js编程过程中有时是很有用的。下面以apply为例，说说这两个函数在 js中的重要作用。如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;function Person(name,age){   //定义一个类   
+    this.name=name;     //名字   
+    this.age=age;       //年龄   
+    this.sayhello=function(){alert(this.name)};  
+}  
+function Print(){            //显示类的属性   
+    this.funcName=&amp;quot;Print&amp;quot;;  
+    this.show=function(){  
+        var msg=[];  
+        for(var key in this){  
+            if(typeof(this[key])!=&amp;quot;function&amp;quot;){  
+                msg.push([key,&amp;quot;:&amp;quot;,this[key]].join(&amp;quot;&amp;quot;));  
+            }  
+        }  
+        alert(msg.join(&amp;quot; &amp;quot;));  
+    };  
+}  
+function Student(name,age,grade,school){    //学生类   
+    Person.apply(this,arguments);//比call优越的地方   
+    Print.apply(this,arguments);  
+    this.grade=grade;                //年级   
+    this.school=school;                 //学校   
+}  
+
+var p1=new Person(&amp;quot;扎克伯格&amp;quot;,80);  
+p1.sayhello();  
+var s1=new Student(&amp;quot;白云飞&amp;quot;,40,9,&amp;quot;浙江大学&amp;quot;);  
+s1.show();  
+s1.sayhello();  
+alert(s1.funcName);
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;另外，&lt;strong&gt;在提升程序性能方面&lt;/strong&gt; Function.apply()有着明显的作用：
+我们先从Math.max()函数说起，Math.max后面可以接任意个参数，最后返回所有参数中的最大值。
+比如:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;alert(Math.max(5,8));   //8   
+alert(Math.max(5,7,9,3,1,6));   //9   
+
+//但是在很多情况下，我们需要找出数组中最大的元素。   
+
+var arr=[5,7,9,1];  
+//alert(Math.max(arr));    // 这样却是不行的。NaN   
+
+//要这样写   
+function getMax(arr){  
+    var arrLen=arr.length;  
+    for(var i=0,ret=arr[0];i&amp;lt;arrLen;i++){  
+        ret=Math.max(ret,arr[i]);  
+    }  
+    return ret;  
+}  
+
+alert(getMax(arr)); //9   
+
+//换用apply，可以这样写   
+function getMax2(arr){  
+    return Math.max.apply(null,arr);  
+}  
+
+alert(getMax2(arr)); //9   
+
+//两段代码达到了同样的目的，但是getMax2却优雅，高效，简洁得多。   
+
+//再比如数组的push方法。   
+var arr1=[1,3,4];  
+var arr2=[3,4,5];  
+//如果我们要把 arr2展开，然后一个一个追加到arr1中去，最后让arr1=[1,3,4,3,4,5]   
+//arr1.push(arr2)显然是不行的。 因为这样做会得到[1,3,4,[3,4,5]]   
+
+//我们只能用一个循环去一个一个的push(当然也可以用arr1.concat(arr2)，但是concat方法并不改变arr1本身)   
+
+var arrLen=arr2.length;  
+for(var i=0;i&amp;lt;arrLen;i++){  
+    arr1.push(arr2[i]);  
+}  
+
+//自从有了Apply,事情就变得如此简单   
+
+Array.prototype.push.apply(arr1,arr2); //现在arr1就是想要的结果
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        <pubDate>Wed, 04 May 2016 00:00:00 +0800</pubDate>
+      </item>
     
       <item>
         <title>web动画中的requestAnimationFrame</title>
@@ -1810,29 +2007,6 @@ cookie文件存储于documents and settings\userName\cookie\文件夹下。通�
 https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage&lt;/p&gt;
 </description>
         <pubDate>Sun, 12 Apr 2015 00:00:00 +0800</pubDate>
-      </item>
-    
-      <item>
-        <title>移动端h5拨打电话点标签说明</title>
-        <link>http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFh5%E6%8B%A8%E6%89%93%E7%94%B5%E8%AF%9D%E7%82%B9%E6%A0%87%E7%AD%BE%E8%AF%B4%E6%98%8E/</link>
-        <guid isPermaLink="true">http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFh5%E6%8B%A8%E6%89%93%E7%94%B5%E8%AF%9D%E7%82%B9%E6%A0%87%E7%AD%BE%E8%AF%B4%E6%98%8E/</guid>
-        <description>&lt;p&gt;html5中经常使用的电话协议如下:&lt;/p&gt;
-
-&lt;p&gt;客户端       协议类型&lt;/p&gt;
-
-&lt;p&gt;iphone_uc   ：etel&lt;/p&gt;
-
-&lt;p&gt;iphone      ：tel&lt;/p&gt;
-
-&lt;p&gt;android_uc  ：tel&lt;/p&gt;
-
-&lt;p&gt;android     ：wtai&lt;/p&gt;
-
-&lt;p&gt;default_uc  ：wtai&lt;/p&gt;
-
-&lt;p&gt;default     ：wtai&lt;/p&gt;
-</description>
-        <pubDate>Sat, 28 Mar 2015 00:00:00 +0800</pubDate>
       </item>
     
   </channel>

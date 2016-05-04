@@ -250,6 +250,62 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E7%90%86%E8%A7%A3HTML%E8%AF%AD%E4%B9%89%E5%8C%96/">
+		        理解HTML语义化
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年09月19日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Html/">Html</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <h3>什么是HTML语义化？</h3>
+
+<p>基本上都是围绕着几个主要的标签，像标题（H1~H6）、列表（li）、强调（strong em）等等.</p>
+
+<p>可以概括为根据内容的结构化（内容语义化），选择合适的标签（代码语义化）便于开发者阅读和写出更优雅的代码的同时让浏览器的爬虫和机器很好地解析。</p>
+
+<h3>为什么要语义化？</h3>
+
+<ul>
+<li><p>为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构:为了裸奔时好看；</p></li>
+<li><p>用户体验：例如title、alt用于解释名词或解释图片信息、label标签的活用；</p></li>
+<li><p>有利于SEO：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；</p></li>
+<li><p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；</p></li>
+<li><p>便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p></li>
+</ul>
+
+<h3>写HTML代码时应注意什么？</h3>
+
+<ul>
+<li><p>尽可能少的使用无语义的标签div和span；</p></li>
+<li><p>在语义不明显时，既可以使用div或者p时，尽量用p, 因为p在默认情况下有上下间距，对兼容特殊终端有利；</p></li>
+<li><p>不要使用纯样式标签，如：b、font、u等，改用css设置；</p></li>
+<li><p>需要强调的文本，可以包含在strong或者em标签中（浏览器预设样式，能用CSS指定就不用他们），strong默认样式是加粗（不要用b），em是斜体（不用i）；</p></li>
+<li><p>使用表格时，标题要用caption，表头用thead，主体部分用tbody包围，尾部用tfoot包围。表头和一般单元格要区分开，表头用th，单元格用td；</p></li>
+<li><p>表单域要用fieldset标签包起来，并用legend标签说明表单的用途；</p></li>
+<li><p>每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性，在lable标签中设置for=someld来让说明文本和相对应的input关联起来。</p></li>
+</ul>
+
+<p>HTML5新增了哪些语义标签，详述之。</p>
+
+<p><a href="http://www.html5jscss.com/html5-semantics-section.html">见这位前端大拿的blog。</a></p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E4%B8%80%E4%BA%9BSEO/">
 		        前端需要注意的一些SEO
 		      </a>
@@ -489,36 +545,6 @@
 		    <p>点击返回顶部，三种方法</p> <p>1、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//zepto没有动画</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">scrollTop</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span> <span class="mi">500</span><span class="p">)</span> <span class="c1">//zepto使用</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>2、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>3、zepto使用可以有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">goTop</span><span class="p">(</span><span class="nx">acceleration</span><span class="p">,</span> <span class="nx">time</span><span class="p">)</span> <span class="p">{</span> <span class="nx">acceleration</span> <span class="o">=</span> <span class="nx">acceleration</span> <span class="o">||</span> <span class="mf">0.1</span><span class="p">;</span> <span class="nx">time</span> <span class="o">=</span> <span class="nx">time</span> <span class="o">||</span> <span class="mi">16</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollX</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 滚动条到页面顶部的水平距离</span> <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">x3</span><span class="p">));</span> <span class="c1">// 滚动条到页面顶部的垂直距离</span> <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">y1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span...
 		    <p>
 		    <a class="text" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
-		        关于页面重绘和回流以及优化
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年03月3日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Html/">Html</a>, <a href="/tags/性能优化/">性能优化</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>在讨论页面重绘、回流之前。需要对页面的呈现流程有些了解，页面是怎么把html结合css等显示到浏览器上的，下面的流程图显示了浏览器对页面的呈现的处理流程。可能不同的浏览器略微会有些不同。但基本上都是类似的。</p> <p><img src="/img/post/1403031.jpg" alt=""> </p> <p>1、 浏览器把获取到的HTML代码解析成1个DOM树，HTML中的每个tag都· 是DOM树中的1个节点，根节点就是我们常用的document对象。DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。</p> <p>2、 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。</p> <p>3、DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree能识别样式，render tree中每个NODE都有自己的style，而且 render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现，而且不会影响呈现的，所以就不会包含到 render tree中。注意 visibility:hidden隐藏的元素还是会包含到 render tree中的，因为visibility:hidden 会影响布局(layout)，会占有空间。根据CSS2的标准，render tree中的每个节点都称为Box (Box dimensions)，理解页面元素为一个具有填充、边距、边框和位置的盒子。</p> <p>4、 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。</p> <p>回流与重绘</p> <p>1、 当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。</p> <p>2、 当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。</p> <p>注意：回流必将引起重绘，而重绘不一定会引起回流。</p> <p>回流何时发生：</p> <p>当页面布局和几何属性改变时就需要回流。下述情况会发生浏览器回流：</p> <p>1、添加或者删除可见的DOM元素；</p> <p>2、元素位置改变；</p> <p>3、元素尺寸改变——边距、填充、边框、宽度和高度</p> <p>4、内容改变——比如文本改变或者图片大小改变而引起的计算值宽度和高度改变；</p> <p>5、页面渲染初始化；</p> <p>6、浏览器窗口尺寸改变——resize事件发生时；</p> <p>让我们看看下面的代码是如何影响回流和重绘的:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;2px&quot;</span><span class="p">;</span> <span class="c1">// 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s2">&quot;1px solid red&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span> <span class="c1">// 再一次重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">&quot;#ccc&quot;</span><span class="p">;</span> <span class="c1">// 再一次 重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="s2">&quot;14px&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="c1">// 添加node，再一次 回流+重绘</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;abc!&#39;</span><span class="p">));</span> </code></pre></div> <p>说到这里大家都知道回流比重绘的代价要更高，回流的花销跟render tree有多少节点需要重新构建有关系，假设你直接操作body，比如在body最前面插入1个元素，会导致整个render tree回流，这样代价当然会比较高，但如果是指body后面插入1个元素，则不会影响前面元素的回流。</p> <p>聪明的浏览器</p> <p>从上个实例代码中可以看到几行简单的JS代码就引起了6次左右的回流、重绘。而且我们也知道回流的花销也不小，如果每句JS操作都去回流重绘的话，浏览器可能就会受不了。所以很多浏览器都会优化这些操作，浏览器会维护1个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会flush队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</p> <p>虽然有了浏览器的优化，但有时候我们写的一些代码可能会强制浏览器提前flush队列，这样浏览器的优化可能就起不到作用了。当你请求向浏览器请求一些 style信息的时候，就会让浏览器flush队列，比如：</p> <ol> <li><p>offsetTop, offsetLeft, offsetWidth, offsetHeight</p></li> <li><p>scrollTop/Left/Width/Height</p></li> <li><p>clientTop/Left/Width/Height</p></li> <li><p>width,height</p></li> <li><p>请求了getComputedStyle(), 或者 IE的 currentStyle</p></li> </ol> <p>当你请求上面的一些属性的时候，浏览器为了给你最精确的值，需要flush队列，因为队列中可能会有影响到这些值的操作。即使你获取元素的布局和样式信息跟最近发生或改变的布局信息无关，浏览器都会强行刷新渲染队列。</p> <p><strong>如何减少回流、重绘</strong></p> <p>减少回流、重绘其实就是需要减少对render tree的操作（合并多次多DOM和样式的修改），并减少对一些style信息的请求，尽量利用好浏览器的优化策略。具体方法有：</p> <p>1、直接改变className，如果动态改变样式，则使用cssText（考虑没有优化的浏览器）</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 不好的写法</span> <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s2">&quot; className1&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">+=</span> <span class="s2">&quot;;</span> <span class="s2">left: &quot;</span> <span class="o">+</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px;</span> <span class="s2">top: &quot;</span> <span class="o">+</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px;&quot;</span><span class="p">;</span> </code></pre></div> <p>2、让要操作的元素进行”离线处理”，处理完后一起更新</p> <p>a) 使用DocumentFragment进行缓存操作,引发一次回流和重绘；</p> <p>b) 使用display:none技术，只引发两次回流和重绘；</p> <p>c) 使用cloneNode(true or false) 和 replaceChild 技术，引发一次回流和重绘；</p> <p>3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，利用缓存</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 别这样写，大哥</span> <span...
-		    <p>
-		    <a class="text" href="/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
 		      Continue Reading...
 		    </a>
 		    </p>
