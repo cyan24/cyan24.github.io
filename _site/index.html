@@ -154,6 +154,8 @@
 					
 					
 					
+					
+					
 					<!-- Social icons from Font Awesome, if enabled -->
 					<li>
 						<a class="page-link" href="">Find Me</a>
@@ -243,6 +245,97 @@
 
 	<div class="posts">
 	
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/2016%E4%B8%8A%E6%B5%B7-iWeb-%E5%B3%B0%E4%BC%9A%E5%B0%8F%E8%AE%B0/">
+		        2016上海 iWeb 峰会小记
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2016年05月4日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle"></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>早前在公众号看到会议的日程，果断报名参加了这次峰会。想对下午对工具应用场的几个印象比较深刻多分享做一下小记。</p>
+
+<p><img src="/img/post/1606071.jpg" alt=""></p>
+
+<p>Hax 的 《ES6+代码风格和质量标准》
+Intel 的 《VR &amp; Realsense in Crosswalk》
+勾股 的 《Weex 跨平台渲染实现》</p>
+
+<h3>ES6+代码风格和质量标准</h3>
+
+<p><img src="/img/post/1606072.jpg" alt="">
+<img src="/img/post/1606073.jpg" alt=""></p>
+
+<p>Hax 贺老还是一如既往喜欢用风趣来带入代码『哲学』问题。在人人都开始逐渐迈入 ES6 的时代，通过控制一个团队级别的代码风格规范，会更容易控制代码的质量。其中特意介绍了 ESLint，Eslint具有高度可配置、预置大量规则、可共享复用(git搜索 eslint-config)等等优势。大概的规则分为：可能是错误，最佳实践，变量声明等等，贺老的建议是能用的规则都用上。。。
+事后有小伙伴专门用ESLint跑了一下代码，用贺老推荐的airbnb的代码规范，据说错误刷爆了，如下这种情况会报错：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">oneList</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// doSomething</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>这样的代码会报 Missing function expression name 的警告。改成如下可以消除这个警告。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">oneList</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="nx">each</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// doSomething</span>
+<span class="p">});</span>
+</code></pre></div>
+<p>目前还不了解airbnb这样写的目的。如果有小伙伴知道请m我。。</p>
+
+<p>而ES6+的总体原则是尽量用Es6的语法，比如：ajax =&gt; promise,Class工厂 =&gt; 原生 Class 语法，arguments =&gt; ...args，|| =&gt; 函数默认参数，回调函数 =&gt; 剪头函数等等。</p>
+
+<p>然后贺老还调侃了space党和tab党之间的偏见，算是一个轻松的话题引入，主要是分享了一个他写Atom插件: elastic-tabstops。同时推荐下Atom编辑器。</p>
+
+<p>就目前看来，代码规范这件事，还是要根据不同的情况：业务&amp;框架、 ES5&amp;ES6+、Brower&amp;Node等不同场景来制定。</p>
+
+<p>附上演讲用的原版资料：http://johnhax.net/2015/es6-code-style/#0</p>
+
+<h3>VR &amp; Realsense in Crosswalk</h3>
+
+<p><img src="/img/post/1606074.jpg" alt=""></p>
+
+<p>都说今年是vr元年，之前就一直在想，前端离vr的距离是多远，这次分享就有了答案，前端能搞 VR？答案是 Yes！这次的 iWeb 峰会中，前端 VR 技术让我真正认识到 JS 真的没有什么不能做的。因特尔通过vr主推了他们的开源项目Crosswalk。Crosswalk 可以简单理解为增强版的 webkit，用于 Hybird 项目中，可替代原生的浏览器。对于前端vr场景而言，强悍的浏览器是支持vr的必不可少的一部分，
+Crosswalk优势是多平台支持，对 WEBGL支持，对 VR，RealSense支持，知名应用比如有道云接入，谷歌的Mobile Chrome App团队接入，对兼容性的把握，对性能的优秀的处理等等。</p>
+
+<p>Crosswalk有三种接入模式：
+嵌入模式，和native打包到一起，作为 HTML5页面的 webview 使用；
+共享模式：不用打包到单个App中，系统只需要一个 crosswalk供所有应用去调用；
+还有一种下载模式：好像是应用需要依赖 crosswalk，然后貌似自动会去 app store下载。</p>
+
+<p>最后我觉得想在业务中推广使用的硬伤还是体积问题，完整包大概20M左右，轻
+量版也有10M，为了引入 crosswalk 安装包多10M，产品会噘嘴吧。。
+当天早前在他们展位现场体验了webVR小游戏，效果狠酷炫，感受很真实，演讲中还讲到一项技术web for RealSense，用手隔空操作小车的移动。</p>
+
+<p>这次因特尔的vr分享使更多前端开发者有了一个新的方向和期待，未来出了平面化的web 前端开发，vr说不定会成为一个前端再次闪耀的新热点。</p>
+
+<h3>Weex 跨平台渲染实现</h3>
+
+<p><img src="/img/post/1606075.jpg" alt="图片"></p>
+
+<p>Week 作为阿里近期主推的一款跨平台移动开发工具，这次会场中据说一半以上听众是冲着他来的。2015年双11，Weex 成功突围，算是成为阿里最好的跨平台工具，再从 QConf 宣布内测 和 iWeb 的分享 到 6 月份的正式开源，Weex 为更多人所认知，毕竟是大厂出品，又经过了双11的考验，可靠程度还是值得信任的。当天weex分享主要由勾股领衔，主要做了大概的产品介绍，Demo展示，如何调试，还有一些技术实现细节。Weex目前还是私有项目也只有Android部分，可以在<a href="http://alibaba.github.io/weex/">官网</a>通过git帐号申请获取权限，计划在6月份完全开源。</p>
+
+<p>weex和react-native 是同类型的框架，但 weex 主打的是轻量，语法简单，上手容易。weex借鉴了 vue，而 vue 和 react 相比学习成本还是比较低的。</p>
+
+<p>Weex 和 React Native 的一大区别是模板的构建形式：</p>
+
+<p>React Naitve 的 UI 和业务逻辑一般是在一起的，这比较符合 Native 的开发习惯。 Weex 采用了前端常用的方式，模板和逻辑分离，而模板采用 vuejs、hogan、avalon、artTemplate 等等模板使用的  双大括号的形式，使前端工程师开发起来非常顺手。同时，Native 工程师学习使用 Weex ，成本将会提高。
+最后，笔者感觉 Weex 是针对前端开发人员设计的一款工具框架，比较适合前端同学使用；而 React Native 是基于前端语言构建的一个 Native 框架，前端开发者会有一定的学习使用成本的同时（Native 的开发思想等），Native 开发者也会有一定的学习使用成本（ES6 语法等）。当然，环境搭建是共有的成本。</p>
+
+<p>weex框架也再次肯定了用js开发原生的这种模式，作为前端开发人员还是需要去多关注下。此外，vue社区今年应该会更活跃，关注度更高。</p>
+
+		  
+		  </div>
+		</div>
+		
 		
 	
 
@@ -605,158 +698,10 @@ Array.prototype.push.apply(arr1,arr2); //现在arr1就是想要的结果
 		  </div>
 		</div>
 		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/D2%E5%89%8D%E7%AB%AF%E8%AE%BA%E5%9D%9B%E5%88%86%E4%BA%AB%E4%B9%8B%E9%98%BF%E9%87%8C%E7%AF%87/">
-		        D2前端论坛分享——阿里篇
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2016年01月10日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/nodejs/">nodejs</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>前段时间回顾了一下d2论坛上阿里的分享环节，由sima分享的关于天猫的node改造历程。
-首先看对比改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：</p>
-
-<p><img src="/img/post/1511031.jpg" alt=""> </p>
-
-<p>由上图看出，node 的RT 和 QPS 性能数据较php有大幅度优势。</p>
-
-<p>从页面渲染的本质来看，可以从三个维度来看：</p>
-
-<p>1.前端开发编写维护的模版；</p>
-
-<p>2.运营维护或者后端系统产出的数据；</p>
-
-<p>3.通过一个渲染容器进行合并产出页面。</p>
-
-<p>示例如下：</p>
-
-<p><img src="/img/post/1601101.jpg" alt=""> </p>
-
-<p>通过扩展上下文，可以使前端写出简单的逻辑判断。</p>
-
-<p><img src="/img/post/1601102.jpg" alt=""> </p>
-
-<p>关于模版中的静态资源管理，他们是这么处理的：</p>
-
-<p>1.前后端使用统一的资源加载器；</p>
-
-<p>2.基于统一的seed控制依赖以及版本；</p>
-
-<p>3.输出combo url到页面；</p>
-
-<p>4.依赖自动去重，css/js头尾加载。</p>
-
-<p><img src="/img/post/1601103.jpg" alt=""> </p>
-
-<p>渲染出来后的页面：</p>
-
-<p><img src="/img/post/1601104.jpg" alt=""> </p>
-
-<p>另外，也做了大量点模块化工作。通过模块化，前端写的90个模块被运营组合扩展成700个页面：</p>
-
-<p><img src="/img/post/1601105.jpg" alt=""> </p>
-
-<p><img src="/img/post/1601106.jpg" alt=""> </p>
-
-<p>搭建出来大概是这样的：</p>
-
-<p><img src="/img/post/1601107.jpg" alt=""> </p>
-
-<p>阿里从模块化到规模化大概要经历这三个过程：</p>
-
-<ul>
-<li>跨业务共享模块；</li>
-<li>面向运营的可视化页面搭建平台；</li>
-<li>Native 页面搭建。</li>
-</ul>
-
-<h3>如何用NODE架构起服务</h3>
-
-<p>他们的服务并没有使用express,而是使用了koa,在渲染页面方面使用了扩展的xtemplate模版，通过阿里云oss提供模板和数据的存储支持，而cdn使用了阿里的的cdn缓存支持。</p>
-
-<p>作为koa的github维护者之一，本次分享中，sima对koa的讲解占了一定的篇幅.</p>
-
-<p>koa不仅仅作为generator，相比于express的作为中间件顺序执行的特点，他是包裹在后面所有中间件的装饰器。</p>
-
-<p><img src="/img/post/1601109.jpg" alt=""> </p>
-
-<p><img src="/img/post/1601108.jpg" alt=""> </p>
-
-<p><strong>测试覆盖率和集成测试</strong></p>
-
-<p>让测试覆盖率告诉你bug在哪儿</p>
-
-<p><img src="/img/post/16011010.jpg" alt=""> </p>
-
-<p>一般很难覆盖的地方都是比较容易出bug的地方.</p>
-
-<p>持续集成察觉每次代码变更引入的风险。</p>
-
-<p><img src="/img/post/16011011.jpg" alt=""></p>
-
-<p><strong>关于Cluster</strong></p>
-
-<ul>
-<li><p>Master 只做进程管理;</p></li>
-<li><p>worker 异常退出后自动重启（cfork）;</p></li>
-<li><p>http 服务优雅退出（graceful)。</p></li>
-</ul>
-
-<p>对关键指标做了监控，而异常对信息，做了警告处理。
-所以一定要有日志记录。</p>
-
-<p><strong>关于日志</strong></p>
-
-<p>做了以下处理：</p>
-
-<ul>
-<li><p>所有的请求都有accesslog追踪；</p></li>
-<li><p>所有异常统一记录，并分类输出；</p></li>
-<li><p>依赖系统调用tracelog,记录请求和响应情况。</p></li>
-</ul>
-
-<p>基于这些监控，可以获得到警告信息（如果有的话）。</p>
-
-<p><strong>关于警告</strong></p>
-
-<p>在以下情况作了警告的处理：</p>
-
-<p>系统/服务状态异常的情况下如RT增高/Load增高情、依赖异常如调用失败/调用超时、服务异常如出现日常日志的情况。对于异常日志信息通过短信或者邮件反应。</p>
-
-<p>这样就可以通过警告快速感知错误信息，通过日志和监控快速定位问题，目的是快速恢复服务。但是sima也提醒，最好是通过完善的单元测试去避免这些线上故障。</p>
-
-<p><strong>双十一==DDOS</strong></p>
-
-<p>每次双十一，对于阿里来说无疑都是一次类似ddos攻击，阿里的应对策略是合理利用CDN,在未改造之前需要使用几百台实体机做渲染，而改造完后用几十台虚拟机久完成了响应的活儿。</p>
-
-<p><img src="/img/post/16011012.jpg" alt=""></p>
-
-<p>为了保证在CDN情况下能保证一些业务逻辑能正常运行，比如基于CDN的URL统一，比如输入www.tmall.com, 在手机上看到的和pc上看到的页面一定是不一样的，而对cdn来说却是同一份缓存内容，所以需要处理成不同终端请求同一个url时，cdn能识别设备型号，渲染服务返回不同的页面。处理方式是在cdn安装了插件来做识别.</p>
-
-<p><strong>容灾和预案</strong></p>
-
-<p>给出的建议是消灭单点，做异地双机房部属，oss双节点主备容灾，数据模板磁盘文件容灾。也做了预案自动化，cdn会在机房间不停得做回源健康检查，如果有异常能在10s内自动切换到健康的机房。oss健康检查，异常自动切换主备。系统load过高，自动切换静态备份。渲染异常自动切换静态备份。</p>
-
-		  
-		  </div>
-		</div>
-		
 	</div>
 
 	<div class="wp-pagenavi">
-	    <span class='pages'>第 1 页，共 9 页</span>
+	    <span class='pages'>第 1 页，共 10 页</span>
 
 	    
 
@@ -795,6 +740,10 @@ Array.prototype.push.apply(arr1,arr2); //现在arr1就是想要的结果
 	    
 	        
 	          <a class="page larger" href="/blog/page9">9</a>
+	        
+	    
+	        
+	          <a class="page larger" href="/blog/page10">10</a>
 	        
 	    
 
