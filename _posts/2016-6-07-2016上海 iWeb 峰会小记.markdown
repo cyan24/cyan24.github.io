@@ -1,12 +1,12 @@
 ---
 layout: post
 title:  "2016上海 iWeb 峰会小记"
-date:   2016-05-04
+date:   2016-06-07
 author: cyan
 category: front
 tags: 
 ---
-早前在公众号看到会议的日程，果断报名参加了这次峰会。想对下午对工具应用场的几个印象比较深刻多分享做一下小记。
+早前在公众号看到会议的日程，果断报名参加了这次峰会。想对下午工具应用场的几个印象比较深刻多分享做一下小记。
 
 
 <img src="{{ '/img/post/1606071.jpg' | prepend: site.baseurl }}" alt="">
@@ -53,6 +53,7 @@ oneList.forEach(function each(item) {
 
 附上演讲用的原版资料：http://johnhax.net/2015/es6-code-style/#0
 
+___
 
 
 ###VR & Realsense in Crosswalk###
@@ -73,6 +74,7 @@ Crosswalk有三种接入模式：
 
 这次因特尔的vr分享使更多前端开发者有了一个新的方向和期待，未来出了平面化的web 前端开发，vr说不定会成为一个前端再次闪耀的新热点。
 
+___
 
 ###Weex 跨平台渲染实现###
 
