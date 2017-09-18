@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>移动端上前端开发的一些问题与总结（2） | Cyan的技术笔记</title>
-	<meta name="description" content="  前端 , html5, 移动开发, ###使用特殊链接：">
+	<meta name="description" content="  前端 , html5, 移动开发, 使用特殊链接：">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-2/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-2/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -255,202 +255,174 @@
     </p>
   </header>
   <section class="post-content">
-  <p>###使用特殊链接：</p>
+  <h3>使用特殊链接：</h3>
 
 <p>如果你关闭自动识别后 ，又希望某些电话号码能够链接到 iPhone 的拨号功能 ，那么可以通过这样来声明电话链接 ,</p>
-
-<pre><code class="language-html">&lt;a href="tel:12345654321"&gt;打电话给我&lt;/a&gt;
-&lt;a href="sms:12345654321"&gt;发短信&lt;/a&gt;
-</code></pre>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;tel:12345654321&quot;</span><span class="nt">&gt;</span>打电话给我<span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;sms:12345654321&quot;</span><span class="nt">&gt;</span>发短信<span class="nt">&lt;/a&gt;</span>
+</code></pre></div>
 <p>或用于单元格：</p>
-
-<pre><code class="language-html">&lt;td onclick="location.href='tel:122'"&gt;&lt;/td&gt;
-</code></pre>
-
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;td</span> <span class="na">onclick=</span><span class="s">&quot;location.href=&#39;tel:122&#39;&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+</code></pre></div>
 <p>“文本”描述属性的特定文字样式，间距和自动滚屏。</p>
-
-<pre><code class="language-css">text-shadow: #00FFFC 10px 10px 5px;
-text-transform: capitalize; 常量：capitalize/lowercase/none/uppercase
-word-wrap: break-word; 常量：break-word/normal
--webkit-marquee: right large infinite normal 10s; 常量：direction(方向) increment(迭代次数) repetition(重复) style(样式) speed(速度);
--webkit-marquee-direction: ahead/auto/backwards/down/forwards/left/reverse/right/up
--webkit-marquee-incrementt: 1-n/infinite(无穷次)
--webkit-marquee-speed: fast/normal/slow
--webkit-marquee-style: alternate/none/scroll/slide
--webkit-text-fill-color: #ff6600; 常量：capitalize, lowercase, none, uppercase
--webkit-text-security: circle; 常量：circle/disc/none/square
--webkit-text-size-adjust: none; 常量:auto/none;
--webkit-text-stroke: 15px #fff;
--webkit-line-break: after-white-space; 常量：normal/after-white-space
--webkit-appearance: caps-lock-indicator;
--webkit-nbsp-mode: space; 常量： normal/space
--webkit-rtl-ordering: logical; 常量：visual/logical
--webkit-user-drag: element; 常量：element/auto/none
--webkit-user-modify: read- only; 常量：read-write-plaintext-only/read-write/read-only
--webkit-user-select: text; 常量：text/auto/none
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">text-shadow</span><span class="o">:</span> <span class="nf">#00FFFC</span> <span class="nt">10px</span> <span class="nt">10px</span> <span class="nt">5px</span><span class="o">;</span>
+<span class="nt">text-transform</span><span class="o">:</span> <span class="nt">capitalize</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">capitalize</span><span class="o">/</span><span class="nt">lowercase</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">uppercase</span>
+<span class="nt">word-wrap</span><span class="o">:</span> <span class="nt">break-word</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">break-word</span><span class="o">/</span><span class="nt">normal</span>
+<span class="nt">-webkit-marquee</span><span class="o">:</span> <span class="nt">right</span> <span class="nt">large</span> <span class="nt">infinite</span> <span class="nt">normal</span> <span class="nt">10s</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">direction</span><span class="o">(</span><span class="err">方向</span><span class="o">)</span> <span class="nt">increment</span><span class="o">(</span><span class="err">迭代次数</span><span class="o">)</span> <span class="nt">repetition</span><span class="o">(</span><span class="err">重复</span><span class="o">)</span> <span class="nt">style</span><span class="o">(</span><span class="err">样式</span><span class="o">)</span> <span class="nt">speed</span><span class="o">(</span><span class="err">速度</span><span class="o">);</span>
+<span class="nt">-webkit-marquee-direction</span><span class="o">:</span> <span class="nt">ahead</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">backwards</span><span class="o">/</span><span class="nt">down</span><span class="o">/</span><span class="nt">forwards</span><span class="o">/</span><span class="nt">left</span><span class="o">/</span><span class="nt">reverse</span><span class="o">/</span><span class="nt">right</span><span class="o">/</span><span class="nt">up</span>
+<span class="nt">-webkit-marquee-incrementt</span><span class="o">:</span> <span class="nt">1-n</span><span class="o">/</span><span class="nt">infinite</span><span class="o">(</span><span class="err">无穷次</span><span class="o">)</span>
+<span class="nt">-webkit-marquee-speed</span><span class="o">:</span> <span class="nt">fast</span><span class="o">/</span><span class="nt">normal</span><span class="o">/</span><span class="nt">slow</span>
+<span class="nt">-webkit-marquee-style</span><span class="o">:</span> <span class="nt">alternate</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">scroll</span><span class="o">/</span><span class="nt">slide</span>
+<span class="nt">-webkit-text-fill-color</span><span class="o">:</span> <span class="nf">#ff6600</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">capitalize</span><span class="o">,</span> <span class="nt">lowercase</span><span class="o">,</span> <span class="nt">none</span><span class="o">,</span> <span class="nt">uppercase</span>
+<span class="nt">-webkit-text-security</span><span class="o">:</span> <span class="nt">circle</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">circle</span><span class="o">/</span><span class="nt">disc</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">square</span>
+<span class="nt">-webkit-text-size-adjust</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span> <span class="err">常量</span><span class="nd">:auto</span><span class="o">/</span><span class="nt">none</span><span class="o">;</span>
+<span class="nt">-webkit-text-stroke</span><span class="o">:</span> <span class="nt">15px</span> <span class="nf">#fff</span><span class="o">;</span>
+<span class="nt">-webkit-line-break</span><span class="o">:</span> <span class="nt">after-white-space</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">normal</span><span class="o">/</span><span class="nt">after-white-space</span>
+<span class="nt">-webkit-appearance</span><span class="o">:</span> <span class="nt">caps-lock-indicator</span><span class="o">;</span>
+<span class="nt">-webkit-nbsp-mode</span><span class="o">:</span> <span class="nt">space</span><span class="o">;</span> <span class="err">常量：</span> <span class="nt">normal</span><span class="o">/</span><span class="nt">space</span>
+<span class="nt">-webkit-rtl-ordering</span><span class="o">:</span> <span class="nt">logical</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">visual</span><span class="o">/</span><span class="nt">logical</span>
+<span class="nt">-webkit-user-drag</span><span class="o">:</span> <span class="nt">element</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">element</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">none</span>
+<span class="nt">-webkit-user-modify</span><span class="o">:</span> <span class="nt">read-</span> <span class="nt">only</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">read-write-plaintext-only</span><span class="o">/</span><span class="nt">read-write</span><span class="o">/</span><span class="nt">read-only</span>
+<span class="nt">-webkit-user-select</span><span class="o">:</span> <span class="nt">text</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">text</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">none</span>
+</code></pre></div>
 <p>“表格”描述的布局和设计性能表的具体内容。</p>
-
-<pre><code class="language-css">-webkit-border-horizontal-spacing: 2px;
--webkit-border-vertical-spacing: 2px;
--webkit-column-break-after: right; 常量：always/auto/avoid/left/right
--webkit-column-break-before: right; 常量：always/auto/avoid/left/right
-–webkit-column-break-inside: logical; 常量：avoid/auto
--webkit-column-count: 3; //分栏
--webkit-column-rule: 1px solid #fff;
-style:dashed,dotted,double,groove,hidden,inset,none,outset,ridge,solid
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-border-horizontal-spacing</span><span class="o">:</span> <span class="nt">2px</span><span class="o">;</span>
+<span class="nt">-webkit-border-vertical-spacing</span><span class="o">:</span> <span class="nt">2px</span><span class="o">;</span>
+<span class="nt">-webkit-column-break-after</span><span class="o">:</span> <span class="nt">right</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">always</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">avoid</span><span class="o">/</span><span class="nt">left</span><span class="o">/</span><span class="nt">right</span>
+<span class="nt">-webkit-column-break-before</span><span class="o">:</span> <span class="nt">right</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">always</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">avoid</span><span class="o">/</span><span class="nt">left</span><span class="o">/</span><span class="nt">right</span>
+<span class="err">–</span><span class="nt">webkit-column-break-inside</span><span class="o">:</span> <span class="nt">logical</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">avoid</span><span class="o">/</span><span class="nt">auto</span>
+<span class="nt">-webkit-column-count</span><span class="o">:</span> <span class="nt">3</span><span class="o">;</span> <span class="o">//</span><span class="err">分栏</span>
+<span class="nt">-webkit-column-rule</span><span class="o">:</span> <span class="nt">1px</span> <span class="nt">solid</span> <span class="nf">#fff</span><span class="o">;</span>
+<span class="nt">style</span><span class="nd">:dashed</span><span class="o">,</span><span class="nt">dotted</span><span class="o">,</span><span class="nt">double</span><span class="o">,</span><span class="nt">groove</span><span class="o">,</span><span class="nt">hidden</span><span class="o">,</span><span class="nt">inset</span><span class="o">,</span><span class="nt">none</span><span class="o">,</span><span class="nt">outset</span><span class="o">,</span><span class="nt">ridge</span><span class="o">,</span><span class="nt">solid</span>
+</code></pre></div>
 <p>“用户界面”描述属性，涉及到用户界面元素在浏览器中，如滚动文字区，滚动条，等等。报告还描述属性，范围以外的网页内容，如光标的标注样式和显示当您按住触摸触摸 目标，如在iPhone上的链接。</p>
-
-<pre><code class="language-css">-webkit-box-align: baseline,center,end,start,stretch 常量：baseline/center/end/start/stretch
--webkit-box-direction: normal;常量：normal/reverse
--webkit-box-flex: flex_valuet
--webkit-box-flex-group: group_number
--webkit-box-lines: multiple; 常量：multiple/single
--webkit-box-ordinal-group: group_number
--webkit-box-orient: block-axis; 常量：block-axis/horizontal/inline-axis/vertical/orientation
-–webkit-box-pack: alignment; 常量：center/end/justify/start
-</code></pre>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-box-align</span><span class="o">:</span> <span class="nt">baseline</span><span class="o">,</span><span class="nt">center</span><span class="o">,</span><span class="nt">end</span><span class="o">,</span><span class="nt">start</span><span class="o">,</span><span class="nt">stretch</span> <span class="err">常量：</span><span class="nt">baseline</span><span class="o">/</span><span class="nt">center</span><span class="o">/</span><span class="nt">end</span><span class="o">/</span><span class="nt">start</span><span class="o">/</span><span class="nt">stretch</span>
+<span class="nt">-webkit-box-direction</span><span class="o">:</span> <span class="nt">normal</span><span class="o">;</span><span class="err">常量：</span><span class="nt">normal</span><span class="o">/</span><span class="nt">reverse</span>
+<span class="nt">-webkit-box-flex</span><span class="o">:</span> <span class="nt">flex_valuet</span>
+<span class="nt">-webkit-box-flex-group</span><span class="o">:</span> <span class="nt">group_number</span>
+<span class="nt">-webkit-box-lines</span><span class="o">:</span> <span class="nt">multiple</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">multiple</span><span class="o">/</span><span class="nt">single</span>
+<span class="nt">-webkit-box-ordinal-group</span><span class="o">:</span> <span class="nt">group_number</span>
+<span class="nt">-webkit-box-orient</span><span class="o">:</span> <span class="nt">block-axis</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">block-axis</span><span class="o">/</span><span class="nt">horizontal</span><span class="o">/</span><span class="nt">inline-axis</span><span class="o">/</span><span class="nt">vertical</span><span class="o">/</span><span class="nt">orientation</span>
+<span class="err">–</span><span class="nt">webkit-box-pack</span><span class="o">:</span> <span class="nt">alignment</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">center</span><span class="o">/</span><span class="nt">end</span><span class="o">/</span><span class="nt">justify</span><span class="o">/</span><span class="nt">start</span>
+</code></pre></div>
 <p>动画过渡 这是 Webkit 中最具创新力的特性：使用过渡函数定义动画。</p>
-
-<pre><code class="language-css">-webkit-animation: title infinite ease-in-out 3s;
-animation 有这几个属性：
--webkit-animation-name： //属性名，就是我们定义的keyframes
--webkit-animation-duration：3s //持续时间
--webkit-animation-timing-function： //过渡类型：ease/ linear(线性) /ease-in(慢到快)/ease-out(快到慢) /ease-in-out(慢到快再到慢) /cubic-bezier
--webkit-animation-delay：10ms //动画延迟(默认0)
--webkit-animation-iteration-count： //循环次数(默认1)，infinite 为无限
--webkit-animation-direction： //动画方式：normal(默认 正向播放)； alternate(交替方向，第偶数次正向播放，第奇数次反向播放)
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-animation</span><span class="o">:</span> <span class="nt">title</span> <span class="nt">infinite</span> <span class="nt">ease-in-out</span> <span class="nt">3s</span><span class="o">;</span>
+<span class="nt">animation</span> <span class="err">有这几个属性：</span>
+<span class="nt">-webkit-animation-name</span><span class="err">：</span> <span class="o">//</span><span class="err">属性名，就是我们定义的</span><span class="nt">keyframes</span>
+<span class="nt">-webkit-animation-duration</span><span class="err">：</span><span class="nt">3s</span> <span class="o">//</span><span class="err">持续时间</span>
+<span class="nt">-webkit-animation-timing-function</span><span class="err">：</span> <span class="o">//</span><span class="err">过渡类型：</span><span class="nt">ease</span><span class="o">/</span> <span class="nt">linear</span><span class="o">(</span><span class="err">线性</span><span class="o">)</span> <span class="o">/</span><span class="nt">ease-in</span><span class="o">(</span><span class="err">慢到快</span><span class="o">)/</span><span class="nt">ease-out</span><span class="o">(</span><span class="err">快到慢</span><span class="o">)</span> <span class="o">/</span><span class="nt">ease-in-out</span><span class="o">(</span><span class="err">慢到快再到慢</span><span class="o">)</span> <span class="o">/</span><span class="nt">cubic-bezier</span>
+<span class="nt">-webkit-animation-delay</span><span class="err">：</span><span class="nt">10ms</span> <span class="o">//</span><span class="err">动画延迟</span><span class="o">(</span><span class="err">默认</span><span class="nt">0</span><span class="o">)</span>
+<span class="nt">-webkit-animation-iteration-count</span><span class="err">：</span> <span class="o">//</span><span class="err">循环次数</span><span class="o">(</span><span class="err">默认</span><span class="nt">1</span><span class="o">)</span><span class="err">，</span><span class="nt">infinite</span> <span class="err">为无限</span>
+<span class="nt">-webkit-animation-direction</span><span class="err">：</span> <span class="o">//</span><span class="err">动画方式：</span><span class="nt">normal</span><span class="o">(</span><span class="err">默认</span> <span class="err">正向播放</span><span class="o">)</span><span class="err">；</span> <span class="nt">alternate</span><span class="o">(</span><span class="err">交替方向，第偶数次正向播放，第奇数次反向播放</span><span class="o">)</span>
+</code></pre></div>
 <p>这些同样是可以简写的。但真正让我觉的很爽的是keyframes，它能定义一个动画的转变过程供调用，过程为0%到100%或from(0%)到to(100%)。简单点说，只要你有想法，你想让元素在这个过程中以什么样的方式改变都是很简单的。</p>
 
 <p>-webkit-transform: 类型（缩放scale/旋转rotate/倾斜skew/位移translate）
 scale(num,num) 放大倍率。scaleX 和 scaleY(3)，可以简写为：scale(* , <em>)
 rotate(</em>deg) 转动角度。rotateX 和 rotateY，可以简写为：rotate(* , <em>)
 Skew(</em>deg) 倾斜角度。skewX 和skewY，可简写为：skew(* , <em>)
-translate(</em>,<em>) 坐标移动。translateX 和translateY，可简写为：translate(</em> , *)。
-___</p>
+translate(</em>,<em>) 坐标移动。translateX 和translateY，可简写为：translate(</em> , *)。</p>
 
-<p>###锁定 viewport</p>
+<hr>
 
-<pre><code class="language-js">ontouchmove="event.preventDefault()" //锁定viewport，任何屏幕操作不移动用户界面（弹出键盘除外）。
-</code></pre>
-<hr />
+<h3>锁定 viewport</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">ontouchmove</span><span class="o">=</span><span class="s2">&quot;event.preventDefault()&quot;</span> <span class="c1">//锁定viewport，任何屏幕操作不移动用户界面（弹出键盘除外）。</span>
+</code></pre></div>
+<hr>
 
-<p>###被点击元素的外观变化，可以使用样式来设定：</p>
+<h3>被点击元素的外观变化，可以使用样式来设定：</h3>
 
 <p>-webkit-tap-highlight-color: 颜色</p>
 
-<hr />
+<hr>
 
-<p>###侦测iPhone/iPod</p>
+<h3>侦测iPhone/iPod</h3>
 
 <p>开发特定设备的移动网站，首先要做的就是设备侦测了。下面是使用Javascript侦测iPhone/iPod的UA，然后转向到专属的URL。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">if</span><span class="p">((</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/iPhone/i</span><span class="p">))</span> <span class="o">||</span> <span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/iPod/i</span><span class="p">)))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;iphone_redirect=false&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">location</span> <span class="o">=</span> <span class="s2">&quot;http://m.example.com&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-js">if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
-	if (document.cookie.indexOf("iphone_redirect=false") == -1) {
-		window.location = "http://m.example.com";
-		}
-}
-</code></pre>
-<hr />
+<h3>阻止旋转屏幕时自动调整字体大小</h3>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">html</span><span class="o">,</span> <span class="nt">body</span><span class="o">,</span> <span class="nt">form</span><span class="o">,</span> <span class="nt">fieldset</span><span class="o">,</span> <span class="nt">p</span><span class="o">,</span> <span class="nt">div</span><span class="o">,</span> <span class="nt">h1</span><span class="o">,</span> <span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span><span class="o">,</span> <span class="nt">h4</span><span class="o">,</span> <span class="nt">h5</span><span class="o">,</span> <span class="nt">h6</span> <span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">text</span><span class="o">-</span><span class="k">size</span><span class="o">-</span><span class="n">adjust</span><span class="o">:</span><span class="k">none</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
-<p>###阻止旋转屏幕时自动调整字体大小</p>
-
-<pre><code class="language-css">html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {-webkit-text-size-adjust:none;}
-</code></pre>
-<hr />
-
-<p>###模拟:hover伪类</p>
+<h3>模拟:hover伪类</h3>
 
 <p>因为iPhone并没有鼠标指针，所以没有hover事件。那么CSS :hover伪类就没用了。但是iPhone有Touch事件，onTouchStart 类似 onMouseOver，onTouchEnd 类似 onMouseOut。所以我们可以用它来模拟hover。使用Javascript：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">myLinks</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">);</span>
+    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">myLinks</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+        <span class="nx">myLinks</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;touchstart&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;hover&#39;</span><span class="p">;</span>
+            <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">myLinks</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;touchend&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;},</span> <span class="kc">false</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-js">var myLinks = document.getElementsByTagName('a');
-	for(var i = 0; i &lt; myLinks.length; i++){
-		myLinks[i].addEventListener('touchstart', function(){
-			this.className = 'hover';
-			}, false);
-		myLinks[i].addEventListener('touchend', function(){
-			this.className = '';}, false);
-}
-</code></pre>
-<hr />
-
-<p>###flexbox布局模板</p>
+<h3>flexbox布局模板</h3>
 
 <p><a href="http://jsbin.com/ibuwol/2/edit">flex模板</a></p>
 
 <p><a href="http://www.w3cplus.com/blog/666.html">深入了解flex布局</a></p>
 
-<hr />
+<hr>
 
-<p>###测试是否支持svg图片</p>
+<h3>测试是否支持svg图片</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">document</span><span class="p">.</span><span class="nx">implementation</span><span class="p">.</span><span class="nx">hasFeature</span><span class="p">(</span><span class="s2">&quot;http:// www.w3.org/TR/SVG11/feature#Image&quot;</span><span class="p">,</span> <span class="s2">&quot;1.1&quot;</span><span class="p">);</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-js">document.implementation.hasFeature("http:// www.w3.org/TR/SVG11/feature#Image", "1.1");
-
-</code></pre>
-
-<hr />
-
-<p>###消除transition闪屏</p>
+<h3>消除transition闪屏</h3>
 
 <p>两个方法</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-transform-style</span><span class="o">:</span> <span class="nt">preserve-3d</span><span class="o">;</span>
+<span class="c">/*设置内嵌的元素在 3D 空间如何呈现：保留 3D*/</span>
+<span class="nt">-webkit-backface-visibility</span><span class="o">:?</span><span class="nt">hidden</span><span class="o">;</span>
+<span class="c">/*（设置进行转换的元素的背面在面对用户时是否可见：隐藏）*/</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-css">
--webkit-transform-style: preserve-3d;
-/*设置内嵌的元素在 3D 空间如何呈现：保留 3D*/
--webkit-backface-visibility:?hidden;
-/*（设置进行转换的元素的背面在面对用户时是否可见：隐藏）*/
+<h3>消除ie10里面的那个叉号</h3>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">Pseudo-elements</span>
 
-</code></pre>
-<hr />
+<span class="nt">input</span><span class="nd">:-ms-clear</span><span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">none</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
-<p>###消除ie10里面的那个叉号</p>
-
-<pre><code class="language-css">Pseudo-elements
-
-input:-ms-clear{display:none;}
-
-</code></pre>
-<hr />
-
-<p>###ie10的特殊鼠标事件</p>
+<h3>ie10的特殊鼠标事件</h3>
 
 <p><a href="http://www.mansonchor.com/blog/blog_detail_73.html">IE10 事件监听</a></p>
 
-<hr />
+<hr>
 
-<p>###不让android识别邮箱</p>
+<h3>不让android识别邮箱</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;email=no&quot;</span> <span class="na">name=</span><span class="s">&quot;format-detection&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-html">&lt;meta content="email=no" name="format-detection" /&gt;
-</code></pre>
-<hr />
+<h3>禁止ios弹出各种操作窗口</h3>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-touch-callout</span><span class="nd">:none</span>
+</code></pre></div>
+<hr>
 
-<p>###禁止ios弹出各种操作窗口</p>
+<h3>禁止用户选中文字</h3>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-user-select</span><span class="nd">:none</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-css">
--webkit-touch-callout:none
-</code></pre>
-<hr />
+<h3>拿到滚动条</h3>
 
-<p>###禁止用户选中文字</p>
-<pre><code class="language-css">
--webkit-user-select:none
-</code></pre>
-<hr />
-
-<p>###拿到滚动条</p>
-
-<hr />
-
-<pre><code class="language-css">
-window.scrollY
-window.scrollX
-</code></pre>
-
+<hr>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">window</span><span class="nc">.scrollY</span>
+<span class="nt">window</span><span class="nc">.scrollX</span>
+</code></pre></div>
   </section>
   
 </article>
@@ -471,7 +443,7 @@ window.scrollX
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

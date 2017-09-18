@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/js%E4%B8%AD%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/js%E4%B8%AD%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -257,26 +257,24 @@
   <section class="post-content">
   <p>总结一下js中继承的几种方式，主要从 apply,call,prototype 展开。</p>
 
-<p>###js中对象继承###</p>
+<h3>js中对象继承</h3>
 
 <p>js中有三种继承方式：</p>
 
 <p><strong><em>1.js原型（prototype）实现继承</em></strong></p>
-
-<pre><code class="language-html">
-    function Person(name,age){  
+<div class="highlight"><pre><code class="language-html" data-lang="html">    function Person(name,age){  
         this.name=name;  
         this.age=age;  
     }  
     Person.prototype.sayHello=function(){  
-        console.log("使用原型得到Name："+this.name);  
+        console.log(&quot;使用原型得到Name：&quot;+this.name);  
     }  
-    var per=new Person("cyan",21);  
+    var per=new Person(&quot;cyan&quot;,21);  
     per.sayHello(); //输出：使用原型得到Name:cyan 
 
-      
+
     function Student(){}  
-    Student.prototype=new Person("cyan24",21);  
+    Student.prototype=new Person(&quot;cyan24&quot;,21);  
     var stu=new Student();  
     Student.prototype.grade=5;  
     Student.prototype.intr=function(){  
@@ -284,19 +282,14 @@
     }  
     stu.sayHello();//输出：使用原型得到Name:cyan24 
     stu.intr();//输出：5  
-
-
-</code></pre>
-
-<hr />
+</code></pre></div>
+<hr>
 
 <p><strong><em>2.构造函数实现继承</em></strong></p>
-
-<pre><code class="language-html">
-    function Parent(name){  
+<div class="highlight"><pre><code class="language-html" data-lang="html">    function Parent(name){  
         this.name=name;  
         this.sayParent=function(){  
-            console.log("Parent:"+this.name);  
+            console.log(&quot;Parent:&quot;+this.name);  
         }  
     }  
 
@@ -305,29 +298,24 @@
         this.tempMethod(name);  
         this.age=age;  
         this.sayChild=function(){  
-            console.log("Child:"+this.name+"age:"+this.age);  
+            console.log(&quot;Child:&quot;+this.name+&quot;age:&quot;+this.age);  
         }  
     }  
 
-    var parent=new Parent("cctest");  
+    var parent=new Parent(&quot;cctest&quot;);  
     parent.sayParent(); //输出：“Parent:cctest”  
-    var child=new Child("Jack",24); //输出：“Child:Jack age:24”  
+    var child=new Child(&quot;Jack&quot;,24); //输出：“Child:Jack age:24”  
     child.sayChild();  
-
-
-</code></pre>
-<hr />
+</code></pre></div>
+<hr>
 
 <p><strong><em>3.call , apply实现继承</em></strong></p>
-
-<pre><code class="language-html">
-
-    function  Person(name,age,love){  
+<div class="highlight"><pre><code class="language-html" data-lang="html">    function  Person(name,age,love){  
         this.name=name;  
         this.age=age;  
         this.love=love;  
         this.say=function say(){  
-            alert("姓名："+name);  
+            alert(&quot;姓名：&quot;+name);  
         }  
     }  
 
@@ -346,56 +334,51 @@
     //1,第一个参数this都一样,指当前对象  
     //2,第二个参数不一样：call的是一个个的参数列表；apply的是一个数组（arguments也可以）  
 
-    var per=new Person("Andy",25,"Mike"); //输出：“Andy”  
+    var per=new Person(&quot;Andy&quot;,25,&quot;Mike&quot;); //输出：“Andy”  
     per.say();  
-    var stu=new student("曲筱绡",18);//输出：“曲筱绡”  
+    var stu=new student(&quot;曲筱绡&quot;,18);//输出：“曲筱绡”  
     stu.say();  
-    var tea=new teacher("关关",16);//输出：“关关”  
+    var tea=new teacher(&quot;关关&quot;,16);//输出：“关关”  
     tea.say();  
+</code></pre></div>
+<hr>
 
-
-</code></pre>
-
-<hr />
-
-<p>###call和apply的用法（详细介绍）###</p>
+<h3>call和apply的用法（详细介绍）</h3>
 
 <p>js中call和apply都可以实现继承，唯一的一点参数不同，func.call(func1,var1,var2,var3)对应的apply写法为：func.apply(func1,[var1,var2,var3])。</p>
 
 <p>JS手册中对call的解释：</p>
 
-<p>call 方法调用一个对象的一个方法，以另一个对象替换当前对象。</p>
+<p>call 方法调用一个对象的一个方法，以另一个对象替换当前对象。  </p>
 
-<p>call([thisObj[,arg1[, arg2[,   [,.argN]]]]])</p>
+<p>call([thisObj[,arg1[, arg2[,   [,.argN]]]]])  </p>
 
-<p>参数 thisObj :可选项。将被用作当前对象的对象。</p>
+<p>参数 thisObj :可选项。将被用作当前对象的对象。  </p>
 
-<p>arg1, arg2,  , argN  :可选项。将被传递方法参数序列。</p>
+<p>arg1, arg2,  , argN  :可选项。将被传递方法参数序列。  </p>
 
 <p><strong>说明 :</strong></p>
 
-<p>call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。</p>
+<p>call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。  </p>
 
-<p>如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。</p>
+<p>如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。 </p>
 
 <p>说简单一点，这两函数的作用其实就是更改对象的内部指针，即改变对象的this指向的内容。这在面向对象的js编程过程中有时是很有用的。下面以apply为例，说说这两个函数在 js中的重要作用。如：</p>
-
-<pre><code class="language-html">
-function Person(name,age){   //定义一个类   
+<div class="highlight"><pre><code class="language-html" data-lang="html">function Person(name,age){   //定义一个类   
     this.name=name;     //名字   
     this.age=age;       //年龄   
     this.sayhello=function(){alert(this.name)};  
 }  
 function Print(){            //显示类的属性   
-    this.funcName="Print";  
+    this.funcName=&quot;Print&quot;;  
     this.show=function(){  
         var msg=[];  
         for(var key in this){  
-            if(typeof(this[key])!="function"){  
-                msg.push([key,":",this[key]].join(""));  
+            if(typeof(this[key])!=&quot;function&quot;){  
+                msg.push([key,&quot;:&quot;,this[key]].join(&quot;&quot;));  
             }  
         }  
-        alert(msg.join(" "));  
+        alert(msg.join(&quot; &quot;));  
     };  
 }  
 function Student(name,age,grade,school){    //学生类   
@@ -405,22 +388,19 @@ function Student(name,age,grade,school){    //学生类
     this.school=school;                 //学校   
 }  
 
-var p1=new Person("扎克伯格",80);  
+var p1=new Person(&quot;扎克伯格&quot;,80);  
 p1.sayhello();  
-var s1=new Student("白云飞",40,9,"浙江大学");  
+var s1=new Student(&quot;白云飞&quot;,40,9,&quot;浙江大学&quot;);  
 s1.show();  
 s1.sayhello();  
 alert(s1.funcName);
- 
-</code></pre>
-
-<hr />
+</code></pre></div>
+<hr>
 
 <p>另外，<strong>在提升程序性能方面</strong> Function.apply()有着明显的作用：
 我们先从Math.max()函数说起，Math.max后面可以接任意个参数，最后返回所有参数中的最大值。
 比如:</p>
-
-<pre><code>alert(Math.max(5,8));   //8   
+<div class="highlight"><pre><code class="language-text" data-lang="text">alert(Math.max(5,8));   //8   
 alert(Math.max(5,7,9,3,1,6));   //9   
 
 //但是在很多情况下，我们需要找出数组中最大的元素。   
@@ -464,9 +444,7 @@ for(var i=0;i&lt;arrLen;i++){
 //自从有了Apply,事情就变得如此简单   
 
 Array.prototype.push.apply(arr1,arr2); //现在arr1就是想要的结果
-</code></pre>
-
-
+</code></pre></div>
   </section>
   
 </article>
@@ -487,7 +465,7 @@ Array.prototype.push.apply(arr1,arr2); //现在arr1就是想要的结果
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>解决IE6的PNG透明JS插件使用介绍 | Cyan的技术笔记</title>
-	<meta name="description" content="  前端 , IE, 兼容, IE6的PNG透明是个老问题了，最近有朋友问我有没有最好的解决这个问题的插件。虽然知道且在用DD_belatedPNG这个插件，今天抽空把这个发上来。">
+	<meta name="description" content="  前端 , IE, 兼容, IE6的PNG透明是个老问题了，最近有朋友问我有没有最好的解决这个问题的插件。虽然知道且在用DD_belatedPNG这个插件，今天抽空把这个发上来。 ">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E8%A7%A3%E5%86%B3IE6%E7%9A%84PNG%E9%80%8F%E6%98%8EJS%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E8%A7%A3%E5%86%B3IE6%E7%9A%84PNG%E9%80%8F%E6%98%8EJS%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -255,63 +255,47 @@
     </p>
   </header>
   <section class="post-content">
-  <p>IE6的PNG透明是个老问题了，最近有朋友问我有没有最好的解决这个问题的插件。虽然知道且在用DD_belatedPNG这个插件，今天抽空把这个发上来。</p>
+  <p>IE6的PNG透明是个老问题了，最近有朋友问我有没有最好的解决这个问题的插件。虽然知道且在用DD_belatedPNG这个插件，今天抽空把这个发上来。 </p>
 
 <p>虽然之前在原博客里发过一款jquery的png插件，但是不支持背景平铺。 
-DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达到半透明的效果，并且能支持background-position和background-repeat属性，支持伪类。是一款不错的值得推荐的插件，用法也比较简单。</p>
+DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达到半透明的效果，并且能支持background-position和background-repeat属性，支持伪类。是一款不错的值得推荐的插件，用法也比较简单。 </p>
 
-<p>使用方法：</p>
-
-<pre><code class="language-html">
-&lt;!--[if IE 6]&gt; 
-&lt;script src="DD_belatedPNG.js"&gt;&lt;/script&gt; 
-&lt;script&gt; 
-DD_belatedPNG.fix('.png_bg'); 
-&lt;/script&gt; 
-&lt;![endif]--&gt; 
-
-</code></pre>
-
-<p>引用函数是DD_belatedPNG.fix()，括号里的 .png_bg 改成你的css选择器名称。</p>
+<p>使用方法： </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--[if IE 6]&gt; </span>
+<span class="c">&lt;script src=&quot;DD_belatedPNG.js&quot;&gt;&lt;/script&gt; </span>
+<span class="c">&lt;script&gt; </span>
+<span class="c">DD_belatedPNG.fix(&#39;.png_bg&#39;); </span>
+<span class="c">&lt;/script&gt; </span>
+<span class="c">&lt;![endif]--&gt;</span> 
+</code></pre></div>
+<p>引用函数是DD<em>belatedPNG.fix()，括号里的 .png</em>bg 改成你的css选择器名称。 </p>
 
 <ul>
-  <li>ID选择器例子：</li>
+<li>ID选择器例子：</li>
 </ul>
-
-<pre><code class="language-javascript">DD_belatedPNG.fix('#png'); 
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;#png&#39;</span><span class="p">);</span> 
+</code></pre></div>
 <ul>
-  <li>伪类例子：</li>
+<li>伪类例子： </li>
 </ul>
-
-<pre><code class="language-javascript">DD_belatedPNG.fix('.png a:hover,.png a:focus'); 
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;.png a:hover,.png a:focus&#39;</span><span class="p">);</span> 
+</code></pre></div>
 <ul>
-  <li>img标签例子：</li>
+<li>img标签例子：</li>
 </ul>
-
-<pre><code class="language-javascript">DD_belatedPNG.fix('img'); 
-</code></pre>
-
-<p>如果是多个直接加逗号（英文下的）就行。例如：</p>
-
-<pre><code class="language-javascript">
-DD_belatedPNG.fix('.png_bg,#png,.png a:hover,.png a:focus,img'); 
-</code></pre>
-
-<p>使用方法：</p>
-
-<pre><code class="language-html">
-&lt;!--[if IE 6]&gt; 
-&lt;script type="text/javascript" src="js/dd_png.js"&gt;&lt;/script&gt; 
-&lt;script type="text/javascript"&gt; 
-DD_belatedPNG.fix('.tel,.head_content'); 
-&lt;/script&gt; 
-&lt;![endif]--&gt; 
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span> 
+</code></pre></div>
+<p>如果是多个直接加逗号（英文下的）就行。例如： </p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;.png_bg,#png,.png a:hover,.png a:focus,img&#39;</span><span class="p">);</span> 
+</code></pre></div>
+<p>使用方法： </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--[if IE 6]&gt; </span>
+<span class="c">&lt;script type=&quot;text/javascript&quot; src=&quot;js/dd_png.js&quot;&gt;&lt;/script&gt; </span>
+<span class="c">&lt;script type=&quot;text/javascript&quot;&gt; </span>
+<span class="c">DD_belatedPNG.fix(&#39;.tel,.head_content&#39;); </span>
+<span class="c">&lt;/script&gt; </span>
+<span class="c">&lt;![endif]--&gt;</span> 
+</code></pre></div>
 <p>括号里的是样式选择器，中间用逗号隔开.</p>
 
 <p>JS文件下载地址:
@@ -337,7 +321,7 @@ DD_belatedPNG.fix('.tel,.head_content');
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

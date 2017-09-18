@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/H5%E5%BC%80%E5%8F%91%E4%B8%AD%E5%9B%9B%E7%A7%8D%E9%A1%B5%E9%9D%A2%E6%A8%AA%E5%90%91%E6%BB%91%E5%8A%A8%E6%A8%A1%E5%BC%8F/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/H5%E5%BC%80%E5%8F%91%E4%B8%AD%E5%9B%9B%E7%A7%8D%E9%A1%B5%E9%9D%A2%E6%A8%AA%E5%90%91%E6%BB%91%E5%8A%A8%E6%A8%A1%E5%BC%8F/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -262,121 +262,115 @@
 <p>一、容器整体滑动（DEMO只演示A-B-C-B，下同）
 模拟动画效果见下图(上)，滑动分解见下图(下)：</p>
 
-<p><img src="/img/post/1509201.gif" alt="" /></p>
+<p><img src="/img/post/1509201.gif" alt=""> </p>
 
-<p><img src="/img/post/1509202.jpg" alt="" /></p>
+<p><img src="/img/post/1509202.jpg" alt=""> </p>
 
 <p><a href="http://nirvana.sinaapp.com/demo_slider/slider_1.html">demo</a></p>
 
 <p>布局方式：父容器相对定位并撑满整个device的viewport，子页面绝对定位并依次并排排列在viewport中（从左到右）</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.view-container</span> <span class="p">{</span> <span class="o">//</span> <span class="err">父容器布局方式</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">padding-top</span><span class="o">:</span> <span class="m">44px</span><span class="p">;</span>
+  <span class="n">box</span><span class="o">-</span><span class="n">sizing</span><span class="o">:</span> <span class="k">border</span><span class="o">-</span><span class="n">box</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate3d</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span> <span class="o">//</span><span class="err">激活</span><span class="n">GPU</span> <span class="m">3</span><span class="n">D</span><span class="err">加速</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">backface</span><span class="o">-</span><span class="k">visibility</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.page-container</span> <span class="p">{</span> <span class="o">//</span> <span class="err">子页面布局方式</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span> <span class="o">//</span> <span class="err">初始化为</span><span class="m">0</span><span class="err">，动态计算第</span><span class="n">N</span><span class="err">个</span><span class="k">page</span><span class="err">，并赋值</span><span class="p">(</span><span class="n">N</span><span class="m">-1</span><span class="p">)</span><span class="o">*</span><span class="m">100%</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#F8F8F8</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>滑动方式：父容器利用CSS3的动画transform3D进行X轴的滑动(JS控制直接喷到DOM节点中)</p>
 
-<pre><code class="language-css">.view-container { // 父容器布局方式
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding-top: 44px;
-  box-sizing: border-box;
-  -webkit-transform: translate3d(0,0,0); //激活GPU 3D加速
-  -webkit-backface-visibility: hidden;
-}
-.page-container { // 子页面布局方式
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0; // 初始化为0，动态计算第N个page，并赋值(N-1)*100%
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: #F8F8F8;
-}
-</code></pre>
-
-<p>滑动方式：父容器利用CSS3的动画transform3D进行X轴的滑动(JS控制直接喷到DOM节点中)
-___</p>
+<hr>
 
 <p>二、单个页面滑动
 模拟动画效果，见下图：</p>
 
-<p><img src="/img/post/1509202.gif" alt="" /></p>
+<p><img src="/img/post/1509202.gif" alt=""> </p>
 
-<p><img src="/img/post/1509203.jpg" alt="" /></p>
+<p><img src="/img/post/1509203.jpg" alt=""> </p>
 
 <p><a href="http://nirvana.sinaapp.com/demo_slider/slider_2.html">demo</a></p>
 
 <p>布局方式：父容器高度100%，子容器正常文档流布局（X轴隐藏，Y轴默认原生滚动）</p>
-
-<pre><code class="language-css">.view-container {        
-  height: 100%;
-}
-.page-container {
-  position: relative;
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  background-color: #F8F8F8;
-}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.view-container</span> <span class="p">{</span>        
+  <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.page-container</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">min-height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">overflow-x</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#F8F8F8</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>滑动方式：利用class添加动画样式（keyframes animation），左右进出各一种</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css">  <span class="k">@-webkit-keyframes</span> <span class="nt">sliderightout</span><span class="p">{</span><span class="nt">from</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">0px</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">1</span><span class="p">}</span><span class="nt">to</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">50%</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">0</span><span class="p">}}</span>
+  <span class="k">@-webkit-keyframes</span> <span class="nt">slideleftin</span><span class="p">{</span><span class="nt">from</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">-50%</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">0</span><span class="p">}</span><span class="nt">to</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">0px</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">1</span><span class="p">}}</span>
+  <span class="k">@-webkit-keyframes</span> <span class="nt">slideleftout</span><span class="p">{</span><span class="nt">from</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">0px</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">1</span><span class="p">}</span><span class="nt">to</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">-50%</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">0</span><span class="p">}}</span>
+  <span class="k">@-webkit-keyframes</span> <span class="nt">sliderightin</span><span class="p">{</span><span class="nt">from</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">50%</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">0</span><span class="p">}</span><span class="nt">to</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translateX</span><span class="p">(</span><span class="m">0px</span><span class="p">);</span><span class="k">opacity</span><span class="o">:</span><span class="m">1</span><span class="p">}}</span>
 
-<pre><code class="language-css">  @-webkit-keyframes sliderightout{from{-webkit-transform:translateX(0px);opacity:1}to{-webkit-transform:translateX(50%);opacity:0}}
-  @-webkit-keyframes slideleftin{from{-webkit-transform:translateX(-50%);opacity:0}to{-webkit-transform:translateX(0px);opacity:1}}
-  @-webkit-keyframes slideleftout{from{-webkit-transform:translateX(0px);opacity:1}to{-webkit-transform:translateX(-50%);opacity:0}}
-  @-webkit-keyframes sliderightin{from{-webkit-transform:translateX(50%);opacity:0}to{-webkit-transform:translateX(0px);opacity:1}}
-
-  .slideleftout{-webkit-animation:slideleftout 350ms ease-in-out;}
-  .slideleftin{-webkit-animation:slideleftin 350ms ease-in-out;}
-  .sliderightout{-webkit-animation:sliderightout 350ms ease-in-out;}
-  .sliderightin{-webkit-animation:sliderightin 350ms ease-in-out;}
-  .animatestart{position:absolute;top:0;left:0;z-index:3;width:100%;height:100%;overflow-x:hidden}
-  .animatestart.page-container{overflow-x:hidden;-webkit-transform:translate3d(0,0,0);-webkit-backface-visibility:hidden;background-color:#f5f5f5}
-</code></pre>
-<hr />
+  <span class="nc">.slideleftout</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">animation</span><span class="o">:</span><span class="n">slideleftout</span> <span class="m">350</span><span class="n">ms</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;}</span>
+  <span class="nc">.slideleftin</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">animation</span><span class="o">:</span><span class="n">slideleftin</span> <span class="m">350</span><span class="n">ms</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;}</span>
+  <span class="nc">.sliderightout</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">animation</span><span class="o">:</span><span class="n">sliderightout</span> <span class="m">350</span><span class="n">ms</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;}</span>
+  <span class="nc">.sliderightin</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">animation</span><span class="o">:</span><span class="n">sliderightin</span> <span class="m">350</span><span class="n">ms</span> <span class="n">ease</span><span class="o">-</span><span class="n">in</span><span class="o">-</span><span class="n">out</span><span class="p">;}</span>
+  <span class="nc">.animatestart</span><span class="p">{</span><span class="k">position</span><span class="o">:</span><span class="k">absolute</span><span class="p">;</span><span class="k">top</span><span class="o">:</span><span class="m">0</span><span class="p">;</span><span class="k">left</span><span class="o">:</span><span class="m">0</span><span class="p">;</span><span class="k">z-index</span><span class="o">:</span><span class="m">3</span><span class="p">;</span><span class="k">width</span><span class="o">:</span><span class="m">100%</span><span class="p">;</span><span class="k">height</span><span class="o">:</span><span class="m">100%</span><span class="p">;</span><span class="k">overflow-x</span><span class="o">:</span><span class="k">hidden</span><span class="p">}</span>
+  <span class="nc">.animatestart.page-container</span><span class="p">{</span><span class="k">overflow-x</span><span class="o">:</span><span class="k">hidden</span><span class="p">;</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translate3d</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">backface</span><span class="o">-</span><span class="k">visibility</span><span class="o">:</span><span class="k">hidden</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span><span class="m">#f5f5f5</span><span class="p">}</span>
+</code></pre></div>
+<hr>
 
 <p>三、双页联动滑动
 模拟动画效果，见下图：</p>
 
-<p><img src="/img/post/1509203.gif" alt="" /></p>
+<p><img src="/img/post/1509203.gif" alt=""> </p>
 
-<p><img src="/img/post/1509204.jpg" alt="" /></p>
+<p><img src="/img/post/1509204.jpg" alt=""> </p>
 
 <p><a href="http://nirvana.sinaapp.com/demo_slider/slider_3.html">demo</a></p>
 
 <p>布局方式：类似于第一种，父容器和子容器都绝对定位于viewport中，不同点是父类的上级布局更加细分，且大胆使用了webkit-box弹性盒子；子容器没有并排显示，而是重叠隐藏</p>
-
-<pre><code class="language-css">.view-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-.page-container {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: #F8F8F8;
-  -webkit-transform:translate3d(0,0,0);
-  -webkit-backface-visibility:hidden;
-}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.view-container</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.page-container</span> <span class="p">{</span>
+  <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="o">:</span> <span class="m">1</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">bottom</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+  <span class="k">overflow</span><span class="o">:</span> <span class="k">hidden</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#F8F8F8</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span><span class="n">translate3d</span><span class="p">(</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="o">,</span><span class="m">0</span><span class="p">);</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">backface</span><span class="o">-</span><span class="k">visibility</span><span class="o">:</span><span class="k">hidden</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>滑动方式：滑动开始时先将隐藏的下一个子页面拉到viewport右侧与当前子页面平行，然后紧接着两个子页面同步滑动，最后回归样式，中间的时间差事件均有JS控制（详见demo逻辑）</p>
 
-<hr />
+<hr>
 
 <p>四、三舞台双页视差滑动
 模拟动画效果见下图（上），分解逻辑图见下图（下）：</p>
 
-<p><img src="/img/post/1509204.gif" alt="" /></p>
+<p><img src="/img/post/1509204.gif" alt=""> </p>
 
-<p><img src="/img/post/1509205.jpg" alt="" /></p>
+<p><img src="/img/post/1509205.jpg" alt=""> </p>
 
 <p><a href="http://nirvana.sinaapp.com/demo_slider/slider_4.html">demo</a></p>
 
@@ -399,25 +393,23 @@ ___</p>
 1，定义正向（向左滑）和反向（向右滑）两个概念,；
 2，定义快速和慢速两个概念；
 则就是四种动态两种组合：正向快速+正向慢速、反向快速+反向慢速；</p>
-
-<pre><code class="language-css">.slideSlow {
-  -webkit-transition: -webkit-transform 400ms cubic-bezier(0.42, 0, 0.58, 1.0) 0.1s;
-      -ms-transition: transform 400ms cubic-bezier(0.42, 0, 0.58, 1.0) 0.1s;
-}
-.slideFast {
-  -webkit-transition: -webkit-transform 300ms cubic-bezier(0.42, 0, 0.58, 1.0);
-      -ms-transition: transform 300ms cubic-bezier(0.42, 0, 0.58, 1.0);
-}
-.slideSlowBack {
-  -webkit-transition: -webkit-transform 400ms cubic-bezier(0.42, 0, 0.58, 1.0);
-      -ms-transition: transform 400ms cubic-bezier(0.42, 0, 0.58, 1.0);
-}
-.slideFastBack {
-  -webkit-transition: -webkit-transform 300ms cubic-bezier(0.42, 0, 0.58, 1.0) 0.1s;
-      -ms-transition: transform 300ms cubic-bezier(0.42, 0, 0.58, 1.0) 0.1s;
-}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.slideSlow</span> <span class="p">{</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span> <span class="m">400</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">)</span> <span class="m">0.1s</span><span class="p">;</span>
+      <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="n">transform</span> <span class="m">400</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">)</span> <span class="m">0.1s</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.slideFast</span> <span class="p">{</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span> <span class="m">300</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">);</span>
+      <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="n">transform</span> <span class="m">300</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.slideSlowBack</span> <span class="p">{</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span> <span class="m">400</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">);</span>
+      <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="n">transform</span> <span class="m">400</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nc">.slideFastBack</span> <span class="p">{</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span> <span class="m">300</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">)</span> <span class="m">0.1s</span><span class="p">;</span>
+      <span class="o">-</span><span class="n">ms</span><span class="o">-</span><span class="n">transition</span><span class="o">:</span> <span class="n">transform</span> <span class="m">300</span><span class="n">ms</span> <span class="n">cubic</span><span class="o">-</span><span class="n">bezier</span><span class="p">(</span><span class="m">0</span><span class="o">.</span><span class="m">42</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">58</span><span class="o">,</span> <span class="m">1</span><span class="o">.</span><span class="m">0</span><span class="p">)</span> <span class="m">0.1s</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>其中在三舞台视差滑动中的滑动曲线是经过数次的真机实验后找到的参数（cubic-bezier(0.42, 0, 0.58, 1.0)），这条曲线的滑动形态最接近IOS APP页面的滑动，希望对大家有用，鉴于时间精力有限，这四种模式只能从架构布局和样式设计层面探讨，关于WEBAPP性能架构及一些深层次的问题，欢迎与我交流（微博@忆龙Lau），相互学习！</p>
 
 <p>相关资料：
@@ -445,7 +437,7 @@ ___</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="Cyan的技术笔记">
+	<meta name="description" content="used by search engines">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/page8/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/page8/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -245,64 +245,6 @@
 
 	<div class="posts">
 	
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/padding-ie-%E4%B8%8D%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
-		        padding ie 不兼容问题
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年11月10日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>在使用padding时，在ie 兼容时通常我们遇到3种情况：</p>
-
-<ul>
-  <li>IE6 正常 IE7/FF不正常</li>
-</ul>
-
-<p>这种情况下我们这样处理：</p>
-
-<pre><code class="language-html">   padding: 7px !important;（针对FF/IE7）
-   padding: 6px;（针对IE6）
-</code></pre>
-
-<ul>
-  <li>IE6 IE7正常 FF不正常</li>
-</ul>
-
-<p>这种情况我们要这么处理，因为!important IE7也是能识别的！</p>
-
-<pre><code class="language-html">
-  padding: 7px;（针对FF）
- *padding: 6px;（针对IE6/IE7）
-</code></pre>
-<ul>
-  <li>E6 IE7 FF都不一样
-```</li>
-</ul>
-
-<p>这种情况我们这样来处理：</p>
-
-<pre><code class="language-html">   padding: 7px;（针对FF）
-  *padding: 6px;（针对IE7）
-  _padding: 5px; （针对IE6）
-</code></pre>
-
-		  
-		  </div>
-		</div>
-		
 		
 	
 
@@ -333,7 +275,7 @@
 none | subpixel-antialiased | antialiased
 其他的三个，我设置了，好像没什么变化。大家可以自己在控制台调试看看。</p>
 
-<p><img src="/img/post/1312193.jpg" alt="" /></p>
+<p><img src="/img/post/1312193.jpg" alt=""> </p>
 
 		  
 		  </div>
@@ -369,7 +311,8 @@ none | subpixel-antialiased | antialiased
 
 <p>当页面加载时，不是加载每个单独图片，而是一次加载整个组合图片。这是一个了不起的改进，它大大减少了HTTP请求的次数，减轻服务器压力，同时缩短了悬停加载图片所需要的时间延迟，使效果更流畅，不会停顿。</p>
 
-<hr />
+<hr>
+
 <p>CSS Sprites优点</p>
 
 <p>CSS Sprites为什么突然跑火，跟能够提升网站性能有关。显而易见，这是它的巨大优点之一。</p>
@@ -383,28 +326,27 @@ CSS Sprites缺点</p>
 <p>在图片合并的时候，你要把多张图片有序的合理的合并成一张图片，还要留好只够的空间，防止板块内不会出现不必要的背景，否则可能会出现出现干扰图片的情况；这些还好，做痛苦的是在宽屏，高分辨率的屏幕下的自适应页面，你的图片如果不够宽，很容易出现背景断裂；
 CSS Sprites在开发的时候比较麻烦，你要通过photoshop或其他工具测量计算每一个背景单元的精确位置，这是针线活，没什么难度，但是很繁琐；不过网上已经有高手开发出“CSS Sprites 样式生成工具”，大家可以尝试一下。
 CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果页面背景有少许改动，一般就要改这张合并的图片，无需改的地方最好不要动，这样避 免改动更多的css，如果在原来的地方放不下，有只能（最好）往下加图片，这样图片的字节就增加了，因为每次的图片改动都得往这个图片删除或添加内容，显 得稍微繁琐，而且重新算图片的位置（尤其是这种上千px的图）也是一件颇为不爽的事情。当然，在性能的口号下，这些都是可以克服的。
-由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性。
-___</p>
+由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性。</p>
+
+<hr>
 
 <p>CSS Sprites总结</p>
 
 <p>性能压倒一切。CSS Sprites非常值得学习和应用，特别是页面有一堆ico（图标）。总之很多时候大家要权衡一下利弊，在决定是不是应用CSS Sprites。为保持兼容性和维护性，sprites图片中的各个部分保持一定的距离是一种不错的做法。</p>
 
-<hr />
+<hr>
+
 <p>书中示例：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">   <span class="nt">&lt;style&gt;</span> <span class="nf">#navbar</span> <span class="nt">span</span> <span class="p">{</span> <span class="k">width</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;</span> <span class="k">float</span><span class="o">:</span><span class="k">left</span><span class="p">;</span> <span class="k">background-image</span><span class="o">:</span><span class="sx">url(/images/spritebg.gif?t=1442038329)</span><span class="p">;</span> <span class="p">}</span> <span class="nc">.home</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:</span><span class="m">0</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;</span> <span class="k">margin-left</span><span class="o">:</span> <span class="m">4px</span><span class="p">;}</span> <span class="nc">.gifts</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">32px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.cart</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">64px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.settings</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">96px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.help</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">128px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">0px</span><span class="p">;}</span> 
+   <span class="nt">&lt;/style&gt;</span> 
 
-<pre><code class="language-html">
-   &lt;style&gt; #navbar span { width:31px; height:31px; display:inline; float:left; background-image:url(/images/spritebg.gif?t=1442038329); } .home { background-position:0 0; margin-right:4px; margin-left: 4px;} .gifts { background-position:-32px 0; margin-right:4px;} .cart { background-position:-64px 0; margin-right:4px;} .settings { background-position:-96px 0; margin-right:4px;} .help { background-position:-128px 0; margin-right:0px;} 
-   &lt;/style&gt; 
-
-   &lt;div id="navbar" style="background-color: #F4F5EB; border: 2px ridge #333; width: 180px; height: 32px; padding: 4px 0 4px 0;"&gt; 
-      &lt;a href="javascript:alert('Home')" title="Home"&gt;&lt;span class="home"&gt;&lt;/span&gt;&lt;/a&gt;
-      &lt;a href="javascript:alert('Gifts')" title="Gifts"&gt;&lt;span class="gifts"&gt;&lt;/span&gt;&lt;/a&gt; 
-      &lt;a href="javascript:alert('Cart')" title="Cart"&gt;&lt;span class="cart"&gt;&lt;/span&gt;&lt;/a&gt; 
-      &lt;a href="javascript:alert('Settings')" title="Settings"&gt;&lt;span class="settings"&gt;&lt;/span&gt;&lt;/a&gt;      &lt;a href="javascript:alert('Help')" title="Help"&gt;&lt;span class="help"&gt;&lt;/span&gt;&lt;/a&gt; 
-    &lt;/div&gt;
-</code></pre>
-
+   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;navbar&quot;</span> <span class="na">style=</span><span class="s">&quot;background-color: #F4F5EB; border: 2px ridge #333; width: 180px; height: 32px; padding: 4px 0 4px 0;&quot;</span><span class="nt">&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Home&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Home&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;home&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Gifts&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Gifts&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;gifts&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Cart&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Cart&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cart&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Settings&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Settings&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;settings&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Help&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Help&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;help&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+    <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
 		  
 		  </div>
 		</div>
@@ -434,43 +376,37 @@ ___</p>
 <p>在HTML中还可以把图片划分成多个热点区域，每一个热点域链接到不同网页的资源。这种效果的实质是把一幅图片划分为不同的热点区域，再让不同的区域进行 超链接。这就是影像地图。要完成地图区域超链接要用到三种标签：&lt; img&gt;&lt; map&gt;&lt; area&gt;下面分别介绍这些 标签的用法：</p>
 
 <p>影像地图（Image Map）标签的使用格式：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;图形文件名&quot;</span> <span class="na">usemap=</span><span class="s">&quot;#图的名称&quot;</span><span class="nt">&gt;</span>
 
-<pre><code class="language-html">
-    &lt;img src="图形文件名" usemap="#图的名称"&gt;
+      <span class="c">&lt;!-- 插入图片时要在&lt;img&gt;标记中设置参数usemap=&quot;#图的名称&quot; ismap，以表示对图像地图（图的名称）的引用；--&gt;</span>
 
-      &lt;!-- 插入图片时要在&lt;img&gt;标记中设置参数usemap="#图的名称" ismap，以表示对图像地图（图的名称）的引用；--&gt;
+    <span class="nt">&lt;map</span> <span class="na">name=</span><span class="s">&quot;图的名称&quot;</span><span class="nt">&gt;</span>
 
-    &lt;map name="图的名称"&gt;
+       <span class="c">&lt;!--用&lt;map&gt;标记设定图像地图的作用区域，并用name属性爲图像起一个名字--&gt;</span>
 
-       &lt;!--用&lt;map&gt;标记设定图像地图的作用区域，并用name属性爲图像起一个名字--&gt;
-
-     &lt;area shape=形状 coords=区域座标列表 href="URL资源地址"&gt;
+     <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">形状</span> <span class="na">coords=</span><span class="s">区域座标列表</span> <span class="na">href=</span><span class="s">&quot;URL资源地址&quot;</span><span class="nt">&gt;</span>
 
      ......可根据需要定义多少个热点区域
 
-     &lt;area shape=形状 coords=区域座标列表 href="URL资源地址"&gt;
+     <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">形状</span> <span class="na">coords=</span><span class="s">区域座标列表</span> <span class="na">href=</span><span class="s">&quot;URL资源地址&quot;</span><span class="nt">&gt;</span>
 
-    &lt;/map&gt;
+    <span class="nt">&lt;/map&gt;</span>
+</code></pre></div>
+<hr>
 
-</code></pre>
-<hr />
 <p>提示和注释：</p>
 
 <p>注释：area 元素永远嵌套在 map 元素内部。area 元素可定义图像映射中的区域。</p>
 
 <p>注释：&lt; img&gt;中的 usemap 属性可引用 &lt; map&gt; 中的 id 或 name 属性（取决于浏览器），所以我们应同时向 &lt; map&gt; 添加 id 和 name 属性。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;planets.jpg&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">usemap=</span><span class="s">&quot;#planetmap&quot;</span> <span class="na">alt=</span><span class="s">&quot;Planets&quot;</span> <span class="nt">/&gt;</span>
 
-<pre><code class="language-html">
-&lt;img src="planets.jpg" border="0" usemap="#planetmap" alt="Planets" /&gt;
-
-&lt;map name="planetmap" id="planetmap"&gt;
-  &lt;area shape="circle" coords="180,139,14" href ="venus.html" alt="Venus" /&gt;
-  &lt;area shape="circle" coords="129,161,10" href ="mercur.html" alt="Mercury" /&gt;
-  &lt;area shape="rect" coords="0,0,110,260" href ="sun.html" alt="Sun" /&gt;
-&lt;/map&gt;
-
-</code></pre>
-
+<span class="nt">&lt;map</span> <span class="na">name=</span><span class="s">&quot;planetmap&quot;</span> <span class="na">id=</span><span class="s">&quot;planetmap&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;circle&quot;</span> <span class="na">coords=</span><span class="s">&quot;180,139,14&quot;</span> <span class="na">href =</span><span class="s">&quot;venus.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Venus&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;circle&quot;</span> <span class="na">coords=</span><span class="s">&quot;129,161,10&quot;</span> <span class="na">href =</span><span class="s">&quot;mercur.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mercury&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;rect&quot;</span> <span class="na">coords=</span><span class="s">&quot;0,0,110,260&quot;</span> <span class="na">href =</span><span class="s">&quot;sun.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Sun&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/map&gt;</span>
+</code></pre></div>
 <p><a href="http://stevesouders.com/hpws/imagemap.php">点我看示例</a></p>
 
 		  
@@ -499,71 +435,45 @@ ___</p>
 		  
 		    <p>在写css代码时 做一些简单的优化，这样css的渲染速率会有一定的提高的。</p>
 
-<p>###浏览器是如何渲染页面和加载页面</p>
+<h3>浏览器是如何渲染页面和加载页面</h3>
 
 <p>为什么有些网站打开的时候会加载会很慢，而且是整个页面同时显示的，而有些网站是从顶到下逐步显示出来的？要搞懂这个可以先从下面这个常规流程开始：</p>
 
 <ul>
-  <li>
-    <p>浏览器下载的顺序是从上到下，渲染的顺序也是从上到下，下载和渲染是同时进行的。</p>
-  </li>
-  <li>
-    <p>在渲染到页面的某一部分时，其上面的所有部分都已经下载完成（并不是说所有相关联的元素都已经下载完）。</p>
-  </li>
-  <li>
-    <p>如果遇到语义解释性的标签嵌入文件（JS脚本，CSS样式），那么此时IE的下载过程会启用单独连接进行下载。</p>
-  </li>
-  <li>
-    <p>并且在下载后进行解析，解析过程中，停止页面所有往下元素的下载。</p>
-  </li>
-  <li>
-    <p>样式表在下载完成后，将和以前下载的所有样式表一起进行解析，解析完成后，将对此前所有元素（含以前已经渲染的）重新进行渲染。</p>
-  </li>
-  <li>
-    <p>JS、CSS中如有重定义，后定义函数将覆盖前定义函数。</p>
-  </li>
-  <li>
-    <p>这里关键的是第2-5这三点。渲染效率与下面三点有关：</p>
+<li><p>浏览器下载的顺序是从上到下，渲染的顺序也是从上到下，下载和渲染是同时进行的。</p></li>
+<li><p>在渲染到页面的某一部分时，其上面的所有部分都已经下载完成（并不是说所有相关联的元素都已经下载完）。</p></li>
+<li><p>如果遇到语义解释性的标签嵌入文件（JS脚本，CSS样式），那么此时IE的下载过程会启用单独连接进行下载。</p></li>
+<li><p>并且在下载后进行解析，解析过程中，停止页面所有往下元素的下载。</p></li>
+<li><p>样式表在下载完成后，将和以前下载的所有样式表一起进行解析，解析完成后，将对此前所有元素（含以前已经渲染的）重新进行渲染。</p></li>
+<li><p>JS、CSS中如有重定义，后定义函数将覆盖前定义函数。</p></li>
+<li><p>这里关键的是第2-5这三点。渲染效率与下面三点有关：</p>
 
-    <ul>
-      <li>
-        <p>css选择器的查询定位效率</p>
-      </li>
-      <li>
-        <p>浏览器的渲染模式和算法</p>
-      </li>
-      <li>
-        <p>要进行渲染内容的大小</p>
-      </li>
-    </ul>
-  </li>
+<ul>
+<li>css选择器的查询定位效率</li>
+<li>浏览器的渲染模式和算法</li>
+<li>要进行渲染内容的大小</li>
+</ul></li>
 </ul>
 
-<p>###什么是CSS以及CSS的优点</p>
+<h3>什么是CSS以及CSS的优点</h3>
 
 <p>什么是CascadingStyleSheets（层叠样式表）</p>
 
 <ul>
-  <li>CSS是CascadingStyleSheets(层叠样式表)的简称.</li>
-  <li>CSS 语言是一种标记语言,它不需要编译,可以直接由浏览器解释执行(属于浏览器解释型语言).</li>
-  <li>在标准网页设计中CSS负责网页内容 (XHTML)的表 现.</li>
-  <li>CSS文件也可以说是一个文本文件,它包含了一些CSS标记,CSS文件必须使用css为文件名后缀.</li>
-  <li>可以通过简单的更改 CSS文件,改变网页 的整体表现形式,可以减少我们的工作量,所以她是每一个网页设计人员的必修课.</li>
-  <li>CSS是由W3C的CSS工作组产生和维护的.</li>
+<li>CSS是CascadingStyleSheets(层叠样式表)的简称.</li>
+<li>CSS 语言是一种标记语言,它不需要编译,可以直接由浏览器解释执行(属于浏览器解释型语言).</li>
+<li>在标准网页设计中CSS负责网页内容 (XHTML)的表 现.</li>
+<li>CSS文件也可以说是一个文本文件,它包含了一些CSS标记,CSS文件必须使用css为文件名后缀.</li>
+<li>可以通过简单的更改 CSS文件,改变网页 的整体表现形式,可以减少我们的工作量,所以她是每一个网页设计人员的必修课.</li>
+<li>CSS是由W3C的CSS工作组产生和维护的.</li>
 </ul>
 
 <p><strong><em>采用CSS+DIV进行网页重构相对与传统的TABLE网页布局而具有以下3个显著优势：</em></strong></p>
 
 <ul>
-  <li>
-    <p>表现和内容相分离将设计部分剥离出来放在一个独立样式文件中，HTML文件中只存放文本信息。这样的页面对搜索引擎更加友好。</p>
-  </li>
-  <li>
-    <p>提高页面浏览速度对于同一个页面视觉效果，采用CSS+DIV重构的页面容量要比TABLE编码的页面文件容量小得多，前者一般只有后者的1/2大小。浏览器就不用去编译大量冗长的标签。</p>
-  </li>
-  <li>
-    <p>易于维护和改版你只要简单的修改几个CSS文件就可以重新设计整个网站的页面。</p>
-  </li>
+<li><p>表现和内容相分离将设计部分剥离出来放在一个独立样式文件中，HTML文件中只存放文本信息。这样的页面对搜索引擎更加友好。</p></li>
+<li><p>提高页面浏览速度对于同一个页面视觉效果，采用CSS+DIV重构的页面容量要比TABLE编码的页面文件容量小得多，前者一般只有后者的1/2大小。浏览器就不用去编译大量冗长的标签。</p></li>
+<li><p>易于维护和改版你只要简单的修改几个CSS文件就可以重新设计整个网站的页面。</p></li>
 </ul>
 
 <p><strong><em>浏览器对CSS的匹配原理</em></strong></p>
@@ -572,42 +482,55 @@ ___</p>
 
 <p>浏览器从右到左进行查找的好处是为了尽早过滤掉一些无关的样式规则和元素。firefox称这种查 找方式为keyselector(关键字查询)，所谓的关键字就是样式规则中最后(最右边)的规则，上面的key就是span.red。</p>
 
-<p>###优化你的CSS</p>
+<h3>优化你的CSS</h3>
 
 <ul>
-  <li>css 命名 、书写规范；（好的代码看上去就很整齐 很有条理性这样方便日后的维护和管理）。</li>
-  <li>
-    <p>css优先级； 选择器权重：内联样式：1000，id选择器：1000， class选择器：10，标签选择器：1  注意权重的问题。</p>
-  </li>
-  <li>
-    <p>少用滤镜，少用hack，少用position：absolute。</p>
-  </li>
-  <li>
-    <p>多用继承属性。</p>
-  </li>
-  <li>
-    <p>使用简写样式：例如margin: 10px; 浏览器会解释为上下左右各有10px的外补丁。margin： 0 10px 浏览器解析为 左右有10px的外补丁。</p>
-  </li>
-  <li>
-    <p>不要在ID选择器和class选择器前 使用标签名 例如：div.box { color: #f00; }; 直接 可以 用类名， .box { color:#f00;}  这样浏览器找到这个class后 就不用再匹配是否存在div标签.从而提高了渲染效率。当然同一级的 有不同的样式可以这样写，但是不建议这样。</p>
-  </li>
-  <li>
-    <p>css的层级关系不要太深 用class直接代替多余的层级元素。例如 .box .box-con .box-list li { line-height: 24px; } 这么长。。。增加代码量减小开发效率。刚也说了，css渲染是从上到下，从右到左的
-所以直接这样写就可以了.box-list li { line-height: 24px; };</p>
-  </li>
-  <li>
-    <p>平铺背景图片不要过小，影响渲染速率。</p>
-  </li>
-  <li>float使用要谨慎。</li>
-  <li>
-    <p>合理化布局（模块化布局）；可以把样式划分为 基类 和扩展类 ;模块化布局 ：模块基本相同的样式写在 基类里，不同的在重新用class来定义称为扩展类 。</p>
-  </li>
-  <li>在css渲染效率中id和class的效率是基本相当的</li>
+<li>css 命名 、书写规范；（好的代码看上去就很整齐 很有条理性这样方便日后的维护和管理）。</li>
+<li><p>css优先级； 选择器权重：内联样式：1000，id选择器：1000， class选择器：10，标签选择器：1  注意权重的问题。</p></li>
+<li><p>少用滤镜，少用hack，少用position：absolute。</p></li>
+<li><p>多用继承属性。</p></li>
+<li><p>使用简写样式：例如margin: 10px; 浏览器会解释为上下左右各有10px的外补丁。margin： 0 10px 浏览器解析为 左右有10px的外补丁。</p></li>
+<li><p>不要在ID选择器和class选择器前 使用标签名 例如：div.box { color: #f00; }; 直接 可以 用类名， .box { color:#f00;}  这样浏览器找到这个class后 就不用再匹配是否存在div标签.从而提高了渲染效率。当然同一级的 有不同的样式可以这样写，但是不建议这样。</p></li>
+<li><p>css的层级关系不要太深 用class直接代替多余的层级元素。例如 .box .box-con .box-list li { line-height: 24px; } 这么长。。。增加代码量减小开发效率。刚也说了，css渲染是从上到下，从右到左的
+所以直接这样写就可以了.box-list li { line-height: 24px; };</p></li>
+<li><p>平铺背景图片不要过小，影响渲染速率。</p></li>
+<li><p>float使用要谨慎。</p></li>
+<li><p>合理化布局（模块化布局）；可以把样式划分为 基类 和扩展类 ;模块化布局 ：模块基本相同的样式写在 基类里，不同的在重新用class来定义称为扩展类 。</p></li>
+<li><p>在css渲染效率中id和class的效率是基本相当的</p></li>
 </ul>
 
 <p>class最在第一次载入中被缓存，在层叠中会有更加好的效果，在根部元素采用id会具有更加好（id有微妙的速度优势）。</p>
 
+		  
+		  </div>
+		</div>
+		
+		
+	
 
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E7%94%A8jQuery%E4%B8%8EJSONP%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
+		        用jQuery与JSONP轻松解决跨域访问的问题
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年09月27日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Jquery/">Jquery</a>, <a href="/tags/跨域/">跨域</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>跨域的安全限制都是指浏览器端来说的.服务器端是不存在跨域安全限制的,所以通过本机服务器端通过类似httpclient方式完成“跨域访问”的 工作，然后在浏览器端用AJAX获取本机服务器端“跨域访问”对应的url.来间接完成跨域访问也是可以的.但很显然开发量比较大,但限制也最少,很多 widget开放平台server端(如sohu博客开放平台)其实就么搞的.不在本次讨论范围.</p> <p>我们要讨论的是浏览器端的真正跨域访问,推荐的是目前jQuery $.ajax()支持get方式的跨域,这其实是采用jsonp的方式来完成的.</p> <p>真实案例:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">qsData</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;searchWord&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#searchWord&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">),</span><span class="s1">&#39;currentUserId&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#currentUserId&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">),</span><span class="s1">&#39;conditionBean.pageSize&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#pageSize&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)};</span> <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span> <span class="nx">async</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="nx">http</span><span class="o">:</span><span class="sr">/ /</span><span class="err">跨域的</span><span class="nx">dns</span><span class="o">/</span><span class="nb">document</span><span class="o">!</span><span class="nx">searchJSONResult</span><span class="p">.</span><span class="nx">action</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span> <span class="nx">jsonp</span><span class="o">:</span> <span class="s1">&#39;jsoncallback&#39;</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">qsData</span><span class="p">,</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">5000</span><span class="p">,</span> <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="c1">//jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了</span> <span class="p">},</span> <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数</span> <span class="k">if</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">actionErrors</span><span class="p">.</span><span class="nx">length</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">actionErrors</span><span class="p">);</span> <span class="p">}</span> <span class="nx">genDynamicContent</span><span class="p">(</span><span class="nx">qsData</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">json</span><span class="p">);</span> <span class="p">},</span> <span class="nx">complete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">XMLHttpRequest</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">){</span> <span class="nx">$</span><span class="p">.</span><span class="nx">unblockUI</span><span class="p">({</span> <span class="nx">fadeOut</span><span class="o">:</span> <span class="mi">10</span> <span class="p">});</span> <span class="p">},</span> <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">){</span> <span class="c1">//jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了</span> <span class="c1">//请求出错处理</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;请求出错(请检查相关度网络状况.)&quot;</span><span class="p">);</span> <span class="p">}</span> <span class="p">});</span> </code></pre></div> <p>注意:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot; http://跨域的dns/document!searchJSONResult.action?name1=&quot;</span><span class="o">+</span><span class="nx">value1</span><span class="o">+</span><span class="s2">&quot;&amp;jsoncallback=?&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">){</span> <span class="k">if</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="err">属性名</span><span class="o">==</span><span class="err">值</span><span class="p">){</span> <span class="c1">// 执行代码</span> <span class="p">}</span> <span class="p">});</span> </code></pre></div> <p>这种方式其实是上例$.ajax({..}) api的一种高级封装,有些$.ajax api底层的参数就被封装而不可见了. 这样,jquery就会拼装成如下的url get请求</p> <p>http:/ / 跨域的 dns/document!searchJSONResult.action?&amp;jsoncallback=jsonp1236827957501&amp;_=1236828192549&amp;searchWord=%E7%94%A8%E4%BE%8B¤tUserId=5351&amp;conditionBean.pageSize=15</p> <p>在响应端(http://跨域的dns/document!searchJSONResult.action), 通过 jsoncallback = request.getParameter(&quot;jsoncallback&quot;) 得到jquery端随后要回调的js function name:jsonp1236827957501 然后 response的内容为一个Script Tags:&quot;jsonp1236827957501(&quot;+按请求参数生成的json数组+&quot;)&quot;; jquery就会通过回调方法动态加载调用这个js tag:jsonp1236827957501(json数组); 这样就达到了跨域数据交换的目的.</p> <p>jsonp的最基本的原理是:动态添加一个script标签，而script标签的src属性是没有跨域的限制的。这样说来,这种跨域方式其实与ajax XmlHttpRequest协议无关了. 这样其实&quot;jQuery AJAX跨域问题&quot;就成了个伪命题了,jquery $.ajax方法名有误导人之嫌.</p> <p>如果设为dataType: &#39;jsonp&#39;, 这个$.ajax方法就和ajax XmlHttpRequest没什么关系了,取而代之的则是JSONP协议.</p> <p>JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问JSONP即JSON with Padding。由于同源策略的限制，XmlHttpRequest只允许请求当前源（域名、协议、端口）的资源。如果要进行跨域请求，我们可以通过使用 html的script标记来进行跨域请求，并在响应中返回要执行的script代码，其中可以直接使用JSON传递javascript对象。这种跨域 的通讯方式称为JSONP。</p> <p>jsonCallback 函数jsonp1236827957501(....): 是浏览器客户端注册的，获取跨域服务器上的json数据后，回调的函数.</p> <ul> <li>Jsonp原理：</li> </ul> <p>首先在客户端注册一个callback (如:&#39;jsoncallback&#39;), 然后把callback的名字(如:jsonp1236827957501)传给服务器。注意：服务端得到callback的数值后，要用 jsonp1236827957501(......)把将要输出的json内容包括起来，此时，服务器生成 json 数据才能被客户端正确接收。</p> <p>然后以 javascript 语法的方式，生成一个function ,...
+		    <p>
+		    <a class="text" href="/blog/%E7%94%A8jQuery%E4%B8%8EJSONP%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
+		      Continue Reading...
+		    </a>
+		    </p>
 		  
 		  </div>
 		</div>
@@ -679,7 +602,7 @@ ___</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

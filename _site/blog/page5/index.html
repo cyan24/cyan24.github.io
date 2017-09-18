@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="Cyan的技术笔记">
+	<meta name="description" content="used by search engines">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/page5/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/page5/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -252,36 +252,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
-		        DOM标准与IE的html事件模型区别（转载）
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年11月15日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/javascript/">Javascript</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p><strong>事件</strong></p> <p>HTML元素事件是浏览器内在自动产生的,当有事件发生时html元素会向外界(这里主要指元素事件的订阅者)发出各种事件,如click,onmouseover,onmouseout等等。</p> <p><strong>DOM事件流</strong></p> <p>DOM(文档对象模型)结构是一个树型结构，当一个HTML元素产生一个事件时，该事件会在元素结点与根结点之间的路径传播，路径所经过的结点都会收到该事件，这个传播过程可称为DOM事件流。</p> <p><strong>主流浏览器的事件模型</strong></p> <p>早在2004前在HTML元素事件的订阅，发送，传播，处理模型上各浏览器实现并不一致，直到DOM Level3中规定后，多数主流浏览器才陆陆续续支持DOM标准的事件处理模型 — 捕获型与冒泡型。 目前除IE浏览器外，其它主流的Firefox, Opera, Safari都支持标准的DOM事件处理模型。IE仍然使用自己的模型，即冒泡型，它模型的一部份被DOM采用，这点对于开发者来说也是有好处的，只使用DOM标准，IE都共有的事件处理方式才能有效的跨浏览器。</p> <p><strong>冒泡型事件(Bubbling)</strong></p> <p>这是IE浏览器对事件模型的实现，也是最容易理解的，至少笔者觉得比较符合实际的。冒泡，顾名思义，事件像个水中的气泡一样一直往上冒，直到顶端。从DOM树型结构上理解，就是事件由叶子结点沿祖先结点一直向上传递直到根结点；从浏览器界面视图HTML元素排列层次上理解就是事件由具有从属关系的最确定的目标元素一直传递到最不确定的目标元素.</p> <p><strong>捕获型事件(Capturing)</strong></p> <p>Netscape Navigator的实现，它与冒泡型刚好相反，由DOM树最顶层元素一直到最精确的元素，这个事件模型对于开发者来说（至少是我..）有点费解，因为直观上的理解应该如同冒泡型，事件传递应该由最确定的元素，即事件产生元素开始。 但这个模型在某些情况下也是很有用的，接下来会讲解到。</p> <p><img src="/img/post/1412270.jpg" alt="" /></p> <p><strong>DOM标准事件模型</strong></p> <p>因为两个不同的模型都有其优点和解释，DOM标准支持捕获型与冒泡型，可以说是它们两者的结合体。它可以在一个DOM元素上绑定多个事件处理器，并且在处理函数内部，this关键字仍然指向被绑定的DOM元素，另外处理函数参数列表的第一个位置传递事件event对象。</p> <p>首先是捕获式传递事件，接着是冒泡式传递，所以，如果一个处理函数既注册了捕获型事件的监听，又注册冒泡型事件监听，那么在DOM事件模型中它就会被调用两次。</p> <p><img src="/img/post/1412271.jpg" alt="" /></p> <p>注册与移除事件监听器</p> <p>注册事件监听器，或又称订阅事件，当元素事件发生时浏览器回调该监听函数执行事件处理。目前主流浏览器中有两种注册事件的方法，一种是IE浏览器的，另一种是DOM标准的。</p> <p>1、直接JS或HTML挂载法</p> <pre><code class="language-html">&lt;div onclick="alert(this.innerHTML);"&gt; element.onclick = function(){alert(this.innerHTML);} </code></pre> <p>移除时将事件属性设为nul即可，这个也是最常用的方法了，优缺点也是显然的：</p> <p>简单方便，在HTML中直接书写处理函数的代码块，在JS中给元素对应事件属性赋值即可 IE与DOM标准都支持的一种方法，它在IE与DOM标准中都是在事件冒泡过程中被调用的。 可以在处理函数块内直接用this引用注册事件的元素 要给元素注册多个监听器，就不能用这方法了</p> <p>2、IE下注册多个事件监听器与移除监听器方法</p> <p>IE浏览器中HTML元素有个attachEvent方法允许外界注册该元素多个事件监听器,例如</p> <p>element.attachEvent(‘onclick’, observer); attachEvent接受两个参数。第一个参数是事件名称，第二个参数observer是回调处理函数。这里得说明一下，有个经常会出错的地方，IE下利用attachEvent注册的处理函数调用时this指向不再是先前注册事件的元素，这时的this为window对象了，笔者很奇怪IE为什么要这么做，完全看不出好处所在。 要移除先前注册的事件的监听器,调用element的detachEvent方法即可，参数相同。</p> <p>element.detachEvent(‘onclick’, observer); 3、 DOM标准下注册多个事件监听器与移除监听器方法</p> <p>实现DOM标准的浏览器与IE浏览器中注册元素事件监听器方式有所不同，它通过元素的addEventListener方法注册，该方法既支持注册冒泡型事件处理，又支持捕获型事件处理。</p> <p>element.addEventListener(‘click’, observer, useCapture); addEventListener方法接受三个参数。第一个参数是事件名称，值得注意的是，这里事件名称与IE的不同，事件名称是没’on’开头的;第二个参数observer是回调处理函数;第三个参数注明该处理回调函数是在事件传递过程中的捕获阶段被调用还是冒泡阶段被调用</p> <p>移除已注册的事件监听器调用element的removeEventListener即可，参数不变.</p> <p>element.removeEventListener(‘click’, observer, useCapture);</p> <p>跨浏览器的注册与移除元素事件监听器方案</p> <p>弄清楚DOM标准与IE的注册元素事件监听器之间的异同后，就可以实现一个跨浏览器的注册与移除元素事件监听器方案:</p> <pre><code class="language-javascript">//注册 function addEventHandler(element, evtName, callback, useCapture) { //DOM标准 if (element.addEventListener) { element.addEventListener(evtName, callback, useCapture); }else { //IE方式,忽略useCapture参数 element.attachEvent('on' + evtName, callback); } } //移除 function removeEventHandler(element, evtName, callback, useCapture) { //DOM标准 if (element.removeEventListener) { element.removeEventListener(evtName, callback, useCapture); }else { //IE方式,忽略useCapture参数 element.dettachEvent('on' + evtName, callback); } } </code></pre> <p>如何取消浏览器事件的传递与事件传递后浏览器的默认处理</p> <p>先说明取消事件传递与浏览器事件传递后的默认处理是两个不同的概念，可能很多同学朋友分不清，或者根本不存在这两个概念。</p> <p>取消事件传递是指，停止捕获型事件或冒泡型事件的进一步传递。例如上图中的冒泡型事件传递中，在body处理停止事件传递后，位于上层的document的事件监听器就不再收到通知，不再被处理。</p> <p>事件传递后的默认处理是指，通常浏览器在事件传递并处理完后会执行与该事件关联的默认动作（如果存在这样的动作）。例如，如果表单中input type 属性是 “submit”，点击后在事件传播完浏览器就就自动提交表单。又例如，input 元素的 keydown 事件发生并处理后，浏览器默认会将用户键入的字符自动追加到 input 元素的值中。</p> <p>要取消浏览器的件传递,IE与DOM标准又有所不同。</p> <p>在IE下,通过设置event对象的cancelBubble为true即可。</p> <pre><code class="language-javascript">function someHandle() { window.event.cancelBubble = true; } </code></pre> <p>DOM标准通过调用event对象的stopPropagation()方法即可。</p> <p>``javascript function someHandle(event) { event.stopPropagation(); }</p> <pre><code> 因些，跨浏览器的停止事件传递的方法是: ```javascript function someHandle(event) { event = event || window.event; if(event.stopPropagation) event.stopPropagation(); else event.cancelBubble = true; } </code></pre> <p>取消事件传递后的默认处理，IE与DOM标准又不所不同。</p> <p>在IE下,通过设置event对象的returnValue为false即可。</p> <pre><code class="language-javascript">function someHandle() { window.event.returnValue = false; } </code></pre> <p>DOM标准通过调用event对象的preventDefault()方法即可。</p> <pre><code class="language-javascript">function someHandle(event) { event.preventDefault(); } </code></pre> <p>因些，跨浏览器的取消事件传递后的默认处理方法是：</p> <pre><code class="language-javascript">function someHandle(event) { event = event || window.event; if(event.preventDefault) event.preventDefault(); else event.returnValue = false; } </code></pre> <p>捕获型事件模型与冒泡型事件模型的应用场合</p> <p>标准事件模型为我们提供了两种方案，可能很多朋友分不清这两种不同模型有啥好处，为什么不只采取一种模型。 这里抛开IE浏览器讨论（IE只有一种，没法选择）什么情况下适合哪种事件模型。</p> <p>1、捕获型应用场合</p> <p>捕获型事件传递由最不精确的祖先元素一直到最精确的事件源元素，传递方式与操作系统中的全局快捷键与应用程序快捷键相似。当一个系统组合键发生时，如果注册了系统全局快捷键监听器，该事件就先被操作系统层捕获，全局监听器就先于应用程序快捷键监听器得到通知，也就是全局的先获得控制权，它有权阻止事件的进一步传递。所以捕获型事件模型适用于作全局范围内的监听，这里的全局是相对的全局，相对于某个顶层结点与该结点所有子孙结点形成的集合范围。</p> <p>例如你想作全局的点击事件监听，相对于document结点与document下所有的子结点，在某个条件下要求所有的子结点点击无效，这种情况下冒泡模型就解决不了了，而捕获型却非常适合，可以在最顶层结点添加捕获型事件监听器，伪码如下:</p> <pre><code class="language-javascript">if(canEventPass == false) { //取消事件进一步向子结点传递和冒泡传递 event.stopPropagation(); //取消浏览器事件后的默认执行 event.preventDefault(); } </code></pre> <p>这样一来，当canEventPass条件为假时，document下所有的子结点click注册事件都不会被浏览器处理。</p> <p>2、 冒泡型的应用场合</p> <p>可以说我们平时用的都是冒泡事件模型，因为IE只支持这模型。这里还是说说，在恰当利用该模型可以提高脚本性能。在元素一些频繁触发的事件中，如onmousemove, onmouseover,onmouseout,如果明确事件处理后没必要进一步传递，那么就可以大胆的取消它。此外，对于子结点事件监听器的处理会对父层监听器处理造成负面影响的，也应该在子结点监听器中禁止事件进一步向上传递以消除影响。</p> <p>综合案例分析</p> <p>最后结合下面HTML代码作分析:</p> <pre><code class="language-html">&lt;body onclick="alert('current is body');"&gt; &lt;div id="div0" onclick="alert('current is '+this.id)"&gt; &lt;div id="div1" onclick="alert('current is '+this.id)"&gt; &lt;div id="div2"&gt; &lt;div id="event_source" onclick="alert('current is '+this.id)" style="height:200px;width:200px;background-color:red;"&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/body&gt; </code></pre> <p>HTML运行后点击红色区域,这是最里层的DIV,根据上面说明,无论是DOM标准还是IE,直接写在html里的监听处理函数是事件冒泡传递时调用的,由最里层一直往上传递,所以会先后出现 current is event_source current is div2 current is div1 current is div0 current is body</p> <p>添加以下片段:</p> <pre><code class="language-javascript">var div2 = document.getElementById('div2'); addEventHandler(div2,'click',function(event){ event = event || window.event; if(event.stopPropagation) event.stopPropagation(); else event.cancelBubble = true; },false); </code></pre> <p>当点击红色区域后,根据上面说明,在泡冒泡处理期间,事件传递到div2后被停止传递了,所以div2上层的元素收不到通知,所以会先后出现:</p> <p>current is event_source current is div2</p> <p>在支持DOM标准的浏览器中,添加以下代码:</p> <pre><code class="language-javascript">document.body.addEventListener('click',function(event){ event.stopPropagation(); },true);...
-		    <p>
-		    <a class="text" href="/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E8%A7%A3%E5%86%B3-%E5%9C%A8Mac-OS%E4%B8%8B%E5%BC%80%E5%8F%91html5+JS-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%B7%A8%E5%9F%9F-%E5%92%8C-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">
 		        解决在Mac OS下开发html5+JS Chrome跨域和安全访问问题
 		      </a>
@@ -289,7 +259,7 @@
 		    <p id="subtitletrans" class="subtitlecontainer">
 		      <a class="subtitle">2014年10月12日</a>
 		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/javascript/">Javascript</a>, <a href="/tags/跨域/">跨域</a>, <a href="/tags/安全/">安全</a></a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/跨域/">跨域</a>, <a href="/tags/安全/">安全</a></a>
 		    </p>
 		  </header>
 		  <div class="excerpt">
@@ -302,37 +272,29 @@
 <p>用命令行打开 Google Chrome 就好了</p>
 
 <p>Mac os 下面用</p>
-
-<pre><code class="language-javascript">
-/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  
-</code></pre>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  </span>
+</code></pre></div>
 <p>or</p>
-
-<pre><code class="language-javascript">open -a "Google Chrome" --args --disable-web-security  
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">open</span> <span class="o">-</span><span class="nx">a</span> <span class="s2">&quot;Google Chrome&quot;</span> <span class="o">--</span><span class="nx">args</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
+</code></pre></div>
 <p>然后就可以看到下面的效果了：
-<img src="/img/131012.jpg" alt="" /></p>
+<img src="/img/131012.jpg" alt=""> </p>
 
 <p>Ubuntu Linux:</p>
-
-<pre><code class="language-javascript">chromium-browser --disable-web-security  
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chromium</span><span class="o">-</span><span class="nx">browser</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
+</code></pre></div>
 <p>windows</p>
-
-<pre><code class="language-javascript">
-chrome.exe --disable-web-security  
-</code></pre>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chrome</span><span class="p">.</span><span class="nx">exe</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
+</code></pre></div>
 <p>用命令行打开 Apple Safafi 方法是：</p>
 
 <p>Mac OS 下：</p>
 
-<p>open -a ‘/Applications/Safari.app’ –args –disable-web-security</p>
+<p>open -a &#39;/Applications/Safari.app&#39; --args --disable-web-security  </p>
 
 <p>Windows：</p>
 
-<p>C:\Program Files\Safari\Safari.exe –disable-web-security</p>
+<p>C:\Program Files\Safari\Safari.exe --disable-web-security  </p>
 
 		  
 		  </div>
@@ -358,56 +320,32 @@ chrome.exe --disable-web-security
 		  <div class="excerpt">
 		  
 		  
-		    <p>###什么是HTML语义化？</p>
+		    <h3>什么是HTML语义化？</h3>
 
 <p>基本上都是围绕着几个主要的标签，像标题（H1~H6）、列表（li）、强调（strong em）等等.</p>
 
 <p>可以概括为根据内容的结构化（内容语义化），选择合适的标签（代码语义化）便于开发者阅读和写出更优雅的代码的同时让浏览器的爬虫和机器很好地解析。</p>
 
-<p>###为什么要语义化？</p>
+<h3>为什么要语义化？</h3>
 
 <ul>
-  <li>
-    <p>为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构:为了裸奔时好看；</p>
-  </li>
-  <li>
-    <p>用户体验：例如title、alt用于解释名词或解释图片信息、label标签的活用；</p>
-  </li>
-  <li>
-    <p>有利于SEO：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；</p>
-  </li>
-  <li>
-    <p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；</p>
-  </li>
-  <li>
-    <p>便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p>
-  </li>
+<li><p>为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构:为了裸奔时好看；</p></li>
+<li><p>用户体验：例如title、alt用于解释名词或解释图片信息、label标签的活用；</p></li>
+<li><p>有利于SEO：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；</p></li>
+<li><p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；</p></li>
+<li><p>便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p></li>
 </ul>
 
-<p>###写HTML代码时应注意什么？</p>
+<h3>写HTML代码时应注意什么？</h3>
 
 <ul>
-  <li>
-    <p>尽可能少的使用无语义的标签div和span；</p>
-  </li>
-  <li>
-    <p>在语义不明显时，既可以使用div或者p时，尽量用p, 因为p在默认情况下有上下间距，对兼容特殊终端有利；</p>
-  </li>
-  <li>
-    <p>不要使用纯样式标签，如：b、font、u等，改用css设置；</p>
-  </li>
-  <li>
-    <p>需要强调的文本，可以包含在strong或者em标签中（浏览器预设样式，能用CSS指定就不用他们），strong默认样式是加粗（不要用b），em是斜体（不用i）；</p>
-  </li>
-  <li>
-    <p>使用表格时，标题要用caption，表头用thead，主体部分用tbody包围，尾部用tfoot包围。表头和一般单元格要区分开，表头用th，单元格用td；</p>
-  </li>
-  <li>
-    <p>表单域要用fieldset标签包起来，并用legend标签说明表单的用途；</p>
-  </li>
-  <li>
-    <p>每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性，在lable标签中设置for=someld来让说明文本和相对应的input关联起来。</p>
-  </li>
+<li><p>尽可能少的使用无语义的标签div和span；</p></li>
+<li><p>在语义不明显时，既可以使用div或者p时，尽量用p, 因为p在默认情况下有上下间距，对兼容特殊终端有利；</p></li>
+<li><p>不要使用纯样式标签，如：b、font、u等，改用css设置；</p></li>
+<li><p>需要强调的文本，可以包含在strong或者em标签中（浏览器预设样式，能用CSS指定就不用他们），strong默认样式是加粗（不要用b），em是斜体（不用i）；</p></li>
+<li><p>使用表格时，标题要用caption，表头用thead，主体部分用tbody包围，尾部用tfoot包围。表头和一般单元格要区分开，表头用th，单元格用td；</p></li>
+<li><p>表单域要用fieldset标签包起来，并用legend标签说明表单的用途；</p></li>
+<li><p>每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性，在lable标签中设置for=someld来让说明文本和相对应的input关联起来。</p></li>
 </ul>
 
 <p>HTML5新增了哪些语义标签，详述之。</p>
@@ -439,13 +377,13 @@ chrome.exe --disable-web-security
 		  
 		  
 		    <ol>
-  <li>合理的title、description、keywords：搜索对着三项的权重逐个减小，title值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面title要有所不同；description把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面description有所不同；keywords列举出重要关键词即可；</li>
-  <li>语义化的HTML代码，符合W3C规范：语义化代码让搜索引擎容易理解网页；</li>
-  <li>重要内容HTML代码放在最前：搜索引擎抓取HTML顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取；</li>
-  <li>重要内容不要用js输出：爬虫不会执行js获取内容；
+<li>合理的title、description、keywords：搜索对着三项的权重逐个减小，title值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面title要有所不同；description把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面description有所不同；keywords列举出重要关键词即可；</li>
+<li>语义化的HTML代码，符合W3C规范：语义化代码让搜索引擎容易理解网页；</li>
+<li>重要内容HTML代码放在最前：搜索引擎抓取HTML顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取；</li>
+<li>重要内容不要用js输出：爬虫不会执行js获取内容；
 少用iframe：搜索引擎不会抓取iframe中的内容；</li>
-  <li>非装饰性图片必须加alt；</li>
-  <li>提高网站速度：网站速度是搜索引擎排序的一个重要指标。</li>
+<li>非装饰性图片必须加alt；</li>
+<li>提高网站速度：网站速度是搜索引擎排序的一个重要指标。</li>
 </ol>
 
 		  
@@ -482,47 +420,11 @@ chrome.exe --disable-web-security
 
 <p>CommonJS能有一定的影响力，我觉得绝对离不开Node的人气，不过喔，Node，CommonJS，浏览器甚至是W3C之间有什么关系呢，我找到了个贴切的图：</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>—————浏览器—– ——————</td>
-      <td> </td>
-      <td>————————–CommonJS———————————-</td>
-    </tr>
-  </tbody>
-</table>
+<p>|---------------浏览器----- ------------------|        |--------------------------CommonJS----------------------------------|</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>BOM</td>
-      <td> </td>
-      <td>DOM</td>
-      <td> </td>
-      <td>ECMAScript</td>
-      <td> </td>
-      <td>FS</td>
-      <td> </td>
-      <td>TCP</td>
-      <td> </td>
-      <td>Stream</td>
-      <td> </td>
-      <td>Buffer</td>
-      <td> </td>
-      <td>……..</td>
-    </tr>
-  </tbody>
-</table>
+<p>|  BOM  |       | DOM |        | ECMAScript |         | FS |           | TCP |         | Stream |        | Buffer |          |........|</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>——-W3C———–</td>
-      <td> </td>
-      <td>—————————————Node————————————————–</td>
-    </tr>
-  </tbody>
-</table>
+<p>|-------W3C-----------|       |---------------------------------------Node--------------------------------------------------|</p>
 
 <p>CommonJS定义的模块分为:{模块引用(require)} {模块定义(exports)} {模块标识(module)}</p>
 
@@ -532,10 +434,10 @@ chrome.exe --disable-web-security
 
 <p>复制代码
 1 //sum.js
-2 exports.sum = function(){…做加操作..};
+2 exports.sum = function(){...做加操作..};
 3 
 4 //calculate.js
-5 var math = require(‘sum’);
+5 var math = require(&#39;sum&#39;);
 6 exports.add = function(n){
 7     return math.sum(val,n);
 8 };
@@ -553,41 +455,29 @@ chrome.exe --disable-web-security
 
 <p>这需要分析一下浏览器端的js和服务器端js都主要做了哪些事，有什么不同了：</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>—————————————服务器端JS</td>
-      <td>浏览器端JS——————————————-</td>
-    </tr>
-  </tbody>
-</table>
+<p>---------------------------------------服务器端JS   | 浏览器端JS-------------------------------------------</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">            相同的代码需要多次执行  |    代码需要从一个服务器端分发到多个客户端执行
 
- 				相同的代码需要多次执行  |    代码需要从一个服务器端分发到多个客户端执行
+            CPU和内存资源是瓶颈   |    带宽是瓶颈
 
- 				CPU和内存资源是瓶颈   |    带宽是瓶颈
-
- 				加载时从磁盘中加载   |    加载时需要通过网络加载
-
-<hr />
+            加载时从磁盘中加载   |    加载时需要通过网络加载
+</code></pre></div>
+<hr>
 
 <p>于是乎，AMD(异步模块定义)出现了，它就主要为前端JS的表现制定规范。</p>
 
 <p>AMD就只有一个接口：define(id?,dependencies?,factory);</p>
 
 <p>它要在声明模块的时候制定所有的依赖(dep)，并且还要当做形参传到factory中，像这样：</p>
-
-<pre><code class="language-js">define(['dep1','dep2'],function(dep1,dep2){...});
-</code></pre>
-
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){...});</span>
+</code></pre></div>
 <p>要是没什么依赖，就定义简单的模块，下面这样就可以啦：</p>
-
-<pre><code class="language-js">define(function(){
-    var exports = {};
-    exports.method = function(){...};
-    return exports; });
-</code></pre>
-
-<p>咦，这里有define，把东西包装起来啦，那Node实现中怎么没看到有define关键字呢，它也要把东西包装起来呀，其实吧，只是Node隐式包装了而已…..</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">exports</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){...};</span>
+    <span class="k">return</span> <span class="nx">exports</span><span class="p">;</span> <span class="p">});</span>
+</code></pre></div>
+<p>咦，这里有define，把东西包装起来啦，那Node实现中怎么没看到有define关键字呢，它也要把东西包装起来呀，其实吧，只是Node隐式包装了而已.....</p>
 
 <p>RequireJS就是实现了AMD规范的呢。</p>
 
@@ -596,36 +486,30 @@ chrome.exe --disable-web-security
 <p>三、CMD</p>
 
 <p>大名远扬的玉伯写了seajs，就是遵循他提出的CMD规范，与AMD蛮相近的，不过用起来感觉更加方便些，最重要的是中文版。</p>
-
-<pre><code class="language-js">define(function(require,exports,module){...});
-</code></pre>
-
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){...});</span>
+</code></pre></div>
 <p>用过seajs吧，这个不陌生吧，对吧.</p>
 
 <p>四、AMD与CMD的区别</p>
 
 <p>CMD相当于按需加载，定义一个模块的时候不需要立即制定依赖模块，在需要的时候require就可以了，比较方便；而AMD则相反，定义模块的时候需要制定依赖模块，并以形参的方式引入factory中</p>
-
-<pre><code class="language-js">//AMD方式定义模块
-define(['dep1','dep2'],function(dep1,dep2){
-     //内部只能使用制定的模块
-      return function(){};
-});
-//CMD
-define(function(require,exports,module){
-   //此处如果需要某XX模块，可以引入
-   var xx=require('XX');
-});
-</code></pre>
-
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//AMD方式定义模块</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
+     <span class="c1">//内部只能使用制定的模块</span>
+      <span class="k">return</span> <span class="kd">function</span><span class="p">(){};</span>
+<span class="p">});</span>
+<span class="c1">//CMD</span>
+<span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){</span>
+   <span class="c1">//此处如果需要某XX模块，可以引入</span>
+   <span class="kd">var</span> <span class="nx">xx</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;XX&#39;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
 <p>而SEAJS也有use功能也是需要先引入所有依赖的模块，如</p>
-
-<pre><code class="language-js">//SEAJS.Use方式
-seajs.use(['dep1','dep2'],function(dep1,dep2){
-     //这里实现事务
-});
-</code></pre>
-
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//SEAJS.Use方式</span>
+<span class="nx">seajs</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
+     <span class="c1">//这里实现事务</span>
+<span class="p">});</span>
+</code></pre></div>
 <p>五、插件支持</p>
 
 <p>但全球有两种比较流行的 JavaScript 模块化体系，一个是 Node 实现的 CommonJS，另外一个是 AMD。很多类库都同时支持 AMD 和 CommonJS，但是不支持 CMD。或许国内有很多 CMD 模块，但并没有在世界上流行起来。</p>
@@ -635,6 +519,61 @@ seajs.use(['dep1','dep2'],function(dep1,dep2){
 <p>不久的将来 ES6 中新的模块化标准，可能就都得遵循新的标准了，什么AMD、CMD可能到时也不会怎么用了。</p>
 
 <p>但是目前来说，前端开发没有用模块化编程就真的out的了，而目前的模块化编程，本人还是建议用SEAJS，虽然很多插件需要追加或修改一小块代码才能支持。但改过一次就能反复使用，也不会影响其它标准的支持。总体还算是比较方便实用的</p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/">
+		        谈谈200 OK (from cache) 与 304 Not Modified
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年04月27日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>为什么有的缓存是 200 OK (from cache)，有的缓存是 304 Not Modified 呢？很简单，看运维是否移除了 Entity Tag。移除了，就总是 200 OK (from cache)。没有移除，就两者交替出现。</p>
+
+<p>其实， 200 OK (from cache)  是浏览器没有跟服务器确认，直接用了浏览器缓存；而 304 Not Modified 是浏览器和服务器多确认了一次缓存有效性，再用的缓存。</p>
+
+<p>它们都是在设置了缓存的情况下触发的。</p>
+
+<p>那么，两者触发的时机有什么区别呢？200 OK (from cache) 是直接点击链接访问，输入网址按回车访问也能触发；而 304 Not Modified 是刷新页面时触发，或是设置了长缓存、但 Entity Tags 没有移除时触发。这是经过查阅资料得出的结论。博主实际测试了一下，结论与之相符：</p>
+
+<p><img src="/img/post/1404271.jpg" alt=""> </p>
+
+<p>直接访问有缓存的网站都触发 200 OK (from cache)</p>
+
+<p><img src="/img/post/1404272.jpg" alt=""></p>
+
+<p>图2 – 刷新浏览器则会触发 304 Not Modifie</p>
+
+<p><img src="/img/post/1404273.jpg" alt=""> </p>
+
+<p>同一域名下，没有 Entity Tag 的资源直接访问，是 200 OK (from cache) 的结果</p>
+
+<p><img src="/img/post/1404274.jpg" alt=""> </p>
+
+<p>同一域名下，有 Entity Tag ，直接访问就会触发 304 Not Modified
+现在一般都会设置长时间的缓存，正确设置方式参考这两篇笔记：</p>
+
+<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule3.html">如何正确设置 Expires Header 及其原理</a></p>
+
+<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule-13.html">如何正确移除 Entity Tags 及其原理</a></p>
+
+<p>本文并不是说影响浏览器缓存只有 ETag 这一个因素的意思，请大家不要误解。只是就“为什么我加了缓存，有的却是 304 Not Modified， 而不是 200 OK(from cache)”这件事给出一个一针见血的原因和解答.</p>
 
 		  
 		  </div>
@@ -707,7 +646,7 @@ seajs.use(['dep1','dep2'],function(dep1,dep2){
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

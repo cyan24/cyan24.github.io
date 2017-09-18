@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E5%85%B3%E4%BA%8Ecss3-%E5%8A%A8%E7%94%BB%E7%9A%84%E4%B8%80%E7%82%B9%E7%AC%94%E8%AE%B0/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E5%85%B3%E4%BA%8Ecss3-%E5%8A%A8%E7%94%BB%E7%9A%84%E4%B8%80%E7%82%B9%E7%AC%94%E8%AE%B0/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -256,24 +256,17 @@
   </header>
   <section class="post-content">
   <p>代码中当要使用transform 和 opicity 比如同时0.3秒过渡时，下面这种写法不推荐，因为all会引起性能问题。</p>
-
-<pre><code class="language-css">
-div {
-     transform :translate (0 ,-20px);
-     transition: all 0.3s ease;
-}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
+     <span class="n">transform</span> <span class="o">:</span><span class="n">translate</span> <span class="p">(</span><span class="m">0</span> <span class="o">,-</span><span class="m">20px</span><span class="p">);</span>
+     <span class="n">transition</span><span class="o">:</span> <span class="n">all</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>推荐使用下面这种写法：</p>
-
-<pre><code class="language-css">
-div {
-     transform :translate (0 ,-20px);
-     transition: opacity 0.3s ease,transform 0.3s ease;
-}
-
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
+     <span class="n">transform</span> <span class="o">:</span><span class="n">translate</span> <span class="p">(</span><span class="m">0</span> <span class="o">,-</span><span class="m">20px</span><span class="p">);</span>
+     <span class="n">transition</span><span class="o">:</span> <span class="k">opacity</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="o">,</span><span class="n">transform</span> <span class="m">0.3s</span> <span class="n">ease</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>另外，在兼容各种webkit 的写法时，可以使用autoprefixer 插件，在less编译成css时再编译一次，可以高效得把各种前缀都自动加了。</p>
 
   </section>
@@ -296,7 +289,7 @@ div {
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

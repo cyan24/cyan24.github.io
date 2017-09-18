@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -268,8 +268,8 @@
 <p>我下载了用于Windows的WebpCodecSetup.exe 和libwebp-0.1.3-windows-x86.zip</p>
 
 <ol>
-  <li>先安装WebpCodecSetup.exe，</li>
-  <li>解压libwebp-0.1.3-windows-x86.zip（无需安装）</li>
+<li>先安装WebpCodecSetup.exe，</li>
+<li>解压libwebp-0.1.3-windows-x86.zip（无需安装）</li>
 </ol>
 
 <p>三、Jpg或png转换到Webp方法</p>
@@ -277,12 +277,8 @@
 <p>进入libwebp-0.1.3-windows-x86.zip的解压目录，可以看到cwebp.exe和dwebp.exe，其中cwebp.exe是将jpg或png文件转换成webp文件，dwebp.exe是将webp文件转换成png、pp或pgm。这两个程序只能在dos命令行环境下运行</p>
 
 <ol>
-  <li>
-    <p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p>
-  </li>
-  <li>
-    <p>输入路径进入解压文件夹，以下是我安装的路径</p>
-  </li>
+<li><p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p></li>
+<li><p>输入路径进入解压文件夹，以下是我安装的路径</p></li>
 </ol>
 
 <p>C:\Documents andSettings\Administrator&gt;e:
@@ -290,10 +286,10 @@ E:&gt;cd libwebp-0.1.3-windows-x86
 E:\libwebp-0.1.3-windows-x86&gt;</p>
 
 <ol>
-  <li>输入命令，将jpg或png转换成webp</li>
+<li>输入命令，将jpg或png转换成webp</li>
 </ol>
 
-<p>命令行结构：cwebp [-preset &lt;…&gt;] [options] in_file [-o out_file]</p>
+<p>命令行结构：cwebp [-preset &lt;...&gt;] [options] in<em>file [-o out</em>file]</p>
 
 <p>E:\libwebp-0.1.3-windows-x86&gt; cwebp -qquality e:\photo\png1.png -o e:\webp1.webp （回车）
 （e:\photo\png1.png是原文件路径，e:\webp1.webp是目标文件路径）</p>
@@ -312,119 +308,29 @@ E:\libwebp-0.1.3-windows-x86&gt;</p>
 
 <p>mode-partition: 13138  (47.5%)</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Residuals bytes</td>
-      <td>segment 1</td>
-      <td>segment 2</td>
-      <td>segment 3</td>
-      <td>segment4</td>
-      <td>total</td>
-    </tr>
-  </tbody>
-</table>
+<p>Residuals bytes  |segment 1|segment 2|segment 3|segment4|  total</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>intra4-coeffs:</td>
-      <td>3918</td>
-      <td>911</td>
-      <td>268</td>
-      <td>65</td>
-      <td>5162  (18.7%)</td>
-    </tr>
-  </tbody>
-</table>
+<p>intra4-coeffs:      |    3918 |    911 |     268 |      65 |   5162  (18.7%)</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>intra16-coeffs:</td>
-      <td>3086</td>
-      <td>1964</td>
-      <td>881</td>
-      <td>240</td>
-      <td>6171 (22.3%)</td>
-    </tr>
-  </tbody>
-</table>
+<p>intra16-coeffs:  |   3086 |    1964 |     881 |    240 |    6171 (22.3%)</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>chroma coeffs:</td>
-      <td>1627</td>
-      <td>902</td>
-      <td>408</td>
-      <td>105</td>
-      <td>3042 (11.0%)</td>
-    </tr>
-  </tbody>
-</table>
+<p>chroma coeffs: |    1627 |     902 |    408 |     105 |    3042 (11.0%)</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>macroblocks:</td>
-      <td>27%</td>
-      <td>33%</td>
-      <td>26%</td>
-      <td>12%</td>
-      <td>11750</td>
-    </tr>
-  </tbody>
-</table>
+<p>macroblocks:  |      27%|     33%|      26%|      12%|  11750</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>quantizer:</td>
-      <td>127</td>
-      <td>127</td>
-      <td>127</td>
-      <td>127</td>
-    </tr>
-  </tbody>
-</table>
+<p>quantizer:        |      127 |     127 |     127 |      127 |</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>filter level:</td>
-      <td>19</td>
-      <td>14</td>
-      <td>11</td>
-      <td>9</td>
-    </tr>
-  </tbody>
-</table>
+<p>filter level:         |      19 |       14|       11|        9 |</p>
 
 <p>——————————————————————————————————————</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>segments total:</td>
-      <td>8631</td>
-      <td>3777</td>
-      <td>1557</td>
-      <td>410</td>
-      <td>14375  (51.9%)</td>
-    </tr>
-  </tbody>
-</table>
+<p>segments total:  |   8631 |    3777 |    1557 |    410 |   14375  (51.9%)</p>
 
 <ol>
-  <li>
-    <p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件</p>
-  </li>
-  <li>
-    <p>cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。
+<li><p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件</p></li>
+<li><p>cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。
 E:\libwebp-0.1.3-windows-x86&gt;cwebp.exe –H（回车）
-options:</p>
-  </li>
+options:</p></li>
 </ol>
 
 <p>-h / -help ………… short help</p>
@@ -493,12 +399,8 @@ options:</p>
 <p>通过dwebp命令可以将Webp文件转换成png/ppm/pgm文件</p>
 
 <ol>
-  <li>
-    <p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p>
-  </li>
-  <li>
-    <p>输入路径进入解压文件夹，以下是我安装的路径</p>
-  </li>
+<li><p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p></li>
+<li><p>输入路径进入解压文件夹，以下是我安装的路径</p></li>
 </ol>
 
 <p>C:\Documents andSettings\Administrator&gt;e:</p>
@@ -508,7 +410,7 @@ options:</p>
 <p>E:\libwebp-0.1.3-windows-x86&gt;</p>
 
 <ol>
-  <li>输入命令，将Webp转换成png/ppm/pgm</li>
+<li>输入命令，将Webp转换成png/ppm/pgm</li>
 </ol>
 
 <p>Webp to png</p>
@@ -541,7 +443,7 @@ E:\libwebp-0.1.3-windows-x86&gt;dwebpwebp1.webp –ppm –o ppm1.ppm</p>
 <p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个pgm1.ppm文件</p>
 
 <ol>
-  <li>dwebp通过不同命令的选项，可以对图片进行一些设置。</li>
+<li>dwebp通过不同命令的选项，可以对图片进行一些设置。</li>
 </ol>
 
 <p>E:\libwebp-0.1.3-windows-x86&gt;dwebp.exe –H（回车）</p>
@@ -577,13 +479,9 @@ E:\libwebp-0.1.3-windows-x86&gt;dwebpwebp1.webp –ppm –o ppm1.ppm</p>
 <p>五、在PC上查看webp文件</p>
 
 <ol>
-  <li>
-    <p>安装Google chrome浏览器
-安装后打开chrome浏览器，然后将webp文件直接拖到浏览器中</p>
-  </li>
-  <li>
-    <p>安装chrome内嵌框架插件</p>
-  </li>
+<li><p>安装Google chrome浏览器
+安装后打开chrome浏览器，然后将webp文件直接拖到浏览器中</p></li>
+<li><p>安装chrome内嵌框架插件</p></li>
 </ol>
 
 <p>地址：<a href="http://code.google.com/intl/zh-CN/speed/webp/">http://code.google.com/intl/zh-CN/speed/webp/</a>
@@ -609,7 +507,7 @@ E:\libwebp-0.1.3-windows-x86&gt;dwebpwebp1.webp –ppm –o ppm1.ppm</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

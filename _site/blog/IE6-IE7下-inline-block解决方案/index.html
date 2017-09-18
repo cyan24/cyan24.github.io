@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/IE6-IE7%E4%B8%8B-inline-block%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/IE6-IE7%E4%B8%8B-inline-block%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -257,28 +257,23 @@
   <section class="post-content">
   <p>E6/IE7下对display:inline-block的支持性不好。比如在inline元素的display属性设置为inline-block时，所有的浏览器都支持；block元素的display属性设置为inline-block时，IE6/IE7浏览器是不支持的。</p>
 
-<p>###产生的原因</p>
+<h3>产生的原因</h3>
 
 <p>虽然对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行，允许空格。（准确地说，应用此特性的元素现为内联对象，周围元素保持在同一行，但可以设置宽度和高度等块元素的属性）
 IE中对内联元素使用display:inline-block，IE是不识别的，但使用display:inline-block在IE下会触发layout，从而使内联元素拥有了display:inline-block属性的表征。从上面的这个分析，也不难理解为什么IE下，对块元素设置display:inline-block属性无法实现inline-block的效果。这时块元素仅仅是被display:inline-block触发了layout，而它本身就是行布局，所以触发后，块元素依然还是行布局，而不会如Opera中块元素呈递为内联对象。</p>
 
-<p>###IE6下块元素如何实现display:inline-block的效果？</p>
+<h3>IE6下块元素如何实现display:inline-block的效果？</h3>
 
 <p>有两种方法：</p>
 
-<p>1、先使用display:inline-block属性触发块元素，然后再定义display:inline，让块元素呈递为内联对象（两个display 要先后放在两个CSS声明中才有效果，这是IE的一个经典bug，如果先定义了display:inline-block，然后再将display设回 inline或block，layout不会消失）。代码如下（…为省略的其他属性内容）：</p>
-
-<pre><code class="language-css">
-div {display:inline-block;...} 
-div {display:inline;}
-</code></pre>
-
+<p>1、先使用display:inline-block属性触发块元素，然后再定义display:inline，让块元素呈递为内联对象（两个display 要先后放在两个CSS声明中才有效果，这是IE的一个经典bug，如果先定义了display:inline-block，然后再将display设回 inline或block，layout不会消失）。代码如下（...为省略的其他属性内容）： </p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span><span class="o">...</span><span class="p">}</span> 
+<span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span>
+</code></pre></div>
 <p>2、直接让块元素设置为内联对象呈递（设置属性display:inline），然后触发块元素的layout（如：zoom:1 或float属性等）。代码如下：</p>
-
-<pre><code class="language-css">div { display:inline-block; _zoom:1;_display:inline;} /*推荐*/
-div { display:inline-block; _zoom:1;*display:inline;} /*推荐:IE67*/
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="n">_display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐*/</span>
+<span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="o">*</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐:IE67*/</span>
+</code></pre></div>
   </section>
   
 </article>
@@ -299,7 +294,7 @@ div { display:inline-block; _zoom:1;*display:inline;} /*推荐:IE67*/
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

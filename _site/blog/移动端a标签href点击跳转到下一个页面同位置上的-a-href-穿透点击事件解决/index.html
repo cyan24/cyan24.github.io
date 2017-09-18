@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFa%E6%A0%87%E7%AD%BEhref%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BD%AC%E5%88%B0%E4%B8%8B%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E5%90%8C%E4%BD%8D%E7%BD%AE%E4%B8%8A%E7%9A%84-a-href-%E7%A9%BF%E9%80%8F%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A3%E5%86%B3/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AFa%E6%A0%87%E7%AD%BEhref%E7%82%B9%E5%87%BB%E8%B7%B3%E8%BD%AC%E5%88%B0%E4%B8%8B%E4%B8%80%E4%B8%AA%E9%A1%B5%E9%9D%A2%E5%90%8C%E4%BD%8D%E7%BD%AE%E4%B8%8A%E7%9A%84-a-href-%E7%A9%BF%E9%80%8F%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%A7%A3%E5%86%B3/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -260,25 +260,21 @@
 <p><strong><em>解决方案：</em></strong></p>
 
 <p>将原来的&lt; a&gt;标签改为 div ，用移动端的 ontouchstart 事件代替，此时前一个页面点击事件不会穿透到下一个页面同位置的点击区域。</p>
-
-<pre><code class="language-javascript">
-$(function () {
-         var div = document.getElementById("operate_tbkp");
-         //touchstart类似mousedown
-         //div.ontouchstart = function(e){
-         div.ontouchstart = function(e){
-         //事件的touches属性是一个数组，其中一个元素代表同一时刻的一个触控点，从而可以通过touches获取多点触控的每个触控点
-         //由于我们只有一点触控，所以直接指向[0]
-         //var touch = e.touches[0];
-         //获取当前触控点的坐标，等同于MouseEvent事件的clientX/clientY
-         //var x = touch.clientX;
-         //var y = touch.clientY;
-         window.location.href='../applicationformAppcs/formBilling';
-         };
- })
-
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+         <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;operate_tbkp&quot;</span><span class="p">);</span>
+         <span class="c1">//touchstart类似mousedown</span>
+         <span class="c1">//div.ontouchstart = function(e){</span>
+         <span class="nx">div</span><span class="p">.</span><span class="nx">ontouchstart</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+         <span class="c1">//事件的touches属性是一个数组，其中一个元素代表同一时刻的一个触控点，从而可以通过touches获取多点触控的每个触控点</span>
+         <span class="c1">//由于我们只有一点触控，所以直接指向[0]</span>
+         <span class="c1">//var touch = e.touches[0];</span>
+         <span class="c1">//获取当前触控点的坐标，等同于MouseEvent事件的clientX/clientY</span>
+         <span class="c1">//var x = touch.clientX;</span>
+         <span class="c1">//var y = touch.clientY;</span>
+         <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="o">=</span><span class="s1">&#39;../applicationformAppcs/formBilling&#39;</span><span class="p">;</span>
+         <span class="p">};</span>
+ <span class="p">})</span>
+</code></pre></div>
   </section>
   
 </article>
@@ -299,7 +295,7 @@ $(function () {
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8BCSS-Sprites/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE%E6%8C%87%E5%8D%97%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B9%8BCSS-Sprites/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -265,7 +265,8 @@
 
 <p>当页面加载时，不是加载每个单独图片，而是一次加载整个组合图片。这是一个了不起的改进，它大大减少了HTTP请求的次数，减轻服务器压力，同时缩短了悬停加载图片所需要的时间延迟，使效果更流畅，不会停顿。</p>
 
-<hr />
+<hr>
+
 <p>CSS Sprites优点</p>
 
 <p>CSS Sprites为什么突然跑火，跟能够提升网站性能有关。显而易见，这是它的巨大优点之一。</p>
@@ -279,28 +280,27 @@ CSS Sprites缺点</p>
 <p>在图片合并的时候，你要把多张图片有序的合理的合并成一张图片，还要留好只够的空间，防止板块内不会出现不必要的背景，否则可能会出现出现干扰图片的情况；这些还好，做痛苦的是在宽屏，高分辨率的屏幕下的自适应页面，你的图片如果不够宽，很容易出现背景断裂；
 CSS Sprites在开发的时候比较麻烦，你要通过photoshop或其他工具测量计算每一个背景单元的精确位置，这是针线活，没什么难度，但是很繁琐；不过网上已经有高手开发出“CSS Sprites 样式生成工具”，大家可以尝试一下。
 CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果页面背景有少许改动，一般就要改这张合并的图片，无需改的地方最好不要动，这样避 免改动更多的css，如果在原来的地方放不下，有只能（最好）往下加图片，这样图片的字节就增加了，因为每次的图片改动都得往这个图片删除或添加内容，显 得稍微繁琐，而且重新算图片的位置（尤其是这种上千px的图）也是一件颇为不爽的事情。当然，在性能的口号下，这些都是可以克服的。
-由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性。
-___</p>
+由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性。</p>
+
+<hr>
 
 <p>CSS Sprites总结</p>
 
 <p>性能压倒一切。CSS Sprites非常值得学习和应用，特别是页面有一堆ico（图标）。总之很多时候大家要权衡一下利弊，在决定是不是应用CSS Sprites。为保持兼容性和维护性，sprites图片中的各个部分保持一定的距离是一种不错的做法。</p>
 
-<hr />
+<hr>
+
 <p>书中示例：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">   <span class="nt">&lt;style&gt;</span> <span class="nf">#navbar</span> <span class="nt">span</span> <span class="p">{</span> <span class="k">width</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;</span> <span class="k">float</span><span class="o">:</span><span class="k">left</span><span class="p">;</span> <span class="k">background-image</span><span class="o">:</span><span class="sx">url(/images/spritebg.gif?t=1442038329)</span><span class="p">;</span> <span class="p">}</span> <span class="nc">.home</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:</span><span class="m">0</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;</span> <span class="k">margin-left</span><span class="o">:</span> <span class="m">4px</span><span class="p">;}</span> <span class="nc">.gifts</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">32px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.cart</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">64px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.settings</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">96px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.help</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">128px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">0px</span><span class="p">;}</span> 
+   <span class="nt">&lt;/style&gt;</span> 
 
-<pre><code class="language-html">
-   &lt;style&gt; #navbar span { width:31px; height:31px; display:inline; float:left; background-image:url(/images/spritebg.gif?t=1442038329); } .home { background-position:0 0; margin-right:4px; margin-left: 4px;} .gifts { background-position:-32px 0; margin-right:4px;} .cart { background-position:-64px 0; margin-right:4px;} .settings { background-position:-96px 0; margin-right:4px;} .help { background-position:-128px 0; margin-right:0px;} 
-   &lt;/style&gt; 
-
-   &lt;div id="navbar" style="background-color: #F4F5EB; border: 2px ridge #333; width: 180px; height: 32px; padding: 4px 0 4px 0;"&gt; 
-      &lt;a href="javascript:alert('Home')" title="Home"&gt;&lt;span class="home"&gt;&lt;/span&gt;&lt;/a&gt;
-      &lt;a href="javascript:alert('Gifts')" title="Gifts"&gt;&lt;span class="gifts"&gt;&lt;/span&gt;&lt;/a&gt; 
-      &lt;a href="javascript:alert('Cart')" title="Cart"&gt;&lt;span class="cart"&gt;&lt;/span&gt;&lt;/a&gt; 
-      &lt;a href="javascript:alert('Settings')" title="Settings"&gt;&lt;span class="settings"&gt;&lt;/span&gt;&lt;/a&gt;      &lt;a href="javascript:alert('Help')" title="Help"&gt;&lt;span class="help"&gt;&lt;/span&gt;&lt;/a&gt; 
-    &lt;/div&gt;
-</code></pre>
-
+   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;navbar&quot;</span> <span class="na">style=</span><span class="s">&quot;background-color: #F4F5EB; border: 2px ridge #333; width: 180px; height: 32px; padding: 4px 0 4px 0;&quot;</span><span class="nt">&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Home&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Home&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;home&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Gifts&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Gifts&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;gifts&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Cart&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Cart&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cart&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Settings&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Settings&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;settings&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Help&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Help&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;help&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
+    <span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
   </section>
   
 </article>
@@ -321,7 +321,7 @@ ___</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

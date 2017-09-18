@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E7%94%A8jQuery%E4%B8%8EJSONP%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%94%A8jQuery%E4%B8%8EJSONP%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -260,110 +260,95 @@
 <p>我们要讨论的是浏览器端的真正跨域访问,推荐的是目前jQuery $.ajax()支持get方式的跨域,这其实是采用jsonp的方式来完成的.</p>
 
 <p>真实案例:</p>
-
-<pre><code class="language-javascript">
-var qsData = {'searchWord':$("#searchWord").attr("value"),'currentUserId':$("#currentUserId").attr("value"),'conditionBean.pageSize':$("#pageSize").attr("value")};
-$.ajax({
-   async:false,
-   url: http:/ /跨域的dns/document!searchJSONResult.action,
-   type: "GET",
-   dataType: 'jsonp',
-   jsonp: 'jsoncallback',
-   data: qsData,
-   timeout: 5000,
-   beforeSend: function(){
-   //jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了
-   },
-   success: function (json) {
-   //客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
-	    if(json.actionErrors.length!=0){
-	        alert(json.actionErrors);
-	    }
-	    genDynamicContent(qsData,type,json);
-   },
-   complete: function(XMLHttpRequest, textStatus){
-   $.unblockUI({ fadeOut: 10 });
-   },
-   error: function(xhr){
-    //jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了
-    //请求出错处理
-    alert("请求出错(请检查相关度网络状况.)");
-   }
-});
-
-
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">qsData</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;searchWord&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#searchWord&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">),</span><span class="s1">&#39;currentUserId&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#currentUserId&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">),</span><span class="s1">&#39;conditionBean.pageSize&#39;</span><span class="o">:</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#pageSize&quot;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">)};</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+   <span class="nx">async</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>
+   <span class="nx">url</span><span class="o">:</span> <span class="nx">http</span><span class="o">:</span><span class="sr">/ /</span><span class="err">跨域的</span><span class="nx">dns</span><span class="o">/</span><span class="nb">document</span><span class="o">!</span><span class="nx">searchJSONResult</span><span class="p">.</span><span class="nx">action</span><span class="p">,</span>
+   <span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+   <span class="nx">dataType</span><span class="o">:</span> <span class="s1">&#39;jsonp&#39;</span><span class="p">,</span>
+   <span class="nx">jsonp</span><span class="o">:</span> <span class="s1">&#39;jsoncallback&#39;</span><span class="p">,</span>
+   <span class="nx">data</span><span class="o">:</span> <span class="nx">qsData</span><span class="p">,</span>
+   <span class="nx">timeout</span><span class="o">:</span> <span class="mi">5000</span><span class="p">,</span>
+   <span class="nx">beforeSend</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+   <span class="c1">//jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了</span>
+   <span class="p">},</span>
+   <span class="nx">success</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">json</span><span class="p">)</span> <span class="p">{</span>
+   <span class="c1">//客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">actionErrors</span><span class="p">.</span><span class="nx">length</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">actionErrors</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">genDynamicContent</span><span class="p">(</span><span class="nx">qsData</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">json</span><span class="p">);</span>
+   <span class="p">},</span>
+   <span class="nx">complete</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">XMLHttpRequest</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">){</span>
+   <span class="nx">$</span><span class="p">.</span><span class="nx">unblockUI</span><span class="p">({</span> <span class="nx">fadeOut</span><span class="o">:</span> <span class="mi">10</span> <span class="p">});</span>
+   <span class="p">},</span>
+   <span class="nx">error</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">){</span>
+    <span class="c1">//jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了</span>
+    <span class="c1">//请求出错处理</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;请求出错(请检查相关度网络状况.)&quot;</span><span class="p">);</span>
+   <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
 <p>注意:</p>
-
-<pre><code class="language-javascript">
-$.getJSON(" http://跨域的dns/document!searchJSONResult.action?name1="+value1+"&amp;jsoncallback=?",
-function(json){
-if(json.属性名==值){
-// 执行代码
-    }
-});
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot; http://跨域的dns/document!searchJSONResult.action?name1=&quot;</span><span class="o">+</span><span class="nx">value1</span><span class="o">+</span><span class="s2">&quot;&amp;jsoncallback=?&quot;</span><span class="p">,</span>
+<span class="kd">function</span><span class="p">(</span><span class="nx">json</span><span class="p">){</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="err">属性名</span><span class="o">==</span><span class="err">值</span><span class="p">){</span>
+<span class="c1">// 执行代码</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
 <p>这种方式其实是上例$.ajax({..}) api的一种高级封装,有些$.ajax api底层的参数就被封装而不可见了.
 这样,jquery就会拼装成如下的url get请求</p>
 
 <p>http:/ / 跨域的 dns/document!searchJSONResult.action?&amp;jsoncallback=jsonp1236827957501&amp;_=1236828192549&amp;searchWord=%E7%94%A8%E4%BE%8B¤tUserId=5351&amp;conditionBean.pageSize=15</p>
 
 <p>在响应端(http://跨域的dns/document!searchJSONResult.action),
-通过 jsoncallback = request.getParameter(“jsoncallback”) 得到jquery端随后要回调的js function name:jsonp1236827957501
-然后 response的内容为一个Script Tags:”jsonp1236827957501(“+按请求参数生成的json数组+”)”;
+通过 jsoncallback = request.getParameter(&quot;jsoncallback&quot;) 得到jquery端随后要回调的js function name:jsonp1236827957501
+然后 response的内容为一个Script Tags:&quot;jsonp1236827957501(&quot;+按请求参数生成的json数组+&quot;)&quot;;
 jquery就会通过回调方法动态加载调用这个js tag:jsonp1236827957501(json数组);
 这样就达到了跨域数据交换的目的.</p>
 
 <p>jsonp的最基本的原理是:动态添加一个script标签，而script标签的src属性是没有跨域的限制的。这样说来,这种跨域方式其实与ajax XmlHttpRequest协议无关了.
-这样其实”jQuery AJAX跨域问题”就成了个伪命题了,jquery $.ajax方法名有误导人之嫌.</p>
+这样其实&quot;jQuery AJAX跨域问题&quot;就成了个伪命题了,jquery $.ajax方法名有误导人之嫌.</p>
 
-<p>如果设为dataType: ‘jsonp’, 这个$.ajax方法就和ajax XmlHttpRequest没什么关系了,取而代之的则是JSONP协议.</p>
+<p>如果设为dataType: &#39;jsonp&#39;, 这个$.ajax方法就和ajax XmlHttpRequest没什么关系了,取而代之的则是JSONP协议.</p>
 
 <p>JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问JSONP即JSON with Padding。由于同源策略的限制，XmlHttpRequest只允许请求当前源（域名、协议、端口）的资源。如果要进行跨域请求，我们可以通过使用 html的script标记来进行跨域请求，并在响应中返回要执行的script代码，其中可以直接使用JSON传递javascript对象。这种跨域 的通讯方式称为JSONP。</p>
 
-<p>jsonCallback 函数jsonp1236827957501(….): 是浏览器客户端注册的，获取跨域服务器上的json数据后，回调的函数.</p>
+<p>jsonCallback 函数jsonp1236827957501(....): 是浏览器客户端注册的，获取跨域服务器上的json数据后，回调的函数.</p>
 
 <ul>
-  <li>Jsonp原理：</li>
+<li>Jsonp原理：</li>
 </ul>
 
-<p>首先在客户端注册一个callback (如:’jsoncallback’), 然后把callback的名字(如:jsonp1236827957501)传给服务器。注意：服务端得到callback的数值后，要用 jsonp1236827957501(……)把将要输出的json内容包括起来，此时，服务器生成 json 数据才能被客户端正确接收。</p>
+<p>首先在客户端注册一个callback (如:&#39;jsoncallback&#39;), 然后把callback的名字(如:jsonp1236827957501)传给服务器。注意：服务端得到callback的数值后，要用 jsonp1236827957501(......)把将要输出的json内容包括起来，此时，服务器生成 json 数据才能被客户端正确接收。</p>
 
-<p>然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 ‘jsoncallback’的值 jsonp1236827957501 .</p>
+<p>然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 &#39;jsoncallback&#39;的值 jsonp1236827957501 .</p>
 
 <p>最后将 json 数据直接以入参的方式，放置到 function 中，这样就生成了一段 js 语法的文档，返回给客户端。</p>
 
 <p>客户端浏览器，解析script标签，并执行返回的 javascript 文档，此时javascript文档数据,作为参数，
 传入到了客户端预先定义好的 callback 函数(如上例中jquery $.ajax()方法封装的的success: function (json))里.（动态执行回调函数）</p>
 
-<p>可以说jsonp的方式原理上和&lt; script src=”http://跨域/…xx.js”&gt; &lt;\/ script&gt;是一致的(qq空间就是大量采用这种方式来实现跨域数据交换 的) .JSONP是一种脚本注入(Script Injection)行为,所以也有一定的安全隐患.</p>
+<p>可以说jsonp的方式原理上和&lt; script src=&quot;http://跨域/...xx.js&quot;&gt; &lt;\/ script&gt;是一致的(qq空间就是大量采用这种方式来实现跨域数据交换 的) .JSONP是一种脚本注入(Script Injection)行为,所以也有一定的安全隐患.</p>
 
 <p>原理的示例代码:</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//客户端的JAVASCRIPT代码</span>
+<span class="kd">var</span> <span class="nx">script</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">);</span>
+<span class="nx">script</span><span class="p">.</span><span class="nx">src</span><span class="o">=</span><span class="s2">&quot;http://www.pl4cj.com:8888/5/6/action.php?param=123&amp;callback=&quot;</span><span class="o">+</span><span class="nx">fnName</span><span class="p">;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s2">&quot;head&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">script</span><span class="p">)</span>
 
-<pre><code class="language-javascript">
-//客户端的JAVASCRIPT代码
-var script=document.createElement("script");
-script.src="http://www.pl4cj.com:8888/5/6/action.php?param=123&amp;callback="+fnName;
-document.getElementsByTagName("head")[0].appendChild(script)
-
-//服务器端的PHP代码，一定要有callback来进行回调，在这里加上括号，是让它以语句块的方式来进行解析
-</code></pre>
-
-<pre><code class="language-php">
-&lt;?php
-&lt;SPAN style="COLOR: #ff00ff"&gt;echo $_GET["callback"]."(".json_encode($_GET).");";
-&lt;/SPAN&gt;?
-</code></pre>
-
+<span class="c1">//服务器端的PHP代码，一定要有callback来进行回调，在这里加上括号，是让它以语句块的方式来进行解析</span>
+</code></pre></div><div class="highlight"><pre><code class="language-php" data-lang="php"><span class="cp">&lt;?php</span>
+<span class="o">&lt;</span><span class="nx">SPAN</span> <span class="nx">style</span><span class="o">=</span><span class="s2">&quot;COLOR: #ff00ff&quot;</span><span class="o">&gt;</span><span class="k">echo</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s2">&quot;callback&quot;</span><span class="p">]</span><span class="o">.</span><span class="s2">&quot;(&quot;</span><span class="o">.</span><span class="nb">json_encode</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">)</span><span class="o">.</span><span class="s2">&quot;);&quot;</span><span class="p">;</span>
+<span class="o">&lt;/</span><span class="nx">SPAN</span><span class="o">&gt;?</span>
+</code></pre></div>
 <p><strong>注意,jquey是不支持post方式跨域的</strong>
 为什么呢?
 虽然采用post +动态生成iframe是可以达到post跨域的目的,但这样做是一个比较极端的方式,不建议采用.
 也可以说get方式的跨域是合法的,post方式从安全角度上,被认为是不合法的, 万不得已还是不要剑走偏锋..</p>
 
 <p>client端跨域访问的需求看来也引起w3c的注意了,看资料说html5 WebSocket标准支持跨域的数据交换,应该也是一个将来可选的跨域数据交换的解决方案。</p>
-
 
   </section>
   
@@ -385,7 +370,7 @@ document.getElementsByTagName("head")[0].appendChild(script)
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

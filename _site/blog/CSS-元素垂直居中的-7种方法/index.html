@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -258,172 +258,141 @@
   <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p>
 
 <p>方法1 ： IE 10 以下不兼容
-transform:</p>
+transform: </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+<span class="c">/*声明伸缩容器*/</span>
+<span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span>
+<span class="nf">#child</span> <span class="p">{</span>
+   <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span>
+  <span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span>
+  <span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span>
+  <span class="k">z-index</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span>
+  <span class="k">height</span><span class="o">:</span><span class="m">30%</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span>
+  <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="o">,-</span><span class="m">50%</span><span class="p">);</span>
+  <span class="c">/*margin: -15% 0 0 -25%;*/</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-html">
-&lt;style&gt;
-/*声明伸缩容器*/
-#parent {position: relative;background-color: red;width: 220px;height: 200px;}
-#child {
-   position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 3;
-  height:30%;
-  width:50%;
-  -webkit-transform: translate(-50%,-50%);
-  /*margin: -15% 0 0 -25%;*/
-  background-color: #fff;
-}
-&lt;/style&gt;
-&lt;body&gt;
-&lt;div id="parent"&gt;
-&lt;div id="child"&gt;Content here&lt;/div&gt;
-</code></pre>
-<hr />
 <p>方法2:  FLEX BOX 弹性布局 IE10以下不适用</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span>
+<span class="c">/*声明伸缩容器*/</span>
+<span class="nf">#parent</span> <span class="p">{</span>
+     <span class="k">display</span><span class="o">:-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;;</span>
+     <span class="k">justify</span><span class="o">-</span><span class="k">content</span><span class="o">:</span><span class="k">center</span><span class="p">;</span>
+     <span class="n">align</span><span class="o">-</span><span class="n">items</span><span class="o">:</span><span class="k">center</span><span class="p">;</span>
+     <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span>
+<span class="nc">.child</span> <span class="p">{</span>
+   <span class="n">flex</span><span class="o">:</span><span class="m">1</span><span class="p">;</span>
+  <span class="k">border</span><span class="o">:</span> <span class="m">#999999</span> <span class="k">solid</span> <span class="m">1px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>  
+</code></pre></div>
+<hr>
 
-<pre><code class="language-html">
-&lt;style&gt;
-/*声明伸缩容器*/
-#parent {
-     display:-webkit-flex;;
-     justify-content:center;
-     align-items:center;
-     background-color: red;width: 220px;height: 200px;}
-.child {
-   flex:1;
-  border: #999999 solid 1px;
-  background-color: #fff;
-}
-&lt;/style&gt;
-&lt;body&gt;
-&lt;div id="parent"&gt;
-&lt;div class="child"&gt;Content here&lt;/div&gt;&lt;div class="child"&gt;Content here&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;  
-</code></pre>
-<hr />
 <p>方法3:Line-Height Method</p>
 
-<p><img src="/img/post/1312151.jpg" alt="" /></p>
+<p><img src="/img/post/1312151.jpg" alt=""> </p>
 
 <p>适用：单行文本垂直居中</p>
 
 <p>html</p>
-
-<pre><code class="language-html">
-&lt;div id="parent"&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt;
-</code></pre>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Text here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div>
 <p>css</p>
-
-<pre><code class="language-css">
-#child {line-height: 200px;}
-</code></pre>
-<hr />
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">line-height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
 <p>垂直居中一张图片，代码如下</p>
-
-<pre><code class="language-html">
-&lt;div id="parent"&gt;&lt;img src="image.png" alt="" /&gt;&lt;/div&gt;
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;image.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;&lt;/div&gt;</span>
 
 ```css
 
 #parent {line-height: 200px;}#parent img {vertical-align: middle;}
-</code></pre>
+</code></pre></div>
 <p>适用：通用</p>
 
 <p>代码：</p>
-
-<pre><code class="language-html">
-&lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt;
-</code></pre>
-
-<pre><code class="language-css">#parent {display: table;}#child {display: table-cell;vertical-align: middle;}
-</code></pre>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">table-cell</span><span class="p">;</span><span class="k">vertical-align</span><span class="o">:</span> <span class="k">middle</span><span class="p">;}</span>
+</code></pre></div>
 <p>低版本 IE fix bug：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-css">#child {display: inline-block;}
-</code></pre>
-<hr />
 <p>方法4: CSS Table Method</p>
 
-<p><img src="/img/post/1312152.jpg" alt="" /></p>
+<p><img src="/img/post/1312152.jpg" alt=""> </p>
 
 <p>适用：通用</p>
 
 <p>代码：</p>
-
-<pre><code class="language-html">&lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt;
-</code></pre>
-
-<pre><code class="language-css">#parent {display: table;}#child {display: table-cell;vertical-align: middle;}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="n">table</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">table-cell</span><span class="p">;</span><span class="k">vertical-align</span><span class="o">:</span> <span class="k">middle</span><span class="p">;}</span>
+</code></pre></div>
 <p>低版本 IE fix bug：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span> <span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-css">#child {display: inline-block;}
-</code></pre>
-<hr />
 <p>方法4:Absolute Positioning and Negative Margin</p>
 
-<p><img src="/img/post/1312153.jpg" alt="" /></p>
+<p><img src="/img/post/1312153.jpg" alt=""> </p>
 
 <p>适用：块级元素</p>
 
 <p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span><span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">30%</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">margin</span><span class="o">:</span> <span class="m">-15%</span> <span class="m">0</span> <span class="m">0</span> <span class="m">-25%</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-html">
-&lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt;
-</code></pre>
-
-<pre><code class="language-css">
-#parent {position: relative;}#child {position: absolute;top: 50%;left: 50%;height: 30%;width: 50%;margin: -15% 0 0 -25%;}
-</code></pre>
-<hr />
 <p>方法5:Absolute Positioning and Stretching
-<img src="/img/post/1312154.jpg" alt="" /></p>
+<img src="/img/post/1312154.jpg" alt=""> </p>
 
 <p>适用：通用，但在IE版本低于7时不能正常工作</p>
 
 <p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span><span class="k">top</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">bottom</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">left</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">right</span><span class="o">:</span> <span class="m">0</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">30%</span><span class="p">;</span><span class="k">margin</span><span class="o">:</span> <span class="k">auto</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-html">
-&lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt;
-</code></pre>
-
-<pre><code class="language-css">#parent {position: relative;}#child {position: absolute;top: 0;bottom: 0;left: 0;right: 0;width: 50%;height: 30%;margin: auto;}
-</code></pre>
-<hr />
 <p>方法6:Equal Top and Bottom Padding
-<img src="/img/post/1312155.jpg" alt="" /></p>
+<img src="/img/post/1312155.jpg" alt=""> </p>
 
 <p>适用：通用，demo</p>
 
 <p>代码：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">padding</span><span class="o">:</span> <span class="m">5%</span> <span class="m">0</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">padding</span><span class="o">:</span> <span class="m">10%</span> <span class="m">0</span><span class="p">;}</span>
+</code></pre></div>
+<hr>
 
-<pre><code class="language-html">
-&lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt;
-</code></pre>
-<pre><code class="language-css">
-#parent {padding: 5% 0;}#child {padding: 10% 0;}
-</code></pre>
-<hr />
 <p>方法7:Floater Div</p>
 
-<p><img src="/img/post/1312156.jpg" alt="" /></p>
+<p><img src="/img/post/1312156.jpg" alt=""> </p>
 
 <p>适用：通用</p>
 
 <p>代码：</p>
-
-<pre><code class="language-html">&lt;div id="parent"&gt;&lt;div id="floater"&gt;&lt;/div&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt;
-</code></pre>
-
-<pre><code class="language-css">
-#parent {height: 250px;}#floater {float: left;height: 50%;width: 100%;margin-bottom: -50px;}#child {clear: both;height: 100px;}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;floater&quot;</span><span class="nt">&gt;&lt;/div&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#parent</span> <span class="p">{</span><span class="k">height</span><span class="o">:</span> <span class="m">250px</span><span class="p">;}</span><span class="nf">#floater</span> <span class="p">{</span><span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span><span class="k">margin-bottom</span><span class="o">:</span> <span class="m">-50px</span><span class="p">;}</span><span class="nf">#child</span> <span class="p">{</span><span class="k">clear</span><span class="o">:</span> <span class="k">both</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;}</span>
+</code></pre></div>
   </section>
   
 </article>
@@ -444,7 +413,7 @@ transform:</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

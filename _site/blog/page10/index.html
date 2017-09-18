@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="Cyan的技术笔记">
+	<meta name="description" content="used by search engines">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/page10/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/page10/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -252,36 +252,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
-		        如何通过编程发现Java死锁
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年03月11日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: </a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>先看下死锁的定义:死锁是指，两个或多个动作一直在等待其他动作完成而使得所有动作都始终处在阻塞的状态。想要在开发阶段检测到死锁是非常困难的，而想要解除死锁往 往需要重新启动程序。更糟的是，死锁通常发生在负载最重的生产过程中，而想要在测试中发现它，十分不易。之所以这么说，是因为测试线程之间所有可能的交叉 是不现实的。尽管出现了一些静态分析库可以帮助我们发现可能出现的死锁，我们还是有必要在运行时检测到死锁，并且得到有用的信息，以便我们解决这个问题或 者重启程序，或者做些其他的事情。</p> <p>在编程中使用ThreadMXBean类来检测死锁</p> <p>Java 5引入了 ThreadMXBean 接口，它提供了多种监视线程的方法。我建议您了解所有这些方法，因为当您没使用外部工具时，它们会为您提供很多有用的操作以便您监测程序性能。这里，我们感兴趣的方法是 findMonitorDeadlockedThreads ，如过您使用的是Java 6，对应的方法是 findDeadlockedThreads 。二者的区别的是，findDeadlockedThreads还可以检测到owner locks（java.util.concurrent）引起的死锁，而findMonitorDeadlockedThreads只能检测 monitor locks（例如，同步块）。由于保留老版本的方法只是出于兼容性的考虑，所以我将使用新版本的方法。在这里，编程的思想是把对死锁的周期性检测封装到一 个可重用组件里，之后我们只需启动它、随它去。</p> <p>一种实现调度的方法是通过执行器框架，即一组良好抽象并易于使用的多线程类。</p> <pre><code class="language-java"> ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); this.scheduler.scheduleAtFixedRate(deadlockCheck, period, period, unit); </code></pre> <p>就是那么简单，在我们通过选择周期和时间单位而设置了一个特定时间后，就得到了一个周期性调用的线程。接着，我们想使功用得以拓展从而允许用户提供在程序检测到死锁时所触发的行为。最后，我们需要一个方法来接收用于描述死锁中所有线程的一系列对象。</p> <pre><code class="language-java">void handleDeadlock(final ThreadInfo[] deadlockedThreads); </code></pre> <p>现在，实现死锁检测类已经万事俱备了。</p> <pre><code class="language-java">public interface DeadlockHandler { void handleDeadlock(final ThreadInfo[] deadlockedThreads); } public class DeadlockDetector { private final DeadlockHandler deadlockHandler; private final long period; private final TimeUnit unit; private final ThreadMXBean mbean = ManagementFactory.getThreadMXBean(); private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); final Runnable deadlockCheck = new Runnable() { @Override public void run() { long[] deadlockedThreadIds = DeadlockDetector.this.mbean.findDeadlockedThreads(); if (deadlockedThreadIds != null) { ThreadInfo[] threadInfos = DeadlockDetector.this.mbean.getThreadInfo(deadlockedThreadIds); DeadlockDetector.this.deadlockHandler.handleDeadlock(threadInfos); } } }; public DeadlockDetector(final DeadlockHandler deadlockHandler, final long period, final TimeUnit unit) { this.deadlockHandler = deadlockHandler; this.period = period; this.unit = unit; } public void start() { this.scheduler.scheduleAtFixedRate( this.deadlockCheck, this.period, this.period, this.unit); } } </code></pre> <p>让我们动手试试。首先，我们要创建一个handler用来向System.err输出死锁线程的信息。在现实场景中，我们可以用它发送邮件，比如：</p> <pre><code class="language-java">public class DeadlockConsoleHandler implements DeadlockHandler { @Override public void handleDeadlock(final ThreadInfo[] deadlockedThreads) { if (deadlockedThreads != null) { System.err.println("Deadlock detected!"); Map&lt;Thread, StackTraceElement[]&gt; stackTraceMap = Thread.getAllStackTraces(); for (ThreadInfo threadInfo : deadlockedThreads) { if (threadInfo != null) { for (Thread thread : Thread.getAllStackTraces().keySet()) { if (thread.getId() == threadInfo.getThreadId()) { System.err.println(threadInfo.toString().trim()); for (StackTraceElement ste : thread.getStackTrace()) { System.err.println("t" + ste.toString().trim()); } } } } } } } } </code></pre> <p>这一过程在所有的堆栈追踪中反复进行并为每个线程信息打印对应的堆栈踪迹。通过这种方式，我们可以准确知道每个线程等待的位置和对象。但这个方法 有一个缺陷——当一个线程只是暂时等待时，可能会被当作一个暂时的死锁，从而引发错误的警报。出于此，当我们处理死锁时，原始线程不能继续存在而 findDeadlockedThreads方法会返回没有此类线程。为了避免可能出现的NullPointerException，我们需要警惕这种情 况。最后，让我们促成一个死锁来看看系统是如何运行的。</p> <pre><code class="language-java">DeadlockDetector deadlockDetector = new DeadlockDetector(new DeadlockConsoleHandler(), 5, TimeUnit.SECONDS); deadlockDetector.start(); final Object lock1 = new Object(); final Object lock2 = new Object(); Thread thread1 = new Thread(new Runnable() { @Override public void run() { synchronized (lock1) { System.out.println("Thread1 acquired lock1"); try { TimeUnit.MILLISECONDS.sleep(500); } catch (InterruptedException ignore) { } synchronized (lock2) { System.out.println("Thread1 acquired lock2"); } } } }); thread1.start(); Thread thread2 = new Thread(new Runnable() { @Override public void run() { synchronized (lock2) { System.out.println("Thread2 acquired lock2"); synchronized (lock1) { System.out.println("Thread2 acquired lock1"); } } } }); thread2.start(); </code></pre>...
-		    <p>
-		    <a class="text" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
-		      Continue Reading...
-		    </a>
-		    </p>
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/">
 		        logback的配置和使用
 		      </a>
@@ -295,198 +265,12 @@
 		  <div class="excerpt">
 		  
 		  
-		    <ol>
-  <li>logback介绍</li>
-</ol>
-
-<p>Logback是由log4j创始人设计的又一个开源日志组件。logback当前分成三个模块：logback-core,logback- classic和logback-access。logback-core是其它两个模块的基础模块。logback-classic是log4j的一个 改良版本。此外logback-classic完整实现SLF4J API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging。logback-access访问模块与Servlet容器集成提供通过Http来访问日志的功能。</p>
-
-<ol>
-  <li>maven依赖</li>
-</ol>
-
-<pre><code class="language-xml">
-&lt;!-- logback+slf4j --&gt;  
-&lt;dependency&gt;  
-    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;  
-    &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;  
-    &lt;version&gt;1.6.0&lt;/version&gt;  
-    &lt;type&gt;jar&lt;/type&gt;  
-    &lt;scope&gt;compile&lt;/scope&gt;  
-&lt;/dependency&gt;  
-&lt;dependency&gt;  
-    &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;  
-    &lt;artifactId&gt;logback-core&lt;/artifactId&gt;  
-    &lt;version&gt;0.9.28&lt;/version&gt;  
-    &lt;type&gt;jar&lt;/type&gt;  
-&lt;/dependency&gt;  
-&lt;dependency&gt;  
-    &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;  
-    &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;  
-    &lt;version&gt;0.9.28&lt;/version&gt;  
-    &lt;type&gt;jar&lt;/type&gt;  
-&lt;/dependency&gt;  
-</code></pre>
-
-<p>如果你没有使用maven，那么你自己去下载jar包吧…</p>
-
-<ol>
-  <li>
-    <p>配置和使用</p>
-  </li>
-  <li>
-    <p>日志使用</p>
-  </li>
-</ol>
-
-<p>我们使用org.slf4j.LoggerFactory，就可以直接使用日志了。</p>
-
-<pre><code class="language-java">
-protected final Logger logger = LoggerFactory.getLogger(this.getClass());  
-</code></pre>
-
-<p>使用：</p>
-
-<pre><code class="language-java">@Controller  
-@RequestMapping(value = "")  
-public class IndexController extends BaseController {  
-  
-    /** 
-     * Success 
-     * @param response 
-     * @throws IOException 
-     */  
-    @RequestMapping(value = "")  
-    @ResponseBody  
-    public void hello(HttpServletResponse response) throws IOException {  
-        logger.debug("DEBUG TEST 这个地方输出DEBUG级别的日志");  
-        logger.info("INFO test 这个地方输出INFO级别的日志");  
-        logger.error("ERROR test 这个地方输出ERROR级别的日志");  
-    }  
-  
-}  
-
-</code></pre>
-
-<ol>
-  <li>在控制台输出特定级别的日志</li>
-</ol>
-
-<p>logback的配置文件都放在/src/main/resource/文件夹下的logback.xml文件中。其中logback.xml文件就是logback的配置文件。只要将这个文件放置好了之后，系统会自动找到这个配置文件。</p>
-
-<p>下面的配置中，我们输出特定的ERROR级别的日志：</p>
-
-<pre><code class="language-xml">
-&lt;?xml version="1.0"?&gt;  
-&lt;configuration&gt;  
-  
-    &lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;  
-    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;  
-        &lt;encoder&gt;  
-            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n&lt;/pattern&gt;  
-        &lt;/encoder&gt;  
-    &lt;/appender&gt;  
-  
-    &lt;!-- 日志级别 --&gt;  
-    &lt;root&gt;  
-        &lt;level value="error" /&gt;  
-        &lt;appender-ref ref="console" /&gt;  
-    &lt;/root&gt;  
-  
-&lt;/configuration&gt;   
-</code></pre>
-
-<p>结果只在控制台输出ERROR级别的日志。</p>
-
-<ol>
-  <li>设置输出多个级别的日志</li>
-</ol>
-
-<pre><code class="language-xml">
-&lt;?xml version="1.0"?&gt;  
-&lt;configuration&gt;  
-  
-    &lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;  
-    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;  
-        &lt;encoder&gt;  
-            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n&lt;/pattern&gt;  
-        &lt;/encoder&gt;  
-    &lt;/appender&gt;  
-  
-    &lt;!-- 日志级别 --&gt;  
-    &lt;root&gt;  
-        &lt;level value="error" /&gt;  
-        &lt;level value="info" /&gt;  
-        &lt;appender-ref ref="console" /&gt;  
-    &lt;/root&gt;  
-  
-&lt;/configuration&gt;   
-</code></pre>
-
-<p>设置两个level，则可以输出 ERROR和INFO级别的日志了。</p>
-
-<ol>
-  <li>设置文件日志</li>
-</ol>
-
-<pre><code class="language-xml">
-&lt;?xml version="1.0"?&gt;  
-&lt;configuration&gt;  
-  
-    &lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;  
-    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;  
-        &lt;encoder&gt;  
-            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n  
-            &lt;/pattern&gt;  
-        &lt;/encoder&gt;  
-    &lt;/appender&gt;  
-  
-    &lt;!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 --&gt;  
-    &lt;appender name="file"  
-        class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;  
-        &lt;Encoding&gt;UTF-8&lt;/Encoding&gt;  
-        &lt;File&gt;/home/test.log&lt;/File&gt;  
-        &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;  
-            &lt;FileNamePattern&gt;/home/test-%d{yyyy-MM-dd}.log  
-            &lt;/FileNamePattern&gt;  
-            &lt;MaxHistory&gt;10&lt;/MaxHistory&gt;  
-            &lt;TimeBasedFileNamingAndTriggeringPolicy  
-                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"&gt;  
-                &lt;MaxFileSize&gt;5MB&lt;/MaxFileSize&gt;  
-            &lt;/TimeBasedFileNamingAndTriggeringPolicy&gt;  
-        &lt;/rollingPolicy&gt;  
-        &lt;layout class="ch.qos.logback.classic.PatternLayout"&gt;  
-            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n  
-            &lt;/pattern&gt;  
-        &lt;/layout&gt;  
-    &lt;/appender&gt;  
-  
-    &lt;!-- 日志级别 --&gt;  
-    &lt;root&gt;  
-        &lt;!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 --&gt;  
-        &lt;level value="error" /&gt;  
-        &lt;level value="info" /&gt;  
-        &lt;appender-ref ref="file" /&gt;   
-        &lt;appender-ref ref="console" /&gt;  
-    &lt;/root&gt;  
-  
-  
-&lt;/configuration&gt;   
-</code></pre>
-
-<ol>
-  <li>精确设置每个包下面的日志</li>
-</ol>
-
-<pre><code class="language-xml">
-&lt;logger name="com.xxx" additivity="false"&gt;  
-    &lt;level value="info" /&gt;  
-    &lt;appender-ref ref="file" /&gt;  
-    &lt;appender-ref ref="console" /&gt;  
-&lt;/logger&gt;  
-
-</code></pre>
-
+		    <ol> <li>logback介绍</li> </ol> <p>Logback是由log4j创始人设计的又一个开源日志组件。logback当前分成三个模块：logback-core,logback- classic和logback-access。logback-core是其它两个模块的基础模块。logback-classic是log4j的一个 改良版本。此外logback-classic完整实现SLF4J API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging。logback-access访问模块与Servlet容器集成提供通过Http来访问日志的功能。</p> <ol> <li>maven依赖</li> </ol> <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- logback+slf4j --&gt;</span> <span class="nt">&lt;dependency&gt;</span> <span class="nt">&lt;groupId&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span> <span class="nt">&lt;artifactId&gt;</span>slf4j-api<span class="nt">&lt;/artifactId&gt;</span> <span class="nt">&lt;version&gt;</span>1.6.0<span class="nt">&lt;/version&gt;</span> <span class="nt">&lt;type&gt;</span>jar<span class="nt">&lt;/type&gt;</span> <span class="nt">&lt;scope&gt;</span>compile<span class="nt">&lt;/scope&gt;</span> <span class="nt">&lt;/dependency&gt;</span> <span class="nt">&lt;dependency&gt;</span> <span class="nt">&lt;groupId&gt;</span>ch.qos.logback<span class="nt">&lt;/groupId&gt;</span> <span class="nt">&lt;artifactId&gt;</span>logback-core<span class="nt">&lt;/artifactId&gt;</span> <span class="nt">&lt;version&gt;</span>0.9.28<span class="nt">&lt;/version&gt;</span> <span class="nt">&lt;type&gt;</span>jar<span class="nt">&lt;/type&gt;</span> <span class="nt">&lt;/dependency&gt;</span> <span class="nt">&lt;dependency&gt;</span> <span class="nt">&lt;groupId&gt;</span>ch.qos.logback<span class="nt">&lt;/groupId&gt;</span> <span class="nt">&lt;artifactId&gt;</span>logback-classic<span class="nt">&lt;/artifactId&gt;</span> <span class="nt">&lt;version&gt;</span>0.9.28<span class="nt">&lt;/version&gt;</span> <span class="nt">&lt;type&gt;</span>jar<span class="nt">&lt;/type&gt;</span> <span class="nt">&lt;/dependency&gt;</span> </code></pre></div> <p>如果你没有使用maven，那么你自己去下载jar包吧...</p> <ol> <li><p>配置和使用</p></li> <li><p>日志使用</p></li> </ol> <p>我们使用org.slf4j.LoggerFactory，就可以直接使用日志了。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span> </code></pre></div> <p>使用：</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Controller</span> <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">)</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">IndexController</span> <span class="kd">extends</span> <span class="n">BaseController</span> <span class="o">{</span> <span class="cm">/** </span> <span class="cm"> * Success </span> <span class="cm"> * @param response </span> <span class="cm"> * @throws IOException </span> <span class="cm"> */</span> <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">)</span> <span class="nd">@ResponseBody</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hello</span><span class="o">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span> <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&quot;DEBUG TEST 这个地方输出DEBUG级别的日志&quot;</span><span class="o">);</span> <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;INFO test 这个地方输出INFO级别的日志&quot;</span><span class="o">);</span> <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;ERROR test 这个地方输出ERROR级别的日志&quot;</span><span class="o">);</span> <span class="o">}</span> <span class="o">}</span> </code></pre></div> <ol> <li>在控制台输出特定级别的日志</li> </ol> <p>logback的配置文件都放在/src/main/resource/文件夹下的logback.xml文件中。其中logback.xml文件就是logback的配置文件。只要将这个文件放置好了之后，系统会自动找到这个配置文件。</p> <p>下面的配置中，我们输出特定的ERROR级别的日志：</p> <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span> <span class="nt">&lt;configuration&gt;</span> <span class="c">&lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;</span> <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;console&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;encoder&gt;</span> <span class="nt">&lt;pattern&gt;</span>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n<span class="nt">&lt;/pattern&gt;</span> <span class="nt">&lt;/encoder&gt;</span> <span class="nt">&lt;/appender&gt;</span> <span class="c">&lt;!-- 日志级别 --&gt;</span> <span class="nt">&lt;root&gt;</span> <span class="nt">&lt;level</span> <span class="na">value=</span><span class="s">&quot;error&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&quot;console&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;/root&gt;</span> <span class="nt">&lt;/configuration&gt;</span> </code></pre></div> <p>结果只在控制台输出ERROR级别的日志。</p> <ol> <li>设置输出多个级别的日志</li> </ol> <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span> <span class="nt">&lt;configuration&gt;</span> <span class="c">&lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;</span> <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;console&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span><span...
+		    <p>
+		    <a class="text" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/">
+		      Continue Reading...
+		    </a>
+		    </p>
 		  
 		  </div>
 		</div>
@@ -556,7 +340,7 @@ public class IndexController extends BaseController {
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

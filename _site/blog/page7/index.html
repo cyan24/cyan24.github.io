@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="Cyan的技术笔记">
+	<meta name="description" content="used by search engines">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/page7/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/page7/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -252,54 +252,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/IE6-IE7%E4%B8%8B-inline-block%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
-		        IE6/IE7下：inline-block解决方案
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年01月20日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>E6/IE7下对display:inline-block的支持性不好。比如在inline元素的display属性设置为inline-block时，所有的浏览器都支持；block元素的display属性设置为inline-block时，IE6/IE7浏览器是不支持的。</p>
-
-<p>###产生的原因</p>
-
-<p>虽然对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行，允许空格。（准确地说，应用此特性的元素现为内联对象，周围元素保持在同一行，但可以设置宽度和高度等块元素的属性）
-IE中对内联元素使用display:inline-block，IE是不识别的，但使用display:inline-block在IE下会触发layout，从而使内联元素拥有了display:inline-block属性的表征。从上面的这个分析，也不难理解为什么IE下，对块元素设置display:inline-block属性无法实现inline-block的效果。这时块元素仅仅是被display:inline-block触发了layout，而它本身就是行布局，所以触发后，块元素依然还是行布局，而不会如Opera中块元素呈递为内联对象。</p>
-
-<p>###IE6下块元素如何实现display:inline-block的效果？</p>
-
-<p>有两种方法：</p>
-
-<p>1、先使用display:inline-block属性触发块元素，然后再定义display:inline，让块元素呈递为内联对象（两个display 要先后放在两个CSS声明中才有效果，这是IE的一个经典bug，如果先定义了display:inline-block，然后再将display设回 inline或block，layout不会消失）。代码如下（…为省略的其他属性内容）：</p>
-
-<pre><code class="language-css">
-div {display:inline-block;...} 
-div {display:inline;}
-</code></pre>
-
-<p>2、直接让块元素设置为内联对象呈递（设置属性display:inline），然后触发块元素的layout（如：zoom:1 或float属性等）。代码如下：</p>
-
-<pre><code class="language-css">div { display:inline-block; _zoom:1;_display:inline;} /*推荐*/
-div { display:inline-block; _zoom:1;*display:inline;} /*推荐:IE67*/
-</code></pre>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E4%B8%8D%E4%B8%BA%E4%BA%BA%E7%86%9F%E7%9F%A5%E7%9A%84Meta-http-equiv%E5%B1%9E%E6%80%A7/">
 		        不为人熟知的Meta http-equiv属性
 		      </a>
@@ -314,86 +266,74 @@ div { display:inline-block; _zoom:1;*display:inline;} /*推荐:IE67*/
 		  
 		  
 		    <p>http-equiv顾名思义，相当于http的文件头作用，它可以向浏览器传回一些有用的信息，以帮助正确和精确地显示网页内容，与之对应的属性值为content，content中的内容其实就是各个参数的变量值。 
-meat标签的http-equiv属性语法格式是：＜meta http-equiv=”参数” content=”参数变量值”＞ ；其中http-equiv属性主要有以下几种参数：</p>
+meat标签的http-equiv属性语法格式是：＜meta http-equiv=&quot;参数&quot; content=&quot;参数变量值&quot;＞ ；其中http-equiv属性主要有以下几种参数：</p>
 
 <p>1、Expires(期限) 
 说明：可以用于设定网页的到期时间。一旦网页过期，必须到服务器上重新传输。 
 用法：</p>
-
-<pre><code class="language-html">
-&lt;meta http-equiv="expires" content="Wed, 20 Jun 2007 22:33:00 GMT"&gt;
-</code></pre>
-<p>注意：必须使用GMT的时间格式。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;expires&quot;</span> <span class="na">content=</span><span class="s">&quot;Wed, 20 Jun 2007 22:33:00 GMT&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
 
 <p>2、Pragma(cache模式) 
 说明：是用于设定禁止浏览器从本地机的缓存中调阅页面内容，设定后一旦离开网页就无法从Cache中再调出 
 用法：</p>
-
-<pre><code class="language-html">&lt; meta http-equiv="Pragma" content="no-cache"&gt;
-</code></pre>
-<p>注意：这样设定，访问者将无法脱机浏览。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt; meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pragma&quot;</span> <span class="na">content=</span><span class="s">&quot;no-cache&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：这样设定，访问者将无法脱机浏览。 </p>
 
 <p>3、Refresh(刷新) 
 说明：自动刷新并指向新页面。 
 用法：</p>
-
-<pre><code class="language-html">&lt;meta http-equiv="Refresh" content="2；URL=http://www.net.cn/"&gt;  
-</code></pre>
-<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Refresh&quot;</span> <span class="na">content=</span><span class="s">&quot;2；URL=http://www.net.cn/&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>注意：其中的2是指停留2秒钟后自动刷新到URL网址。 </p>
 
 <p>4、Set-Cookie(cookie设定) 
 说明：如果网页过期，那么存盘的cookie将被删除。 
 用法：</p>
-
-<pre><code class="language-html">&lt;meta http-equiv="Set-Cookie" content="cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/"&gt;
-</code></pre>
-<p>注意：必须使用GMT的时间格式。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Set-Cookie&quot;</span> <span class="na">content=</span><span class="s">&quot;cookievalue=xxx;expires=Wednesday, 20-Jun-2007 22:33:00 GMT； path=/&quot;</span><span class="nt">&gt;</span>
+</code></pre></div>
+<p>注意：必须使用GMT的时间格式。 </p>
 
 <p>5、Window-target(显示窗口的设定) 
 说明：强制页面在当前窗口以独立页面显示。 
 用法：</p>
-
-<pre><code class="language-html">&lt;meta http-equiv="Window-target" content="_top"&gt; 
-</code></pre>
-<p>注意：用来防止别人在框架里调用自己的页面。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Window-target&quot;</span> <span class="na">content=</span><span class="s">&quot;_top&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>注意：用来防止别人在框架里调用自己的页面。 </p>
 
 <p>6、content-Type(显示字符集的设定) 
 说明：设定页面使用的字符集。 
 用法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;content-Type&quot;</span> <span class="na">contect=</span><span class="s">&quot;text/html; charset=gb2312&quot;</span><span class="nt">&gt;</span> 
+</code></pre></div>
+<p>7、Pics-label(网页等级评定) </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Pics-label&quot;</span> <span class="na">contect=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。 </p>
 
-<pre><code class="language-html">&lt;meta http-equiv="content-Type" contect="text/html; charset=gb2312"&gt; 
-</code></pre>
-
-<p>7、Pics-label(网页等级评定)</p>
-
-<pre><code class="language-html">&lt;meta http-equiv="Pics-label" contect=""&gt;  
-</code></pre>
-<p>说明：在IE的internet选项中有一项内容设置，可以防止浏览一些受限制的网站，而网站的限制级别就是通过meta属性来设置的。</p>
-
-<p>8、Page_Enter、Page_Exit 
+<p>8、Page<em>Enter、Page</em>Exit 
 设定进入页面时的特殊效果</p>
-
-<pre><code class="language-html">&lt;meta http-equiv="Page-Enter"    contect="revealTrans(duration=1.0,transtion=12)"&gt;    
-</code></pre>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Enter&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>    
+</code></pre></div>
 <p>设定离开页面时的特殊效果</p>
-
-<pre><code class="language-html">&lt;meta http-equiv="Page-Exit"    contect="revealTrans(duration=1.0,transtion=12)"&gt;  
-</code></pre>
-
-<p>Duration的值为网页动态过渡的时间，单位为秒。<br />
-Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br />
-0    盒状收缩    1    盒状放射<br />
-2    圆形收缩    3    圆形放射<br />
-4    由下往上    5    由上往下<br />
-6    从左至右    7    从右至左<br />
-8    垂直百叶窗    9    水平百叶窗<br />
-10    水平格状百叶窗    11垂直格状百叶窗<br />
-12    随意溶解    13从左右两端向中间展开<br />
-14从中间向左右两端展开    15从上下两端向中间展开<br />
-16从中间向上下两端展开    17    从右上角向左下角展开<br />
-18    从右下角向左上角展开    19    从左上角向右下角展开<br />
-20    从左下角向右上角展开    21    水平线状展开<br />
-22    垂直线状展开    23    随机产生一种过渡方式</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">&quot;Page-Exit&quot;</span>    <span class="na">contect=</span><span class="s">&quot;revealTrans(duration=1.0,transtion=12)&quot;</span><span class="nt">&gt;</span>  
+</code></pre></div>
+<p>Duration的值为网页动态过渡的时间，单位为秒。<br>
+Transition是过渡方式，它的值为0到23，分别对应24种过渡方式。如下表：<br>
+0    盒状收缩    1    盒状放射<br>
+2    圆形收缩    3    圆形放射<br>
+4    由下往上    5    由上往下<br>
+6    从左至右    7    从右至左<br>
+8    垂直百叶窗    9    水平百叶窗<br>
+10    水平格状百叶窗    11垂直格状百叶窗<br>
+12    随意溶解    13从左右两端向中间展开<br>
+14从中间向左右两端展开    15从上下两端向中间展开<br>
+16从中间向上下两端展开    17    从右上角向左下角展开<br>
+18    从右下角向左上角展开    19    从左上角向右下角展开<br>
+20    从左下角向右上角展开    21    水平线状展开<br>
+22    垂直线状展开    23    随机产生一种过渡方式  </p>
 
 		  
 		  </div>
@@ -419,7 +359,7 @@ Transition是过渡方式，它的值为0到23，分别对应24种过渡方式�
 		  <div class="excerpt">
 		  
 		  
-		    <p>网页的缓存是由HTTP消息头中的“Cache-control”来控制的，常见的取值有private、no-cache、max-age、must-revalidate等，默认为private。其作用根据不同的重新浏览方式分为以下几种情况：</p> <ol> <li> <p>打开新窗口 值为private、no-cache、must-revalidate，那么打开新窗口访问时都会重新访问服务器。 而如果指定了max-age值，那么在此值内的时间里就不会重新访问服务器，例如： Cache-control: max-age=5(表示当访问此网页后的5秒内再次访问不会去服务器)</p> </li> <li> <p>在地址栏回车 值为private或must-revalidate则只有第一次访问时会访问服务器，以后就不再访问。 值为no-cache，那么每次都会访问。 值为max-age，则在过期之前不会重复访问。</p> </li> <li> <p>按后退按扭 值为private、must-revalidate、max-age，则不会重访问， 值为no-cache，则每次都重复访问</p> </li> <li> <p>按刷新按扭 　 无论为何值，都会重复访问</p> </li> </ol> <p>Cache-control值为“no-cache”时，访问此页面不会在Internet临时文章夹留下页面备份。</p> <p>另外，通过指定“Expires”值也会影响到缓存。例如，指定Expires值为一个早已过去的时间，那么访问此网时若重复在地址栏按回车，那么每次都会重复访问： Expires: Fri, 31 Dec 1999 16:00:00 GMT</p> <p>比如：禁止页面在IE中缓存</p> <p>http响应消息头部设置：</p> <p>CacheControl = no-cache Pragma=no-cache Expires = -1</p> <p>Expires是个好东东，如果服务器上的网页经常变化，就把它设置为-1，表示立即过期。如果一个网页每天凌晨1点更新，可以把Expires设置为第二天的凌晨1点。</p> <p>当HTTP1.1服务器指定CacheControl = no-cache时，浏览器就不会缓存该网页。</p> <p>旧式 HTTP 1.0 服务器不能使用 Cache-Control 标题。 所以为了向后兼容 HTTP 1.0 服务器，IE使用Pragma:no-cache 标题对 HTTP 提供特殊支持。 如果客户端通过安全连接 (https://)/与服务器通讯，且服务器在响应中返回 Pragma:no-cache 标题， 则 Internet Explorer不会缓存此响应。注意：Pragma:no-cache 仅当在安全连接中使用时才防止缓存，如果在非安全页中使用，处理方式与 Expires:-1相同，该页将被缓存，但被标记为立即过期。</p> <hr /> <p>header常用指令</p> <p>header分为三部分：</p> <p>第一部分为HTTP协议的版本(HTTP-Version)； 第二部分为状态代码(Status)； 第三部分为原因短语(Reason-Phrase)。</p> <p>// fix 404 pages: 用这个header指令来解决URL重写产生的404 header header(‘HTTP/1.1 200 OK’);</p> <p>// set 404 header: 页面没找到 header(‘HTTP/1.1 404 Not Found’);</p> <p>//页面永久重定向，可以告诉搜索引擎更新它们的urls // set Moved Permanently header (good for redrictions) // use with location header header(‘HTTP/1.1 301 Moved Permanently’);</p> <p>// 访问受限 header(‘HTTP/1.1 403 Forbidden’);</p> <p>// 服务器错误 header(‘HTTP/1.1 500 Internal Server Error’);</p> <p>// 重定向到一个新的位置 // redirect to a new location: header(‘Location: http://www.sina.com.cn);</p> <p>延迟一段时间后重定向 // redrict with delay: header(‘Refresh: 10; url=http://www.sina.com.cn’); print ‘You will be redirected in 10 seconds’;</p> <p>// 覆盖 X-Powered-By value // override X-Powered-By: PHP: header(‘X-Powered-By: PHP/4.4.0’); header(‘X-Powered-By: Brain/0.6b’);</p> <p>// 内容语言 (en = English) // content language (en = English) header(‘Content-language: en’);</p> <p>//最后修改时间(在缓存的时候可以用到) // last modified (good for caching) $time = time() - 60; // or filemtime($fn), etc header(‘Last-Modified: ‘.gmdate(‘D, d M Y H:i:s’, $time).’ GMT’);</p> <p>// 告诉浏览器要获取的内容还没有更新 // header for telling the browser that the content // did not get changed header(‘HTTP/1.1 304 Not Modified’);</p> <p>// 设置内容的长度 (缓存的时候可以用到): // set content length (good for caching): header(‘Content-Length: 1234’);</p> <p>// 用来下载文件: // Headers for an download: header(‘Content-Type: application/octet-stream’); header(‘Content-Disposition: attachment; filename=”example.zip”’); header(‘Content-Transfer-Encoding: binary’);</p> <p>// 禁止缓存当前文档: // load the file to send:readfile(‘example.zip’); // Disable caching of the current document: header(‘Cache-Control: no-cache, no-store, max-age=0, must-revalidate’); header(‘Expires: Mon, 26 Jul 1997 05:00:00 GMT’);</p> <p>// 设置内容类型: // Date in the pastheader(‘Pragma: no-cache’); // set content type: header(‘Content-Type: text/html; charset=iso-8859-1’); header(‘Content-Type: text/html; charset=utf-8’);</p> <p>// plain text file header(‘Content-Type: text/plain’);</p> <p>// JPG picture...
+		    <p>网页的缓存是由HTTP消息头中的“Cache-control”来控制的，常见的取值有private、no-cache、max-age、must-revalidate等，默认为private。其作用根据不同的重新浏览方式分为以下几种情况：</p> <ol> <li><p>打开新窗口 值为private、no-cache、must-revalidate，那么打开新窗口访问时都会重新访问服务器。 而如果指定了max-age值，那么在此值内的时间里就不会重新访问服务器，例如： Cache-control: max-age=5(表示当访问此网页后的5秒内再次访问不会去服务器)</p></li> <li><p>在地址栏回车 值为private或must-revalidate则只有第一次访问时会访问服务器，以后就不再访问。 值为no-cache，那么每次都会访问。 值为max-age，则在过期之前不会重复访问。</p></li> <li><p>按后退按扭 值为private、must-revalidate、max-age，则不会重访问， 值为no-cache，则每次都重复访问</p></li> <li><p>按刷新按扭 　 无论为何值，都会重复访问</p></li> </ol> <p>Cache-control值为“no-cache”时，访问此页面不会在Internet临时文章夹留下页面备份。</p> <p>另外，通过指定“Expires”值也会影响到缓存。例如，指定Expires值为一个早已过去的时间，那么访问此网时若重复在地址栏按回车，那么每次都会重复访问： Expires: Fri, 31 Dec 1999 16:00:00 GMT</p> <p>比如：禁止页面在IE中缓存</p> <p>http响应消息头部设置：</p> <p>CacheControl = no-cache Pragma=no-cache Expires = -1</p> <p>Expires是个好东东，如果服务器上的网页经常变化，就把它设置为-1，表示立即过期。如果一个网页每天凌晨1点更新，可以把Expires设置为第二天的凌晨1点。</p> <p>当HTTP1.1服务器指定CacheControl = no-cache时，浏览器就不会缓存该网页。</p> <p>旧式 HTTP 1.0 服务器不能使用 Cache-Control 标题。 所以为了向后兼容 HTTP 1.0 服务器，IE使用Pragma:no-cache 标题对 HTTP 提供特殊支持。 如果客户端通过安全连接 (https://)/与服务器通讯，且服务器在响应中返回 Pragma:no-cache 标题， 则 Internet Explorer不会缓存此响应。注意：Pragma:no-cache 仅当在安全连接中使用时才防止缓存，如果在非安全页中使用，处理方式与 Expires:-1相同，该页将被缓存，但被标记为立即过期。</p> <hr> <p>header常用指令</p> <p>header分为三部分：</p> <p>第一部分为HTTP协议的版本(HTTP-Version)； 第二部分为状态代码(Status)； 第三部分为原因短语(Reason-Phrase)。</p> <p>// fix 404 pages: 用这个header指令来解决URL重写产生的404 header header(&#39;HTTP/1.1 200 OK&#39;);</p> <p>// set 404 header: 页面没找到 header(&#39;HTTP/1.1 404 Not Found&#39;);</p> <p>//页面永久重定向，可以告诉搜索引擎更新它们的urls // set Moved Permanently header (good for redrictions) // use with location header header(&#39;HTTP/1.1 301 Moved Permanently&#39;);</p> <p>// 访问受限 header(&#39;HTTP/1.1 403 Forbidden&#39;);</p> <p>// 服务器错误 header(&#39;HTTP/1.1 500 Internal Server Error&#39;);</p> <p>// 重定向到一个新的位置 // redirect to a new location: header(&#39;Location: http://www.sina.com.cn);</p> <p>延迟一段时间后重定向 // redrict with delay: header(&#39;Refresh: 10; url=http://www.sina.com.cn&#39;); print &#39;You will be redirected in 10 seconds&#39;;</p> <p>// 覆盖 X-Powered-By value // override X-Powered-By: PHP: header(&#39;X-Powered-By: PHP/4.4.0&#39;); header(&#39;X-Powered-By: Brain/0.6b&#39;);</p> <p>// 内容语言 (en = English) // content language (en = English) header(&#39;Content-language: en&#39;);</p> <p>//最后修改时间(在缓存的时候可以用到) // last modified (good for caching) $time = time() - 60; // or filemtime($fn), etc header(&#39;Last-Modified: &#39;.gmdate(&#39;D, d M Y H:i:s&#39;, $time).&#39; GMT&#39;);</p> <p>// 告诉浏览器要获取的内容还没有更新 // header for telling the browser that the content // did not get changed header(&#39;HTTP/1.1 304 Not Modified&#39;);</p> <p>// 设置内容的长度 (缓存的时候可以用到): // set content length (good for caching): header(&#39;Content-Length: 1234&#39;);</p> <p>// 用来下载文件: // Headers for an download: header(&#39;Content-Type: application/octet-stream&#39;); header(&#39;Content-Disposition: attachment; filename=&quot;example.zip&quot;&#39;); header(&#39;Content-Transfer-Encoding: binary&#39;);</p> <p>// 禁止缓存当前文档: // load the file to send:readfile(&#39;example.zip&#39;); // Disable caching of the current document: header(&#39;Cache-Control: no-cache, no-store, max-age=0, must-revalidate&#39;); header(&#39;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#39;);</p> <p>// 设置内容类型: // Date in the pastheader(&#39;Pragma: no-cache&#39;); // set content type: header(&#39;Content-Type: text/html; charset=iso-8859-1&#39;); header(&#39;Content-Type: text/html; charset=utf-8&#39;);</p> <p>// plain text file header(&#39;Content-Type: text/plain&#39;);</p> <p>// JPG picture header(&#39;Content-Type: image/jpeg&#39;);</p> <p>// ZIP file header(&#39;Content-Type: application/zip&#39;);</p> <p>// PDF...
 		    <p>
 		    <a class="text" href="/blog/HTTP-%E5%A4%B4%E6%8E%A7%E5%88%B6%E7%BC%93%E5%AD%98%E4%BB%A5%E5%8F%8Aheader%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/">
 		      Continue Reading...
@@ -449,167 +389,12 @@ Transition是过渡方式，它的值为0到23，分别对应24种过渡方式�
 		  <div class="excerpt">
 		  
 		  
-		    <p>因为最近的项目要求，逐步开始关注web安全性方面的内容,加之最近又做了两个h5的项目，遇到了一些跨域方面的问题，今天就来说说html5在跨域消息发送上到安全问题。
-在h5之前，由于同源策略的限制导致在两个窗口之间进行消息传送必须是使用相同的协议、端口和主机。而H5有了一种新的方法叫做postMessage()，通过这一方法，跨域的消息传送将不再受到同源策略的限制。
-postMessage()使用方式：
-在发送方：</p>
-
-<pre><code class="language-javascript">otherWindeow.postMessage(message,targetOrigin,[transfer]);
-</code></pre>
-<p><strong>参数说明</strong>：</p>
-
-<p>Otherwindows：涉及到的其他窗口</p>
-
-<p>Message：被发送到接收窗口的信息</p>
-
-<p>targetOrigin：接收窗口必须规定的URL。如果没有任何特殊偏好，可以将其规定为“<em>”定义“</em>”为targetOrigin，但这样做其实会存在一些安全隐患，在后文中我会提到。</p>
-
-<p>Transfer：这个是任意的。</p>
-
-<p>接收方：</p>
-
-<p>当otherWindow.postMessage()执行时，消息将会被发送到接收方的窗口。</p>
-
-<p>接收方使用以下这段代码后，我们就可以接收到这条消息。</p>
-
-<pre><code class="language-javascript">window.addEventListener("message",receiveMessage,false);
-function receiveMessage(event){
-  if(event.origin !=="http://site.com:8383"){
-    return;
-    //
-    ...
-  }
-}
-</code></pre>
-
-<p>通过该段代码，我们可以访问数据以及这一信息的源。如下所示：</p>
-
-<p>Event.origin：提供信息的源(我们所接收到的信息的URL)</p>
-
-<p>Event.data：提供实际所发送出的信息内容</p>
-
-<hr />
-
-<p>###安全性实例分析</p>
-
-<p>出于演示需要，设立了如下两个服务：</p>
-
-<p>A: http://localhost:8383/</p>
-
-<p>B: http://localhost/</p>
-
-<p>上面两个URL具有不同的端口，第一个运行在8383端口，第二个则是在80端口。我们通过端口不同来模拟跨域的情况。</p>
-
-<p>A是发送窗口，B是接收窗口
-现在我们加载第二个URL(http://localhost/ )作为第一个URL的iframe：</p>
-
-<p><img src="/img/post/1401051.png" alt="" /></p>
-
-<p>通过使用postMessage()的方法，我可以轻松的将消息从第一个URL发送到第二个URL.</p>
-
-<p>我们可以通过点击”send message“的按钮来进行验证。</p>
-
-<p><img src="/img/post/1401052.png" alt="" /></p>
-
-<p>尽管加载在第一个URL中的iframe与其并不同源，但通过postMessage() 即可进行信息传递。</p>
-
-<p>现在我们来看一些postMessage()使用过程中可导致应用出现漏洞的例子：</p>
-
-<p><strong>case1</strong></p>
-
-<p>发送方代码：</p>
-
-<pre><code class="language-javascript">
-receiver.postMessage('Hi,There...!','*');
-</code></pre>
-
-<p>当发送者把targetOrigin规定为通配符”*“时，将会导致未知的信息被陌生的接收方(窗口)接收到。原因是从接收窗口传来的消息任何人都可以再加载一个iframe来进行监听。因此在进行敏感数据的传输时，使用通配符是一个十分错误的决定。</p>
-
-<p>针对此问题最好的解决方法就是在发送时添加具体的目标字段，如下所示：</p>
-
-<pre><code class="language-javascript">
-receiver.postMessage('Hi,There...!','http://localhost');
-</code></pre>
-<p><strong>case2</strong>
-接收窗口代码：</p>
-
-<pre><code class="language-javascript">
-function receiver(e){
-  do something..!
-}
-</code></pre>
-
-<p>在上面这段代码中可以看到，我们是直接接收发送方的消息对其进行处理，并不检验是否来自发送方。</p>
-
-<p>但检查消息的来源无疑是十分重要的，这样可以防止消息来自未经授权的发送者。</p>
-
-<p>因此，我们只需要在代码中加入对发送方的验证，这一问题就可解决了。代码如下：</p>
-
-<pre><code class="language-javascript">
-function receiver(e){
-  if (e.origin!=="http://localhost:8383"){
-    return;
-  }
-  ...
-  do something ...!;
-}
-
-</code></pre>
-<p>通过检验event.origin，来进行验证。</p>
-
-<p><strong><em>Case3</em></strong></p>
-
-<p>在这一过程中，发送方和接收方都应该验证正在传送的.消息。如果数据插入到HTML DOM中时并没有进行验证，那么应用很有可能遭受到基于DOM的跨站脚本攻击。</p>
-
-<p>由下面这段代码可以看出，当应用程序接收到攻击者发来的恶意信息，并已经插入到HTML DOM使用innerHTML属性时，其显得异常脆弱。</p>
-
-<p>发送方：</p>
-
-<pre><code class="language-javascript">receiver.postMessage("&lt; img src="x" onerror=alert(1);&gt;",'http://localhost');
-
-}
-</code></pre>
-<p>接收方：</p>
-
-<pre><code class="language-javascript">
-function receiver(e){
-  if (e.origin!=="http://localhost:8383"){
-    return;
-  }
-  ...
-  messageEle.innerHTML = "Message from localhost:8383: "+e.data;
-}
-</code></pre>
-
-<p>执行上面这段代码，可导致在接收窗口出现XSS。</p>
-
-<p><img src="/img/post/1401053.png" alt="" /></p>
-
-<p>解决这一问题最简单的方法就是在给元素分配数据值时使用 textContent 而不是innerHTML.</p>
-
-<p>如下所示：</p>
-
-<p>发送方：</p>
-
-<pre><code class="language-javascript">receiver.postMessage("&lt; img src="x" onerror=alert(1);&gt;",'http://localhost');
-
-}
-</code></pre>
-<p>接收方：</p>
-
-<pre><code class="language-javascript">
-function receiver(e){
-  if (e.origin!=="http://localhost:8383"){
-    return;
-  }
-  ...
-  element.textContent = "Message from localhost:8383: "+e.data;
-}
-</code></pre>
-<p>执行上面这段代码时我们可以看到，文本中显示frame是作为数据而不是代码。</p>
-
-<p><img src="/img/post/1401054.png" alt="" /></p>
-
+		    <p>因为最近的项目要求，逐步开始关注web安全性方面的内容,加之最近又做了两个h5的项目，遇到了一些跨域方面的问题，今天就来说说html5在跨域消息发送上到安全问题。 在h5之前，由于同源策略的限制导致在两个窗口之间进行消息传送必须是使用相同的协议、端口和主机。而H5有了一种新的方法叫做postMessage()，通过这一方法，跨域的消息传送将不再受到同源策略的限制。 postMessage()使用方式： 在发送方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">otherWindeow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span><span class="nx">targetOrigin</span><span class="p">,[</span><span class="nx">transfer</span><span class="p">]);</span> </code></pre></div> <p><strong>参数说明</strong>：</p> <p>Otherwindows：涉及到的其他窗口</p> <p>Message：被发送到接收窗口的信息</p> <p>targetOrigin：接收窗口必须规定的URL。如果没有任何特殊偏好，可以将其规定为“<em>”定义“</em>”为targetOrigin，但这样做其实会存在一些安全隐患，在后文中我会提到。</p> <p>Transfer：这个是任意的。</p> <p>接收方：</p> <p>当otherWindow.postMessage()执行时，消息将会被发送到接收方的窗口。</p> <p>接收方使用以下这段代码后，我们就可以接收到这条消息。</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="nx">receiveMessage</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span> <span class="kd">function</span> <span class="nx">receiveMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span> <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">origin</span> <span class="o">!==</span><span class="s2">&quot;http://site.com:8383&quot;</span><span class="p">){</span> <span class="k">return</span><span class="p">;</span> <span class="c1">//</span> <span class="p">...</span> <span class="p">}</span> <span class="p">}</span> </code></pre></div> <p>通过该段代码，我们可以访问数据以及这一信息的源。如下所示：</p> <p>Event.origin：提供信息的源(我们所接收到的信息的URL)</p> <p>Event.data：提供实际所发送出的信息内容</p> <hr> <h3>安全性实例分析</h3> <p>出于演示需要，设立了如下两个服务：</p> <p>A: http://localhost:8383/</p> <p>B: http://localhost/</p> <p>上面两个URL具有不同的端口，第一个运行在8383端口，第二个则是在80端口。我们通过端口不同来模拟跨域的情况。</p> <p>A是发送窗口，B是接收窗口 现在我们加载第二个URL(http://localhost/ )作为第一个URL的iframe：</p> <p><img src="/img/post/1401051.png" alt=""> </p> <p>通过使用postMessage()的方法，我可以轻松的将消息从第一个URL发送到第二个URL.</p> <p>我们可以通过点击”send message“的按钮来进行验证。</p> <p><img src="/img/post/1401052.png" alt=""> </p> <p>尽管加载在第一个URL中的iframe与其并不同源，但通过postMessage() 即可进行信息传递。</p> <p>现在我们来看一些postMessage()使用过程中可导致应用出现漏洞的例子：</p> <p><strong>case1</strong></p> <p>发送方代码：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hi,There...!&#39;</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">);</span> </code></pre></div> <p>当发送者把targetOrigin规定为通配符”*“时，将会导致未知的信息被陌生的接收方(窗口)接收到。原因是从接收窗口传来的消息任何人都可以再加载一个iframe来进行监听。因此在进行敏感数据的传输时，使用通配符是一个十分错误的决定。</p> <p>针对此问题最好的解决方法就是在发送时添加具体的目标字段，如下所示：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hi,There...!&#39;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span> </code></pre></div> <p><strong>case2</strong> 接收窗口代码：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="k">do</span> <span class="nx">something</span><span class="p">..</span><span class="o">!</span> <span class="p">}</span> </code></pre></div> <p>在上面这段代码中可以看到，我们是直接接收发送方的消息对其进行处理，并不检验是否来自发送方。</p> <p>但检查消息的来源无疑是十分重要的，这样可以防止消息来自未经授权的发送者。</p> <p>因此，我们只需要在代码中加入对发送方的验证，这一问题就可解决了。代码如下：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="o">!==</span><span class="s2">&quot;http://localhost:8383&quot;</span><span class="p">){</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span> <span class="p">...</span> <span class="k">do</span> <span class="nx">something</span> <span class="p">...</span><span class="o">!</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>通过检验event.origin，来进行验证。</p> <p><strong><em>Case3</em></strong></p> <p>在这一过程中，发送方和接收方都应该验证正在传送的.消息。如果数据插入到HTML DOM中时并没有进行验证，那么应用很有可能遭受到基于DOM的跨站脚本攻击。</p> <p>由下面这段代码可以看出，当应用程序接收到攻击者发来的恶意信息，并已经插入到HTML DOM使用innerHTML属性时，其显得异常脆弱。</p> <p>发送方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;&lt; img src=&quot;</span><span class="nx">x</span><span class="s2">&quot; onerror=alert(1);&gt;&quot;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span> <span class="p">}</span> </code></pre></div> <p>接收方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="o">!==</span><span class="s2">&quot;http://localhost:8383&quot;</span><span class="p">){</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span> <span class="p">...</span> <span class="nx">messageEle</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Message from localhost:8383: &quot;</span><span class="o">+</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span> <span class="p">}</span> </code></pre></div> <p>执行上面这段代码，可导致在接收窗口出现XSS。</p> <p><img src="/img/post/1401053.png" alt=""> </p> <p>解决这一问题最简单的方法就是在给元素分配数据值时使用 textContent 而不是innerHTML.</p> <p>如下所示：</p> <p>发送方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;&lt; img src=&quot;</span><span class="nx">x</span><span class="s2">&quot; onerror=alert(1);&gt;&quot;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span> <span class="p">}</span> </code></pre></div> <p>接收方：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span>...
+		    <p>
+		    <a class="text" href="/blog/HTML5%E5%9C%A8%E8%B7%A8%E5%9F%9F%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83/">
+		      Continue Reading...
+		    </a>
+		    </p>
 		  
 		  </div>
 		</div>
@@ -634,12 +419,64 @@ function receiver(e){
 		  <div class="excerpt">
 		  
 		  
-		    <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p> <p>方法1 ： IE 10 以下不兼容 transform:</p> <pre><code class="language-html"> &lt;style&gt; /*声明伸缩容器*/ #parent {position: relative;background-color: red;width: 220px;height: 200px;} #child { position: absolute; top: 50%; left: 50%; z-index: 3; height:30%; width:50%; -webkit-transform: translate(-50%,-50%); /*margin: -15% 0 0 -25%;*/ background-color: #fff; } &lt;/style&gt; &lt;body&gt; &lt;div id="parent"&gt; &lt;div id="child"&gt;Content here&lt;/div&gt; </code></pre> <hr /> <p>方法2: FLEX BOX 弹性布局 IE10以下不适用</p> <pre><code class="language-html"> &lt;style&gt; /*声明伸缩容器*/ #parent { display:-webkit-flex;; justify-content:center; align-items:center; background-color: red;width: 220px;height: 200px;} .child { flex:1; border: #999999 solid 1px; background-color: #fff; } &lt;/style&gt; &lt;body&gt; &lt;div id="parent"&gt; &lt;div class="child"&gt;Content here&lt;/div&gt;&lt;div class="child"&gt;Content here&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; </code></pre> <hr /> <p>方法3:Line-Height Method</p> <p><img src="/img/post/1312151.jpg" alt="" /></p> <p>适用：单行文本垂直居中</p> <p>html</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt; </code></pre> <p>css</p> <pre><code class="language-css"> #child {line-height: 200px;} </code></pre> <hr /> <p>垂直居中一张图片，代码如下</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;img src="image.png" alt="" /&gt;&lt;/div&gt; ```css #parent {line-height: 200px;}#parent img {vertical-align: middle;} </code></pre> <p>适用：通用</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css">#parent {display: table;}#child {display: table-cell;vertical-align: middle;} </code></pre> <p>低版本 IE fix bug：</p> <pre><code class="language-css">#child {display: inline-block;} </code></pre> <hr /> <p>方法4: CSS Table Method</p> <p><img src="/img/post/1312152.jpg" alt="" /></p> <p>适用：通用</p> <p>代码：</p> <pre><code class="language-html">&lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css">#parent {display: table;}#child {display: table-cell;vertical-align: middle;} </code></pre> <p>低版本 IE fix bug：</p> <pre><code class="language-css">#child {display: inline-block;} </code></pre> <hr /> <p>方法4:Absolute Positioning and Negative Margin</p> <p><img src="/img/post/1312153.jpg" alt="" /></p> <p>适用：块级元素</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css"> #parent {position: relative;}#child {position: absolute;top: 50%;left: 50%;height: 30%;width: 50%;margin: -15% 0 0 -25%;} </code></pre> <hr /> <p>方法5:Absolute Positioning and Stretching <img src="/img/post/1312154.jpg" alt="" /></p> <p>适用：通用，但在IE版本低于7时不能正常工作</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css">#parent {position: relative;}#child {position: absolute;top: 0;bottom: 0;left: 0;right: 0;width: 50%;height: 30%;margin: auto;} </code></pre> <hr /> <p>方法6:Equal Top and Bottom Padding <img src="/img/post/1312155.jpg" alt="" /></p> <p>适用：通用，demo</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css"> #parent {padding: 5% 0;}#child {padding: 10% 0;} </code></pre> <hr /> <p>方法7:Floater Div</p> <p><img...
+		    <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p> <p>方法1 ： IE 10 以下不兼容 transform: </p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nf">#child</span> <span class="p">{</span> <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span> <span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">z-index</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">30%</span><span class="p">;</span> <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="o">,-</span><span class="m">50%</span><span class="p">);</span> <span class="c">/*margin: -15% 0 0 -25%;*/</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法2: FLEX BOX 弹性布局 IE10以下不适用</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span> <span class="k">display</span><span class="o">:-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;;</span> <span class="k">justify</span><span class="o">-</span><span class="k">content</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="n">align</span><span class="o">-</span><span class="n">items</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nc">.child</span> <span class="p">{</span> <span class="n">flex</span><span class="o">:</span><span class="m">1</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">#999999</span> <span class="k">solid</span> <span class="m">1px</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法3:Line-Height Method</p> <p><img src="/img/post/1312151.jpg" alt=""> </p> <p>适用：单行文本垂直居中</p> <p>html</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Text here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span> </code></pre></div> <p>css</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">line-height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> </code></pre></div> <hr> <p>垂直居中一张图片，代码如下</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;image.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;&lt;/div&gt;</span> ```css #parent {line-height: 200px;}#parent img...
 		    <p>
 		    <a class="text" href="/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
 		      Continue Reading...
 		    </a>
 		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/padding-ie-%E4%B8%8D%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
+		        padding ie 不兼容问题
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年11月10日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>在使用padding时，在ie 兼容时通常我们遇到3种情况：</p>
+
+<ul>
+<li>IE6 正常 IE7/FF不正常</li>
+</ul>
+
+<p>这种情况下我们这样处理：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px !important;（针对FF/IE7）
+   padding: 6px;（针对IE6）
+</code></pre></div>
+<ul>
+<li>IE6 IE7正常 FF不正常</li>
+</ul>
+
+<p>这种情况我们要这么处理，因为!important IE7也是能识别的！</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">  padding: 7px;（针对FF）
+ *padding: 6px;（针对IE6/IE7）
+</code></pre></div>
+<ul>
+<li>E6 IE7 FF都不一样
+```</li>
+</ul>
+
+<p>这种情况我们这样来处理：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px;（针对FF）
+  *padding: 6px;（针对IE7）
+  _padding: 5px; （针对IE6）
+</code></pre></div>
 		  
 		  </div>
 		</div>
@@ -711,7 +548,7 @@ function receiver(e){
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

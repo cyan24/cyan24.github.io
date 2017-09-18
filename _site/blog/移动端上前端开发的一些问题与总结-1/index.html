@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -257,31 +257,28 @@
   <section class="post-content">
   <p>在工作中遇到的一些问题和fix方法，做一个汇总：</p>
 
-<p>###样式表:</p>
-
-<pre><code class="language-html">&lt;link rel="apple-touch-startup-image" href="startup.png" /&gt; // 设置开始页面图片
-&lt;link rel="apple-touch-icon" href="iphon_tetris_icon.png"/&gt; // 在设置书签的时候可以显示好看的图标
-&lt;link rel="stylesheet" media="all and (orientation:portrait)" href="portrait.css"&gt;    // 肖像模式样式
-&lt;link rel="stylesheet" media="all and (orientation:landscape)"href="landscape.css"&gt;   // 风景模式样式
+<h3>样式表:</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">href=</span><span class="s">&quot;startup.png&quot;</span> <span class="nt">/&gt;</span> // 设置开始页面图片
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon&quot;</span> <span class="na">href=</span><span class="s">&quot;iphon_tetris_icon.png&quot;</span><span class="nt">/&gt;</span> // 在设置书签的时候可以显示好看的图标
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;all and (orientation:portrait)&quot;</span> <span class="na">href=</span><span class="s">&quot;portrait.css&quot;</span><span class="nt">&gt;</span>    // 肖像模式样式
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;all and (orientation:landscape)&quot;</span><span class="na">href=</span><span class="s">&quot;landscape.css&quot;</span><span class="nt">&gt;</span>   // 风景模式样式
 
 //竖屏时使用的样式
-&lt;style media="all and (orientation:portrait)" type="text/css"&gt;
-#landscape { display: none; }
-&lt;/style&gt;
+<span class="nt">&lt;style </span><span class="na">media=</span><span class="s">&quot;all and (orientation:portrait)&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+<span class="nf">#landscape</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
 
 //横屏时使用的样式
-&lt;style media="all and (orientation:landscape)" type="text/css"&gt;#portrait { display: none; }&lt;/style&gt;
-</code></pre>
-
-<p>###meta标签:</p>
+<span class="nt">&lt;style </span><span class="na">media=</span><span class="s">&quot;all and (orientation:landscape)&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span><span class="nf">#portrait</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span><span class="nt">&lt;/style&gt;</span>
+</code></pre></div>
+<h3>meta标签:</h3>
 
 <p>这些meta标签在开发webapp时起到非常重要的作用</p>
-
-<pre><code class="language-html">&lt;meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" /&gt;
-&lt;meta content="yes" name="apple-mobile-web-app-capable" /&gt;
-&lt;meta content="black" name="apple-mobile-web-app-status-bar-style" /&gt;
-&lt;meta content="telephone=no" name="format-detection" /&gt;
-</code></pre>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;black&quot;</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;telephone=no&quot;</span> <span class="na">name=</span><span class="s">&quot;format-detection&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
 <p>第一个meta标签表示：强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；</p>
 
 <p>其中：</p>
@@ -296,7 +293,7 @@
 
 <p>maximum-scale - 允许用户缩放到的最大比例</p>
 
-<p>user-scalable - 用户是否可以手动缩放</p>
+<p>user-scalable - 用户是否可以手动缩放 </p>
 
 <p>第二个meta标签是iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；</p>
 
@@ -304,38 +301,30 @@
 
 <p>第四个meta标签表示：告诉设备忽略将页面中的数字识别为电话号码</p>
 
-<p>###页面描述(iOS)</p>
-
-<pre><code class="language-html">&lt;link rel="apple-touch-icon-precomposed" href="http://www.xxx.com/App_icon_114.png" /&gt;
-&lt;link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.xxx.com/App_icon_72.png" /&gt;
-&lt;link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.xxx.com/App_icon_114.png" /&gt;
-</code></pre>
+<h3>页面描述(iOS)</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_114.png&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;72x72&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_72.png&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;114x114&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_114.png&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
 <p>这个属性是当用户把连接保存到手机桌面时使用的图标，如果不设置，则会用网页的截图。有了这，就可以让你的网页像APP一样存在手机里了</p>
-
-<pre><code class="language-html">&lt;link rel="apple-touch-startup-image" href="/img/startup.png" /&gt;
-</code></pre>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">href=</span><span class="s">&quot;/img/startup.png&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
 <p>这个是APP启动画面图片，用途和上面的类似，如果不设置，启动画面就是白屏，图片像素就是手机全屏的像素</p>
-
-<pre><code class="language-html">&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /&gt;
-</code></pre>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="na">content=</span><span class="s">&quot;black-translucent&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
 <p>这个描述是表示打开的web app的最上面的时间、信号栏是黑色的，当然也可以设置其它参数，详细参数说明在：Supported Meta Tags</p>
-
-<pre><code class="language-html">&lt;meta name="apple-touch-fullscreen" content="yes" /&gt;
-&lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;
-</code></pre>
-
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-touch-fullscreen&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+</code></pre></div>
 <p>这2个描述也很有用的，如果没有它，你的web app会用safari浏览器打开，有了它，就会用独立进程的无地址栏的打开，完全可以和普通的APP比拟了</p>
 
 <p>下面还有个不错的css，是用来区分视网膜屏幕的，这样你可以在iphone这样的手机里载入2x的图片，就不会模糊了</p>
-
-<pre><code class="language-css">
-@media only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min--moz-device-pixel-ratio:1.5),only screen and (min-device-pixel-ratio:1.5),only screen and (min-resolution:200dpi)
-{
-#logo{background-image: url(logo@2x.png);}
-}
-</code></pre>
-
-<p>###关于点击和click事件</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="k">@media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="nd">:1</span><span class="nc">.5</span><span class="o">),</span><span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min--moz-device-pixel-ratio</span><span class="nd">:1</span><span class="nc">.5</span><span class="o">),</span><span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-device-pixel-ratio</span><span class="nd">:1</span><span class="nc">.5</span><span class="o">),</span><span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">min-resolution</span><span class="nd">:200dpi</span><span class="o">)</span>
+<span class="p">{</span>
+<span class="nf">#logo</span><span class="p">{</span><span class="k">background-image</span><span class="o">:</span> <span class="sx">url(logo@2x.png)</span><span class="p">;}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3>关于点击和click事件</h3>
 
 <p>对于a标记的点击导航，默认是在onclick事件中处理的。而移动客户端对onclick的响应相比PC浏览器有着明显的几百毫秒延迟。</p>
 
@@ -345,28 +334,25 @@
 因此，如果确实要加快对点击事件的响应，就应当绑定ontouchend事件。</p>
 
 <p>使用click会出现绑定点击区域闪一下的情况，解决：给该元素一个样式如下</p>
-
-<pre><code class="language-css">-webkit-tap-highlight-color: rgba(0,0,0,0);
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">-webkit-tap-highlight-color</span><span class="o">:</span> <span class="nt">rgba</span><span class="o">(</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">,</span><span class="nt">0</span><span class="o">);</span>
+</code></pre></div>
 <p>如果不使用click，也不能简单的用touchstart或touchend替代，需要用touchstart的模拟一个click事件，并且不能发生touchmove事件，或者用zepto中的tap（轻击）事件。</p>
-
-<pre><code class="language-css">body{-webkit-overflow-scrolling: touch;}
-</code></pre>
-
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">body</span><span class="p">{</span><span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="k">overflow</span><span class="o">-</span><span class="n">scrolling</span><span class="o">:</span> <span class="n">touch</span><span class="p">;}</span>
+</code></pre></div>
 <p>用iphone或ipad浏览很长的网页滚动时的滑动效果很不错吧？不过如果是一个div，然后设置height:200px;overflow:auto;的话，可以滚动但是完全没有那滑动效果，很郁闷吧？ 我看到很多网站为了实现这一效果，用了第三方类库，最常用的是iscroll（包括新浪手机页，百度等） 我一开始也使用，不过自从用了-webkit-overflow-scrolling:touch;样式后，就完全可以抛弃第三方类库了，把它加在body{}区域，所有的overflow需要滚动的都可以生效了。</p>
 
-<p>###手机浏览器常用手势动作监听封装(配合zepto,from mansonchor)</p>
+<h3>手机浏览器常用手势动作监听封装(配合zepto,from mansonchor)</h3>
 
 <p><a href="http://wo.poco.cn/manson/post/id/268780" alt="手机浏览器常用手势动作监听封装">手机浏览器常用手势动作监听封装</a></p>
 
-<p>###事件：(参考：引用了指尖上的js系列，在此向作者表示感谢)
-<a href="http://www.cnblogs.com/pifoo/archive/2011/05/23/webkit-touch-event-1.html">对于Touch的处理</a>
+<h3>事件：(参考：引用了指尖上的js系列，在此向作者表示感谢)</h3>
+
+<p><a href="http://www.cnblogs.com/pifoo/archive/2011/05/23/webkit-touch-event-1.html">对于Touch的处理</a>
 <a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-2.html">处理简单手势</a></p>
 
 <p><a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-3.html">处理复杂手势</a></p>
 
-<p>###手势事件</p>
+<h3>手势事件</h3>
 
 <p>touchstart //当手指接触屏幕时触发</p>
 
@@ -376,7 +362,7 @@
 
 <p>touchcancel</p>
 
-<p>###触摸事件</p>
+<h3>触摸事件</h3>
 
 <p>gesturestart //当两个手指接触屏幕时触发</p>
 
@@ -384,7 +370,7 @@
 
 <p>gestureend</p>
 
-<p>###屏幕旋转事件</p>
+<h3>屏幕旋转事件</h3>
 
 <p>onorientationchange //检测触摸屏幕的手指何时改变方向</p>
 
@@ -414,52 +400,44 @@
 
 <p>屏幕旋转事件：onorientationchange 添加屏幕旋转事件侦听，可随时发现屏幕旋转状态（左旋、右旋还是没旋）</p>
 
-<p>###判断屏幕是否旋转</p>
+<h3>判断屏幕是否旋转</h3>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">orientationChange</span><span class="p">()</span> <span class="p">{</span> 
+    <span class="k">switch</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">orientation</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;肖像模式 0,screen-width: &quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s2">&quot;;screen-height:&quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="o">-</span><span class="mi">90</span><span class="o">:</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;左旋 -90,screen-width: &quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s2">&quot;; screen-height:&quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">90</span><span class="o">:</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;右旋 90,screen-width: &quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s2">&quot;; screen-height:&quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span> 
+        <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="mi">180</span><span class="o">:</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;风景模式 180,screen-width: &quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="s2">&quot;; screen-height:&quot;</span> <span class="o">+</span> <span class="nx">screen</span><span class="p">.</span><span class="nx">height</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span> 
+    <span class="p">};</span> 
+<span class="p">};</span>
+</code></pre></div>
+<h3>添加事件监听</h3>
 
-<pre><code class="language-javascript">
-function orientationChange() { 
-	switch (window.orientation) {
-		case 0: alert("肖像模式 0,screen-width: " + screen.width + ";screen-height:" + screen.height);
-		break;
-		case -90: alert("左旋 -90,screen-width: " + screen.width + "; screen-height:" + screen.height);
-		break;
-		case 90: alert("右旋 90,screen-width: " + screen.width + "; screen-height:" + screen.height); 
-		break;
-		case 180: alert("风景模式 180,screen-width: " + screen.width + "; screen-height:" + screen.height);
-		break; 
-	}; 
-};
-
-</code></pre>
-
-<p>###添加事件监听</p>
-
-<p>addEventListener(‘load’, function(){
+<p>addEventListener(&#39;load&#39;, function(){
     orientationChange();
     window.onorientationchange = orientationChange;
 });</p>
 
-<p>###双手指滑动事件：</p>
-<pre><code class="language-js">// 双手指滑动事件
+<h3>双手指滑动事件：</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// 双手指滑动事件</span>
 
-addEventListener('load',function(){ window.onmousewheel = twoFingerScroll;},
-    false // 兼容各浏览器，表示在冒泡阶段调用事件处理程序 (true 捕获阶段)
-);
+<span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span> <span class="nb">window</span><span class="p">.</span><span class="nx">onmousewheel</span> <span class="o">=</span> <span class="nx">twoFingerScroll</span><span class="p">;},</span>
+    <span class="kc">false</span> <span class="c1">// 兼容各浏览器，表示在冒泡阶段调用事件处理程序 (true 捕获阶段)</span>
+<span class="p">);</span>
 
-function twoFingerScroll(ev) {
-    var delta =ev.wheelDelta/120; //对 delta 值进行判断(比如正负) ，而后执行相应操作
-    return true;
-};
-
-</code></pre>
-
-<h3 id="localstorage">localStorage:</h3>
-
-<pre><code class="language-js">var v = localStorage.getItem('n') ? localStorage.getItem('n') : ""; // 如果名称是  n 的数据存在 ，则将其读出 ，赋予变量  v  。
-localStorage.setItem('n', v); // 写入名称为 n、值为  v  的数据
-localStorage.removeItem('n'); // 删除名称为  n  的数据
-</code></pre>
-
+<span class="kd">function</span> <span class="nx">twoFingerScroll</span><span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">delta</span> <span class="o">=</span><span class="nx">ev</span><span class="p">.</span><span class="nx">wheelDelta</span><span class="o">/</span><span class="mi">120</span><span class="p">;</span> <span class="c1">//对 delta 值进行判断(比如正负) ，而后执行相应操作</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+<h3>localStorage:</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">v</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span> <span class="c1">// 如果名称是  n 的数据存在 ，则将其读出 ，赋予变量  v  。</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">,</span> <span class="nx">v</span><span class="p">);</span> <span class="c1">// 写入名称为 n、值为  v  的数据</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">removeItem</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">);</span> <span class="c1">// 删除名称为  n  的数据</span>
+</code></pre></div>
   </section>
   
 </article>
@@ -480,7 +458,7 @@ localStorage.removeItem('n'); // 删除名称为  n  的数据
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

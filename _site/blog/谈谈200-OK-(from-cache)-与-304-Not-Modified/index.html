@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -263,19 +263,19 @@
 
 <p>那么，两者触发的时机有什么区别呢？200 OK (from cache) 是直接点击链接访问，输入网址按回车访问也能触发；而 304 Not Modified 是刷新页面时触发，或是设置了长缓存、但 Entity Tags 没有移除时触发。这是经过查阅资料得出的结论。博主实际测试了一下，结论与之相符：</p>
 
-<p><img src="/img/post/1404271.jpg" alt="" /></p>
+<p><img src="/img/post/1404271.jpg" alt=""> </p>
 
 <p>直接访问有缓存的网站都触发 200 OK (from cache)</p>
 
-<p><img src="/img/post/1404272.jpg" alt="" /></p>
+<p><img src="/img/post/1404272.jpg" alt=""></p>
 
 <p>图2 – 刷新浏览器则会触发 304 Not Modifie</p>
 
-<p><img src="/img/post/1404273.jpg" alt="" /></p>
+<p><img src="/img/post/1404273.jpg" alt=""> </p>
 
 <p>同一域名下，没有 Entity Tag 的资源直接访问，是 200 OK (from cache) 的结果</p>
 
-<p><img src="/img/post/1404274.jpg" alt="" /></p>
+<p><img src="/img/post/1404274.jpg" alt=""> </p>
 
 <p>同一域名下，有 Entity Tag ，直接访问就会触发 304 Not Modified
 现在一般都会设置长时间的缓存，正确设置方式参考这两篇笔记：</p>
@@ -306,7 +306,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/zepto-lazyload%E5%9B%BE%E7%89%87/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/zepto-lazyload%E5%9B%BE%E7%89%87/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -257,51 +257,41 @@
   <section class="post-content">
   <p>图片懒加载有很多js插件，非常著名的属jQuery的Lazy Load了。自己做手机项目上也需要图片懒加载，而且手机上的图片懒加载有两种：一种是普通img标签的，一种是div标签（或者其他标签）上加背景图片的。所以就练手写了个支持以上两种情况的Zepto小插件。</p>
 
-<p>###功能：
-支持img标签图片懒加载、div标签（或者其他标签）的背景图片懒加载；
+<h3>功能：</h3>
+
+<p>支持img标签图片懒加载、div标签（或者其他标签）的背景图片懒加载；
 支持预加载。默认是图片出现在屏幕时开始加载，可以设置threshold参数，如threshold:100，此时图片出现在屏幕之前100px时开始加载；
-背景图片懒加载时，自动添加base64的1*1透明图片做默认背景图。也可以自定义默认背景图，参数为placeholder。
-###使用方法：</p>
+背景图片懒加载时，自动添加base64的1*1透明图片做默认背景图。也可以自定义默认背景图，参数为placeholder。</p>
+
+<h3>使用方法：</h3>
 
 <p>引用1.1.3的Zepto（我只测过这个目前最新版），并引用picLazyLoad.js</p>
-
-<pre><code class="language-html">
-&lt;script src="1.1.3/zepto.min.js"&gt;&lt;/script&gt;
-&lt;script src="1.0/zepto.picLazyLoad.min.js"&gt;&lt;/script&gt;
-
-</code></pre>
-<p>在要懒加载的标签上，加类名或者id名，方便调用。在标签上加data-original=”original.jpg”，original.jpg为实际加载图片路径。如果是img标签，还需要加src=”blank.png”。blank.png为默认背景图，建议用base64图。例如：</p>
-
-<pre><code class="language-html">&lt;img class="test-lazyload" src="blank.png" data-original="original.jpg"&gt;&lt;div class="test-lazyload" data-original="original.jpg"&gt;&lt;/div&gt;
-</code></pre>
-
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;1.1.3/zepto.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;1.0/zepto.picLazyLoad.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre></div>
+<p>在要懒加载的标签上，加类名或者id名，方便调用。在标签上加data-original=&quot;original.jpg&quot;，original.jpg为实际加载图片路径。如果是img标签，还需要加src=&quot;blank.png&quot;。blank.png为默认背景图，建议用base64图。例如：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;test-lazyload&quot;</span> <span class="na">src=</span><span class="s">&quot;blank.png&quot;</span> <span class="na">data-original=</span><span class="s">&quot;original.jpg&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;test-lazyload&quot;</span> <span class="na">data-original=</span><span class="s">&quot;original.jpg&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</code></pre></div>
 <p><strong><em>调用:</em></strong></p>
-
-<pre><code class="language-javascript">
-$('.test-lazyload').picLazyLoad();
-</code></pre>
-
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.test-lazyload&#39;</span><span class="p">).</span><span class="nx">picLazyLoad</span><span class="p">();</span>
+</code></pre></div>
 <p>如需加参数：</p>
-
-<pre><code class="language-javascript">
-$('.test-lazyload').picLazyLoad({
-    threshold: 100,
-    placeholder: 'http://image.yihaodianimg.com/front-homepage/global/images/blank.gif'
-});
-</code></pre>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.test-lazyload&#39;</span><span class="p">).</span><span class="nx">picLazyLoad</span><span class="p">({</span>
+    <span class="nx">threshold</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="nx">placeholder</span><span class="o">:</span> <span class="s1">&#39;http://image.yihaodianimg.com/front-homepage/global/images/blank.gif&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
 <p><a href="http://ons.me/wp-content/uploads/2014/05/picLazyLoad/">→示例DEMO←</a></p>
 
 <ul>
-  <li>已知问题：
+<li>已知问题：
 iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不执行onscroll方法，获取不到scrolltop值。导致此时刷新网页，网页下方的图片没有默认加载。</li>
-  <li>
-    <p>待增加功能：
+<li><p>待增加功能：
 现在是直接显示图片show，以后增加fadeIn图片淡入；
-现在是只能根据窗口懒加载图片，待增加根据容器、tab选项卡等。</p>
-  </li>
-  <li>小提示：
+现在是只能根据窗口懒加载图片，待增加根据容器、tab选项卡等。</p></li>
+<li><p>小提示：
 使用背景图片比使用img标签懒加载浏览器显示速度要快，不知道是不是后者多了一步替换src路径操作导致的；
-如果要兼容更多的设备，使用背景图片可以显示更清晰，因为可以设置background-size，之前的文章有提到过。</li>
+如果要兼容更多的设备，使用背景图片可以显示更清晰，因为可以设置background-size，之前的文章有提到过。</p></li>
 </ul>
 
   </section>
@@ -324,7 +314,7 @@ iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不�
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

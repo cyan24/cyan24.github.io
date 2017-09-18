@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://localhost:4000/blog/nodejs-npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+	<link rel="canonical" href="http://cyan24.github.io/blog/nodejs-npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
+			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -261,8 +261,8 @@
 安装完毕后会产生一个node_modules目录，其目录下就是安装的各个node模块。</p>
 
 <p>node的安装分为全局模式和本地模式。
-一般情况下会以本地模式运行，包会被安装到和你的应用程序代码的本地node_modules目录下。
-在全局模式下，Node包会被安装到Node的安装目录下的node_modules下。</p>
+一般情况下会以本地模式运行，包会被安装到和你的应用程序代码的本地node<em>modules目录下。
+在全局模式下，Node包会被安装到Node的安装目录下的node</em>modules下。</p>
 
 <p>全局安装命令为$npm install -g moduleName。
 获知使用$npm set global=true来设定安装模式，$npm get global可以查看当前使用的安装模式。</p>
@@ -272,12 +272,12 @@ npm install express
 默认会安装express的最新版本，也可以通过在后面加版本号的方式安装指定版本，如npm install express@3.0.6</p>
 
 <p>npm install <name> -g 
-将包安装到全局环境中</name></p>
+将包安装到全局环境中</p>
 
 <p>但是代码中，直接通过require()的方式是没有办法调用全局安装的包的。全局的安装是供命令行使用的，就好像全局安装了vmarket后，就可以在命令行中直接运行vm命令</p>
 
 <p>npm install <name> --save 
-安装的同时，将信息写入package.json中项目路径中如果有package.json文件时，直接使用npm install方法就可以根据dependencies配置安装所有的依赖包，这样代码提交到github时，就不用提交node_modules这个文件夹了。</name></p>
+安装的同时，将信息写入package.json中项目路径中如果有package.json文件时，直接使用npm install方法就可以根据dependencies配置安装所有的依赖包，这样代码提交到github时，就不用提交node_modules这个文件夹了。</p>
 
 <p>2、npm view moduleNames：查看node模块的package.json文件夹
 注意事项：如果想要查看package.json文件夹下某个标签的内容，可以使用$npm view moduleName labelName</p>
@@ -339,7 +339,7 @@ npm root -g：查看全局的包的安装路径</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>
