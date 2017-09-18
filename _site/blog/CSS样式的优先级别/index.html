@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>CSS样式的优先级别 | Cyan的技术笔记</title>
-	<meta name="description" content="  前端 , css, 优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式 ">
+	<meta name="description" content="  前端 , css,   优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/CSS%E6%A0%B7%E5%BC%8F%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%E5%88%AB/">
+	<link rel="canonical" href="http://localhost:4000/blog/CSS%E6%A0%B7%E5%BC%8F%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7%E5%88%AB/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -256,93 +256,101 @@
   </header>
   <section class="post-content">
   <ul>
-<li>优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式 </li>
+  <li>优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式</li>
 </ul>
 
 <p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def2 def1&quot;</span><span class="nt">&gt;</span>测试1<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。</p>
+<pre><code class="language-html">
+&lt;style type="text/css"&gt;
+.def1{background:black;}
+.def2{background:yellow; }
+&lt;/style&gt;
 
-<hr>
+&lt;div class="def2 def1"&gt;测试1&lt;/div&gt;
+</code></pre>
 
+<p>结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。
+___</p>
 <ul>
-<li>优先原则二：id声明（即 # 开头的样式）&gt; class声明（即 . 开头的样式）&gt; 标签声明(即 类似 div 开头)</li>
+  <li>优先原则二：id声明（即 # 开头的样式）&gt; class声明（即 . 开头的样式）&gt; 标签声明(即 类似 div 开头)</li>
 </ul>
 
 <p>以上三种声明处于不同的量级，份量上，div 开头相当于 1克 重，. 开头相当于 1公斤 重，# 开头相当于 1吨 重。</p>
 
 <p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nf">#bb</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">pink</span><span class="p">}</span>
-<span class="nc">.def</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nt">div</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;bb&quot;</span> <span class="na">class=</span><span class="s">&quot;def&quot;</span><span class="nt">&gt;</span>测试2<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。</p>
+<pre><code class="language-html">
+&lt;style type="text/css"&gt;
+#bb{background:pink}
+.def{background:black;}
+div{background:yellow; }
+&lt;/style&gt;
 
-<hr>
+&lt;div id="bb" class="def"&gt;测试2&lt;/div&gt;
+</code></pre>
 
+<p>结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。
+___</p>
 <ul>
-<li>优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加</li>
+  <li>优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加</li>
 </ul>
 
 <p>比如：#bb #tt #dd {background:red} 则重量等于3吨,</p>
 
 <p>#bb .tt ul.dd li {background:red} 则重量等于1吨2公斤2克，这么精确的重量，就不需要举例了吧。</p>
 
-<h4>再次说明：优先原则一只适用两个样式声明同样重的情况.</h4>
-
-<hr>
-
+<p>####再次说明：优先原则一只适用两个样式声明同样重的情况.
+___</p>
 <ul>
-<li>优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。</li>
+  <li>优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。</li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span> <span class="cp">!important</span><span class="p">;</span><span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">green</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 def2&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下</p>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{background:yellow !important;background:red;}
+.def2{background:green;}
+&lt;/style&gt;
 
-<hr>
+&lt;div class="def1 def2"&gt;dd&lt;/div&gt;
+</code></pre>
 
+<p>结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下
+___</p>
 <ul>
-<li>优先原则五：近水楼台</li>
+  <li>优先原则五：近水楼台</li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</code></pre></div>
+
+<pre><code class="language-html">&lt;div style="background:black"&gt;&lt;/div&gt;
+</code></pre>
 <p>直接写在元素体内的style优先级别最高！（仅次于!important）用重量来形容，可以定为百万吨量级。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：black色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red !important;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：red色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black !important&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red !important;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black !important"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：black色。</p>
+
 
   </section>
   
@@ -364,7 +372,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

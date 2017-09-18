@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="used by search engines">
+	<meta name="description" content="Cyan的技术笔记">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/page6/">
+	<link rel="canonical" href="http://localhost:4000/blog/page6/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -252,6 +252,61 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/">
+		        谈谈200 OK (from cache) 与 304 Not Modified
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年04月27日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>为什么有的缓存是 200 OK (from cache)，有的缓存是 304 Not Modified 呢？很简单，看运维是否移除了 Entity Tag。移除了，就总是 200 OK (from cache)。没有移除，就两者交替出现。</p>
+
+<p>其实， 200 OK (from cache)  是浏览器没有跟服务器确认，直接用了浏览器缓存；而 304 Not Modified 是浏览器和服务器多确认了一次缓存有效性，再用的缓存。</p>
+
+<p>它们都是在设置了缓存的情况下触发的。</p>
+
+<p>那么，两者触发的时机有什么区别呢？200 OK (from cache) 是直接点击链接访问，输入网址按回车访问也能触发；而 304 Not Modified 是刷新页面时触发，或是设置了长缓存、但 Entity Tags 没有移除时触发。这是经过查阅资料得出的结论。博主实际测试了一下，结论与之相符：</p>
+
+<p><img src="/img/post/1404271.jpg" alt="" /></p>
+
+<p>直接访问有缓存的网站都触发 200 OK (from cache)</p>
+
+<p><img src="/img/post/1404272.jpg" alt="" /></p>
+
+<p>图2 – 刷新浏览器则会触发 304 Not Modifie</p>
+
+<p><img src="/img/post/1404273.jpg" alt="" /></p>
+
+<p>同一域名下，没有 Entity Tag 的资源直接访问，是 200 OK (from cache) 的结果</p>
+
+<p><img src="/img/post/1404274.jpg" alt="" /></p>
+
+<p>同一域名下，有 Entity Tag ，直接访问就会触发 304 Not Modified
+现在一般都会设置长时间的缓存，正确设置方式参考这两篇笔记：</p>
+
+<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule3.html">如何正确设置 Expires Header 及其原理</a></p>
+
+<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule-13.html">如何正确移除 Entity Tags 及其原理</a></p>
+
+<p>本文并不是说影响浏览器缓存只有 ETag 这一个因素的意思，请大家不要误解。只是就“为什么我加了缓存，有的却是 304 Not Modified， 而不是 200 OK(from cache)”这件事给出一个一针见血的原因和解答.</p>
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
 		        返回页面顶部的三种方法(解决移动端使用zepto没有滑动的效果)
 		      </a>
@@ -265,12 +320,62 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>点击返回顶部，三种方法</p> <p>1、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//zepto没有动画</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">scrollTop</span><span class="o">:</span> <span class="mi">0</span><span class="p">},</span> <span class="mi">500</span><span class="p">)</span> <span class="c1">//zepto使用</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;body&quot;</span><span class="p">).</span><span class="nx">scrollTop</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>2、这个方法jQuery使用正常，zepto使用没有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span> </code></pre></div> <p>3、zepto使用可以有动画</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">goTop</span><span class="p">(</span><span class="nx">acceleration</span><span class="p">,</span> <span class="nx">time</span><span class="p">)</span> <span class="p">{</span> <span class="nx">acceleration</span> <span class="o">=</span> <span class="nx">acceleration</span> <span class="o">||</span> <span class="mf">0.1</span><span class="p">;</span> <span class="nx">time</span> <span class="o">=</span> <span class="nx">time</span> <span class="o">||</span> <span class="mi">16</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">documentElement</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span> <span class="nx">x2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollLeft</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">y2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">scrollTop</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="p">}</span> <span class="kd">var</span> <span class="nx">x3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollX</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">y3</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">scrollY</span> <span class="o">||</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 滚动条到页面顶部的水平距离</span> <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">x2</span><span class="p">,</span> <span class="nx">x3</span><span class="p">));</span> <span class="c1">// 滚动条到页面顶部的垂直距离</span> <span class="kd">var</span> <span class="nx">y</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">y1</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span...
-		    <p>
-		    <a class="text" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
-		      Continue Reading...
-		    </a>
-		    </p>
+		    <p>点击返回顶部，三种方法</p>
+
+<p>1、这个方法jQuery使用正常，zepto使用没有动画</p>
+
+<pre><code class="language-javascript">//zepto没有动画
+$("body").animate({scrollTop: 0}, 500)
+//zepto使用
+$("body").scrollTop(0);
+
+</code></pre>
+
+<p>2、这个方法jQuery使用正常，zepto使用没有动画</p>
+
+<pre><code class="language-javascript">window.scrollTo(0,0);
+</code></pre>
+
+<p>3、zepto使用可以有动画</p>
+
+<pre><code class="language-javascript">function goTop(acceleration, time) {
+acceleration = acceleration || 0.1;
+time = time || 16;
+var x1 = 0;
+var y1 = 0;
+var x2 = 0;
+var y2 = 0;
+var x3 = 0;
+var y3 = 0;
+if (document.documentElement) {
+	x1 = document.documentElement.scrollLeft || 0;
+	y1 = document.documentElement.scrollTop || 0;
+}
+if (document.body) {
+	x2 = document.body.scrollLeft || 0;
+	y2 = document.body.scrollTop || 0;
+}
+var x3 = window.scrollX || 0;
+var y3 = window.scrollY || 0;
+// 滚动条到页面顶部的水平距离
+var x = Math.max(x1, Math.max(x2, x3));
+// 滚动条到页面顶部的垂直距离
+var y = Math.max(y1, Math.max(y2, y3));
+// 滚动距离 = 目前距离 / 速度, 因为距离原来越小, 速度是大于 1 的数, 所以滚动距离会越来越小
+var speed = 1 + acceleration;
+window.scrollTo(Math.floor(x / speed), Math.floor(y / speed));
+// 如果距离不为零, 继续调用迭代本函数
+if (x &gt; 0 || y &gt; 0) {
+	var invokeFunction = "goTop(" + acceleration + ", " + time + ")";
+	window.setTimeout(invokeFunction, time);
+}
+}
+$(".fix_go_top").on("click", function() {
+    //$("body").scrollTop(0);
+    //window.scrollTo(0,0);    goTop();
+});
+</code></pre>
+
 		  
 		  </div>
 		</div>
@@ -295,7 +400,7 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>在讨论页面重绘、回流之前。需要对页面的呈现流程有些了解，页面是怎么把html结合css等显示到浏览器上的，下面的流程图显示了浏览器对页面的呈现的处理流程。可能不同的浏览器略微会有些不同。但基本上都是类似的。</p> <p><img src="/img/post/1403031.jpg" alt=""> </p> <p>1、 浏览器把获取到的HTML代码解析成1个DOM树，HTML中的每个tag都· 是DOM树中的1个节点，根节点就是我们常用的document对象。DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。</p> <p>2、 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。</p> <p>3、DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree能识别样式，render tree中每个NODE都有自己的style，而且 render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现，而且不会影响呈现的，所以就不会包含到 render tree中。注意 visibility:hidden隐藏的元素还是会包含到 render tree中的，因为visibility:hidden 会影响布局(layout)，会占有空间。根据CSS2的标准，render tree中的每个节点都称为Box (Box dimensions)，理解页面元素为一个具有填充、边距、边框和位置的盒子。</p> <p>4、 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。</p> <p>回流与重绘</p> <p>1、 当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。</p> <p>2、 当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。</p> <p>注意：回流必将引起重绘，而重绘不一定会引起回流。</p> <p>回流何时发生：</p> <p>当页面布局和几何属性改变时就需要回流。下述情况会发生浏览器回流：</p> <p>1、添加或者删除可见的DOM元素；</p> <p>2、元素位置改变；</p> <p>3、元素尺寸改变——边距、填充、边框、宽度和高度</p> <p>4、内容改变——比如文本改变或者图片大小改变而引起的计算值宽度和高度改变；</p> <p>5、页面渲染初始化；</p> <p>6、浏览器窗口尺寸改变——resize事件发生时；</p> <p>让我们看看下面的代码是如何影响回流和重绘的:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;2px&quot;</span><span class="p">;</span> <span class="c1">// 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s2">&quot;1px solid red&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span> <span class="c1">// 再一次重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">&quot;#ccc&quot;</span><span class="p">;</span> <span class="c1">// 再一次 重绘</span> <span class="nx">s</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="s2">&quot;14px&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span> <span class="c1">// 添加node，再一次 回流+重绘</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;abc!&#39;</span><span class="p">));</span> </code></pre></div> <p>说到这里大家都知道回流比重绘的代价要更高，回流的花销跟render tree有多少节点需要重新构建有关系，假设你直接操作body，比如在body最前面插入1个元素，会导致整个render tree回流，这样代价当然会比较高，但如果是指body后面插入1个元素，则不会影响前面元素的回流。</p> <p>聪明的浏览器</p> <p>从上个实例代码中可以看到几行简单的JS代码就引起了6次左右的回流、重绘。而且我们也知道回流的花销也不小，如果每句JS操作都去回流重绘的话，浏览器可能就会受不了。所以很多浏览器都会优化这些操作，浏览器会维护1个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会flush队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</p> <p>虽然有了浏览器的优化，但有时候我们写的一些代码可能会强制浏览器提前flush队列，这样浏览器的优化可能就起不到作用了。当你请求向浏览器请求一些 style信息的时候，就会让浏览器flush队列，比如：</p> <ol> <li><p>offsetTop, offsetLeft, offsetWidth, offsetHeight</p></li> <li><p>scrollTop/Left/Width/Height</p></li> <li><p>clientTop/Left/Width/Height</p></li> <li><p>width,height</p></li> <li><p>请求了getComputedStyle(), 或者 IE的 currentStyle</p></li> </ol> <p>当你请求上面的一些属性的时候，浏览器为了给你最精确的值，需要flush队列，因为队列中可能会有影响到这些值的操作。即使你获取元素的布局和样式信息跟最近发生或改变的布局信息无关，浏览器都会强行刷新渲染队列。</p> <p><strong>如何减少回流、重绘</strong></p> <p>减少回流、重绘其实就是需要减少对render tree的操作（合并多次多DOM和样式的修改），并减少对一些style信息的请求，尽量利用好浏览器的优化策略。具体方法有：</p> <p>1、直接改变className，如果动态改变样式，则使用cssText（考虑没有优化的浏览器）</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 不好的写法</span> <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s2">&quot; className1&quot;</span><span class="p">;</span> <span class="c1">// 比较好的写法</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">+=</span> <span class="s2">&quot;;</span> <span class="s2">left: &quot;</span> <span class="o">+</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px;</span> <span class="s2">top: &quot;</span> <span class="o">+</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px;&quot;</span><span class="p">;</span> </code></pre></div> <p>2、让要操作的元素进行”离线处理”，处理完后一起更新</p> <p>a) 使用DocumentFragment进行缓存操作,引发一次回流和重绘；</p> <p>b) 使用display:none技术，只引发两次回流和重绘；</p> <p>c) 使用cloneNode(true or false) 和 replaceChild 技术，引发一次回流和重绘；</p> <p>3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，利用缓存</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 别这样写，大哥</span> <span...
+		    <p>在讨论页面重绘、回流之前。需要对页面的呈现流程有些了解，页面是怎么把html结合css等显示到浏览器上的，下面的流程图显示了浏览器对页面的呈现的处理流程。可能不同的浏览器略微会有些不同。但基本上都是类似的。</p> <p><img src="/img/post/1403031.jpg" alt="" /></p> <p>1、 浏览器把获取到的HTML代码解析成1个DOM树，HTML中的每个tag都· 是DOM树中的1个节点，根节点就是我们常用的document对象。DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。</p> <p>2、 浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。</p> <p>3、DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree能识别样式，render tree中每个NODE都有自己的style，而且 render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现，而且不会影响呈现的，所以就不会包含到 render tree中。注意 visibility:hidden隐藏的元素还是会包含到 render tree中的，因为visibility:hidden 会影响布局(layout)，会占有空间。根据CSS2的标准，render tree中的每个节点都称为Box (Box dimensions)，理解页面元素为一个具有填充、边距、边框和位置的盒子。</p> <p>4、 一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了。</p> <p>回流与重绘</p> <p>1、 当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。</p> <p>2、 当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。</p> <p>注意：回流必将引起重绘，而重绘不一定会引起回流。</p> <p>回流何时发生：</p> <p>当页面布局和几何属性改变时就需要回流。下述情况会发生浏览器回流：</p> <p>1、添加或者删除可见的DOM元素；</p> <p>2、元素位置改变；</p> <p>3、元素尺寸改变——边距、填充、边框、宽度和高度</p> <p>4、内容改变——比如文本改变或者图片大小改变而引起的计算值宽度和高度改变；</p> <p>5、页面渲染初始化；</p> <p>6、浏览器窗口尺寸改变——resize事件发生时；</p> <p>让我们看看下面的代码是如何影响回流和重绘的:</p> <pre><code class="language-javascript">var s = document.body.style; s.padding = "2px"; // 回流+重绘 s.border = "1px solid red"; // 再一次 回流+重绘 s.color = "blue"; // 再一次重绘 s.backgroundColor = "#ccc"; // 再一次 重绘 s.fontSize = "14px"; // 再一次 回流+重绘 // 添加node，再一次 回流+重绘 document.body.appendChild(document.createTextNode('abc!')); </code></pre> <p>说到这里大家都知道回流比重绘的代价要更高，回流的花销跟render tree有多少节点需要重新构建有关系，假设你直接操作body，比如在body最前面插入1个元素，会导致整个render tree回流，这样代价当然会比较高，但如果是指body后面插入1个元素，则不会影响前面元素的回流。</p> <p>聪明的浏览器</p> <p>从上个实例代码中可以看到几行简单的JS代码就引起了6次左右的回流、重绘。而且我们也知道回流的花销也不小，如果每句JS操作都去回流重绘的话，浏览器可能就会受不了。所以很多浏览器都会优化这些操作，浏览器会维护1个队列，把所有会引起回流、重绘的操作放入这个队列，等队列中的操作到了一定的数量或者到了一定的时间间隔，浏览器就会flush队列，进行一个批处理。这样就会让多次的回流、重绘变成一次回流重绘。</p> <p>虽然有了浏览器的优化，但有时候我们写的一些代码可能会强制浏览器提前flush队列，这样浏览器的优化可能就起不到作用了。当你请求向浏览器请求一些 style信息的时候，就会让浏览器flush队列，比如：</p> <ol> <li> <p>offsetTop, offsetLeft, offsetWidth, offsetHeight</p> </li> <li> <p>scrollTop/Left/Width/Height</p> </li> <li> <p>clientTop/Left/Width/Height</p> </li> <li> <p>width,height</p> </li> <li> <p>请求了getComputedStyle(), 或者 IE的 currentStyle</p> </li> </ol> <p>当你请求上面的一些属性的时候，浏览器为了给你最精确的值，需要flush队列，因为队列中可能会有影响到这些值的操作。即使你获取元素的布局和样式信息跟最近发生或改变的布局信息无关，浏览器都会强行刷新渲染队列。</p> <p><strong>如何减少回流、重绘</strong></p> <p>减少回流、重绘其实就是需要减少对render tree的操作（合并多次多DOM和样式的修改），并减少对一些style信息的请求，尽量利用好浏览器的优化策略。具体方法有：</p> <p>1、直接改变className，如果动态改变样式，则使用cssText（考虑没有优化的浏览器）</p> <pre><code class="language-javascript">// 不好的写法 var left = 1; var top = 1; el.style.left = left + "px"; el.style.top = top + "px"; // 比较好的写法 el.className += " className1"; // 比较好的写法 el.style.cssText += "; left: " + left + "px; top: " + top + "px;"; </code></pre> <p>2、让要操作的元素进行”离线处理”，处理完后一起更新</p> <p>a) 使用DocumentFragment进行缓存操作,引发一次回流和重绘；</p> <p>b) 使用display:none技术，只引发两次回流和重绘；</p> <p>c) 使用cloneNode(true or false) 和 replaceChild 技术，引发一次回流和重绘；</p> <p>3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，利用缓存</p> <pre><code class="language-javascript">// 别这样写，大哥 for(循环) { el.style.left = el.offsetLeft + 5 + "px"; el.style.top = el.offsetTop + 5 + "px"; } // 这样写好点 var left = el.offsetLeft, top = el.offsetTop, s = el.style; for (循环) { left += 10; top += 10; s.left = left + "px"; s.top = top + "px"; } </code></pre> <p>4、 让元素脱离动画流，减少回流的Render Tree的规模</p> <pre><code class="language-javascript">$("#block1").animate({left:50}); $("#block2").animate({marginLeft:50}); </code></pre> <p><strong>实例测试</strong></p> <p>最后用2个工具对上面的理论进行一些测试，分别是：dynaTrace(测试ie),Speed Tracer(测试Chrome)。</p> <p>第一个测试代码不改变元素的规则，大小，位置。只改变颜色，所以不存在回流，仅测试重绘，代码如下：</p> <pre><code class="language-javascript">&lt;body&gt; &lt;script type="text/javascript"&gt; var s = document.body.style; var computed; if (document.body.currentStyle) { computed = document.body.currentStyle; } else { computed = document.defaultView.getComputedStyle(document.body, ''); } function testOneByOne(){ s.color = 'red';; tmp = computed.backgroundColor; s.color = 'white'; tmp = computed.backgroundImage; s.color = 'green'; tmp = computed.backgroundAttachment; } function testAll() { s.color = 'yellow';...
 		    <p>
 		    <a class="text" href="/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
 		      Continue Reading...
@@ -325,7 +430,7 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>1、Zepto 对象 不能自定义事件.</p> <p>例如执行： </p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">({}).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cust&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span> </code></pre></div> <p>结果：</p> <p>TypeError: Object has no method &#39;addEventListener&#39;</p> <p>解决办法是创建一个脱离文档流的节点作为事件对象：</p> <p>例如： </p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cust&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span> </code></pre></div> <p>2、 Zepto 的选择器表达式: [name=value] 中value 必须用 双引号 &quot; or 单引号 &#39; 括起来.</p> <p>例如执行：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-userid=123123123]&#39;</span><span class="p">)</span> </code></pre></div> <p>结果：Error: SyntaxError: DOM Exception </p> <p>解决办法:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-userid=&quot;123123123]&quot;&#39;</span><span class="p">)</span> <span class="nx">or</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;[data-userid=&#39;123123123&#39;]&quot;</span><span class="p">)</span> </code></pre></div> <p>2-1、zepto的选择器没有办法选出 $(&quot;div[name!=&#39;abc&#39;]&quot;) 的元素.</p> <p>2-2、zepto获取select元素的选中option不能用类似jq的方法$(&#39;option[selected]&#39;),因为selected属性不是css的标准属性 应该使用.</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span> <span class="p">})</span> </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">比如：jq: </code></pre></div><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$this</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;option[selected]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-v&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span> </code></pre></div> <p>zepto:</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$this</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span><span class="p">}).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-v&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span> </code></pre></div> <p>但是获取有select中含有disabled属性的元素可以用 $this.find(&quot;option:not(:disabled)&quot;) 因为disabled是标准属性 参考网址：https://github.com/madrobby/zepto/issues/503</p> <p>2-3、zepto在操作dom的selected和checked属性时尽量使用prop方法，以下是官方说明：</p> <p><img src="/img/post/140211.png" alt=""> </p> <p>3、Zepto 是根据标准浏览器写的，所以对于节点尺寸的方法只提供 width() 和 height()，省去了 innerWidth(), innerHeight(),outerWidth(),outerHeight() Zepto.js: 由盒模型（ box-sizing ）决定 jQuery: 忽略盒模型，始终返回内容区域的宽/高（不包含 padding 、 border ）解决方式就是使用 .css(&#39;width&#39;) 而不是 .width() 。</p> <p>3-1、边框三角形宽高的获取. 假设用下面的 HTML 和 CSS 画了一个小三角形：</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;caret&quot;</span><span class="nt">&gt;&lt;/div&gt;</span> .caret { width: 0; height: 0; border-width: 0 20px 20px; border-color: transparent transparent blue; border-style: none dotted solid; } </code></pre></div> <p>jQuery 使用 .width() 和 .css(&#39;width&#39;) 都返回 ，高度也一样； Zepto 使用 .width() 返回 ，使用 .css(&#39;width&#39;) 返回 0px 。 所以，这种场景，jQuery 使用 .outerWidth() / .outerHeight() ；Zepto 使用 .width() / .height() 。</p> <p>3-2、offset() Zepto.js: 返回 top 、 left 、 width 、 height jQuery: 返回 width 、 height</p> <p>3-3、隐藏元素 Zepto.js: 无法获取宽高； jQuery: 可以获取。</p> <p>4、Zepto 的each 方法只能遍历 数组，不能遍历JSON对象.</p> <p>5、Zepto 的animate 方法参数说明 ：详情点击-&gt; zepto中animate的用法.</p> <p>6、zepto的jsonp callback函数名无法自定义.</p> <p>7、DOM 操作区别 jq代码：</p> <div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span...
+		    <p>1、Zepto 对象 不能自定义事件.</p> <p>例如执行：</p> <pre><code class="language-javascript"> $({}).bind('cust', function(){}); </code></pre> <p>结果：</p> <p>TypeError: Object has no method ‘addEventListener’</p> <p>解决办法是创建一个脱离文档流的节点作为事件对象：</p> <p>例如：</p> <pre><code class="language-javascript">$('').bind('cust', function(){}); </code></pre> <p>2、 Zepto 的选择器表达式: [name=value] 中value 必须用 双引号 “ or 单引号 ‘ 括起来.</p> <p>例如执行：</p> <pre><code class="language-javascript">$('[data-userid=123123123]') </code></pre> <p>结果：Error: SyntaxError: DOM Exception</p> <p>解决办法:</p> <pre><code class="language-javascript">$('[data-userid="123123123]"') or $("[data-userid='123123123']") </code></pre> <p>2-1、zepto的选择器没有办法选出 $(“div[name!=’abc’]”) 的元素.</p> <p>2-2、zepto获取select元素的选中option不能用类似jq的方法$(‘option[selected]’),因为selected属性不是css的标准属性 应该使用.</p> <pre><code class="language-javascript"> ('option').not(function(){ return !this.selected }) </code></pre> <pre><code>比如：jq: </code></pre> <pre><code class="language-javascript"> $this.find('option[selected]').attr('data-v') * 1 </code></pre> <p>zepto:</p> <pre><code class="language-javascript">$this.find('option').not(function() {return !this.selected}).attr('data-v') * 1 </code></pre> <p>但是获取有select中含有disabled属性的元素可以用 $this.find(“option:not(:disabled)”) 因为disabled是标准属性 参考网址：https://github.com/madrobby/zepto/issues/503</p> <p>2-3、zepto在操作dom的selected和checked属性时尽量使用prop方法，以下是官方说明：</p> <p><img src="/img/post/140211.png" alt="" /></p> <p>3、Zepto 是根据标准浏览器写的，所以对于节点尺寸的方法只提供 width() 和 height()，省去了 innerWidth(), innerHeight(),outerWidth(),outerHeight() Zepto.js: 由盒模型（ box-sizing ）决定 jQuery: 忽略盒模型，始终返回内容区域的宽/高（不包含 padding 、 border ）解决方式就是使用 .css(‘width’) 而不是 .width() 。</p> <p>3-1、边框三角形宽高的获取. 假设用下面的 HTML 和 CSS 画了一个小三角形：</p> <pre><code class="language-html"> &lt;div class="caret"&gt;&lt;/div&gt; .caret { width: 0; height: 0; border-width: 0 20px 20px; border-color: transparent transparent blue; border-style: none dotted solid; } </code></pre> <p>jQuery 使用 .width() 和 .css(‘width’) 都返回 ，高度也一样； Zepto 使用 .width() 返回 ，使用 .css(‘width’) 返回 0px 。 所以，这种场景，jQuery 使用 .outerWidth() / .outerHeight() ；Zepto 使用 .width() / .height() 。</p> <p>3-2、offset() Zepto.js: 返回 top 、 left 、 width 、 height jQuery: 返回 width 、 height</p> <p>3-3、隐藏元素 Zepto.js: 无法获取宽高； jQuery: 可以获取。</p> <p>4、Zepto 的each 方法只能遍历 数组，不能遍历JSON对象.</p> <p>5、Zepto 的animate 方法参数说明 ：详情点击-&gt; zepto中animate的用法.</p> <p>6、zepto的jsonp callback函数名无法自定义.</p> <p>7、DOM 操作区别 jq代码：</p> <pre><code class="language-javascript"> (function($) { $(function() { var $list = $('&lt;ul&gt;&lt;li&gt;jQuery 插入&lt;/li&gt;&lt;/ul&gt;', { id: 'insert-by-jquery' }); $list.appendTo($('body')); }); })(window.jQuery); </code></pre> <p>jQuery 操作 ul 上的 id 不会被添加。 zepto代码</p> <pre><code class="language-javascript">Zepto(function($) { var $list = $('&lt;ul&gt;&lt;li&gt;Zepto 插入&lt;/li&gt;&lt;/ul&gt;', { id: 'insert-by-zepto' }); $list.appendTo($('body')); }); </code></pre> <p>Zepto 可以在 ul 上添加 id 。</p> <p>8、事件触发区别</p> <p>jq代码：</p> <pre><code class="language-javascript">(function($) { $(function() { $script = $('&lt;script /&gt;', { src: 'http://cdn.amazeui.org/amazeui/1.0.1/js/amazeui.min.js', id: 'ui-jquery' }); $script.appendTo($('body')); $script.on('load', function() { console.log('jQ script loaded'); }); }); })(window.jQuery); </code></pre> <p>使用 jQuery 时 load 事件的处理函数 不会 执行 zepto代码</p> <pre><code class="language-javascript">Zepto(function($) { $script = $('&lt;script /&gt;', { src: 'http://cdn.amazeui.org/amazeui/1.0.1/js/amazeui.js', id: 'ui-zepto' }); $script.appendTo($('body')); $script.on('load', function() { console.log('zepto script loaded');...
 		    <p>
 		    <a class="text" href="/blog/zepto%E5%92%8Cjquery%E7%9A%84%E5%8C%BA%E5%88%AB-zepto%E7%9A%84%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A88%E6%9D%A1%E5%B0%8F%E7%BB%93/">
 		      Continue Reading...
@@ -359,45 +464,55 @@
 
 <p>我们来可视化一个HMTL文档的DOM树是很有帮助的。一个简单的HTML页面看起来就像是这个样子：</p>
 
-<p><img src="/img/post/1402021.jpg" alt=""> </p>
+<p><img src="/img/post/1402021.jpg" alt="" /></p>
 
 <p>事件冒泡(又称事件传播)
 当我们点击一个链接时，其触发了链接元素的单击事件，该事件则引发任何我们已绑定到该元素的单击事件上的函数的执行。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+$('a').bind('click', function() { alert("That tickles!") });
+</code></pre>
 <p>因此一个单击操作会触发alert函数的执行。</p>
 
-<p><img src="/img/post/1402022.jpg" alt=""> </p>
+<p><img src="/img/post/1402022.jpg" alt="" /></p>
 
 <p>click事件接着会向树的根方向传播，广播到父元素，然后接着是每个祖先元素，只要是它的某个后代元素上的单击事件被触发，事件就会传给它。</p>
 
-<p><img src="/img/post/1402023.jpg" alt=""> </p>
+<p><img src="/img/post/1402023.jpg" alt="" /></p>
 
-<p>在操纵DOM的语境中，document是根节点。</p>
-
-<hr>
-
-<p>现在我们可以较容易地说明.bind()、.live()和.delegate()的不同之处了。</p>
+<p>在操纵DOM的语境中，document是根节点。
+___
+现在我们可以较容易地说明.bind()、.live()和.delegate()的不同之处了。</p>
 
 <p><strong><em>.bind()</em></strong></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+$('a').bind('click', function() { alert("That tickles!") });
+</code></pre>
+
 <p>这是最简单的绑定方法了。JQuery扫描文档找出所有的$(‘a’)元素，并把alert函数绑定到每个元素的click事件上。</p>
 
 <p><strong><em>.live()</em></strong></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+$('a').live('click', function() { alert("That tickles!") });
+</code></pre>
+
 <p>JQuery把alert函数绑定到$(document)元素上，并使用’click’和’a’作为参数。任何时候只要有事件冒泡到document节点上，它就查看该事件是否是一个click事件，以及该事件的目标元素与’a’这一CSS选择器是否匹配，如果都是的话，则执行函数。
 live方法还可以被绑定到具体的元素(或context)而不是document上，像这样：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">live</span><span class="p">(...);</span>
-</code></pre></div>
-<p><strong><em>.delegate()</em></strong></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#container&#39;</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;That tickles!&quot;</span><span class="p">)</span> <span class="p">});</span>
-</code></pre></div>
-<p>JQuery扫描文档查找$(‘#container’)，并使用click事件和’a’这一CSS选择器作为参数把alert函数绑定到$(‘#container’)上。任何时候只要有事件冒泡到$(‘#container’)上，它就查看该事件是否是click事件，以及该事件的目标元素是否与CCS选择器相匹配。如果两种检查的结果都为真的话，它就执行函数。
-可以注意到，这一过程与.live()类似，但是其把处理程序绑定到具体的元素而非document这一根上。精明的JS’er们可能会做出这样的结论，即$(&#39;a&#39;).live() == $(document).delegate(&#39;a&#39;)，是这样吗?嗯，不，不完全是。</p>
 
-<hr>
+<pre><code class="language-javascript">$('a', $('#container')[0]).live(...);
+</code></pre>
+
+<p><strong><em>.delegate()</em></strong></p>
+
+<pre><code class="language-javascript">
+$('#container').delegate('a', 'click', function() { alert("That tickles!") });
+</code></pre>
+<p>JQuery扫描文档查找$(‘#container’)，并使用click事件和’a’这一CSS选择器作为参数把alert函数绑定到$(‘#container’)上。任何时候只要有事件冒泡到$(‘#container’)上，它就查看该事件是否是click事件，以及该事件的目标元素是否与CCS选择器相匹配。如果两种检查的结果都为真的话，它就执行函数。
+可以注意到，这一过程与.live()类似，但是其把处理程序绑定到具体的元素而非document这一根上。精明的JS’er们可能会做出这样的结论，即$(‘a’).live() == $(document).delegate(‘a’)，是这样吗?嗯，不，不完全是。</p>
+
+<hr />
 
 <p>下面来看看我门为什么选择.live()或.delegate()而不是.bind()。毕竟，bind看起来似乎更加的明确和直接，难道不是吗?嗯，有两个原因让我们更愿意选择delegate或live而不是bind：</p>
 
@@ -408,22 +523,29 @@ live方法还可以被绑定到具体的元素(或context)而不是document上�
 <p><strong><em>停止传播</em></strong></p>
 
 <p>最后一个我想做的提醒与事件传播有关。通常情况下，我们可以通过使用这样的事件方法来终止处理函数的执行：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">　　</span>
-<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> 
-<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span> 
-<span class="err">　　</span><span class="c1">// 或者 </span>
-<span class="err">　　</span><span class="nx">e</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span> 
-<span class="err">　　</span><span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">　　
+$('a').bind('click', function(e) { 
+　　e.preventDefault(); 
+　　// 或者 
+　　e.stopPropagation(); 
+　　});
+
+</code></pre>
+
 <p>不过，当我们使用live或是delegate方法的时候，处理函数实际上并没有在运行，需要等到事件冒泡到处理程序实际绑定的元素上时函数才会运行。而到此时为止，我们的其他的来自.bind()的处理函数早已运行了。</p>
 
 <p><strong><em>为什么.delegate()要比.live()好用?</em></strong></p>
 
 <p>基于几个原因，人们通常更愿意选用jQuery的delegate方法而不是live方法。考虑下面的例子：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">).</span><span class="nx">live</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span> 
-<span class="c1">// 或者 </span>
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">delegate</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="nx">blah</span><span class="p">()</span> <span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+$('a').live('click', function() { blah() }); 
+// 或者 
+$(document).delegate('a', 'click', function() { blah() });
+
+</code></pre>
+
 <p><strong><em>速度</em></strong></p>
 
 <p>后者要快过前者，因为前者首先要扫描整个的文档查找所有的$(‘a’)元素，把它们存成jQuery对象。尽管live函数仅需要把’a’作为串参数传递以用做之后的判断，但是$()函数并未知道被链接的方法将会是.live()。
@@ -437,49 +559,7 @@ live方法还可以被绑定到具体的元素(或context)而不是document上�
 
 <p>最后一点，live方法有一个非常大的缺点，那就是它仅能针对直接的CSS选择器做操作，这使得它变得非常的不灵活。</p>
 
-		  
-		  </div>
-		</div>
-		
-		
-	
 
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/IE6-IE7%E4%B8%8B-inline-block%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
-		        IE6/IE7下：inline-block解决方案
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年01月20日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>E6/IE7下对display:inline-block的支持性不好。比如在inline元素的display属性设置为inline-block时，所有的浏览器都支持；block元素的display属性设置为inline-block时，IE6/IE7浏览器是不支持的。</p>
-
-<h3>产生的原因</h3>
-
-<p>虽然对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行，允许空格。（准确地说，应用此特性的元素现为内联对象，周围元素保持在同一行，但可以设置宽度和高度等块元素的属性）
-IE中对内联元素使用display:inline-block，IE是不识别的，但使用display:inline-block在IE下会触发layout，从而使内联元素拥有了display:inline-block属性的表征。从上面的这个分析，也不难理解为什么IE下，对块元素设置display:inline-block属性无法实现inline-block的效果。这时块元素仅仅是被display:inline-block触发了layout，而它本身就是行布局，所以触发后，块元素依然还是行布局，而不会如Opera中块元素呈递为内联对象。</p>
-
-<h3>IE6下块元素如何实现display:inline-block的效果？</h3>
-
-<p>有两种方法：</p>
-
-<p>1、先使用display:inline-block属性触发块元素，然后再定义display:inline，让块元素呈递为内联对象（两个display 要先后放在两个CSS声明中才有效果，这是IE的一个经典bug，如果先定义了display:inline-block，然后再将display设回 inline或block，layout不会消失）。代码如下（...为省略的其他属性内容）： </p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span><span class="o">...</span><span class="p">}</span> 
-<span class="nt">div</span> <span class="p">{</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span>
-</code></pre></div>
-<p>2、直接让块元素设置为内联对象呈递（设置属性display:inline），然后触发块元素的layout（如：zoom:1 或float属性等）。代码如下：</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="n">_display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐*/</span>
-<span class="nt">div</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="o">-</span><span class="k">block</span><span class="p">;</span> <span class="n">_zoom</span><span class="o">:</span><span class="m">1</span><span class="p">;</span><span class="o">*</span><span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;}</span> <span class="c">/*推荐:IE67*/</span>
-</code></pre></div>
 		  
 		  </div>
 		</div>
@@ -551,7 +631,7 @@ IE中对内联元素使用display:inline-block，IE是不识别的，但使用di
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

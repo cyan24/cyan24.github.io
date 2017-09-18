@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/JS%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83-CommonJS-AMD-CMD/">
+	<link rel="canonical" href="http://localhost:4000/blog/JS%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E8%A7%84%E8%8C%83-CommonJS-AMD-CMD/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -265,11 +265,47 @@
 
 <p>CommonJS能有一定的影响力，我觉得绝对离不开Node的人气，不过喔，Node，CommonJS，浏览器甚至是W3C之间有什么关系呢，我找到了个贴切的图：</p>
 
-<p>|---------------浏览器----- ------------------|        |--------------------------CommonJS----------------------------------|</p>
+<table>
+  <tbody>
+    <tr>
+      <td>—————浏览器—– ——————</td>
+      <td> </td>
+      <td>————————–CommonJS———————————-</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>|  BOM  |       | DOM |        | ECMAScript |         | FS |           | TCP |         | Stream |        | Buffer |          |........|</p>
+<table>
+  <tbody>
+    <tr>
+      <td>BOM</td>
+      <td> </td>
+      <td>DOM</td>
+      <td> </td>
+      <td>ECMAScript</td>
+      <td> </td>
+      <td>FS</td>
+      <td> </td>
+      <td>TCP</td>
+      <td> </td>
+      <td>Stream</td>
+      <td> </td>
+      <td>Buffer</td>
+      <td> </td>
+      <td>……..</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>|-------W3C-----------|       |---------------------------------------Node--------------------------------------------------|</p>
+<table>
+  <tbody>
+    <tr>
+      <td>——-W3C———–</td>
+      <td> </td>
+      <td>—————————————Node————————————————–</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>CommonJS定义的模块分为:{模块引用(require)} {模块定义(exports)} {模块标识(module)}</p>
 
@@ -279,10 +315,10 @@
 
 <p>复制代码
 1 //sum.js
-2 exports.sum = function(){...做加操作..};
+2 exports.sum = function(){…做加操作..};
 3 
 4 //calculate.js
-5 var math = require(&#39;sum&#39;);
+5 var math = require(‘sum’);
 6 exports.add = function(n){
 7     return math.sum(val,n);
 8 };
@@ -300,29 +336,41 @@
 
 <p>这需要分析一下浏览器端的js和服务器端js都主要做了哪些事，有什么不同了：</p>
 
-<p>---------------------------------------服务器端JS   | 浏览器端JS-------------------------------------------</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">            相同的代码需要多次执行  |    代码需要从一个服务器端分发到多个客户端执行
+<table>
+  <tbody>
+    <tr>
+      <td>—————————————服务器端JS</td>
+      <td>浏览器端JS——————————————-</td>
+    </tr>
+  </tbody>
+</table>
 
-            CPU和内存资源是瓶颈   |    带宽是瓶颈
+ 				相同的代码需要多次执行  |    代码需要从一个服务器端分发到多个客户端执行
 
-            加载时从磁盘中加载   |    加载时需要通过网络加载
-</code></pre></div>
-<hr>
+ 				CPU和内存资源是瓶颈   |    带宽是瓶颈
+
+ 				加载时从磁盘中加载   |    加载时需要通过网络加载
+
+<hr />
 
 <p>于是乎，AMD(异步模块定义)出现了，它就主要为前端JS的表现制定规范。</p>
 
 <p>AMD就只有一个接口：define(id?,dependencies?,factory);</p>
 
 <p>它要在声明模块的时候制定所有的依赖(dep)，并且还要当做形参传到factory中，像这样：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){...});</span>
-</code></pre></div>
+
+<pre><code class="language-js">define(['dep1','dep2'],function(dep1,dep2){...});
+</code></pre>
+
 <p>要是没什么依赖，就定义简单的模块，下面这样就可以啦：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="nx">exports</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){...};</span>
-    <span class="k">return</span> <span class="nx">exports</span><span class="p">;</span> <span class="p">});</span>
-</code></pre></div>
-<p>咦，这里有define，把东西包装起来啦，那Node实现中怎么没看到有define关键字呢，它也要把东西包装起来呀，其实吧，只是Node隐式包装了而已.....</p>
+
+<pre><code class="language-js">define(function(){
+    var exports = {};
+    exports.method = function(){...};
+    return exports; });
+</code></pre>
+
+<p>咦，这里有define，把东西包装起来啦，那Node实现中怎么没看到有define关键字呢，它也要把东西包装起来呀，其实吧，只是Node隐式包装了而已…..</p>
 
 <p>RequireJS就是实现了AMD规范的呢。</p>
 
@@ -331,30 +379,36 @@
 <p>三、CMD</p>
 
 <p>大名远扬的玉伯写了seajs，就是遵循他提出的CMD规范，与AMD蛮相近的，不过用起来感觉更加方便些，最重要的是中文版。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){...});</span>
-</code></pre></div>
+
+<pre><code class="language-js">define(function(require,exports,module){...});
+</code></pre>
+
 <p>用过seajs吧，这个不陌生吧，对吧.</p>
 
 <p>四、AMD与CMD的区别</p>
 
 <p>CMD相当于按需加载，定义一个模块的时候不需要立即制定依赖模块，在需要的时候require就可以了，比较方便；而AMD则相反，定义模块的时候需要制定依赖模块，并以形参的方式引入factory中</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//AMD方式定义模块</span>
-<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
-     <span class="c1">//内部只能使用制定的模块</span>
-      <span class="k">return</span> <span class="kd">function</span><span class="p">(){};</span>
-<span class="p">});</span>
-<span class="c1">//CMD</span>
-<span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){</span>
-   <span class="c1">//此处如果需要某XX模块，可以引入</span>
-   <span class="kd">var</span> <span class="nx">xx</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;XX&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-js">//AMD方式定义模块
+define(['dep1','dep2'],function(dep1,dep2){
+     //内部只能使用制定的模块
+      return function(){};
+});
+//CMD
+define(function(require,exports,module){
+   //此处如果需要某XX模块，可以引入
+   var xx=require('XX');
+});
+</code></pre>
+
 <p>而SEAJS也有use功能也是需要先引入所有依赖的模块，如</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//SEAJS.Use方式</span>
-<span class="nx">seajs</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
-     <span class="c1">//这里实现事务</span>
-<span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-js">//SEAJS.Use方式
+seajs.use(['dep1','dep2'],function(dep1,dep2){
+     //这里实现事务
+});
+</code></pre>
+
 <p>五、插件支持</p>
 
 <p>但全球有两种比较流行的 JavaScript 模块化体系，一个是 Node 实现的 CommonJS，另外一个是 AMD。很多类库都同时支持 AMD 和 CommonJS，但是不支持 CMD。或许国内有很多 CMD 模块，但并没有在世界上流行起来。</p>
@@ -385,7 +439,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

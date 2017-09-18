@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
+	<link rel="canonical" href="http://localhost:4000/blog/window.attachEvent%E5%92%8Cwindow.addEventListener%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -257,29 +257,32 @@
   <section class="post-content">
   <p>以前写JavaScript脚本时，事件都采用object.event = handler的方式绑定。这种方式对于Internet Explorer、Mozilla/Firefox和Opera来说很通用。但有一个问题，这种方式只能一个事件对应一个事件处理过程。如果希望一个事件可以依次执执行多个处理过程，就不好用了。</p>
 
-<p>Internet Explorer从5.0开始，提供了一个attachEvent方法，使用这个方法，可以一个事件，绑定多个处理过程。但是Mozilla/Firefox并不支持这个方法，它使用另外一个方法addEventListener。它们之间有少许区别，在attachEvent方法中，事件是以&quot;on&quot;开头的，而addEventListener，事件不是以&quot;on&quot;开头，另外，addEventListener还有第三个参数，一般指定false就可以。
+<p>Internet Explorer从5.0开始，提供了一个attachEvent方法，使用这个方法，可以一个事件，绑定多个处理过程。但是Mozilla/Firefox并不支持这个方法，它使用另外一个方法addEventListener。它们之间有少许区别，在attachEvent方法中，事件是以”on”开头的，而addEventListener，事件不是以”on”开头，另外，addEventListener还有第三个参数，一般指定false就可以。
 因此，在程序中，给一个事件指派多个处理过程的话。需要根据不同的浏览器，选择使用attachEvent和addEventListener。示例如下：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="c1">//IE</span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s2">&quot;onload&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">);</span>
-<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>   <span class="c1">//IE8以后有以及Mozilla/Firefox </span>
-  <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="nx">foo</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-<span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;ok&quot;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-javascript">if (window.attachEvent) //IE
+  window.attachEvent("onload", foo);
+} else if (window.addEventListener) {   //IE8以后有以及Mozilla/Firefox 
+  window.addEventListener("load", foo, false);
+}
+
+function foo() {
+  alert("ok");
+}
+</code></pre>
+
 <p>注释：attachEvent所绑定的多个方法的执行顺序是随机的，因此，这几个方法之间，不要有顺序依赖。另外，attachEvent和addEventListener不仅仅适用于window对象，其他的一些对象，也支持该方法</p>
 
-<p>注意： Internet Explorer 8 及更早IE版本不支持 addEventListener() 方法，，Opera 7.0 及 Opera 更早版本也不支持。 但是，对于这些不支持该函数的浏览器，你可以使用 attachEvent() 方法来添加事件句柄 (查看 &quot;更多实例&quot; 了解跨浏览器的解决方案)。</p>
+<p>注意： Internet Explorer 8 及更早IE版本不支持 addEventListener() 方法，，Opera 7.0 及 Opera 更早版本也不支持。 但是，对于这些不支持该函数的浏览器，你可以使用 attachEvent() 方法来添加事件句柄 (查看 “更多实例” 了解跨浏览器的解决方案)。</p>
 
 <p>实例
-为 &lt; button&gt; 元素添加点击事件。 当用户点击按钮时，在 id=&quot;demo&quot; 的 &lt; p&gt; 元素上输出 &quot;Hello World&quot; :</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;myBtn&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;demo&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Hello World&quot;</span><span class="p">;</span>
-<span class="p">});</span>
-</code></pre></div>
-<hr>
+为 &lt; button&gt; 元素添加点击事件。 当用户点击按钮时，在 id=”demo” 的 &lt; p&gt; 元素上输出 “Hello World” :</p>
+
+<pre><code class="language-javascript">document.getElementById("myBtn").addEventListener("click", function(){
+    document.getElementById("demo").innerHTML = "Hello World";
+});
+</code></pre>
+<hr />
 
 <p>上面这种绑定事件的方式，兼容主流浏览器,但如果一个元素上添加多次同一事件呢？</p>
 
@@ -293,150 +296,155 @@
 
 <p>//object.attachEvent(event,function);</p>
 
-<p>btn1Obj.attachEvent(&quot;onclick&quot;,method1);</p>
+<p>btn1Obj.attachEvent(“onclick”,method1);</p>
 
-<p>btn1Obj.attachEvent(&quot;onclick&quot;,method2);</p>
+<p>btn1Obj.attachEvent(“onclick”,method2);</p>
 
-<p>btn1Obj.attachEvent(&quot;onclick&quot;,method3);</p>
+<p>btn1Obj.attachEvent(“onclick”,method3);</p>
 
 <p>使用格式是前面是事件类型,注意的是需要加on,比如onclick,onsubmit,onchange,执行顺序是</p>
 
 <blockquote>
-<p>method3-&gt;method2-&gt;method1</p>
+  <p>method3-&gt;method2-&gt;method1</p>
 </blockquote>
 
 <p>可惜这个微软的私人方法,火狐和其他浏览器都不支持,幸运的是他们都支持W3C标准的addEventListener方法：</p>
 
 <p>//element.addEventListener(type,listener,useCapture);</p>
 
-<p>btn1Obj.addEventListener(&quot;click&quot;,method1,false);</p>
+<p>btn1Obj.addEventListener(“click”,method1,false);</p>
 
-<p>btn1Obj.addEventListener(&quot;click&quot;,method2,false);</p>
+<p>btn1Obj.addEventListener(“click”,method2,false);</p>
 
-<p>btn1Obj.addEventListener(&quot;click&quot;,method3,false);
+<p>btn1Obj.addEventListener(“click”,method3,false);
 执行顺序为</p>
-
 <blockquote>
-<p>method1-&gt;method2-&gt;method3</p>
+  <p>method1-&gt;method2-&gt;method3</p>
 </blockquote>
 
 <p>做前端开发工程师,最悲剧的某过于浏览器兼容问题了,上面有两种添加事件的方法,为了同一添加事件的方法,我们不得不再重新写一个通用的添加事件函数,幸亏有前人帮我们做了这件事：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">addEvent</span><span class="p">(</span><span class="nx">elm</span><span class="p">,</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">elm</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span><span class="c1">//DOM2.0</span>
-    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-  <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">elm</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span><span class="c1">//IE5+</span>
-    <span class="k">return</span> <span class="nx">r</span><span class="p">;</span>
-  <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
-    <span class="nx">elm</span><span class="p">[</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evType</span><span class="p">]</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span><span class="c1">//DOM 0</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+addEvent(elm, evType, fn, useCapture) {
+  if (elm.addEventListener) {
+    elm.addEventListener(evType, fn, useCapture);//DOM2.0
+    return true;
+  }else if (elm.attachEvent) {
+    var r = elm.attachEvent('on' + evType, fn);//IE5+
+    return r;
+  }else {
+    elm['on' + evType] = fn;//DOM 0
+  }
+}
+</code></pre>
+
 <p><em>下面是Dean Edwards 的版本</em></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">addEvent</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">//为每一个事件处理函数分派一个唯一的ID</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span><span class="p">)</span> <span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span> <span class="o">=</span> <span class="nx">addEvent</span><span class="p">.</span><span class="nx">guid</span><span class="o">++</span><span class="p">;</span>
-  <span class="c1">//为元素的事件类型创建一个哈希表</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">)</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="p">{};</span>
-  <span class="c1">//为每一个&quot;元素/事件&quot;对创建一个事件处理程序的哈希表</span>
-  <span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">];</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">handlers</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">handlers</span> <span class="o">=</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">]</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="c1">//存储存在的事件处理函数(如果有)</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">[</span><span class="s2">&quot;on&quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">])</span> <span class="p">{</span>
-    <span class="nx">handlers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">element</span><span class="p">[</span><span class="s2">&quot;on&quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">];</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="c1">//将事件处理函数存入哈希表</span>
-  <span class="nx">handlers</span><span class="p">[</span><span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span><span class="p">]</span> <span class="o">=</span> <span class="nx">handler</span><span class="p">;</span>
-  <span class="c1">//指派一个全局的事件处理函数来做所有的工作</span>
-  <span class="nx">element</span><span class="p">[</span><span class="s2">&quot;on&quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">]</span> <span class="o">=</span> <span class="nx">handleEvent</span><span class="p">;</span>
-<span class="p">};</span>
 
-<span class="c1">//用来创建唯一的ID的计数器</span>
-<span class="nx">addEvent</span><span class="p">.</span><span class="nx">guid</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">function</span> <span class="nx">removeEvent</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">type</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">//从哈希表中删除事件处理函数</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">events</span> <span class="o">&amp;&amp;</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">])</span> <span class="p">{</span>
-  <span class="k">delete</span> <span class="nx">element</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">type</span><span class="p">][</span><span class="nx">handler</span><span class="p">.</span><span class="nx">$$guid</span><span class="p">];</span>
-  <span class="p">}</span>
-<span class="p">};</span>
+<pre><code class="language-javascript">function addEvent(element, type, handler) {
+  //为每一个事件处理函数分派一个唯一的ID
+  if (!handler.$$guid) handler.$$guid = addEvent.guid++;
+  //为元素的事件类型创建一个哈希表
+  if (!element.events) element.events = {};
+  //为每一个"元素/事件"对创建一个事件处理程序的哈希表
+  var handlers = element.events[type];
+  if (!handlers) {
+    handlers = element.events[type] = {};
+    //存储存在的事件处理函数(如果有)
+    if (element["on" + type]) {
+    handlers[0] = element["on" + type];
+    }
+  }
+  //将事件处理函数存入哈希表
+  handlers[handler.$$guid] = handler;
+  //指派一个全局的事件处理函数来做所有的工作
+  element["on" + type] = handleEvent;
+};
 
-<span class="kd">function</span> <span class="nx">handleEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kd">var</span> <span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-  <span class="c1">//抓获事件对象(IE使用全局事件对象)</span>
-  <span class="nx">event</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nx">fixEvent</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">);</span>
-  <span class="c1">//取得事件处理函数的哈希表的引用</span>
-  <span class="kd">var</span> <span class="nx">handlers</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span><span class="nx">event</span><span class="p">.</span><span class="nx">type</span><span class="p">];</span>
-  <span class="c1">//执行每一个处理函数</span>
-  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">handlers</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">$$handleEvent</span> <span class="o">=</span> <span class="nx">handlers</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$$handleEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-  <span class="k">return</span> <span class="nx">returnValue</span><span class="p">;</span>
-<span class="p">};</span>
+//用来创建唯一的ID的计数器
+addEvent.guid = 1;
+function removeEvent(element, type, handler) {
+  //从哈希表中删除事件处理函数
+  if (element.events &amp;&amp; element.events[type]) {
+  delete element.events[type][handler.$$guid];
+  }
+};
 
-<span class="c1">//为IE的事件对象添加一些“缺失的”函数</span>
-<span class="kd">function</span> <span class="nx">fixEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">//添加标准的W3C方法</span>
-  <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span> <span class="o">=</span> <span class="nx">fixEvent</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">;</span>
-  <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span> <span class="o">=</span> <span class="nx">fixEvent</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">;</span>
-  <span class="k">return</span> <span class="nx">event</span><span class="p">;</span>
-<span class="p">};</span>
+function handleEvent(event) {
+  var returnValue = true;
+  //抓获事件对象(IE使用全局事件对象)
+  event = event || fixEvent(window.event);
+  //取得事件处理函数的哈希表的引用
+  var handlers = this.events[event.type];
+  //执行每一个处理函数
+  for (var i in handlers) {
+  this.$$handleEvent = handlers[i];
+    if (this.$$handleEvent(event) === false) {
+    returnValue = false;
+    }
+  }
+  return returnValue;
+};
 
-<span class="nx">fixEvent</span><span class="p">.</span><span class="nx">preventDefault</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">};</span>
+//为IE的事件对象添加一些“缺失的”函数
+function fixEvent(event) {
+  //添加标准的W3C方法
+  event.preventDefault = fixEvent.preventDefault;
+  event.stopPropagation = fixEvent.stopPropagation;
+  return event;
+};
 
-<span class="nx">fixEvent</span><span class="p">.</span><span class="nx">stopPropagation</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></div>
+fixEvent.preventDefault = function() {
+  this.returnValue = false;
+};
+
+fixEvent.stopPropagation = function() {
+  this.cancelBubble = true;
+};
+</code></pre>
+
 <p>功能非常强悍，解决IE的this指向问题，event总是作为第一个参数传入，跨浏览器就更不在话下。</p>
 
 <p>最后贡献一个HTML5工作组的版本：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">addEvent</span><span class="o">=</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-<span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">){</span>
-  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">){</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
-    <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-    <span class="nx">addEvent</span><span class="p">(</span><span class="nx">el</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-    <span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">){</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">){</span>
-      <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">el</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
-        <span class="nx">addEvent</span><span class="p">(</span><span class="nx">el</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span><span class="nx">type</span><span class="p">,</span><span class="nx">fn</span><span class="p">);</span>
-      <span class="p">}</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-      <span class="nx">el</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span><span class="o">+</span><span class="nx">type</span><span class="p">,</span><span class="kd">function</span><span class="p">(){</span>
-      <span class="k">return</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">el</span><span class="p">,</span><span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">);</span>
-    <span class="p">});</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-  <span class="p">}</span>
-<span class="p">})();</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">var addEvent=(function(){
+if(document.addEventListener){
+  return function(el,type,fn){
+    if(el.length){
+    for(var i=0;i&lt;el.length;i++){
+    addEvent(el[i],type,fn);
+    }
+    }else{
+    el.addEventListener(type,fn,false);
+    }
+  };
+}else{
+  return function(el,type,fn){
+    if(el.length){
+      for(var i=0;i&lt;el.length;i++){
+        addEvent(el[i],type,fn);
+      }
+    }else{
+      el.attachEvent('on'+type,function(){
+      return fn.call(el,window.event);
+    });
+    }
+  };
+  }
+})();
+</code></pre>
 <p>可能细心的你发现了IE的attachEvent和W3C标准的addEventListener绑定多个事件的执行顺序是不一样的。</p>
 
 <p><strong>移除事件</strong></p>
 
-<p>W3C 及 IE 同时支持移除指定的事件, 用途是移除设定的事件, 格式分别如下: </p>
+<p>W3C 及 IE 同时支持移除指定的事件, 用途是移除设定的事件, 格式分别如下:</p>
 
-<p>W3C格式: </p>
+<p>W3C格式:</p>
 
-<p>removeEventListener(event,function,capture/bubble); </p>
+<p>removeEventListener(event,function,capture/bubble);</p>
 
-<p>Windows IE的格式如下: </p>
+<p>Windows IE的格式如下:</p>
 
-<p>detachEvent(event,function); </p>
+<p>detachEvent(event,function);</p>
 
   </section>
   
@@ -458,7 +466,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

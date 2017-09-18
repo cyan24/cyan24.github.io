@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/D2%E5%89%8D%E7%AB%AF%E8%AE%BA%E5%9D%9B%E5%88%86%E4%BA%AB%E4%B9%8B%E9%98%BF%E9%87%8C%E7%AF%87/">
+	<link rel="canonical" href="http://localhost:4000/blog/D2%E5%89%8D%E7%AB%AF%E8%AE%BA%E5%9D%9B%E5%88%86%E4%BA%AB%E4%B9%8B%E9%98%BF%E9%87%8C%E7%AF%87/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -258,7 +258,7 @@
   <p>前段时间回顾了一下d2论坛上阿里的分享环节，由sima分享的关于天猫的node改造历程。
 首先看对比改造和未改造，性能方面的提升。在改造后使用了nodejs的页面和未改造的页面使用的时php，在2014双十一RT 和 QPS对比：</p>
 
-<p><img src="/img/post/1511031.jpg" alt=""> </p>
+<p><img src="/img/post/1511031.jpg" alt="" /></p>
 
 <p>由上图看出，node 的RT 和 QPS 性能数据较php有大幅度优势。</p>
 
@@ -272,11 +272,11 @@
 
 <p>示例如下：</p>
 
-<p><img src="/img/post/1601101.jpg" alt=""> </p>
+<p><img src="/img/post/1601101.jpg" alt="" /></p>
 
 <p>通过扩展上下文，可以使前端写出简单的逻辑判断。</p>
 
-<p><img src="/img/post/1601102.jpg" alt=""> </p>
+<p><img src="/img/post/1601102.jpg" alt="" /></p>
 
 <p>关于模版中的静态资源管理，他们是这么处理的：</p>
 
@@ -288,31 +288,31 @@
 
 <p>4.依赖自动去重，css/js头尾加载。</p>
 
-<p><img src="/img/post/1601103.jpg" alt=""> </p>
+<p><img src="/img/post/1601103.jpg" alt="" /></p>
 
 <p>渲染出来后的页面：</p>
 
-<p><img src="/img/post/1601104.jpg" alt=""> </p>
+<p><img src="/img/post/1601104.jpg" alt="" /></p>
 
 <p>另外，也做了大量点模块化工作。通过模块化，前端写的90个模块被运营组合扩展成700个页面：</p>
 
-<p><img src="/img/post/1601105.jpg" alt=""> </p>
+<p><img src="/img/post/1601105.jpg" alt="" /></p>
 
-<p><img src="/img/post/1601106.jpg" alt=""> </p>
+<p><img src="/img/post/1601106.jpg" alt="" /></p>
 
 <p>搭建出来大概是这样的：</p>
 
-<p><img src="/img/post/1601107.jpg" alt=""> </p>
+<p><img src="/img/post/1601107.jpg" alt="" /></p>
 
 <p>阿里从模块化到规模化大概要经历这三个过程：</p>
 
 <ul>
-<li>跨业务共享模块；</li>
-<li>面向运营的可视化页面搭建平台；</li>
-<li>Native 页面搭建。</li>
+  <li>跨业务共享模块；</li>
+  <li>面向运营的可视化页面搭建平台；</li>
+  <li>Native 页面搭建。</li>
 </ul>
 
-<h3>如何用NODE架构起服务</h3>
+<p>###如何用NODE架构起服务###</p>
 
 <p>他们的服务并没有使用express,而是使用了koa,在渲染页面方面使用了扩展的xtemplate模版，通过阿里云oss提供模板和数据的存储支持，而cdn使用了阿里的的cdn缓存支持。</p>
 
@@ -320,28 +320,34 @@
 
 <p>koa不仅仅作为generator，相比于express的作为中间件顺序执行的特点，他是包裹在后面所有中间件的装饰器。</p>
 
-<p><img src="/img/post/1601109.jpg" alt=""> </p>
+<p><img src="/img/post/1601109.jpg" alt="" /></p>
 
-<p><img src="/img/post/1601108.jpg" alt=""> </p>
+<p><img src="/img/post/1601108.jpg" alt="" /></p>
 
 <p><strong>测试覆盖率和集成测试</strong></p>
 
 <p>让测试覆盖率告诉你bug在哪儿</p>
 
-<p><img src="/img/post/16011010.jpg" alt=""> </p>
+<p><img src="/img/post/16011010.jpg" alt="" /></p>
 
 <p>一般很难覆盖的地方都是比较容易出bug的地方.</p>
 
 <p>持续集成察觉每次代码变更引入的风险。</p>
 
-<p><img src="/img/post/16011011.jpg" alt=""></p>
+<p><img src="/img/post/16011011.jpg" alt="" /></p>
 
 <p><strong>关于Cluster</strong></p>
 
 <ul>
-<li><p>Master 只做进程管理;</p></li>
-<li><p>worker 异常退出后自动重启（cfork）;</p></li>
-<li><p>http 服务优雅退出（graceful)。</p></li>
+  <li>
+    <p>Master 只做进程管理;</p>
+  </li>
+  <li>
+    <p>worker 异常退出后自动重启（cfork）;</p>
+  </li>
+  <li>
+    <p>http 服务优雅退出（graceful)。</p>
+  </li>
 </ul>
 
 <p>对关键指标做了监控，而异常对信息，做了警告处理。
@@ -352,9 +358,15 @@
 <p>做了以下处理：</p>
 
 <ul>
-<li><p>所有的请求都有accesslog追踪；</p></li>
-<li><p>所有异常统一记录，并分类输出；</p></li>
-<li><p>依赖系统调用tracelog,记录请求和响应情况。</p></li>
+  <li>
+    <p>所有的请求都有accesslog追踪；</p>
+  </li>
+  <li>
+    <p>所有异常统一记录，并分类输出；</p>
+  </li>
+  <li>
+    <p>依赖系统调用tracelog,记录请求和响应情况。</p>
+  </li>
 </ul>
 
 <p>基于这些监控，可以获得到警告信息（如果有的话）。</p>
@@ -371,13 +383,14 @@
 
 <p>每次双十一，对于阿里来说无疑都是一次类似ddos攻击，阿里的应对策略是合理利用CDN,在未改造之前需要使用几百台实体机做渲染，而改造完后用几十台虚拟机久完成了响应的活儿。</p>
 
-<p><img src="/img/post/16011012.jpg" alt=""></p>
+<p><img src="/img/post/16011012.jpg" alt="" /></p>
 
 <p>为了保证在CDN情况下能保证一些业务逻辑能正常运行，比如基于CDN的URL统一，比如输入www.tmall.com, 在手机上看到的和pc上看到的页面一定是不一样的，而对cdn来说却是同一份缓存内容，所以需要处理成不同终端请求同一个url时，cdn能识别设备型号，渲染服务返回不同的页面。处理方式是在cdn安装了插件来做识别.</p>
 
 <p><strong>容灾和预案</strong></p>
 
 <p>给出的建议是消灭单点，做异地双机房部属，oss双节点主备容灾，数据模板磁盘文件容灾。也做了预案自动化，cdn会在机房间不停得做回源健康检查，如果有异常能在10s内自动切换到健康的机房。oss健康检查，异常自动切换主备。系统load过高，自动切换静态备份。渲染异常自动切换静态备份。</p>
+
 
   </section>
   
@@ -399,7 +412,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

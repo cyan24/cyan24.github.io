@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>移动端上前端开发的一些问题与总结（3） | Cyan的技术笔记</title>
-	<meta name="description" content="  前端 , html5, 移动开发, 关于ios系统中，webapp启动图片在不同设备上的适应性设置">
+	<meta name="description" content="  前端 , html5, 移动开发, ###关于ios系统中，webapp启动图片在不同设备上的适应性设置">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
+	<link rel="canonical" href="http://localhost:4000/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -255,37 +255,45 @@
     </p>
   </header>
   <section class="post-content">
-  <h3>关于ios系统中，webapp启动图片在不同设备上的适应性设置</h3>
+  <p>###关于ios系统中，webapp启动图片在不同设备上的适应性设置</p>
 
 <p><a href="http://stackoverflow.com/questions/4687698/mulitple-apple-touch-startup-image-resolutions-for-ios-web-app-esp-for-ipad/10011893#10011893">不同设备上的适应性设置</a></p>
 
-<h3>关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h3>
+<p>###关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</p>
 
 <p>可以通过正则去掉</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\u2006/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-</code></pre></div>
-<h3>Cache开启和设置</h3>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-<span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCachePath</span><span class="p">(</span><span class="s2">&quot;/data/data/[com.packagename]/cache&quot;</span><span class="p">);</span>
-<span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheMaxSize</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span> <span class="c1">// 5MB</span>
-</code></pre></div>
-<h3>LocalStorage相关设置</h3>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabaseEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-<span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDomStorageEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-<span class="n">String</span> <span class="n">databasePath</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="na">getContext</span><span class="o">().</span><span class="na">getDir</span><span class="o">(</span><span class="s">&quot;databases&quot;</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">).</span><span class="na">getPath</span><span class="o">();</span>
-<span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabasePath</span><span class="o">(</span><span class="n">databasePath</span><span class="o">);</span><span class="c1">//Android　webview的LocalStorage有个问题，关闭APP或者重启后，就清楚了，所以需要browser.getSettings().setDatabase相关的操作，把LocalStoarge存到DB中</span>
 
-<span class="n">myWebView</span><span class="o">.</span><span class="na">setWebChromeClient</span><span class="o">(</span><span class="k">new</span> <span class="nf">WebChromeClient</span><span class="o">(){</span>
-　　　<span class="nd">@Override</span>
-　　　<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onExceededDatabaseQuota</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">String</span> <span class="n">databaseIdentifier</span><span class="o">,</span> <span class="kt">long</span> <span class="n">currentQuota</span><span class="o">,</span> <span class="kt">long</span> <span class="n">estimatedSize</span><span class="o">,</span> <span class="kt">long</span> <span class="n">totalUsedQuota</span><span class="o">,</span> <span class="n">WebStorage</span><span class="o">.</span><span class="na">QuotaUpdater</span> <span class="n">quotaUpdater</span><span class="o">){</span>
-　　　　　　　<span class="n">quotaUpdater</span><span class="o">.</span><span class="na">updateQuota</span><span class="o">(</span><span class="n">estimatedSize</span> <span class="o">*</span> <span class="mi">2</span><span class="o">);</span>
-　　　<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
-<h3>浏览器自带缩放按钮取消显示</h3>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setBuiltInZoomControls</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
-</code></pre></div>
-<h3>几个比较好的实践</h3>
+<pre><code class="language-js">this.value = this.value.replace(/\u2006/g, '');
+</code></pre>
+
+<p>###Cache开启和设置</p>
+
+<pre><code class="language-js">browser.getSettings().setAppCacheEnabled(true);
+browser.getSettings().setAppCachePath("/data/data/[com.packagename]/cache");
+browser.getSettings().setAppCacheMaxSize(5*1024*1024); // 5MB
+</code></pre>
+
+<p>###LocalStorage相关设置</p>
+
+<pre><code class="language-java">browser.getSettings().setDatabaseEnabled(true);
+browser.getSettings().setDomStorageEnabled(true);
+String databasePath = browser.getContext().getDir("databases", Context.MODE_PRIVATE).getPath();
+browser.getSettings().setDatabasePath(databasePath);//Android　webview的LocalStorage有个问题，关闭APP或者重启后，就清楚了，所以需要browser.getSettings().setDatabase相关的操作，把LocalStoarge存到DB中
+
+myWebView.setWebChromeClient(new WebChromeClient(){
+　　　@Override
+　　　public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater){
+　　　　　　　quotaUpdater.updateQuota(estimatedSize * 2);
+　　　}
+}
+</code></pre>
+
+<p>###浏览器自带缩放按钮取消显示</p>
+
+<pre><code class="language-js">browser.getSettings().setBuiltInZoomControls(false);
+</code></pre>
+
+<p>###几个比较好的实践</p>
 
 <p>使用localstorage缓存html</p>
 
@@ -295,10 +303,10 @@
 
 <p>主要原因就在于Android Webview的onPageFinished事件，Android端一般是用这个事件来标识页面加载完成并显示的，也就是说在此之前，会一直loading，但是Android的OnPageFinished事件会在Javascript脚本执行完成之后才会触发。如果在页面中使用JQuery，会在处理完DOM对象，执行完$(document).ready(function() {});事件自会后才会渲染并显示页面。</p>
 
-<h3>移动浏览器篇</h3>
+<p>###移动浏览器篇</p>
 
 <ul>
-<li>UC浏览器 video标签脱离文档流</li>
+  <li>UC浏览器 video标签脱离文档流</li>
 </ul>
 
 <p>场景：标签的父元素(祖辈元素)设置transform样式后，标签会脱离文档流。</p>
@@ -310,13 +318,13 @@
 <p>解决方案：不使用transform属性。translate用 top、 margin等属性替代。</p>
 
 <ul>
-<li>UC浏览器 video标签总在最前场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</li>
+  <li>UC浏览器 video标签总在最前场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</video></li>
 </ul>
 
 <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p>
 
 <ul>
-<li>UC浏览器position:fixed 属性在UC浏览器的奇葩现象</li>
+  <li>UC浏览器position:fixed 属性在UC浏览器的奇葩现象</li>
 </ul>
 
 <p>场景：设置了position: fixed 的元素会遮挡z-index值更高的同辈元素。</p>
@@ -330,7 +338,7 @@
 <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zYLTSg6</a></p>
 
 <ul>
-<li>QQ手机浏览器不支持HttpOnly</li>
+  <li>QQ手机浏览器不支持HttpOnly</li>
 </ul>
 
 <p>场景：带有HttpOnly属性的Cookie，在QQ手机浏览器版本从4.0开始失效。JavaScript可以直接读取设置了HttpOnly的Cookie值。</p>
@@ -338,7 +346,7 @@
 <p>测试环境：QQ手机浏览器 4.0/4.1/4.2 + Android 4.0 。</p>
 
 <ul>
-<li>(MIUI原生浏览器)浏览器地址栏hash不改变</li>
+  <li>(MIUI原生浏览器)浏览器地址栏hash不改变</li>
 </ul>
 
 <p>场景：location.hash 被赋值后，地址栏的地址不会改变。</p>
@@ -350,7 +358,7 @@
 <p>测试环境：MIUI 4.0</p>
 
 <ul>
-<li> (Chrome Mobile )fixed元素无法点击</li>
+  <li>(Chrome Mobile )fixed元素无法点击</li>
 </ul>
 
 <p>场景：父元素设置position: fixed;</p>
@@ -372,23 +380,28 @@
 <p>以上来源于 http://www.cnblogs.com/maplejan/archive/2013/04/26/3045928.html</p>
 
 <ul>
-<li>(微信浏览器)</li>
+  <li>(微信浏览器)</li>
 </ul>
 
 <p>因为微信浏览器屏蔽了一部分链接图片，所以需要引导用户去打开新页面，可以用以下方式判断微信浏览器的ua</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">is_weixn</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">ua</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
-    <span class="k">if</span><span class="p">(</span><span class="nx">ua</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/MicroMessenger/i</span><span class="p">)</span><span class="o">==</span><span class="s2">&quot;micromessenger&quot;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-js">
+function is_weixn(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
+</code></pre>
+
 <p>后端判断也很简单，比如php</p>
-<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function is_weixin(){ if ( strpos($_SERVER[&#39;HTTP_USER_AGENT&#39;], &#39;MicroMessenger&#39;) !== false ) { return true; } return false;}</span>
-</code></pre></div>
-<h3>库的使用实践</h3>
+
+<pre><code class="language-php">function is_weixin(){ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) { return true; } return false;}
+</code></pre>
+
+<p>###库的使用实践</p>
 
 <p>zepto.js</p>
 
@@ -398,22 +411,29 @@
 
 <p><a href="http://www.cnblogs.com/sky000/archive/2013/03/29/2988952.html">zepto源码注释</a></p>
 
-<h3>跨域问题</h3>
+<p>###跨域问题</p>
 
 <p>手机浏览器也是浏览器，在ajax调用外部api的时候也存在跨域问题。当然利用phonegap打包后，由于协议不一样就不存在跨域问题了。 但页面通常是需要跟后端进行调试的。一般会报类似</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">XMLHttpRequest</span> <span class="nx">cannot</span> <span class="nx">load</span> <span class="nx">XXX</span>
-<span class="nx">Origin</span> <span class="kc">null</span> <span class="nx">is</span> <span class="nx">not</span> <span class="nx">allowed</span> <span class="nx">by</span> <span class="nx">Access</span><span class="o">-</span><span class="nx">Control</span><span class="o">-</span><span class="nx">Allow</span><span class="o">-</span><span class="nx">Origin</span><span class="p">.</span>
-</code></pre></div>
+
+<pre><code class="language-js">XMLHttpRequest cannot load XXX
+Origin null is not allowed by Access-Control-Allow-Origin.
+</code></pre>
+
 <p>以及</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">XMLHttpRequest</span> <span class="nx">cannot</span> <span class="nx">load</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//. Request header field Content-Type is not allowed by Access-Control-Allow-Headers.&quot;</span>
-</code></pre></div>
+
+<pre><code class="language-js">XMLHttpRequest cannot load http://. Request header field Content-Type is not allowed by Access-Control-Allow-Headers."
+</code></pre>
+
 <p>这时候可以让后端加上两个http头</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">Access</span><span class="o">-</span><span class="nx">Control</span><span class="o">-</span><span class="nx">Allow</span><span class="o">-</span><span class="nx">Origin</span> <span class="s2">&quot;*&quot;</span>
-<span class="nx">Access</span><span class="o">-</span><span class="nx">Control</span><span class="o">-</span><span class="nx">Allow</span><span class="o">-</span><span class="nx">Headers</span> <span class="s2">&quot;Origin, X-Requested-With, Content-Type, Accept&quot;</span>
-</code></pre></div>
+
+<pre><code class="language-js">
+Access-Control-Allow-Origin "*"
+Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
+</code></pre>
+
 <p>第一个头可以避免跨域问题，第二个头可以方便ajax请求设置content-type等配置项</p>
 
-<h3>调试篇</h3>
+<p>###调试篇</p>
 
 <p>手机抓包与配host</p>
 
@@ -433,7 +453,7 @@
 
 <p>此时你会发现，用手机上网，走的其实是PC上的fiddler，所有的请求包都会在fiddler中列出来，配合willow使用，即可实现配host，甚至是反向代理的操作。</p>
 
-<h3>相关收藏</h3>
+<p>###相关收藏</p>
 
 <p><a href="https://github.com/AlloyTeam/Mars">腾讯移动Web前端知识库</a></p>
 
@@ -442,6 +462,7 @@
 <p><a href="http://ww1.sinaimg.cn/bmiddle/c2c57f68jw1e4fh7dmw12j20fi2w6qe1.jpg">移动端手势表</a></p>
 
 <p><a href="http://ued.ctrip.com/webkitcss/index.html">webkit独有的样式分析</a></p>
+
 
   </section>
   
@@ -463,7 +484,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

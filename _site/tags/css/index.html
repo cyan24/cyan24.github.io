@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>css | Cyan的技术笔记</title>
-	<meta name="description" content="used by search engines">
+	<meta name="description" content="Cyan的技术笔记">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/tags/css/">
+	<link rel="canonical" href="http://localhost:4000/tags/css/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -266,7 +266,7 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p> <p>方法1 ： IE 10 以下不兼容 transform: </p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span><span class="k">position</span><span class="o">:</span> <span class="k">relative</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nf">#child</span> <span class="p">{</span> <span class="k">position</span><span class="o">:</span> <span class="k">absolute</span><span class="p">;</span> <span class="k">top</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">left</span><span class="o">:</span> <span class="m">50%</span><span class="p">;</span> <span class="k">z-index</span><span class="o">:</span> <span class="m">3</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">30%</span><span class="p">;</span> <span class="k">width</span><span class="o">:</span><span class="m">50%</span><span class="p">;</span> <span class="o">-</span><span class="n">webkit</span><span class="o">-</span><span class="n">transform</span><span class="o">:</span> <span class="n">translate</span><span class="p">(</span><span class="m">-50%</span><span class="o">,-</span><span class="m">50%</span><span class="p">);</span> <span class="c">/*margin: -15% 0 0 -25%;*/</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法2: FLEX BOX 弹性布局 IE10以下不适用</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style&gt;</span> <span class="c">/*声明伸缩容器*/</span> <span class="nf">#parent</span> <span class="p">{</span> <span class="k">display</span><span class="o">:-</span><span class="n">webkit</span><span class="o">-</span><span class="n">flex</span><span class="p">;;</span> <span class="k">justify</span><span class="o">-</span><span class="k">content</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="n">align</span><span class="o">-</span><span class="n">items</span><span class="o">:</span><span class="k">center</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span><span class="k">width</span><span class="o">:</span> <span class="m">220px</span><span class="p">;</span><span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> <span class="nc">.child</span> <span class="p">{</span> <span class="n">flex</span><span class="o">:</span><span class="m">1</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">#999999</span> <span class="k">solid</span> <span class="m">1px</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="m">#fff</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> <span class="nt">&lt;body&gt;</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Content here<span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> <span class="nt">&lt;/div&gt;</span> </code></pre></div> <hr> <p>方法3:Line-Height Method</p> <p><img src="/img/post/1312151.jpg" alt=""> </p> <p>适用：单行文本垂直居中</p> <p>html</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">id=</span><span class="s">&quot;child&quot;</span><span class="nt">&gt;</span>Text here<span class="nt">&lt;/div&gt;&lt;/div&gt;</span> </code></pre></div> <p>css</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#child</span> <span class="p">{</span><span class="k">line-height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;}</span> </code></pre></div> <hr> <p>垂直居中一张图片，代码如下</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;parent&quot;</span><span class="nt">&gt;&lt;img</span> <span class="na">src=</span><span class="s">&quot;image.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;&lt;/div&gt;</span> ```css #parent {line-height: 200px;}#parent img...
+		    <p>利用CSS进行元素的水平居中，比较简单，行级元素设置其父元素的text-align center，块级元素设置其本身的left 和 right margins为auto即可。本文收集了六种利用css进行元素的垂直居中的方法，每一种适用于不同的情况，在实际的使用过程中选择某一种方法即可。</p> <p>方法1 ： IE 10 以下不兼容 transform:</p> <pre><code class="language-html"> &lt;style&gt; /*声明伸缩容器*/ #parent {position: relative;background-color: red;width: 220px;height: 200px;} #child { position: absolute; top: 50%; left: 50%; z-index: 3; height:30%; width:50%; -webkit-transform: translate(-50%,-50%); /*margin: -15% 0 0 -25%;*/ background-color: #fff; } &lt;/style&gt; &lt;body&gt; &lt;div id="parent"&gt; &lt;div id="child"&gt;Content here&lt;/div&gt; </code></pre> <hr /> <p>方法2: FLEX BOX 弹性布局 IE10以下不适用</p> <pre><code class="language-html"> &lt;style&gt; /*声明伸缩容器*/ #parent { display:-webkit-flex;; justify-content:center; align-items:center; background-color: red;width: 220px;height: 200px;} .child { flex:1; border: #999999 solid 1px; background-color: #fff; } &lt;/style&gt; &lt;body&gt; &lt;div id="parent"&gt; &lt;div class="child"&gt;Content here&lt;/div&gt;&lt;div class="child"&gt;Content here&lt;/div&gt; &lt;/div&gt; &lt;/div&gt; </code></pre> <hr /> <p>方法3:Line-Height Method</p> <p><img src="/img/post/1312151.jpg" alt="" /></p> <p>适用：单行文本垂直居中</p> <p>html</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Text here&lt;/div&gt;&lt;/div&gt; </code></pre> <p>css</p> <pre><code class="language-css"> #child {line-height: 200px;} </code></pre> <hr /> <p>垂直居中一张图片，代码如下</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;img src="image.png" alt="" /&gt;&lt;/div&gt; ```css #parent {line-height: 200px;}#parent img {vertical-align: middle;} </code></pre> <p>适用：通用</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css">#parent {display: table;}#child {display: table-cell;vertical-align: middle;} </code></pre> <p>低版本 IE fix bug：</p> <pre><code class="language-css">#child {display: inline-block;} </code></pre> <hr /> <p>方法4: CSS Table Method</p> <p><img src="/img/post/1312152.jpg" alt="" /></p> <p>适用：通用</p> <p>代码：</p> <pre><code class="language-html">&lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css">#parent {display: table;}#child {display: table-cell;vertical-align: middle;} </code></pre> <p>低版本 IE fix bug：</p> <pre><code class="language-css">#child {display: inline-block;} </code></pre> <hr /> <p>方法4:Absolute Positioning and Negative Margin</p> <p><img src="/img/post/1312153.jpg" alt="" /></p> <p>适用：块级元素</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css"> #parent {position: relative;}#child {position: absolute;top: 50%;left: 50%;height: 30%;width: 50%;margin: -15% 0 0 -25%;} </code></pre> <hr /> <p>方法5:Absolute Positioning and Stretching <img src="/img/post/1312154.jpg" alt="" /></p> <p>适用：通用，但在IE版本低于7时不能正常工作</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css">#parent {position: relative;}#child {position: absolute;top: 0;bottom: 0;left: 0;right: 0;width: 50%;height: 30%;margin: auto;} </code></pre> <hr /> <p>方法6:Equal Top and Bottom Padding <img src="/img/post/1312155.jpg" alt="" /></p> <p>适用：通用，demo</p> <p>代码：</p> <pre><code class="language-html"> &lt;div id="parent"&gt;&lt;div id="child"&gt;Content here&lt;/div&gt;&lt;/div&gt; </code></pre> <pre><code class="language-css"> #parent {padding: 5% 0;}#child {padding: 10% 0;} </code></pre> <hr /> <p>方法7:Floater Div</p> <p><img...
 		    <p>
 		    <a class="text" href="/blog/CSS-%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%E7%9A%84-7%E7%A7%8D%E6%96%B9%E6%B3%95/">
 		      Continue Reading...
@@ -306,7 +306,7 @@
 none | subpixel-antialiased | antialiased
 其他的三个，我设置了，好像没什么变化。大家可以自己在控制台调试看看。</p>
 
-<p><img src="/img/post/1312193.jpg" alt=""> </p>
+<p><img src="/img/post/1312193.jpg" alt="" /></p>
 
 		  
 		  </div>
@@ -342,8 +342,7 @@ none | subpixel-antialiased | antialiased
 
 <p>当页面加载时，不是加载每个单独图片，而是一次加载整个组合图片。这是一个了不起的改进，它大大减少了HTTP请求的次数，减轻服务器压力，同时缩短了悬停加载图片所需要的时间延迟，使效果更流畅，不会停顿。</p>
 
-<hr>
-
+<hr />
 <p>CSS Sprites优点</p>
 
 <p>CSS Sprites为什么突然跑火，跟能够提升网站性能有关。显而易见，这是它的巨大优点之一。</p>
@@ -357,27 +356,28 @@ CSS Sprites缺点</p>
 <p>在图片合并的时候，你要把多张图片有序的合理的合并成一张图片，还要留好只够的空间，防止板块内不会出现不必要的背景，否则可能会出现出现干扰图片的情况；这些还好，做痛苦的是在宽屏，高分辨率的屏幕下的自适应页面，你的图片如果不够宽，很容易出现背景断裂；
 CSS Sprites在开发的时候比较麻烦，你要通过photoshop或其他工具测量计算每一个背景单元的精确位置，这是针线活，没什么难度，但是很繁琐；不过网上已经有高手开发出“CSS Sprites 样式生成工具”，大家可以尝试一下。
 CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果页面背景有少许改动，一般就要改这张合并的图片，无需改的地方最好不要动，这样避 免改动更多的css，如果在原来的地方放不下，有只能（最好）往下加图片，这样图片的字节就增加了，因为每次的图片改动都得往这个图片删除或添加内容，显 得稍微繁琐，而且重新算图片的位置（尤其是这种上千px的图）也是一件颇为不爽的事情。当然，在性能的口号下，这些都是可以克服的。
-由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性。</p>
-
-<hr>
+由于图片的位置需要固定为某个绝对数值，这就失去了诸如center之类的灵活性。
+___</p>
 
 <p>CSS Sprites总结</p>
 
 <p>性能压倒一切。CSS Sprites非常值得学习和应用，特别是页面有一堆ico（图标）。总之很多时候大家要权衡一下利弊，在决定是不是应用CSS Sprites。为保持兼容性和维护性，sprites图片中的各个部分保持一定的距离是一种不错的做法。</p>
 
-<hr>
-
+<hr />
 <p>书中示例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">   <span class="nt">&lt;style&gt;</span> <span class="nf">#navbar</span> <span class="nt">span</span> <span class="p">{</span> <span class="k">width</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">height</span><span class="o">:</span><span class="m">31px</span><span class="p">;</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;</span> <span class="k">float</span><span class="o">:</span><span class="k">left</span><span class="p">;</span> <span class="k">background-image</span><span class="o">:</span><span class="sx">url(/images/spritebg.gif?t=1442038329)</span><span class="p">;</span> <span class="p">}</span> <span class="nc">.home</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:</span><span class="m">0</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;</span> <span class="k">margin-left</span><span class="o">:</span> <span class="m">4px</span><span class="p">;}</span> <span class="nc">.gifts</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">32px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.cart</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">64px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.settings</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">96px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">4px</span><span class="p">;}</span> <span class="nc">.help</span> <span class="p">{</span> <span class="k">background-position</span><span class="o">:-</span><span class="m">128px</span> <span class="m">0</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span><span class="m">0px</span><span class="p">;}</span> 
-   <span class="nt">&lt;/style&gt;</span> 
 
-   <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;navbar&quot;</span> <span class="na">style=</span><span class="s">&quot;background-color: #F4F5EB; border: 2px ridge #333; width: 180px; height: 32px; padding: 4px 0 4px 0;&quot;</span><span class="nt">&gt;</span> 
-      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Home&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Home&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;home&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>
-      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Gifts&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Gifts&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;gifts&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
-      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Cart&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Cart&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;cart&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
-      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Settings&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Settings&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;settings&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span>      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;javascript:alert(&#39;Help&#39;)&quot;</span> <span class="na">title=</span><span class="s">&quot;Help&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;help&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/a&gt;</span> 
-    <span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">
+   &lt;style&gt; #navbar span { width:31px; height:31px; display:inline; float:left; background-image:url(/images/spritebg.gif?t=1442038329); } .home { background-position:0 0; margin-right:4px; margin-left: 4px;} .gifts { background-position:-32px 0; margin-right:4px;} .cart { background-position:-64px 0; margin-right:4px;} .settings { background-position:-96px 0; margin-right:4px;} .help { background-position:-128px 0; margin-right:0px;} 
+   &lt;/style&gt; 
+
+   &lt;div id="navbar" style="background-color: #F4F5EB; border: 2px ridge #333; width: 180px; height: 32px; padding: 4px 0 4px 0;"&gt; 
+      &lt;a href="javascript:alert('Home')" title="Home"&gt;&lt;span class="home"&gt;&lt;/span&gt;&lt;/a&gt;
+      &lt;a href="javascript:alert('Gifts')" title="Gifts"&gt;&lt;span class="gifts"&gt;&lt;/span&gt;&lt;/a&gt; 
+      &lt;a href="javascript:alert('Cart')" title="Cart"&gt;&lt;span class="cart"&gt;&lt;/span&gt;&lt;/a&gt; 
+      &lt;a href="javascript:alert('Settings')" title="Settings"&gt;&lt;span class="settings"&gt;&lt;/span&gt;&lt;/a&gt;      &lt;a href="javascript:alert('Help')" title="Help"&gt;&lt;span class="help"&gt;&lt;/span&gt;&lt;/a&gt; 
+    &lt;/div&gt;
+</code></pre>
+
 		  
 		  </div>
 		</div>
@@ -407,37 +407,43 @@ CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果�
 <p>在HTML中还可以把图片划分成多个热点区域，每一个热点域链接到不同网页的资源。这种效果的实质是把一幅图片划分为不同的热点区域，再让不同的区域进行 超链接。这就是影像地图。要完成地图区域超链接要用到三种标签：&lt; img&gt;&lt; map&gt;&lt; area&gt;下面分别介绍这些 标签的用法：</p>
 
 <p>影像地图（Image Map）标签的使用格式：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">    <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;图形文件名&quot;</span> <span class="na">usemap=</span><span class="s">&quot;#图的名称&quot;</span><span class="nt">&gt;</span>
 
-      <span class="c">&lt;!-- 插入图片时要在&lt;img&gt;标记中设置参数usemap=&quot;#图的名称&quot; ismap，以表示对图像地图（图的名称）的引用；--&gt;</span>
+<pre><code class="language-html">
+    &lt;img src="图形文件名" usemap="#图的名称"&gt;
 
-    <span class="nt">&lt;map</span> <span class="na">name=</span><span class="s">&quot;图的名称&quot;</span><span class="nt">&gt;</span>
+      &lt;!-- 插入图片时要在&lt;img&gt;标记中设置参数usemap="#图的名称" ismap，以表示对图像地图（图的名称）的引用；--&gt;
 
-       <span class="c">&lt;!--用&lt;map&gt;标记设定图像地图的作用区域，并用name属性爲图像起一个名字--&gt;</span>
+    &lt;map name="图的名称"&gt;
 
-     <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">形状</span> <span class="na">coords=</span><span class="s">区域座标列表</span> <span class="na">href=</span><span class="s">&quot;URL资源地址&quot;</span><span class="nt">&gt;</span>
+       &lt;!--用&lt;map&gt;标记设定图像地图的作用区域，并用name属性爲图像起一个名字--&gt;
+
+     &lt;area shape=形状 coords=区域座标列表 href="URL资源地址"&gt;
 
      ......可根据需要定义多少个热点区域
 
-     <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">形状</span> <span class="na">coords=</span><span class="s">区域座标列表</span> <span class="na">href=</span><span class="s">&quot;URL资源地址&quot;</span><span class="nt">&gt;</span>
+     &lt;area shape=形状 coords=区域座标列表 href="URL资源地址"&gt;
 
-    <span class="nt">&lt;/map&gt;</span>
-</code></pre></div>
-<hr>
+    &lt;/map&gt;
 
+</code></pre>
+<hr />
 <p>提示和注释：</p>
 
 <p>注释：area 元素永远嵌套在 map 元素内部。area 元素可定义图像映射中的区域。</p>
 
 <p>注释：&lt; img&gt;中的 usemap 属性可引用 &lt; map&gt; 中的 id 或 name 属性（取决于浏览器），所以我们应同时向 &lt; map&gt; 添加 id 和 name 属性。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;planets.jpg&quot;</span> <span class="na">border=</span><span class="s">&quot;0&quot;</span> <span class="na">usemap=</span><span class="s">&quot;#planetmap&quot;</span> <span class="na">alt=</span><span class="s">&quot;Planets&quot;</span> <span class="nt">/&gt;</span>
 
-<span class="nt">&lt;map</span> <span class="na">name=</span><span class="s">&quot;planetmap&quot;</span> <span class="na">id=</span><span class="s">&quot;planetmap&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;circle&quot;</span> <span class="na">coords=</span><span class="s">&quot;180,139,14&quot;</span> <span class="na">href =</span><span class="s">&quot;venus.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Venus&quot;</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;circle&quot;</span> <span class="na">coords=</span><span class="s">&quot;129,161,10&quot;</span> <span class="na">href =</span><span class="s">&quot;mercur.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Mercury&quot;</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;area</span> <span class="na">shape=</span><span class="s">&quot;rect&quot;</span> <span class="na">coords=</span><span class="s">&quot;0,0,110,260&quot;</span> <span class="na">href =</span><span class="s">&quot;sun.html&quot;</span> <span class="na">alt=</span><span class="s">&quot;Sun&quot;</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;/map&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">
+&lt;img src="planets.jpg" border="0" usemap="#planetmap" alt="Planets" /&gt;
+
+&lt;map name="planetmap" id="planetmap"&gt;
+  &lt;area shape="circle" coords="180,139,14" href ="venus.html" alt="Venus" /&gt;
+  &lt;area shape="circle" coords="129,161,10" href ="mercur.html" alt="Mercury" /&gt;
+  &lt;area shape="rect" coords="0,0,110,260" href ="sun.html" alt="Sun" /&gt;
+&lt;/map&gt;
+
+</code></pre>
+
 <p><a href="http://stevesouders.com/hpws/imagemap.php">点我看示例</a></p>
 
 		  
@@ -466,45 +472,71 @@ CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果�
 		  
 		    <p>在写css代码时 做一些简单的优化，这样css的渲染速率会有一定的提高的。</p>
 
-<h3>浏览器是如何渲染页面和加载页面</h3>
+<p>###浏览器是如何渲染页面和加载页面</p>
 
 <p>为什么有些网站打开的时候会加载会很慢，而且是整个页面同时显示的，而有些网站是从顶到下逐步显示出来的？要搞懂这个可以先从下面这个常规流程开始：</p>
 
 <ul>
-<li><p>浏览器下载的顺序是从上到下，渲染的顺序也是从上到下，下载和渲染是同时进行的。</p></li>
-<li><p>在渲染到页面的某一部分时，其上面的所有部分都已经下载完成（并不是说所有相关联的元素都已经下载完）。</p></li>
-<li><p>如果遇到语义解释性的标签嵌入文件（JS脚本，CSS样式），那么此时IE的下载过程会启用单独连接进行下载。</p></li>
-<li><p>并且在下载后进行解析，解析过程中，停止页面所有往下元素的下载。</p></li>
-<li><p>样式表在下载完成后，将和以前下载的所有样式表一起进行解析，解析完成后，将对此前所有元素（含以前已经渲染的）重新进行渲染。</p></li>
-<li><p>JS、CSS中如有重定义，后定义函数将覆盖前定义函数。</p></li>
-<li><p>这里关键的是第2-5这三点。渲染效率与下面三点有关：</p>
+  <li>
+    <p>浏览器下载的顺序是从上到下，渲染的顺序也是从上到下，下载和渲染是同时进行的。</p>
+  </li>
+  <li>
+    <p>在渲染到页面的某一部分时，其上面的所有部分都已经下载完成（并不是说所有相关联的元素都已经下载完）。</p>
+  </li>
+  <li>
+    <p>如果遇到语义解释性的标签嵌入文件（JS脚本，CSS样式），那么此时IE的下载过程会启用单独连接进行下载。</p>
+  </li>
+  <li>
+    <p>并且在下载后进行解析，解析过程中，停止页面所有往下元素的下载。</p>
+  </li>
+  <li>
+    <p>样式表在下载完成后，将和以前下载的所有样式表一起进行解析，解析完成后，将对此前所有元素（含以前已经渲染的）重新进行渲染。</p>
+  </li>
+  <li>
+    <p>JS、CSS中如有重定义，后定义函数将覆盖前定义函数。</p>
+  </li>
+  <li>
+    <p>这里关键的是第2-5这三点。渲染效率与下面三点有关：</p>
 
-<ul>
-<li>css选择器的查询定位效率</li>
-<li>浏览器的渲染模式和算法</li>
-<li>要进行渲染内容的大小</li>
-</ul></li>
+    <ul>
+      <li>
+        <p>css选择器的查询定位效率</p>
+      </li>
+      <li>
+        <p>浏览器的渲染模式和算法</p>
+      </li>
+      <li>
+        <p>要进行渲染内容的大小</p>
+      </li>
+    </ul>
+  </li>
 </ul>
 
-<h3>什么是CSS以及CSS的优点</h3>
+<p>###什么是CSS以及CSS的优点</p>
 
 <p>什么是CascadingStyleSheets（层叠样式表）</p>
 
 <ul>
-<li>CSS是CascadingStyleSheets(层叠样式表)的简称.</li>
-<li>CSS 语言是一种标记语言,它不需要编译,可以直接由浏览器解释执行(属于浏览器解释型语言).</li>
-<li>在标准网页设计中CSS负责网页内容 (XHTML)的表 现.</li>
-<li>CSS文件也可以说是一个文本文件,它包含了一些CSS标记,CSS文件必须使用css为文件名后缀.</li>
-<li>可以通过简单的更改 CSS文件,改变网页 的整体表现形式,可以减少我们的工作量,所以她是每一个网页设计人员的必修课.</li>
-<li>CSS是由W3C的CSS工作组产生和维护的.</li>
+  <li>CSS是CascadingStyleSheets(层叠样式表)的简称.</li>
+  <li>CSS 语言是一种标记语言,它不需要编译,可以直接由浏览器解释执行(属于浏览器解释型语言).</li>
+  <li>在标准网页设计中CSS负责网页内容 (XHTML)的表 现.</li>
+  <li>CSS文件也可以说是一个文本文件,它包含了一些CSS标记,CSS文件必须使用css为文件名后缀.</li>
+  <li>可以通过简单的更改 CSS文件,改变网页 的整体表现形式,可以减少我们的工作量,所以她是每一个网页设计人员的必修课.</li>
+  <li>CSS是由W3C的CSS工作组产生和维护的.</li>
 </ul>
 
 <p><strong><em>采用CSS+DIV进行网页重构相对与传统的TABLE网页布局而具有以下3个显著优势：</em></strong></p>
 
 <ul>
-<li><p>表现和内容相分离将设计部分剥离出来放在一个独立样式文件中，HTML文件中只存放文本信息。这样的页面对搜索引擎更加友好。</p></li>
-<li><p>提高页面浏览速度对于同一个页面视觉效果，采用CSS+DIV重构的页面容量要比TABLE编码的页面文件容量小得多，前者一般只有后者的1/2大小。浏览器就不用去编译大量冗长的标签。</p></li>
-<li><p>易于维护和改版你只要简单的修改几个CSS文件就可以重新设计整个网站的页面。</p></li>
+  <li>
+    <p>表现和内容相分离将设计部分剥离出来放在一个独立样式文件中，HTML文件中只存放文本信息。这样的页面对搜索引擎更加友好。</p>
+  </li>
+  <li>
+    <p>提高页面浏览速度对于同一个页面视觉效果，采用CSS+DIV重构的页面容量要比TABLE编码的页面文件容量小得多，前者一般只有后者的1/2大小。浏览器就不用去编译大量冗长的标签。</p>
+  </li>
+  <li>
+    <p>易于维护和改版你只要简单的修改几个CSS文件就可以重新设计整个网站的页面。</p>
+  </li>
 </ul>
 
 <p><strong><em>浏览器对CSS的匹配原理</em></strong></p>
@@ -513,24 +545,41 @@ CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果�
 
 <p>浏览器从右到左进行查找的好处是为了尽早过滤掉一些无关的样式规则和元素。firefox称这种查 找方式为keyselector(关键字查询)，所谓的关键字就是样式规则中最后(最右边)的规则，上面的key就是span.red。</p>
 
-<h3>优化你的CSS</h3>
+<p>###优化你的CSS</p>
 
 <ul>
-<li>css 命名 、书写规范；（好的代码看上去就很整齐 很有条理性这样方便日后的维护和管理）。</li>
-<li><p>css优先级； 选择器权重：内联样式：1000，id选择器：1000， class选择器：10，标签选择器：1  注意权重的问题。</p></li>
-<li><p>少用滤镜，少用hack，少用position：absolute。</p></li>
-<li><p>多用继承属性。</p></li>
-<li><p>使用简写样式：例如margin: 10px; 浏览器会解释为上下左右各有10px的外补丁。margin： 0 10px 浏览器解析为 左右有10px的外补丁。</p></li>
-<li><p>不要在ID选择器和class选择器前 使用标签名 例如：div.box { color: #f00; }; 直接 可以 用类名， .box { color:#f00;}  这样浏览器找到这个class后 就不用再匹配是否存在div标签.从而提高了渲染效率。当然同一级的 有不同的样式可以这样写，但是不建议这样。</p></li>
-<li><p>css的层级关系不要太深 用class直接代替多余的层级元素。例如 .box .box-con .box-list li { line-height: 24px; } 这么长。。。增加代码量减小开发效率。刚也说了，css渲染是从上到下，从右到左的
-所以直接这样写就可以了.box-list li { line-height: 24px; };</p></li>
-<li><p>平铺背景图片不要过小，影响渲染速率。</p></li>
-<li><p>float使用要谨慎。</p></li>
-<li><p>合理化布局（模块化布局）；可以把样式划分为 基类 和扩展类 ;模块化布局 ：模块基本相同的样式写在 基类里，不同的在重新用class来定义称为扩展类 。</p></li>
-<li><p>在css渲染效率中id和class的效率是基本相当的</p></li>
+  <li>css 命名 、书写规范；（好的代码看上去就很整齐 很有条理性这样方便日后的维护和管理）。</li>
+  <li>
+    <p>css优先级； 选择器权重：内联样式：1000，id选择器：1000， class选择器：10，标签选择器：1  注意权重的问题。</p>
+  </li>
+  <li>
+    <p>少用滤镜，少用hack，少用position：absolute。</p>
+  </li>
+  <li>
+    <p>多用继承属性。</p>
+  </li>
+  <li>
+    <p>使用简写样式：例如margin: 10px; 浏览器会解释为上下左右各有10px的外补丁。margin： 0 10px 浏览器解析为 左右有10px的外补丁。</p>
+  </li>
+  <li>
+    <p>不要在ID选择器和class选择器前 使用标签名 例如：div.box { color: #f00; }; 直接 可以 用类名， .box { color:#f00;}  这样浏览器找到这个class后 就不用再匹配是否存在div标签.从而提高了渲染效率。当然同一级的 有不同的样式可以这样写，但是不建议这样。</p>
+  </li>
+  <li>
+    <p>css的层级关系不要太深 用class直接代替多余的层级元素。例如 .box .box-con .box-list li { line-height: 24px; } 这么长。。。增加代码量减小开发效率。刚也说了，css渲染是从上到下，从右到左的
+所以直接这样写就可以了.box-list li { line-height: 24px; };</p>
+  </li>
+  <li>
+    <p>平铺背景图片不要过小，影响渲染速率。</p>
+  </li>
+  <li>float使用要谨慎。</li>
+  <li>
+    <p>合理化布局（模块化布局）；可以把样式划分为 基类 和扩展类 ;模块化布局 ：模块基本相同的样式写在 基类里，不同的在重新用class来定义称为扩展类 。</p>
+  </li>
+  <li>在css渲染效率中id和class的效率是基本相当的</li>
 </ul>
 
 <p>class最在第一次载入中被缓存，在层叠中会有更加好的效果，在根部元素采用id会具有更加好（id有微妙的速度优势）。</p>
+
 
 		  
 		  </div>
@@ -557,93 +606,101 @@ CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果�
 		  
 		  
 		    <ul>
-<li>优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式 </li>
+  <li>优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式</li>
 </ul>
 
 <p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def2 def1&quot;</span><span class="nt">&gt;</span>测试1<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。</p>
+<pre><code class="language-html">
+&lt;style type="text/css"&gt;
+.def1{background:black;}
+.def2{background:yellow; }
+&lt;/style&gt;
 
-<hr>
+&lt;div class="def2 def1"&gt;测试1&lt;/div&gt;
+</code></pre>
 
+<p>结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。
+___</p>
 <ul>
-<li>优先原则二：id声明（即 # 开头的样式）&gt; class声明（即 . 开头的样式）&gt; 标签声明(即 类似 div 开头)</li>
+  <li>优先原则二：id声明（即 # 开头的样式）&gt; class声明（即 . 开头的样式）&gt; 标签声明(即 类似 div 开头)</li>
 </ul>
 
 <p>以上三种声明处于不同的量级，份量上，div 开头相当于 1克 重，. 开头相当于 1公斤 重，# 开头相当于 1吨 重。</p>
 
 <p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nf">#bb</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">pink</span><span class="p">}</span>
-<span class="nc">.def</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nt">div</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;bb&quot;</span> <span class="na">class=</span><span class="s">&quot;def&quot;</span><span class="nt">&gt;</span>测试2<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。</p>
+<pre><code class="language-html">
+&lt;style type="text/css"&gt;
+#bb{background:pink}
+.def{background:black;}
+div{background:yellow; }
+&lt;/style&gt;
 
-<hr>
+&lt;div id="bb" class="def"&gt;测试2&lt;/div&gt;
+</code></pre>
 
+<p>结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。
+___</p>
 <ul>
-<li>优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加</li>
+  <li>优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加</li>
 </ul>
 
 <p>比如：#bb #tt #dd {background:red} 则重量等于3吨,</p>
 
 <p>#bb .tt ul.dd li {background:red} 则重量等于1吨2公斤2克，这么精确的重量，就不需要举例了吧。</p>
 
-<h4>再次说明：优先原则一只适用两个样式声明同样重的情况.</h4>
-
-<hr>
-
+<p>####再次说明：优先原则一只适用两个样式声明同样重的情况.
+___</p>
 <ul>
-<li>优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。</li>
+  <li>优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。</li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span> <span class="cp">!important</span><span class="p">;</span><span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">green</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 def2&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下</p>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{background:yellow !important;background:red;}
+.def2{background:green;}
+&lt;/style&gt;
 
-<hr>
+&lt;div class="def1 def2"&gt;dd&lt;/div&gt;
+</code></pre>
 
+<p>结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下
+___</p>
 <ul>
-<li>优先原则五：近水楼台</li>
+  <li>优先原则五：近水楼台</li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</code></pre></div>
+
+<pre><code class="language-html">&lt;div style="background:black"&gt;&lt;/div&gt;
+</code></pre>
 <p>直接写在元素体内的style优先级别最高！（仅次于!important）用重量来形容，可以定为百万吨量级。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：black色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red !important;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：red色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black !important&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red !important;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black !important"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：black色。</p>
+
 
 		  
 		  </div>
@@ -665,7 +722,7 @@ CSS Sprites在维护的时候比较麻烦，sprites是一般双刃剑，如果�
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

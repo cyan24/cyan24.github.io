@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/web%E5%8A%A8%E7%94%BB%E4%B8%AD%E7%9A%84requestAnimationFrame/">
+	<link rel="canonical" href="http://localhost:4000/blog/web%E5%8A%A8%E7%94%BB%E4%B8%AD%E7%9A%84requestAnimationFrame/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -268,64 +268,72 @@
 <p>以上方法几乎可以完成平时的百分之九十的需求，那requestAnimationFrame还有什么存在的价值呢～～？
 先来一步步认识一下他吧！</p>
 
-<hr>
+<hr />
 
-<h3>requestAnimationFrame是什么</h3>
+<p>###requestAnimationFrame是什么###</p>
 
 <p>我们先看看<a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame">MND</a>上怎么说明的：</p>
 
 <blockquote>
-<p><em>The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint.</em>
+  <p><em>The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint. The method takes as an argument a callback to be invoked before the repaint.</em>
 <em>window.requestAnimationFrame() 将告知浏览器你马上要开始动画效果了，后者需要在下次动画前调用相应方法来更新画面。这个方法就是传递给window.requestAnimationFrame()的回调函数。</em></p>
 </blockquote>
 
 <p>其实就是和我们熟悉的setTimeout/setInterval差不多，通过递归调用同一方法来不断更新画面以达到动起来的效果，但它优于setTimeout/setInterval的地方在于它是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销。</p>
 
-<hr>
+<hr />
 
-<h3>我们怎么用</h3>
+<p>###我们怎么用###</p>
 
 <p>可以直接调用，也可以通过window来调用，接收一个函数作为回调，返回一个ID值，通过把这个ID值传给window.cancelAnimationFrame()可以取消该次动画。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span><span class="c1">//callback为回调函数</span>
-</code></pre></div>
-<hr>
 
-<h3>一个煎蛋的栗子</h3>
+<pre><code class="language-js">
+requestAnimationFrame(callback)//callback为回调函数
+
+</code></pre>
+
+<hr />
+
+<p>###一个煎蛋的栗子###</p>
 
 <p>模拟一个进度条动画，初始div宽度为1px,在step函数中将进度加1然后再更新到div宽度上，在进度达到100之前，一直重复这一过程。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;test&quot;</span> <span class="na">style=</span><span class="s">&quot;width:1px;height:17px;background:#0f0;&quot;</span><span class="nt">&gt;</span>0%<span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">value=</span><span class="s">&quot;Run&quot;</span> <span class="na">id=</span><span class="s">&quot;run&quot;</span><span class="nt">/&gt;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">mozRequestAnimationFrame</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitRequestAnimationFrame</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">msRequestAnimationFrame</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">start</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">ele</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">progress</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-<span class="kd">function</span> <span class="nx">step</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">progress</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="nx">ele</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="nx">progress</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span><span class="p">;</span>
-    <span class="nx">ele</span><span class="p">.</span><span class="nx">innerHTML</span><span class="o">=</span><span class="nx">progress</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">progress</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">step</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">step</span><span class="p">);</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;run&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">ele</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s2">&quot;1px&quot;</span><span class="p">;</span>
-    <span class="nx">progress</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">step</span><span class="p">);</span>
-<span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-</code></pre></div>
-<hr>
+<pre><code class="language-html">&lt;div id="test" style="width:1px;height:17px;background:#0f0;"&gt;0%&lt;/div&gt;
+&lt;input type="button" value="Run" id="run"/&gt;
 
-<h3>兼容情况</h3>
+</code></pre>
 
-<p>来看看它的<a href="http://caniuse.com/#search=requestAnimationFrame">兼容</a>情况：</p>
+<pre><code class="language-js">window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+var start = null;
+var ele = document.getElementById("test");
+var progress = 0;
 
-<p><img src="/img/post/1604051.png" alt=""></p>
+function step(timestamp) {
+    progress += 1;
+    ele.style.width = progress + "%";
+    ele.innerHTML=progress + "%";
+    if (progress &lt; 100) {
+        requestAnimationFrame(step);
+    }
+}
+requestAnimationFrame(step);
+document.getElementById("run").addEventListener("click", function() {
+    ele.style.width = "1px";
+    progress = 0;
+    requestAnimationFrame(step);
+}, false);
 
-<hr>
+</code></pre>
+<hr />
 
-<h3>备胎这件事</h3>
+<p>###兼容情况###
+来看看它的<a href="http://caniuse.com/#search=requestAnimationFrame">兼容</a>情况：</p>
+
+<p><img src="/img/post/1604051.png" alt="" /></p>
+
+<hr />
+
+<p>###备胎这件事###</p>
 
 <p>是的你没有看错，我们要插播一下Polyfill ，也就是相当于兼容方案中的备胎。</p>
 
@@ -336,61 +344,73 @@
 <p>这样一来，就可以通俗一点的理解polyfill了，它就是备胎。</p>
 
 <p>下面是由Paul Irish及其他贡献者放在GitHub Gist上的代码片段，用于在浏览器不支持requestAnimationFrame情况下的备胎方案，回退到使用setTmeout的情况。当然，如果你确定代码是工作在较新大浏览器中，下面的代码是不必的。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// http://paulirish.com/2011/requestanimationframe-for-smart-animating/</span>
-<span class="c1">// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating</span>
-<span class="c1">// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel</span>
-<span class="c1">// MIT license</span>
-<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">lastTime</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">vendors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ms&#39;</span><span class="p">,</span> <span class="s1">&#39;moz&#39;</span><span class="p">,</span> <span class="s1">&#39;webkit&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">];</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">x</span> <span class="o">&lt;</span> <span class="nx">vendors</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span><span class="p">;</span> <span class="o">++</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span> <span class="o">=</span> <span class="nb">window</span><span class="p">[</span><span class="nx">vendors</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;RequestAnimationFrame&#39;</span><span class="p">];</span>
-        <span class="nb">window</span><span class="p">.</span><span class="nx">cancelAnimationFrame</span> <span class="o">=</span> <span class="nb">window</span><span class="p">[</span><span class="nx">vendors</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;CancelAnimationFrame&#39;</span><span class="p">]</span> <span class="o">||</span> <span class="nb">window</span><span class="p">[</span><span class="nx">vendors</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;CancelRequestAnimationFrame&#39;</span><span class="p">];</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span><span class="p">)</span> <span class="nb">window</span><span class="p">.</span><span class="nx">requestAnimationFrame</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">,</span> <span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">currTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
-        <span class="kd">var</span> <span class="nx">timeToCall</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">16.7</span> <span class="o">-</span> <span class="p">(</span><span class="nx">currTime</span> <span class="o">-</span> <span class="nx">lastTime</span><span class="p">));</span>
-        <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="nx">callback</span><span class="p">(</span><span class="nx">currTime</span> <span class="o">+</span> <span class="nx">timeToCall</span><span class="p">);</span>
-        <span class="p">},</span> <span class="nx">timeToCall</span><span class="p">);</span>
-        <span class="nx">lastTime</span> <span class="o">=</span> <span class="nx">currTime</span> <span class="o">+</span> <span class="nx">timeToCall</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nx">id</span><span class="p">;</span>
-    <span class="p">};</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">cancelAnimationFrame</span><span class="p">)</span> <span class="nb">window</span><span class="p">.</span><span class="nx">cancelAnimationFrame</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">clearTimeout</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
-    <span class="p">};</span>
-<span class="p">}());</span>
-</code></pre></div>
+
+<pre><code class="language-js">// http://paulirish.com/2011/requestanimationframe-for-smart-animating/
+// http://my.opera.com/emoller/blog/2011/12/20/requestanimationframe-for-smart-er-animating
+// requestAnimationFrame polyfill by Erik Möller. fixes from Paul Irish and Tino Zijdel
+// MIT license
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var x = 0; x &lt; vendors.length &amp;&amp; !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+    if (!window.requestAnimationFrame) window.requestAnimationFrame = function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+        var id = window.setTimeout(function() {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+    if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+    };
+}());
+
+</code></pre>
+
 <p>上面代码作用有二，一是把各浏览器前缀进行统一，二是在浏览器没有requestAnimationFrame方法时将其指向setTimeout方法。</p>
 
 <p>提到备胎代码呢，这里多说一句，在CSS代码中，我们也经常使用这种回退的技巧，即对同一条CSS规则，编写多条以不同浏览器前缀开头代码，或者编写一条备用样式。</p>
 
 <p>下面是一个CSS中的备胎代码的栗子：</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">div</span> <span class="p">{</span>
-    <span class="k">background</span><span class="o">:</span> <span class="k">rgb</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="p">);</span> <span class="c">/* fallback */</span>
-    <span class="k">background</span><span class="o">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">,</span> <span class="m">0</span><span class="o">.</span><span class="m">5</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-css">div {
+    background: rgb(0, 0, 0); /* fallback */
+    background: rgba(0, 0, 0, 0.5);
+}
+</code></pre>
 <p>代码中设置div背景为黑色带50%的透明度，但IE9-的浏览器是不支持rbga格式的颜色的，所以浏览器会回退到上一条CSS规则应用rgb颜色。</p>
 
-<hr>
+<hr />
 
 <p><strong>一些补充</strong></p>
 
 <p>根据<a href="https://segmentfault.com/a/1190000000386368">这篇翻译文章</a>一些测试说法，FireFox/Chrome浏览器对setInterval, setTimeout做了优化，页面处于闲置状态的时候，如果定时间隔小于1秒钟(1000ms)，则停止了定时器。与requestAnimationFrame有类似行为。但如果时间间隔大于或等于1000ms，定时器依然执行，即使页面最小化或非激活状态。</p>
 
-<p><img src="/img/post/1604052.png" alt=""></p>
+<p><img src="/img/post/1604052.png" alt="" /></p>
 
-<hr>
-
+<hr />
 <p><strong>Reference:</strong></p>
 
 <ol>
-<li><p>article about rAF from css tricks: http://css-tricks.com/using-requestanimationframe/</p></li>
-<li><p>article about rAF from Paul Irish:http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/</p></li>
-<li><p>what is polyfill http://remysharp.com/2010/10/08/what-is-a-polyfill/</p></li>
-<li><p>翻译：setInterval与requestAnimationFrame的时间间隔测试 http://blog.segmentfault.com/humphry/1190000000386368</p></li>
+  <li>
+    <p>article about rAF from css tricks: http://css-tricks.com/using-requestanimationframe/</p>
+  </li>
+  <li>
+    <p>article about rAF from Paul Irish:http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/</p>
+  </li>
+  <li>
+    <p>what is polyfill http://remysharp.com/2010/10/08/what-is-a-polyfill/</p>
+  </li>
+  <li>
+    <p>翻译：setInterval与requestAnimationFrame的时间间隔测试 http://blog.segmentfault.com/humphry/1190000000386368</p>
+  </li>
 </ol>
+
 
   </section>
   
@@ -412,7 +432,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

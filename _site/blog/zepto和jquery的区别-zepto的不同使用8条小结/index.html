@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/zepto%E5%92%8Cjquery%E7%9A%84%E5%8C%BA%E5%88%AB-zepto%E7%9A%84%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A88%E6%9D%A1%E5%B0%8F%E7%BB%93/">
+	<link rel="canonical" href="http://localhost:4000/blog/zepto%E5%92%8Cjquery%E7%9A%84%E5%8C%BA%E5%88%AB-zepto%E7%9A%84%E4%B8%8D%E5%90%8C%E4%BD%BF%E7%94%A88%E6%9D%A1%E5%B0%8F%E7%BB%93/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -257,53 +257,74 @@
   <section class="post-content">
   <p>1、Zepto 对象 不能自定义事件.</p>
 
-<p>例如执行： </p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">({}).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cust&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span>
-</code></pre></div>
+<p>例如执行：</p>
+
+<pre><code class="language-javascript">
+$({}).bind('cust', function(){});
+
+</code></pre>
+
 <p>结果：</p>
 
-<p>TypeError: Object has no method &#39;addEventListener&#39;</p>
+<p>TypeError: Object has no method ‘addEventListener’</p>
 
 <p>解决办法是创建一个脱离文档流的节点作为事件对象：</p>
 
-<p>例如： </p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;cust&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span>
-</code></pre></div>
-<p>2、 Zepto 的选择器表达式: [name=value]  中value 必须用 双引号 &quot;  or 单引号 &#39; 括起来.</p>
+<p>例如：</p>
+
+<pre><code class="language-javascript">$('').bind('cust', function(){});
+</code></pre>
+
+<p>2、 Zepto 的选择器表达式: [name=value]  中value 必须用 双引号 “  or 单引号 ‘ 括起来.</p>
 
 <p>例如执行：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-userid=123123123]&#39;</span><span class="p">)</span>
-</code></pre></div>
-<p>结果：Error: SyntaxError: DOM Exception </p>
+
+<pre><code class="language-javascript">$('[data-userid=123123123]')
+</code></pre>
+
+<p>结果：Error: SyntaxError: DOM Exception</p>
 
 <p>解决办法:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;[data-userid=&quot;123123123]&quot;&#39;</span><span class="p">)</span> <span class="nx">or</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;[data-userid=&#39;123123123&#39;]&quot;</span><span class="p">)</span>
-</code></pre></div>
-<p>2-1、zepto的选择器没有办法选出 $(&quot;div[name!=&#39;abc&#39;]&quot;) 的元素.</p>
 
-<p>2-2、zepto获取select元素的选中option不能用类似jq的方法$(&#39;option[selected]&#39;),因为selected属性不是css的标准属性
+<pre><code class="language-javascript">$('[data-userid="123123123]"') or $("[data-userid='123123123']")
+</code></pre>
+
+<p>2-1、zepto的选择器没有办法选出 $(“div[name!=’abc’]”) 的元素.</p>
+
+<p>2-2、zepto获取select元素的选中option不能用类似jq的方法$(‘option[selected]’),因为selected属性不是css的标准属性
     应该使用.</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span> <span class="p">})</span>
-</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">比如：jq:
-</code></pre></div><div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$this</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;option[selected]&#39;</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-v&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+('option').not(function(){ return !this.selected })
+</code></pre>
+<pre><code>比如：jq:
+</code></pre>
+
+<pre><code class="language-javascript">
+$this.find('option[selected]').attr('data-v') * 1
+
+</code></pre>
 <p>zepto:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$this</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;option&#39;</span><span class="p">).</span><span class="nx">not</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="k">return</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">selected</span><span class="p">}).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-v&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1</span>
-</code></pre></div>
-<p>但是获取有select中含有disabled属性的元素可以用 $this.find(&quot;option:not(:disabled)&quot;) 因为disabled是标准属性
+
+<pre><code class="language-javascript">$this.find('option').not(function() {return !this.selected}).attr('data-v') * 1
+</code></pre>
+
+<p>但是获取有select中含有disabled属性的元素可以用 $this.find(“option:not(:disabled)”) 因为disabled是标准属性
 参考网址：https://github.com/madrobby/zepto/issues/503</p>
 
 <p>2-3、zepto在操作dom的selected和checked属性时尽量使用prop方法，以下是官方说明：</p>
 
-<p><img src="/img/post/140211.png" alt=""> </p>
+<p><img src="/img/post/140211.png" alt="" /></p>
 
 <p>3、Zepto 是根据标准浏览器写的，所以对于节点尺寸的方法只提供 width() 和 height()，省去了 innerWidth(), innerHeight(),outerWidth(),outerHeight()
 Zepto.js: 由盒模型（ box-sizing ）决定
-jQuery: 忽略盒模型，始终返回内容区域的宽/高（不包含 padding 、 border ）解决方式就是使用 .css(&#39;width&#39;) 而不是 .width() 。</p>
+jQuery: 忽略盒模型，始终返回内容区域的宽/高（不包含 padding 、 border ）解决方式就是使用 .css(‘width’) 而不是 .width() 。</p>
 
 <p>3-1、边框三角形宽高的获取.
 假设用下面的 HTML 和 CSS 画了一个小三角形：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;caret&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<pre><code class="language-html">
+&lt;div class="caret"&gt;&lt;/div&gt;
 .caret {
   width: 0;
   height: 0;
@@ -311,9 +332,9 @@ jQuery: 忽略盒模型，始终返回内容区域的宽/高（不包含 padding
   border-color: transparent transparent blue;
   border-style: none dotted solid;
 }
-</code></pre></div>
-<p>jQuery 使用 .width() 和 .css(&#39;width&#39;) 都返回 ，高度也一样；
-Zepto 使用 .width() 返回 ，使用 .css(&#39;width&#39;) 返回 0px 。
+</code></pre>
+<p>jQuery 使用 .width() 和 .css(‘width’) 都返回 ，高度也一样；
+Zepto 使用 .width() 返回 ，使用 .css(‘width’) 返回 0px 。
 所以，这种场景，jQuery 使用 .outerWidth() / .outerHeight() ；Zepto 使用 .width() / .height() 。</p>
 
 <p>3-2、offset()
@@ -333,59 +354,66 @@ zepto中animate的用法.</p>
 
 <p>7、DOM 操作区别
 jq代码：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">$list</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;ul&gt;&lt;li&gt;jQuery 插入&lt;/li&gt;&lt;/ul&gt;&#39;</span><span class="p">,</span> <span class="p">{</span>
-      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;insert-by-jquery&#39;</span>
-    <span class="p">});</span>
-    <span class="nx">$list</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
-  <span class="p">});</span>
-<span class="p">})(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">);</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+(function($) {
+  $(function() {
+    var $list = $('&lt;ul&gt;&lt;li&gt;jQuery 插入&lt;/li&gt;&lt;/ul&gt;', {
+      id: 'insert-by-jquery'
+    });
+    $list.appendTo($('body'));
+  });
+})(window.jQuery);
+</code></pre>
 <p>jQuery 操作 ul 上的 id 不会被添加。
 zepto代码</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Zepto</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
-  <span class="kd">var</span> <span class="nx">$list</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;ul&gt;&lt;li&gt;Zepto 插入&lt;/li&gt;&lt;/ul&gt;&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;insert-by-zepto&#39;</span>
-  <span class="p">});</span>
-  <span class="nx">$list</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
-<span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">Zepto(function($) { 
+  var $list = $('&lt;ul&gt;&lt;li&gt;Zepto 插入&lt;/li&gt;&lt;/ul&gt;', {
+    id: 'insert-by-zepto'
+  });
+  $list.appendTo($('body'));
+});
+</code></pre>
+
 <p>Zepto 可以在 ul 上添加 id 。</p>
 
 <p>8、事件触发区别</p>
 
 <p>jq代码：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">$</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>   
-    <span class="nx">$script</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;script /&gt;&#39;</span><span class="p">,</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;http://cdn.amazeui.org/amazeui/1.0.1/js/amazeui.min.js&#39;</span><span class="p">,</span>
-      <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;ui-jquery&#39;</span>
-    <span class="p">});</span>
 
-    <span class="nx">$script</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
+<pre><code class="language-javascript">(function($) {
+  $(function() {   
+    $script = $('&lt;script /&gt;', {
+      src: 'http://cdn.amazeui.org/amazeui/1.0.1/js/amazeui.min.js',
+      id: 'ui-jquery'
+    });
 
-    <span class="nx">$script</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;jQ script loaded&#39;</span><span class="p">);</span>
-    <span class="p">});</span>
-  <span class="p">});</span>
-<span class="p">})(</span><span class="nb">window</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">);</span>
-</code></pre></div>
+    $script.appendTo($('body'));
+
+    $script.on('load', function() {
+      console.log('jQ script loaded');
+    });
+  });
+})(window.jQuery);
+</code></pre>
+
 <p>使用 jQuery 时 load 事件的处理函数 不会 执行
 zepto代码</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">Zepto</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span> <span class="p">{</span> 
-  <span class="nx">$script</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;script /&gt;&#39;</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;http://cdn.amazeui.org/amazeui/1.0.1/js/amazeui.js&#39;</span><span class="p">,</span>
-    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;ui-zepto&#39;</span>
-  <span class="p">});</span>
 
-  <span class="nx">$script</span><span class="p">.</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
+<pre><code class="language-javascript">Zepto(function($) { 
+  $script = $('&lt;script /&gt;', {
+    src: 'http://cdn.amazeui.org/amazeui/1.0.1/js/amazeui.js',
+    id: 'ui-zepto'
+  });
 
-  <span class="nx">$script</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;zepto script loaded&#39;</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-</code></pre></div>
+  $script.appendTo($('body'));
+
+  $script.on('load', function() {
+    console.log('zepto script loaded');
+  });
+});
+</code></pre>
 <p>使用 Zepto 时 load 事件的处理函数会执行。</p>
 
   </section>
@@ -408,7 +436,7 @@ zepto代码</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

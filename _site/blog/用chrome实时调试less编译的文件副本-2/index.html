@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/%E7%94%A8chrome%E5%AE%9E%E6%97%B6%E8%B0%83%E8%AF%95less%E7%BC%96%E8%AF%91%E7%9A%84%E6%96%87%E4%BB%B6%E5%89%AF%E6%9C%AC-2/">
+	<link rel="canonical" href="http://localhost:4000/blog/%E7%94%A8chrome%E5%AE%9E%E6%97%B6%E8%B0%83%E8%AF%95less%E7%BC%96%E8%AF%91%E7%9A%84%E6%96%87%E4%BB%B6%E5%89%AF%E6%9C%AC-2/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -258,58 +258,74 @@
   <p>首先看下chrome调试时，如何实时保存到本地文件。使用chrom调试工具中的 source 进入项目目录结构，右键选择本地文件目录add floder to workspace ,添加本地文件夹，之后选择本地文件右键map to network resource。
 这样就能映射本地文件直接指向服务文件，也就是在chrome中直接调试样式后，ctrl+S 后直接同步保存到了本地文件。
 接下来我们要使用chorm实时调试less文件，首先要安装一个监听文件 wr,类似grunt的watch,选择wr是因为他的速度相对其他监听软件快！先执行：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">npm install -g wr 
-</code></pre></div>
+
+<pre><code class="language-html">
+npm install -g wr 
+
+</code></pre>
+
 <p>全局安装wr,之后开始我们可以实时监听到lessc 编译某一个less的命令：</p>
 
 <p>比如：在less文件目录执行：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">wr ‘less duang.less duang.css’ duang.less
-</code></pre></div>
+
+<pre><code class="language-html">
+wr ‘less duang.less duang.css’ duang.less
+
+</code></pre>
+
 <p>可以监听到当我们改变duang.less时，然后保存，可以看到duang.css同时做了自动编译后的改变。</p>
 
-<p><img src="/img/post/1602231.jpg" alt=""></p>
+<p><img src="/img/post/1602231.jpg" alt="" /></p>
 
 <p>那怎么实时去改变chrom里的css从而改变到less呢～？
 现在我们要做的就是怎么把css和less做一个映射，我们用：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">lessc —source-map duang.less duang.css
-</code></pre></div>
+
+<pre><code class="language-html">
+lessc —source-map duang.less duang.css
+</code></pre>
+
 <p>去做一个资源映射。</p>
 
-<p><img src="/img/post/1602232.jpg" alt=""></p>
+<p><img src="/img/post/1602232.jpg" alt="" /></p>
 
 <p>同级目录马上生成一个map文件：</p>
 
-<p><img src="/img/post/1602233.jpg" alt=""></p>
+<p><img src="/img/post/1602233.jpg" alt="" /></p>
 
 <p>在css文件底部，可以看到一个映射关系的说明：</p>
 
-<p><img src="/img/post/1602234.jpg" alt=""></p>
+<p><img src="/img/post/1602234.jpg" alt="" /></p>
 
 <p>开启浏览器映射功能：</p>
 
-<p><img src="/img/post/1602235.jpg" alt="">
-<img src="/img/post/1602236.jpg" alt=""></p>
+<p><img src="/img/post/1602235.jpg" alt="" />
+<img src="/img/post/1602236.jpg" alt="" /></p>
 
 <p>然后执行命令：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">wr &#39;lessc --source-map duang.less duang.css&#39; duang.less
-</code></pre></div>
-<p><img src="/img/post/1602237.jpg" alt=""></p>
+
+<pre><code class="language-html">
+wr 'lessc --source-map duang.less duang.css' duang.less
+
+</code></pre>
+
+<p><img src="/img/post/1602237.jpg" alt="" /></p>
 
 <p>此时修改chrome中的less文件，保存刷新浏览器，同步可以修改本地的less 和css了。</p>
 
-<p><img src="/img/post/1602238.jpg" alt=""></p>
+<p><img src="/img/post/1602238.jpg" alt="" /></p>
 
 <p>标题修改为红色：</p>
 
-<p><img src="/img/post/1602239.jpg" alt=""></p>
+<p><img src="/img/post/1602239.jpg" alt="" /></p>
 
 <p>本地css和less都已自动修改：</p>
 
-<p><img src="/img/post/16022310.jpg" alt=""></p>
+<p><img src="/img/post/16022310.jpg" alt="" /></p>
 
-<p><img src="/img/post/16022311.jpg" alt=""></p>
+<p><img src="/img/post/16022311.jpg" alt="" /></p>
 
 <p>以上说的这种方式在chrome调试工具的elements - Styles 下暂时没有办法做实时调试，着也是比较遗憾的一点。</p>
+
 
   </section>
   
@@ -331,7 +347,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

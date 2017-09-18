@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
+	<link rel="canonical" href="http://localhost:4000/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -262,121 +262,132 @@
 <p>Java 5引入了 ThreadMXBean 接口，它提供了多种监视线程的方法。我建议您了解所有这些方法，因为当您没使用外部工具时，它们会为您提供很多有用的操作以便您监测程序性能。这里，我们感兴趣的方法是 findMonitorDeadlockedThreads ，如过您使用的是Java 6，对应的方法是 findDeadlockedThreads 。二者的区别的是，findDeadlockedThreads还可以检测到owner locks（java.util.concurrent）引起的死锁，而findMonitorDeadlockedThreads只能检测 monitor locks（例如，同步块）。由于保留老版本的方法只是出于兼容性的考虑，所以我将使用新版本的方法。在这里，编程的思想是把对死锁的周期性检测封装到一 个可重用组件里，之后我们只需启动它、随它去。</p>
 
 <p>一种实现调度的方法是通过执行器框架，即一组良好抽象并易于使用的多线程类。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
 
-<span class="k">this</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">scheduleAtFixedRate</span><span class="o">(</span><span class="n">deadlockCheck</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">unit</span><span class="o">);</span>
-</code></pre></div>
+<pre><code class="language-java">
+ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+this.scheduler.scheduleAtFixedRate(deadlockCheck, period, period, unit);
+</code></pre>
+
 <p>就是那么简单，在我们通过选择周期和时间单位而设置了一个特定时间后，就得到了一个周期性调用的线程。接着，我们想使功用得以拓展从而允许用户提供在程序检测到死锁时所触发的行为。最后，我们需要一个方法来接收用于描述死锁中所有线程的一系列对象。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span>
-</code></pre></div>
+
+<pre><code class="language-java">void handleDeadlock(final ThreadInfo[] deadlockedThreads);
+</code></pre>
+
 <p>现在，实现死锁检测类已经万事俱备了。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DeadlockHandler</span> <span class="o">{</span>
-  <span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span>
-<span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeadlockDetector</span> <span class="o">{</span>
+<pre><code class="language-java">public interface DeadlockHandler {
+  void handleDeadlock(final ThreadInfo[] deadlockedThreads);
+}
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="kd">final</span> <span class="n">ThreadMXBean</span> <span class="n">mbean</span> <span class="o">=</span> <span class="n">ManagementFactory</span><span class="o">.</span><span class="na">getThreadMXBean</span><span class="o">();</span>
-  <span class="kd">private</span> <span class="kd">final</span> <span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> 
-  <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+public class DeadlockDetector {
 
-  <span class="kd">final</span> <span class="n">Runnable</span> <span class="n">deadlockCheck</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-      <span class="kt">long</span><span class="o">[]</span> <span class="n">deadlockedThreadIds</span> <span class="o">=</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">findDeadlockedThreads</span><span class="o">();</span>
+  private final DeadlockHandler deadlockHandler;
+  private final long period;
+  private final TimeUnit unit;
+  private final ThreadMXBean mbean = ManagementFactory.getThreadMXBean();
+  private final ScheduledExecutorService scheduler = 
+  Executors.newScheduledThreadPool(1);
 
-      <span class="k">if</span> <span class="o">(</span><span class="n">deadlockedThreadIds</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">threadInfos</span> <span class="o">=</span> 
-        <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">getThreadInfo</span><span class="o">(</span><span class="n">deadlockedThreadIds</span><span class="o">);</span>
+  final Runnable deadlockCheck = new Runnable() {
+    @Override
+    public void run() {
+      long[] deadlockedThreadIds = DeadlockDetector.this.mbean.findDeadlockedThreads();
 
-        <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">deadlockHandler</span><span class="o">.</span><span class="na">handleDeadlock</span><span class="o">(</span><span class="n">threadInfos</span><span class="o">);</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-  <span class="o">};</span>
+      if (deadlockedThreadIds != null) {
+        ThreadInfo[] threadInfos = 
+        DeadlockDetector.this.mbean.getThreadInfo(deadlockedThreadIds);
 
-  <span class="kd">public</span> <span class="nf">DeadlockDetector</span><span class="o">(</span><span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">,</span> 
-    <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">,</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">deadlockHandler</span> <span class="o">=</span> <span class="n">deadlockHandler</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">period</span> <span class="o">=</span> <span class="n">period</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">unit</span> <span class="o">=</span> <span class="n">unit</span><span class="o">;</span>
-  <span class="o">}</span>
+        DeadlockDetector.this.deadlockHandler.handleDeadlock(threadInfos);
+      }
+    }
+  };
 
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">start</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">scheduleAtFixedRate</span><span class="o">(</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">deadlockCheck</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">period</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">period</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">unit</span><span class="o">);</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+  public DeadlockDetector(final DeadlockHandler deadlockHandler, 
+    final long period, final TimeUnit unit) {
+    this.deadlockHandler = deadlockHandler;
+    this.period = period;
+    this.unit = unit;
+  }
+
+  public void start() {
+    this.scheduler.scheduleAtFixedRate(
+    this.deadlockCheck, this.period, this.period, this.unit);
+  }
+}
+</code></pre>
+
 <p>让我们动手试试。首先，我们要创建一个handler用来向System.err输出死锁线程的信息。在现实场景中，我们可以用它发送邮件，比如：</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeadlockConsoleHandler</span> <span class="kd">implements</span> <span class="n">DeadlockHandler</span> <span class="o">{</span>
 
-  <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">deadlockedThreads</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Deadlock detected!&quot;</span><span class="o">);</span>
+<pre><code class="language-java">public class DeadlockConsoleHandler implements DeadlockHandler {
 
-      <span class="n">Map</span><span class="o">&lt;</span><span class="n">Thread</span><span class="o">,</span> <span class="n">StackTraceElement</span><span class="o">[]&gt;</span> <span class="n">stackTraceMap</span> <span class="o">=</span> <span class="n">Thread</span><span class="o">.</span><span class="na">getAllStackTraces</span><span class="o">();</span>
-      <span class="k">for</span> <span class="o">(</span><span class="n">ThreadInfo</span> <span class="n">threadInfo</span> <span class="o">:</span> <span class="n">deadlockedThreads</span><span class="o">)</span> <span class="o">{</span>
+  @Override
+  public void handleDeadlock(final ThreadInfo[] deadlockedThreads) {
+    if (deadlockedThreads != null) {
+      System.err.println("Deadlock detected!");
 
-        <span class="k">if</span> <span class="o">(</span><span class="n">threadInfo</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      Map&lt;Thread, StackTraceElement[]&gt; stackTraceMap = Thread.getAllStackTraces();
+      for (ThreadInfo threadInfo : deadlockedThreads) {
 
-          <span class="k">for</span> <span class="o">(</span><span class="n">Thread</span> <span class="n">thread</span> <span class="o">:</span> <span class="n">Thread</span><span class="o">.</span><span class="na">getAllStackTraces</span><span class="o">().</span><span class="na">keySet</span><span class="o">())</span> <span class="o">{</span>
+        if (threadInfo != null) {
 
-            <span class="k">if</span> <span class="o">(</span><span class="n">thread</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="n">threadInfo</span><span class="o">.</span><span class="na">getThreadId</span><span class="o">())</span> <span class="o">{</span>
-              <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">threadInfo</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">());</span>
+          for (Thread thread : Thread.getAllStackTraces().keySet()) {
 
-              <span class="k">for</span> <span class="o">(</span><span class="n">StackTraceElement</span> <span class="n">ste</span> <span class="o">:</span> <span class="n">thread</span><span class="o">.</span><span class="na">getStackTrace</span><span class="o">())</span> <span class="o">{</span>
-                  <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;t&quot;</span> <span class="o">+</span> <span class="n">ste</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">());</span>
-              <span class="o">}</span>
-            <span class="o">}</span>
-          <span class="o">}</span>
-        <span class="o">}</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+            if (thread.getId() == threadInfo.getThreadId()) {
+              System.err.println(threadInfo.toString().trim());
+
+              for (StackTraceElement ste : thread.getStackTrace()) {
+                  System.err.println("t" + ste.toString().trim());
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</code></pre>
+
 <p>这一过程在所有的堆栈追踪中反复进行并为每个线程信息打印对应的堆栈踪迹。通过这种方式，我们可以准确知道每个线程等待的位置和对象。但这个方法 有一个缺陷——当一个线程只是暂时等待时，可能会被当作一个暂时的死锁，从而引发错误的警报。出于此，当我们处理死锁时，原始线程不能继续存在而 findDeadlockedThreads方法会返回没有此类线程。为了避免可能出现的NullPointerException，我们需要警惕这种情 况。最后，让我们促成一个死锁来看看系统是如何运行的。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">DeadlockDetector</span> <span class="n">deadlockDetector</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">DeadlockDetector</span><span class="o">(</span><span class="k">new</span> <span class="nf">DeadlockConsoleHandler</span><span class="o">(),</span> <span class="mi">5</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
-<span class="n">deadlockDetector</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
 
-<span class="kd">final</span> <span class="n">Object</span> <span class="n">lock1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Object</span><span class="o">();</span>
-<span class="kd">final</span> <span class="n">Object</span> <span class="n">lock2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Object</span><span class="o">();</span>
+<pre><code class="language-java">DeadlockDetector deadlockDetector = new DeadlockDetector(new DeadlockConsoleHandler(), 5, TimeUnit.SECONDS);
+deadlockDetector.start();
 
-<span class="n">Thread</span> <span class="n">thread1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-  <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock1</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread1 acquired lock1&quot;</span><span class="o">);</span>
-      <span class="k">try</span> <span class="o">{</span>
-        <span class="n">TimeUnit</span><span class="o">.</span><span class="na">MILLISECONDS</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
-      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{</span>
-      <span class="o">}</span>
-      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock2</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread1 acquired lock2&quot;</span><span class="o">);</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
+final Object lock1 = new Object();
+final Object lock2 = new Object();
 
-<span class="o">});</span>
-<span class="n">thread1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+Thread thread1 = new Thread(new Runnable() {
+  @Override
+  public void run() {
+    synchronized (lock1) {
+      System.out.println("Thread1 acquired lock1");
+      try {
+        TimeUnit.MILLISECONDS.sleep(500);
+      } catch (InterruptedException ignore) {
+      }
+      synchronized (lock2) {
+        System.out.println("Thread1 acquired lock2");
+      }
+    }
+  }
 
-<span class="n">Thread</span> <span class="n">thread2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span>
-  <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock2</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread2 acquired lock2&quot;</span><span class="o">);</span>
-      <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock1</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread2 acquired lock1&quot;</span><span class="o">);</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-<span class="o">});</span>
-<span class="n">thread2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-</code></pre></div>
+});
+thread1.start();
+
+Thread thread2 = new Thread(new Runnable() {
+  @Override
+  public void run() {
+    synchronized (lock2) {
+      System.out.println("Thread2 acquired lock2");
+      synchronized (lock1) {
+        System.out.println("Thread2 acquired lock1");
+      }
+    }
+  }
+});
+thread2.start();
+</code></pre>
+
 <p>输出：</p>
 
 <p>Thread1 acquired lock1
@@ -411,7 +422,7 @@ deadlock.DeadlockTester$2.run(DeadlockTester.java:42)
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>
