@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="used by search engines">
+	<meta name="description" content="Cyan的技术笔记">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/page5/">
+	<link rel="canonical" href="http://localhost:4000/blog/page5/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -272,29 +272,37 @@
 <p>用命令行打开 Google Chrome 就好了</p>
 
 <p>Mac os 下面用</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  </span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  
+</code></pre>
 <p>or</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">open</span> <span class="o">-</span><span class="nx">a</span> <span class="s2">&quot;Google Chrome&quot;</span> <span class="o">--</span><span class="nx">args</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
+
+<pre><code class="language-javascript">open -a "Google Chrome" --args --disable-web-security  
+</code></pre>
+
 <p>然后就可以看到下面的效果了：
-<img src="/img/131012.jpg" alt=""> </p>
+<img src="/img/131012.jpg" alt="" /></p>
 
 <p>Ubuntu Linux:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chromium</span><span class="o">-</span><span class="nx">browser</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
+
+<pre><code class="language-javascript">chromium-browser --disable-web-security  
+</code></pre>
+
 <p>windows</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chrome</span><span class="p">.</span><span class="nx">exe</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
+
+<pre><code class="language-javascript">
+chrome.exe --disable-web-security  
+</code></pre>
 <p>用命令行打开 Apple Safafi 方法是：</p>
 
 <p>Mac OS 下：</p>
 
-<p>open -a &#39;/Applications/Safari.app&#39; --args --disable-web-security  </p>
+<p>open -a ‘/Applications/Safari.app’ –args –disable-web-security</p>
 
 <p>Windows：</p>
 
-<p>C:\Program Files\Safari\Safari.exe --disable-web-security  </p>
+<p>C:\Program Files\Safari\Safari.exe –disable-web-security</p>
 
 		  
 		  </div>
@@ -320,32 +328,56 @@
 		  <div class="excerpt">
 		  
 		  
-		    <h3>什么是HTML语义化？</h3>
+		    <p>###什么是HTML语义化？</p>
 
 <p>基本上都是围绕着几个主要的标签，像标题（H1~H6）、列表（li）、强调（strong em）等等.</p>
 
 <p>可以概括为根据内容的结构化（内容语义化），选择合适的标签（代码语义化）便于开发者阅读和写出更优雅的代码的同时让浏览器的爬虫和机器很好地解析。</p>
 
-<h3>为什么要语义化？</h3>
+<p>###为什么要语义化？</p>
 
 <ul>
-<li><p>为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构:为了裸奔时好看；</p></li>
-<li><p>用户体验：例如title、alt用于解释名词或解释图片信息、label标签的活用；</p></li>
-<li><p>有利于SEO：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；</p></li>
-<li><p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；</p></li>
-<li><p>便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p></li>
+  <li>
+    <p>为了在没有CSS的情况下，页面也能呈现出很好地内容结构、代码结构:为了裸奔时好看；</p>
+  </li>
+  <li>
+    <p>用户体验：例如title、alt用于解释名词或解释图片信息、label标签的活用；</p>
+  </li>
+  <li>
+    <p>有利于SEO：和搜索引擎建立良好沟通，有助于爬虫抓取更多的有效信息：爬虫依赖于标签来确定上下文和各个关键字的权重；</p>
+  </li>
+  <li>
+    <p>方便其他设备解析（如屏幕阅读器、盲人阅读器、移动设备）以意义的方式来渲染网页；</p>
+  </li>
+  <li>
+    <p>便于团队开发和维护，语义化更具可读性，是下一步吧网页的重要动向，遵循W3C标准的团队都遵循这个标准，可以减少差异化。</p>
+  </li>
 </ul>
 
-<h3>写HTML代码时应注意什么？</h3>
+<p>###写HTML代码时应注意什么？</p>
 
 <ul>
-<li><p>尽可能少的使用无语义的标签div和span；</p></li>
-<li><p>在语义不明显时，既可以使用div或者p时，尽量用p, 因为p在默认情况下有上下间距，对兼容特殊终端有利；</p></li>
-<li><p>不要使用纯样式标签，如：b、font、u等，改用css设置；</p></li>
-<li><p>需要强调的文本，可以包含在strong或者em标签中（浏览器预设样式，能用CSS指定就不用他们），strong默认样式是加粗（不要用b），em是斜体（不用i）；</p></li>
-<li><p>使用表格时，标题要用caption，表头用thead，主体部分用tbody包围，尾部用tfoot包围。表头和一般单元格要区分开，表头用th，单元格用td；</p></li>
-<li><p>表单域要用fieldset标签包起来，并用legend标签说明表单的用途；</p></li>
-<li><p>每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性，在lable标签中设置for=someld来让说明文本和相对应的input关联起来。</p></li>
+  <li>
+    <p>尽可能少的使用无语义的标签div和span；</p>
+  </li>
+  <li>
+    <p>在语义不明显时，既可以使用div或者p时，尽量用p, 因为p在默认情况下有上下间距，对兼容特殊终端有利；</p>
+  </li>
+  <li>
+    <p>不要使用纯样式标签，如：b、font、u等，改用css设置；</p>
+  </li>
+  <li>
+    <p>需要强调的文本，可以包含在strong或者em标签中（浏览器预设样式，能用CSS指定就不用他们），strong默认样式是加粗（不要用b），em是斜体（不用i）；</p>
+  </li>
+  <li>
+    <p>使用表格时，标题要用caption，表头用thead，主体部分用tbody包围，尾部用tfoot包围。表头和一般单元格要区分开，表头用th，单元格用td；</p>
+  </li>
+  <li>
+    <p>表单域要用fieldset标签包起来，并用legend标签说明表单的用途；</p>
+  </li>
+  <li>
+    <p>每个input标签对应的说明文本都需要使用label标签，并且通过为input设置id属性，在lable标签中设置for=someld来让说明文本和相对应的input关联起来。</p>
+  </li>
 </ul>
 
 <p>HTML5新增了哪些语义标签，详述之。</p>
@@ -377,13 +409,13 @@
 		  
 		  
 		    <ol>
-<li>合理的title、description、keywords：搜索对着三项的权重逐个减小，title值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面title要有所不同；description把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面description有所不同；keywords列举出重要关键词即可；</li>
-<li>语义化的HTML代码，符合W3C规范：语义化代码让搜索引擎容易理解网页；</li>
-<li>重要内容HTML代码放在最前：搜索引擎抓取HTML顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取；</li>
-<li>重要内容不要用js输出：爬虫不会执行js获取内容；
+  <li>合理的title、description、keywords：搜索对着三项的权重逐个减小，title值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面title要有所不同；description把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面description有所不同；keywords列举出重要关键词即可；</li>
+  <li>语义化的HTML代码，符合W3C规范：语义化代码让搜索引擎容易理解网页；</li>
+  <li>重要内容HTML代码放在最前：搜索引擎抓取HTML顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取；</li>
+  <li>重要内容不要用js输出：爬虫不会执行js获取内容；
 少用iframe：搜索引擎不会抓取iframe中的内容；</li>
-<li>非装饰性图片必须加alt；</li>
-<li>提高网站速度：网站速度是搜索引擎排序的一个重要指标。</li>
+  <li>非装饰性图片必须加alt；</li>
+  <li>提高网站速度：网站速度是搜索引擎排序的一个重要指标。</li>
 </ol>
 
 		  
@@ -420,11 +452,47 @@
 
 <p>CommonJS能有一定的影响力，我觉得绝对离不开Node的人气，不过喔，Node，CommonJS，浏览器甚至是W3C之间有什么关系呢，我找到了个贴切的图：</p>
 
-<p>|---------------浏览器----- ------------------|        |--------------------------CommonJS----------------------------------|</p>
+<table>
+  <tbody>
+    <tr>
+      <td>—————浏览器—– ——————</td>
+      <td> </td>
+      <td>————————–CommonJS———————————-</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>|  BOM  |       | DOM |        | ECMAScript |         | FS |           | TCP |         | Stream |        | Buffer |          |........|</p>
+<table>
+  <tbody>
+    <tr>
+      <td>BOM</td>
+      <td> </td>
+      <td>DOM</td>
+      <td> </td>
+      <td>ECMAScript</td>
+      <td> </td>
+      <td>FS</td>
+      <td> </td>
+      <td>TCP</td>
+      <td> </td>
+      <td>Stream</td>
+      <td> </td>
+      <td>Buffer</td>
+      <td> </td>
+      <td>……..</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>|-------W3C-----------|       |---------------------------------------Node--------------------------------------------------|</p>
+<table>
+  <tbody>
+    <tr>
+      <td>——-W3C———–</td>
+      <td> </td>
+      <td>—————————————Node————————————————–</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>CommonJS定义的模块分为:{模块引用(require)} {模块定义(exports)} {模块标识(module)}</p>
 
@@ -434,10 +502,10 @@
 
 <p>复制代码
 1 //sum.js
-2 exports.sum = function(){...做加操作..};
+2 exports.sum = function(){…做加操作..};
 3 
 4 //calculate.js
-5 var math = require(&#39;sum&#39;);
+5 var math = require(‘sum’);
 6 exports.add = function(n){
 7     return math.sum(val,n);
 8 };
@@ -455,29 +523,41 @@
 
 <p>这需要分析一下浏览器端的js和服务器端js都主要做了哪些事，有什么不同了：</p>
 
-<p>---------------------------------------服务器端JS   | 浏览器端JS-------------------------------------------</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">            相同的代码需要多次执行  |    代码需要从一个服务器端分发到多个客户端执行
+<table>
+  <tbody>
+    <tr>
+      <td>—————————————服务器端JS</td>
+      <td>浏览器端JS——————————————-</td>
+    </tr>
+  </tbody>
+</table>
 
-            CPU和内存资源是瓶颈   |    带宽是瓶颈
+ 				相同的代码需要多次执行  |    代码需要从一个服务器端分发到多个客户端执行
 
-            加载时从磁盘中加载   |    加载时需要通过网络加载
-</code></pre></div>
-<hr>
+ 				CPU和内存资源是瓶颈   |    带宽是瓶颈
+
+ 				加载时从磁盘中加载   |    加载时需要通过网络加载
+
+<hr />
 
 <p>于是乎，AMD(异步模块定义)出现了，它就主要为前端JS的表现制定规范。</p>
 
 <p>AMD就只有一个接口：define(id?,dependencies?,factory);</p>
 
 <p>它要在声明模块的时候制定所有的依赖(dep)，并且还要当做形参传到factory中，像这样：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){...});</span>
-</code></pre></div>
+
+<pre><code class="language-js">define(['dep1','dep2'],function(dep1,dep2){...});
+</code></pre>
+
 <p>要是没什么依赖，就定义简单的模块，下面这样就可以啦：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="kd">var</span> <span class="nx">exports</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="nx">exports</span><span class="p">.</span><span class="nx">method</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){...};</span>
-    <span class="k">return</span> <span class="nx">exports</span><span class="p">;</span> <span class="p">});</span>
-</code></pre></div>
-<p>咦，这里有define，把东西包装起来啦，那Node实现中怎么没看到有define关键字呢，它也要把东西包装起来呀，其实吧，只是Node隐式包装了而已.....</p>
+
+<pre><code class="language-js">define(function(){
+    var exports = {};
+    exports.method = function(){...};
+    return exports; });
+</code></pre>
+
+<p>咦，这里有define，把东西包装起来啦，那Node实现中怎么没看到有define关键字呢，它也要把东西包装起来呀，其实吧，只是Node隐式包装了而已…..</p>
 
 <p>RequireJS就是实现了AMD规范的呢。</p>
 
@@ -486,30 +566,36 @@
 <p>三、CMD</p>
 
 <p>大名远扬的玉伯写了seajs，就是遵循他提出的CMD规范，与AMD蛮相近的，不过用起来感觉更加方便些，最重要的是中文版。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){...});</span>
-</code></pre></div>
+
+<pre><code class="language-js">define(function(require,exports,module){...});
+</code></pre>
+
 <p>用过seajs吧，这个不陌生吧，对吧.</p>
 
 <p>四、AMD与CMD的区别</p>
 
 <p>CMD相当于按需加载，定义一个模块的时候不需要立即制定依赖模块，在需要的时候require就可以了，比较方便；而AMD则相反，定义模块的时候需要制定依赖模块，并以形参的方式引入factory中</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//AMD方式定义模块</span>
-<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
-     <span class="c1">//内部只能使用制定的模块</span>
-      <span class="k">return</span> <span class="kd">function</span><span class="p">(){};</span>
-<span class="p">});</span>
-<span class="c1">//CMD</span>
-<span class="nx">define</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">require</span><span class="p">,</span><span class="nx">exports</span><span class="p">,</span><span class="nx">module</span><span class="p">){</span>
-   <span class="c1">//此处如果需要某XX模块，可以引入</span>
-   <span class="kd">var</span> <span class="nx">xx</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;XX&#39;</span><span class="p">);</span>
-<span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-js">//AMD方式定义模块
+define(['dep1','dep2'],function(dep1,dep2){
+     //内部只能使用制定的模块
+      return function(){};
+});
+//CMD
+define(function(require,exports,module){
+   //此处如果需要某XX模块，可以引入
+   var xx=require('XX');
+});
+</code></pre>
+
 <p>而SEAJS也有use功能也是需要先引入所有依赖的模块，如</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">//SEAJS.Use方式</span>
-<span class="nx">seajs</span><span class="p">.</span><span class="nx">use</span><span class="p">([</span><span class="s1">&#39;dep1&#39;</span><span class="p">,</span><span class="s1">&#39;dep2&#39;</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">dep1</span><span class="p">,</span><span class="nx">dep2</span><span class="p">){</span>
-     <span class="c1">//这里实现事务</span>
-<span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-js">//SEAJS.Use方式
+seajs.use(['dep1','dep2'],function(dep1,dep2){
+     //这里实现事务
+});
+</code></pre>
+
 <p>五、插件支持</p>
 
 <p>但全球有两种比较流行的 JavaScript 模块化体系，一个是 Node 实现的 CommonJS，另外一个是 AMD。很多类库都同时支持 AMD 和 CommonJS，但是不支持 CMD。或许国内有很多 CMD 模块，但并没有在世界上流行起来。</p>
@@ -552,19 +638,19 @@
 
 <p>那么，两者触发的时机有什么区别呢？200 OK (from cache) 是直接点击链接访问，输入网址按回车访问也能触发；而 304 Not Modified 是刷新页面时触发，或是设置了长缓存、但 Entity Tags 没有移除时触发。这是经过查阅资料得出的结论。博主实际测试了一下，结论与之相符：</p>
 
-<p><img src="/img/post/1404271.jpg" alt=""> </p>
+<p><img src="/img/post/1404271.jpg" alt="" /></p>
 
 <p>直接访问有缓存的网站都触发 200 OK (from cache)</p>
 
-<p><img src="/img/post/1404272.jpg" alt=""></p>
+<p><img src="/img/post/1404272.jpg" alt="" /></p>
 
 <p>图2 – 刷新浏览器则会触发 304 Not Modifie</p>
 
-<p><img src="/img/post/1404273.jpg" alt=""> </p>
+<p><img src="/img/post/1404273.jpg" alt="" /></p>
 
 <p>同一域名下，没有 Entity Tag 的资源直接访问，是 200 OK (from cache) 的结果</p>
 
-<p><img src="/img/post/1404274.jpg" alt=""> </p>
+<p><img src="/img/post/1404274.jpg" alt="" /></p>
 
 <p>同一域名下，有 Entity Tag ，直接访问就会触发 304 Not Modified
 现在一般都会设置长时间的缓存，正确设置方式参考这两篇笔记：</p>
@@ -646,7 +732,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

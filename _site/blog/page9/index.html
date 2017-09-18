@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="used by search engines">
+	<meta name="description" content="Cyan的技术笔记">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/page9/">
+	<link rel="canonical" href="http://localhost:4000/blog/page9/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -265,47 +265,63 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>IE6的PNG透明是个老问题了，最近有朋友问我有没有最好的解决这个问题的插件。虽然知道且在用DD_belatedPNG这个插件，今天抽空把这个发上来。 </p>
+		    <p>IE6的PNG透明是个老问题了，最近有朋友问我有没有最好的解决这个问题的插件。虽然知道且在用DD_belatedPNG这个插件，今天抽空把这个发上来。</p>
 
 <p>虽然之前在原博客里发过一款jquery的png插件，但是不支持背景平铺。 
-DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达到半透明的效果，并且能支持background-position和background-repeat属性，支持伪类。是一款不错的值得推荐的插件，用法也比较简单。 </p>
+DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达到半透明的效果，并且能支持background-position和background-repeat属性，支持伪类。是一款不错的值得推荐的插件，用法也比较简单。</p>
 
-<p>使用方法： </p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--[if IE 6]&gt; </span>
-<span class="c">&lt;script src=&quot;DD_belatedPNG.js&quot;&gt;&lt;/script&gt; </span>
-<span class="c">&lt;script&gt; </span>
-<span class="c">DD_belatedPNG.fix(&#39;.png_bg&#39;); </span>
-<span class="c">&lt;/script&gt; </span>
-<span class="c">&lt;![endif]--&gt;</span> 
-</code></pre></div>
-<p>引用函数是DD<em>belatedPNG.fix()，括号里的 .png</em>bg 改成你的css选择器名称。 </p>
+<p>使用方法：</p>
+
+<pre><code class="language-html">
+&lt;!--[if IE 6]&gt; 
+&lt;script src="DD_belatedPNG.js"&gt;&lt;/script&gt; 
+&lt;script&gt; 
+DD_belatedPNG.fix('.png_bg'); 
+&lt;/script&gt; 
+&lt;![endif]--&gt; 
+
+</code></pre>
+
+<p>引用函数是DD_belatedPNG.fix()，括号里的 .png_bg 改成你的css选择器名称。</p>
 
 <ul>
-<li>ID选择器例子：</li>
+  <li>ID选择器例子：</li>
 </ul>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;#png&#39;</span><span class="p">);</span> 
-</code></pre></div>
+
+<pre><code class="language-javascript">DD_belatedPNG.fix('#png'); 
+</code></pre>
+
 <ul>
-<li>伪类例子： </li>
+  <li>伪类例子：</li>
 </ul>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;.png a:hover,.png a:focus&#39;</span><span class="p">);</span> 
-</code></pre></div>
+
+<pre><code class="language-javascript">DD_belatedPNG.fix('.png a:hover,.png a:focus'); 
+</code></pre>
+
 <ul>
-<li>img标签例子：</li>
+  <li>img标签例子：</li>
 </ul>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span> 
-</code></pre></div>
-<p>如果是多个直接加逗号（英文下的）就行。例如： </p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">DD_belatedPNG</span><span class="p">.</span><span class="nx">fix</span><span class="p">(</span><span class="s1">&#39;.png_bg,#png,.png a:hover,.png a:focus,img&#39;</span><span class="p">);</span> 
-</code></pre></div>
-<p>使用方法： </p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="c">&lt;!--[if IE 6]&gt; </span>
-<span class="c">&lt;script type=&quot;text/javascript&quot; src=&quot;js/dd_png.js&quot;&gt;&lt;/script&gt; </span>
-<span class="c">&lt;script type=&quot;text/javascript&quot;&gt; </span>
-<span class="c">DD_belatedPNG.fix(&#39;.tel,.head_content&#39;); </span>
-<span class="c">&lt;/script&gt; </span>
-<span class="c">&lt;![endif]--&gt;</span> 
-</code></pre></div>
+
+<pre><code class="language-javascript">DD_belatedPNG.fix('img'); 
+</code></pre>
+
+<p>如果是多个直接加逗号（英文下的）就行。例如：</p>
+
+<pre><code class="language-javascript">
+DD_belatedPNG.fix('.png_bg,#png,.png a:hover,.png a:focus,img'); 
+</code></pre>
+
+<p>使用方法：</p>
+
+<pre><code class="language-html">
+&lt;!--[if IE 6]&gt; 
+&lt;script type="text/javascript" src="js/dd_png.js"&gt;&lt;/script&gt; 
+&lt;script type="text/javascript"&gt; 
+DD_belatedPNG.fix('.tel,.head_content'); 
+&lt;/script&gt; 
+&lt;![endif]--&gt; 
+</code></pre>
+
 <p>括号里的是样式选择器，中间用逗号隔开.</p>
 
 <p>JS文件下载地址:
@@ -336,93 +352,101 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 		  
 		  
 		    <ul>
-<li>优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式 </li>
+  <li>优先原则一：文本从上到下，后出现的样式优先于前面出现的同一样式</li>
 </ul>
 
 <p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def2 def1&quot;</span><span class="nt">&gt;</span>测试1<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。</p>
+<pre><code class="language-html">
+&lt;style type="text/css"&gt;
+.def1{background:black;}
+.def2{background:yellow; }
+&lt;/style&gt;
 
-<hr>
+&lt;div class="def2 def1"&gt;测试1&lt;/div&gt;
+</code></pre>
 
+<p>结果：所有浏览器均yellow色，注意：与class=”” 引号内的顺序无关，只看.def1和.def2在声明时的顺序，.def2后声明的所以权重高。
+___</p>
 <ul>
-<li>优先原则二：id声明（即 # 开头的样式）&gt; class声明（即 . 开头的样式）&gt; 标签声明(即 类似 div 开头)</li>
+  <li>优先原则二：id声明（即 # 开头的样式）&gt; class声明（即 . 开头的样式）&gt; 标签声明(即 类似 div 开头)</li>
 </ul>
 
 <p>以上三种声明处于不同的量级，份量上，div 开头相当于 1克 重，. 开头相当于 1公斤 重，# 开头相当于 1吨 重。</p>
 
 <p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nf">#bb</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">pink</span><span class="p">}</span>
-<span class="nc">.def</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">black</span><span class="p">;}</span>
-<span class="nt">div</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span><span class="p">;</span> <span class="p">}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;bb&quot;</span> <span class="na">class=</span><span class="s">&quot;def&quot;</span><span class="nt">&gt;</span>测试2<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。</p>
+<pre><code class="language-html">
+&lt;style type="text/css"&gt;
+#bb{background:pink}
+.def{background:black;}
+div{background:yellow; }
+&lt;/style&gt;
 
-<hr>
+&lt;div id="bb" class="def"&gt;测试2&lt;/div&gt;
+</code></pre>
 
+<p>结果：所有浏览器均pink色，注意：虽然按优先原则一，后出现的权重高，但那只是在同样重量级下的比较，优先原则二各重量级别就不同了。
+___</p>
 <ul>
-<li>优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加</li>
+  <li>优先原则三：数量取胜。如果同一个样式声明即一个大括号{}由多个 # . 或 div 组成，则权重按出现符号的量级增加</li>
 </ul>
 
 <p>比如：#bb #tt #dd {background:red} 则重量等于3吨,</p>
 
 <p>#bb .tt ul.dd li {background:red} 则重量等于1吨2公斤2克，这么精确的重量，就不需要举例了吧。</p>
 
-<h4>再次说明：优先原则一只适用两个样式声明同样重的情况.</h4>
-
-<hr>
-
+<p>####再次说明：优先原则一只适用两个样式声明同样重的情况.
+___</p>
 <ul>
-<li>优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。</li>
+  <li>优先原则四：‘!important’。相当于无限重量，在之前已经有说明，需要注意：ie下，在同一条样式声明即一个大括号中出现的!important 会被随后出现的同名样式冲洗掉。</li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">yellow</span> <span class="cp">!important</span><span class="p">;</span><span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nc">.def2</span><span class="p">{</span><span class="k">background</span><span class="o">:</span><span class="nb">green</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 def2&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
-<p>结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下</p>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{background:yellow !important;background:red;}
+.def2{background:green;}
+&lt;/style&gt;
 
-<hr>
+&lt;div class="def1 def2"&gt;dd&lt;/div&gt;
+</code></pre>
 
+<p>结果：ie下，green色，background:yellow !important被后面的background:red冲洗了，而background:red与background:green的较量中，前者败在优先原则一之下
+___</p>
 <ul>
-<li>优先原则五：近水楼台</li>
+  <li>优先原则五：近水楼台</li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</code></pre></div>
+
+<pre><code class="language-html">&lt;div style="background:black"&gt;&lt;/div&gt;
+</code></pre>
 <p>直接写在元素体内的style优先级别最高！（仅次于!important）用重量来形容，可以定为百万吨量级。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：black色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red !important;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：red色。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
-<span class="nc">.def1</span><span class="p">{</span> <span class="k">background</span><span class="o">:</span><span class="nb">red</span> <span class="cp">!important</span><span class="p">;}</span>
-<span class="nt">&lt;/style&gt;</span>
 
-<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;def1 &quot;</span> <span class="na">style=</span><span class="s">&quot;background:black !important&quot;</span><span class="nt">&gt;</span>dd<span class="nt">&lt;/div&gt;</span>
-</code></pre></div>
+<pre><code class="language-html">&lt;style type="text/css"&gt;
+.def1{ background:red !important;}
+&lt;/style&gt;
+
+&lt;div class="def1 " style="background:black !important"&gt;dd&lt;/div&gt;
+</code></pre>
+
 <p>结果：black色。</p>
+
 
 		  
 		  </div>
@@ -456,7 +480,7 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 
 <p>3 、 Redis支持数据的持久化，可以将内存中的数据保持在磁盘中，重启的时候可以再次加载进行使用。</p>
 
-<p>在Redis中，并不是所有的数据都一直存储在内存中的。这是和Memcached相比一个最大的区别。Redis只会缓存所有的 key的信息，如果Redis发现内存的使用量超过了某一个阀值，将触发swap的操作，Redis根据“swappability = age*log(size<em>in</em>memory)”计 算出哪些key对应的value需要swap到磁盘。然后再将这些key对应的value持久化到磁盘中，同时在内存中清除。这种特性使得Redis可以 保持超过其机器本身内存大小的数据。当然，机器本身的内存必须要能够保持所有的key，毕竟这些数据是不会进行swap操作的。同时由于Redis将内存 中的数据swap到磁盘中的时候，提供服务的主线程和进行swap操作的子线程会共享这部分内存，所以如果更新需要swap的数据，Redis将阻塞这个 操作，直到子线程完成swap操作后才可以进行修改。</p>
+<p>在Redis中，并不是所有的数据都一直存储在内存中的。这是和Memcached相比一个最大的区别。Redis只会缓存所有的 key的信息，如果Redis发现内存的使用量超过了某一个阀值，将触发swap的操作，Redis根据“swappability = age*log(size_in_memory)”计 算出哪些key对应的value需要swap到磁盘。然后再将这些key对应的value持久化到磁盘中，同时在内存中清除。这种特性使得Redis可以 保持超过其机器本身内存大小的数据。当然，机器本身的内存必须要能够保持所有的key，毕竟这些数据是不会进行swap操作的。同时由于Redis将内存 中的数据swap到磁盘中的时候，提供服务的主线程和进行swap操作的子线程会共享这部分内存，所以如果更新需要swap的数据，Redis将阻塞这个 操作，直到子线程完成swap操作后才可以进行修改。</p>
 
 <p>总结：</p>
 
@@ -467,6 +491,7 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 <p>　　3.当需要除key/value之外的更多数据类型支持时，使用Redis更合适。</p>
 
 <p>　　4.当存储的数据不能被剔除时，使用Redis更合适。</p>
+
 
 		  
 		  </div>
@@ -492,7 +517,7 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 		  <div class="excerpt">
 		  
 		  
-		    <p>多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span> <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">setBalance</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span> <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span> </code></pre></div> <p>但是，如果多个变量的话，这种方法虽然能够保持每个变量的安全，但不能保证多个变量的一致性，因为方法上的synchronized关键字只对本方法加锁，对其他方法没有影响。方法之间是相互独立的。 可以采用的方法是：</p> <p>1.将整个类加锁 （代码为synchronized(this)）</p> <p>2.定义一个object，访问某些相关变量时，对该对象加锁（代码为synchronized(lockobj)）。</p> <p>下面是对这个类加锁的代码</p> <p>---RGB类--- </p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RGB</span> <span class="o">{</span> <span class="kd">private</span> <span class="kt">int</span> <span class="n">red</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="kd">private</span> <span class="kt">int</span> <span class="n">green</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="kd">private</span> <span class="kt">int</span> <span class="n">blue</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getRed</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">red</span><span class="o">;</span> <span class="o">}</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addRed</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span> <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> <span class="k">try</span> <span class="o">{</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span> <span class="n">print</span><span class="o">();</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span> <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span> <span class="o">}</span> <span class="o">}</span> <span class="o">}</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getGreen</span><span class="o">()</span> <span class="o">{</span> <span class="k">return</span> <span class="n">green</span><span class="o">;</span> <span class="o">}</span> <span class="kd">public</span> <span class="kt">int</span> <span class="nf">addGreen</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span> <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span> <span class="k">try</span> <span class="o">{</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>...
+		    <p>多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:</p> <pre><code class="language-java">private int balance; public synchronized int setBalance(int value){ this.balance = value; } </code></pre> <p>但是，如果多个变量的话，这种方法虽然能够保持每个变量的安全，但不能保证多个变量的一致性，因为方法上的synchronized关键字只对本方法加锁，对其他方法没有影响。方法之间是相互独立的。 可以采用的方法是：</p> <p>1.将整个类加锁 （代码为synchronized(this)）</p> <p>2.定义一个object，访问某些相关变量时，对该对象加锁（代码为synchronized(lockobj)）。</p> <p>下面是对这个类加锁的代码</p> <p>—RGB类—</p> <pre><code class="language-java"> public class RGB { private int red = 10; private int green = 10; private int blue = 10; public int getRed() { return red; } public void addRed(int interval) { synchronized (this) { try { Thread.sleep(200L); this.red += interval * 2; Thread.sleep(200L); this.green -= interval; this.blue -= interval; print(); } catch (InterruptedException e) { e.printStackTrace(); } } } public int getGreen() { return green; } public int addGreen(int interval) { int ret = 0; synchronized (this) { try { Thread.sleep(200L); ret = this.green += interval * 2; Thread.sleep(200L); this.red -= interval; this.blue -= interval; print(); } catch (InterruptedException e) { e.printStackTrace(); } } return ret; } public int getBlue() { return blue; } ---Painter类--- public class Painter implements Runnable { private String name; private RGB rgb; private int interval; Painter(String name, RGB rgb, int interval) { this.name = name; this.rgb = rgb; this.interval = interval; } public void run() { rgb.addBlue(interval); rgb.addRed(interval); rgb.addGreen(interval); } public static void main(String[] args) { RGB rgb = new RGB(); Thread t1 = new Thread(new Painter("Painter-1", rgb, 20)); Thread t2 = new Thread(new Painter("Painter-2", rgb, -15)); Thread t3 = new Thread(new Painter("Painter-3", rgb, 30)); Thread t4 = new Thread(new Painter("Painter-3", rgb, -22)); Thread t5 = new Thread(new Painter("Painter-3", rgb, -10)); t1.start(); t2.start(); t3.start(); t4.start(); t5.start(); } } public int addBlue(int interval) { int ret = 0; synchronized (this) { try { Thread.sleep(200L); ret = this.blue += interval * 2; Thread.sleep(200L); this.red -= interval; this.green -= interval; print(); } catch (InterruptedException e) { e.printStackTrace(); } } return ret; } public void print() { synchronized (this) { int total = this.getBlue() + this.getGreen() + this.getRed(); System.out.println("Red+Green+Blue = " + this.getRed() +...
 		    <p>
 		    <a class="text" href="/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
 		      Continue Reading...
@@ -522,7 +547,7 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 		  <div class="excerpt">
 		  
 		  
-		    <p>先看下死锁的定义:死锁是指，两个或多个动作一直在等待其他动作完成而使得所有动作都始终处在阻塞的状态。想要在开发阶段检测到死锁是非常困难的，而想要解除死锁往 往需要重新启动程序。更糟的是，死锁通常发生在负载最重的生产过程中，而想要在测试中发现它，十分不易。之所以这么说，是因为测试线程之间所有可能的交叉 是不现实的。尽管出现了一些静态分析库可以帮助我们发现可能出现的死锁，我们还是有必要在运行时检测到死锁，并且得到有用的信息，以便我们解决这个问题或 者重启程序，或者做些其他的事情。</p> <p>在编程中使用ThreadMXBean类来检测死锁</p> <p>Java 5引入了 ThreadMXBean 接口，它提供了多种监视线程的方法。我建议您了解所有这些方法，因为当您没使用外部工具时，它们会为您提供很多有用的操作以便您监测程序性能。这里，我们感兴趣的方法是 findMonitorDeadlockedThreads ，如过您使用的是Java 6，对应的方法是 findDeadlockedThreads 。二者的区别的是，findDeadlockedThreads还可以检测到owner locks（java.util.concurrent）引起的死锁，而findMonitorDeadlockedThreads只能检测 monitor locks（例如，同步块）。由于保留老版本的方法只是出于兼容性的考虑，所以我将使用新版本的方法。在这里，编程的思想是把对死锁的周期性检测封装到一 个可重用组件里，之后我们只需启动它、随它去。</p> <p>一种实现调度的方法是通过执行器框架，即一组良好抽象并易于使用的多线程类。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="k">this</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">scheduleAtFixedRate</span><span class="o">(</span><span class="n">deadlockCheck</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">period</span><span class="o">,</span> <span class="n">unit</span><span class="o">);</span> </code></pre></div> <p>就是那么简单，在我们通过选择周期和时间单位而设置了一个特定时间后，就得到了一个周期性调用的线程。接着，我们想使功用得以拓展从而允许用户提供在程序检测到死锁时所触发的行为。最后，我们需要一个方法来接收用于描述死锁中所有线程的一系列对象。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span> </code></pre></div> <p>现在，实现死锁检测类已经万事俱备了。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">DeadlockHandler</span> <span class="o">{</span> <span class="kt">void</span> <span class="nf">handleDeadlock</span><span class="o">(</span><span class="kd">final</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">deadlockedThreads</span><span class="o">);</span> <span class="o">}</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DeadlockDetector</span> <span class="o">{</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">ThreadMXBean</span> <span class="n">mbean</span> <span class="o">=</span> <span class="n">ManagementFactory</span><span class="o">.</span><span class="na">getThreadMXBean</span><span class="o">();</span> <span class="kd">private</span> <span class="kd">final</span> <span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newScheduledThreadPool</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span> <span class="kd">final</span> <span class="n">Runnable</span> <span class="n">deadlockCheck</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Runnable</span><span class="o">()</span> <span class="o">{</span> <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span> <span class="kt">long</span><span class="o">[]</span> <span class="n">deadlockedThreadIds</span> <span class="o">=</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">findDeadlockedThreads</span><span class="o">();</span> <span class="k">if</span> <span class="o">(</span><span class="n">deadlockedThreadIds</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="n">ThreadInfo</span><span class="o">[]</span> <span class="n">threadInfos</span> <span class="o">=</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">mbean</span><span class="o">.</span><span class="na">getThreadInfo</span><span class="o">(</span><span class="n">deadlockedThreadIds</span><span class="o">);</span> <span class="n">DeadlockDetector</span><span class="o">.</span><span class="na">this</span><span class="o">.</span><span class="na">deadlockHandler</span><span class="o">.</span><span class="na">handleDeadlock</span><span class="o">(</span><span class="n">threadInfos</span><span class="o">);</span> <span class="o">}</span> <span class="o">}</span> <span class="o">};</span> <span class="kd">public</span> <span class="nf">DeadlockDetector</span><span class="o">(</span><span class="kd">final</span> <span class="n">DeadlockHandler</span> <span class="n">deadlockHandler</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">period</span><span class="o">,</span> <span class="kd">final</span> <span class="n">TimeUnit</span> <span class="n">unit</span><span class="o">)</span> <span class="o">{</span> <span class="k">this</span><span class="o">.</span><span class="na">deadlockHandler</span> <span class="o">=</span> <span class="n">deadlockHandler</span><span class="o">;</span> <span class="k">this</span><span class="o">.</span><span class="na">period</span> <span class="o">=</span> <span class="n">period</span><span class="o">;</span> <span class="k">this</span><span...
+		    <p>先看下死锁的定义:死锁是指，两个或多个动作一直在等待其他动作完成而使得所有动作都始终处在阻塞的状态。想要在开发阶段检测到死锁是非常困难的，而想要解除死锁往 往需要重新启动程序。更糟的是，死锁通常发生在负载最重的生产过程中，而想要在测试中发现它，十分不易。之所以这么说，是因为测试线程之间所有可能的交叉 是不现实的。尽管出现了一些静态分析库可以帮助我们发现可能出现的死锁，我们还是有必要在运行时检测到死锁，并且得到有用的信息，以便我们解决这个问题或 者重启程序，或者做些其他的事情。</p> <p>在编程中使用ThreadMXBean类来检测死锁</p> <p>Java 5引入了 ThreadMXBean 接口，它提供了多种监视线程的方法。我建议您了解所有这些方法，因为当您没使用外部工具时，它们会为您提供很多有用的操作以便您监测程序性能。这里，我们感兴趣的方法是 findMonitorDeadlockedThreads ，如过您使用的是Java 6，对应的方法是 findDeadlockedThreads 。二者的区别的是，findDeadlockedThreads还可以检测到owner locks（java.util.concurrent）引起的死锁，而findMonitorDeadlockedThreads只能检测 monitor locks（例如，同步块）。由于保留老版本的方法只是出于兼容性的考虑，所以我将使用新版本的方法。在这里，编程的思想是把对死锁的周期性检测封装到一 个可重用组件里，之后我们只需启动它、随它去。</p> <p>一种实现调度的方法是通过执行器框架，即一组良好抽象并易于使用的多线程类。</p> <pre><code class="language-java"> ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); this.scheduler.scheduleAtFixedRate(deadlockCheck, period, period, unit); </code></pre> <p>就是那么简单，在我们通过选择周期和时间单位而设置了一个特定时间后，就得到了一个周期性调用的线程。接着，我们想使功用得以拓展从而允许用户提供在程序检测到死锁时所触发的行为。最后，我们需要一个方法来接收用于描述死锁中所有线程的一系列对象。</p> <pre><code class="language-java">void handleDeadlock(final ThreadInfo[] deadlockedThreads); </code></pre> <p>现在，实现死锁检测类已经万事俱备了。</p> <pre><code class="language-java">public interface DeadlockHandler { void handleDeadlock(final ThreadInfo[] deadlockedThreads); } public class DeadlockDetector { private final DeadlockHandler deadlockHandler; private final long period; private final TimeUnit unit; private final ThreadMXBean mbean = ManagementFactory.getThreadMXBean(); private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); final Runnable deadlockCheck = new Runnable() { @Override public void run() { long[] deadlockedThreadIds = DeadlockDetector.this.mbean.findDeadlockedThreads(); if (deadlockedThreadIds != null) { ThreadInfo[] threadInfos = DeadlockDetector.this.mbean.getThreadInfo(deadlockedThreadIds); DeadlockDetector.this.deadlockHandler.handleDeadlock(threadInfos); } } }; public DeadlockDetector(final DeadlockHandler deadlockHandler, final long period, final TimeUnit unit) { this.deadlockHandler = deadlockHandler; this.period = period; this.unit = unit; } public void start() { this.scheduler.scheduleAtFixedRate( this.deadlockCheck, this.period, this.period, this.unit); } } </code></pre> <p>让我们动手试试。首先，我们要创建一个handler用来向System.err输出死锁线程的信息。在现实场景中，我们可以用它发送邮件，比如：</p> <pre><code class="language-java">public class DeadlockConsoleHandler implements DeadlockHandler { @Override public void handleDeadlock(final ThreadInfo[] deadlockedThreads) { if (deadlockedThreads != null) { System.err.println("Deadlock detected!"); Map&lt;Thread, StackTraceElement[]&gt; stackTraceMap = Thread.getAllStackTraces(); for (ThreadInfo threadInfo : deadlockedThreads) { if (threadInfo != null) { for (Thread thread : Thread.getAllStackTraces().keySet()) { if (thread.getId() == threadInfo.getThreadId()) { System.err.println(threadInfo.toString().trim()); for (StackTraceElement ste : thread.getStackTrace()) { System.err.println("t" + ste.toString().trim()); } } } } } } } } </code></pre> <p>这一过程在所有的堆栈追踪中反复进行并为每个线程信息打印对应的堆栈踪迹。通过这种方式，我们可以准确知道每个线程等待的位置和对象。但这个方法 有一个缺陷——当一个线程只是暂时等待时，可能会被当作一个暂时的死锁，从而引发错误的警报。出于此，当我们处理死锁时，原始线程不能继续存在而 findDeadlockedThreads方法会返回没有此类线程。为了避免可能出现的NullPointerException，我们需要警惕这种情 况。最后，让我们促成一个死锁来看看系统是如何运行的。</p> <pre><code class="language-java">DeadlockDetector deadlockDetector = new DeadlockDetector(new DeadlockConsoleHandler(), 5, TimeUnit.SECONDS); deadlockDetector.start(); final Object lock1 = new Object(); final Object lock2 = new Object(); Thread thread1 = new Thread(new Runnable() { @Override public void run() { synchronized (lock1) { System.out.println("Thread1 acquired lock1"); try { TimeUnit.MILLISECONDS.sleep(500); } catch (InterruptedException ignore) { } synchronized (lock2) { System.out.println("Thread1 acquired lock2"); } } } }); thread1.start(); Thread thread2 = new Thread(new Runnable() { @Override public void run() { synchronized (lock2) { System.out.println("Thread2 acquired lock2"); synchronized (lock1) { System.out.println("Thread2 acquired lock1"); } } } }); thread2.start(); </code></pre>...
 		    <p>
 		    <a class="text" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
 		      Continue Reading...
@@ -599,7 +624,7 @@ DD_belatedPNG使用了微软的VML语言对PNG图片进行重新绘制，以达�
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

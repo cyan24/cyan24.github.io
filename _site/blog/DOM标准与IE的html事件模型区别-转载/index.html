@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
+	<link rel="canonical" href="http://localhost:4000/blog/DOM%E6%A0%87%E5%87%86%E4%B8%8EIE%E7%9A%84html%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E5%8C%BA%E5%88%AB-%E8%BD%AC%E8%BD%BD/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -277,7 +277,7 @@
 <p>Netscape Navigator的实现，它与冒泡型刚好相反，由DOM树最顶层元素一直到最精确的元素，这个事件模型对于开发者来说（至少是我..）有点费解，因为直观上的理解应该如同冒泡型，事件传递应该由最确定的元素，即事件产生元素开始。
 但这个模型在某些情况下也是很有用的，接下来会讲解到。</p>
 
-<p><img src="/img/post/1412270.jpg" alt=""> </p>
+<p><img src="/img/post/1412270.jpg" alt="" /></p>
 
 <p><strong>DOM标准事件模型</strong></p>
 
@@ -285,18 +285,19 @@
 
 <p>首先是捕获式传递事件，接着是冒泡式传递，所以，如果一个处理函数既注册了捕获型事件的监听，又注册冒泡型事件监听，那么在DOM事件模型中它就会被调用两次。</p>
 
-<p><img src="/img/post/1412271.jpg" alt=""> </p>
+<p><img src="/img/post/1412271.jpg" alt="" /></p>
 
 <p>注册与移除事件监听器</p>
 
 <p>注册事件监听器，或又称订阅事件，当元素事件发生时浏览器回调该监听函数执行事件处理。目前主流浏览器中有两种注册事件的方法，一种是IE浏览器的，另一种是DOM标准的。</p>
 
 <p>1、直接JS或HTML挂载法</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">onclick=</span><span class="s">&quot;alert(this.innerHTML);&quot;</span><span class="nt">&gt;</span>
+
+<pre><code class="language-html">&lt;div onclick="alert(this.innerHTML);"&gt;
 
 
 element.onclick = function(){alert(this.innerHTML);}
-</code></pre></div>
+</code></pre>
 <p>移除时将事件属性设为nul即可，这个也是最常用的方法了，优缺点也是显然的：</p>
 
 <p>简单方便，在HTML中直接书写处理函数的代码块，在JS中给元素对应事件属性赋值即可
@@ -308,46 +309,47 @@ IE与DOM标准都支持的一种方法，它在IE与DOM标准中都是在事件�
 
 <p>IE浏览器中HTML元素有个attachEvent方法允许外界注册该元素多个事件监听器,例如</p>
 
-<p>element.attachEvent(&#39;onclick&#39;, observer);
+<p>element.attachEvent(‘onclick’, observer);
 attachEvent接受两个参数。第一个参数是事件名称，第二个参数observer是回调处理函数。这里得说明一下，有个经常会出错的地方，IE下利用attachEvent注册的处理函数调用时this指向不再是先前注册事件的元素，这时的this为window对象了，笔者很奇怪IE为什么要这么做，完全看不出好处所在。
 要移除先前注册的事件的监听器,调用element的detachEvent方法即可，参数相同。</p>
 
-<p>element.detachEvent(&#39;onclick&#39;, observer);
+<p>element.detachEvent(‘onclick’, observer);
 3、 DOM标准下注册多个事件监听器与移除监听器方法</p>
 
 <p>实现DOM标准的浏览器与IE浏览器中注册元素事件监听器方式有所不同，它通过元素的addEventListener方法注册，该方法既支持注册冒泡型事件处理，又支持捕获型事件处理。</p>
 
-<p>element.addEventListener(&#39;click&#39;, observer, useCapture);
+<p>element.addEventListener(‘click’, observer, useCapture);
 addEventListener方法接受三个参数。第一个参数是事件名称，值得注意的是，这里事件名称与IE的不同，事件名称是没’on’开头的;第二个参数observer是回调处理函数;第三个参数注明该处理回调函数是在事件传递过程中的捕获阶段被调用还是冒泡阶段被调用</p>
 
 <p>移除已注册的事件监听器调用element的removeEventListener即可，参数不变.</p>
 
-<p>element.removeEventListener(&#39;click&#39;, observer, useCapture);</p>
+<p>element.removeEventListener(‘click’, observer, useCapture);</p>
 
 <p>跨浏览器的注册与移除元素事件监听器方案</p>
 
 <p>弄清楚DOM标准与IE的注册元素事件监听器之间的异同后，就可以实现一个跨浏览器的注册与移除元素事件监听器方案:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//注册</span>
-<span class="kd">function</span> <span class="nx">addEventHandler</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span>
-   <span class="c1">//DOM标准</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
-         <span class="nx">element</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span>
-    <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
-       <span class="c1">//IE方式,忽略useCapture参数</span>
-       <span class="nx">element</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">//移除</span>
-<span class="kd">function</span> <span class="nx">removeEventHandler</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">)</span> <span class="p">{</span>
-   <span class="c1">//DOM标准</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">)</span> <span class="p">{</span>
-          <span class="nx">element</span><span class="p">.</span><span class="nx">removeEventListener</span><span class="p">(</span><span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">useCapture</span><span class="p">);</span>
-    <span class="p">}</span><span class="k">else</span> <span class="p">{</span>
-       <span class="c1">//IE方式,忽略useCapture参数</span>
-       <span class="nx">element</span><span class="p">.</span><span class="nx">dettachEvent</span><span class="p">(</span><span class="s1">&#39;on&#39;</span> <span class="o">+</span> <span class="nx">evtName</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">//注册
+function addEventHandler(element, evtName, callback, useCapture) {
+   //DOM标准
+    if (element.addEventListener) {
+         element.addEventListener(evtName, callback, useCapture);
+    }else {
+       //IE方式,忽略useCapture参数
+       element.attachEvent('on' + evtName, callback);
+    }
+}
+//移除
+function removeEventHandler(element, evtName, callback, useCapture) {
+   //DOM标准
+    if (element.removeEventListener) {
+          element.removeEventListener(evtName, callback, useCapture);
+    }else {
+       //IE方式,忽略useCapture参数
+       element.dettachEvent('on' + evtName, callback);
+    }
+}
+</code></pre>
 <p>如何取消浏览器事件的传递与事件传递后浏览器的默认处理</p>
 
 <p>先说明取消事件传递与浏览器事件传递后的默认处理是两个不同的概念，可能很多同学朋友分不清，或者根本不存在这两个概念。</p>
@@ -359,46 +361,56 @@ addEventListener方法接受三个参数。第一个参数是事件名称，值�
 <p>要取消浏览器的件传递,IE与DOM标准又有所不同。</p>
 
 <p>在IE下,通过设置event对象的cancelBubble为true即可。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">()</span> <span class="p">{</span>
-   <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">function someHandle() {
+   window.event.cancelBubble = true;
+}
+</code></pre>
+
 <p>DOM标准通过调用event对象的stopPropagation()方法即可。</p>
 
-<p><code>javascript
+<p>``javascript
 function someHandle(event) {
    event.stopPropagation();
-}
-</code>`</p>
+}</p>
+<pre><code>
+因些，跨浏览器的停止事件传递的方法是:
 
-<p>因些，跨浏览器的停止事件传递的方法是:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">event</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
-  <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">)</span>
-     <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
-  <span class="k">else</span> <span class="nx">event</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+
+```javascript
+function someHandle(event) {
+  event = event || window.event;
+  if(event.stopPropagation)
+     event.stopPropagation();
+  else event.cancelBubble = true;
+}
+</code></pre>
+
 <p>取消事件传递后的默认处理，IE与DOM标准又不所不同。</p>
 
 <p>在IE下,通过设置event对象的returnValue为false即可。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">()</span> <span class="p">{</span>
-   <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">function someHandle() {
+   window.event.returnValue = false;
+}
+</code></pre>
 <p>DOM标准通过调用event对象的preventDefault()方法即可。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-   <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">function someHandle(event) {
+   event.preventDefault();
+}
+</code></pre>
+
 <p>因些，跨浏览器的取消事件传递后的默认处理方法是：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">someHandle</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">event</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
-  <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">)</span>
-     <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
-  <span class="k">else</span> <span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">function someHandle(event) {
+  event = event || window.event;
+  if(event.preventDefault)
+     event.preventDefault();
+  else event.returnValue = false;
+}
+</code></pre>
+
 <p>捕获型事件模型与冒泡型事件模型的应用场合</p>
 
 <p>标准事件模型为我们提供了两种方案，可能很多朋友分不清这两种不同模型有啥好处，为什么不只采取一种模型。
@@ -409,13 +421,15 @@ function someHandle(event) {
 <p>捕获型事件传递由最不精确的祖先元素一直到最精确的事件源元素，传递方式与操作系统中的全局快捷键与应用程序快捷键相似。当一个系统组合键发生时，如果注册了系统全局快捷键监听器，该事件就先被操作系统层捕获，全局监听器就先于应用程序快捷键监听器得到通知，也就是全局的先获得控制权，它有权阻止事件的进一步传递。所以捕获型事件模型适用于作全局范围内的监听，这里的全局是相对的全局，相对于某个顶层结点与该结点所有子孙结点形成的集合范围。</p>
 
 <p>例如你想作全局的点击事件监听，相对于document结点与document下所有的子结点，在某个条件下要求所有的子结点点击无效，这种情况下冒泡模型就解决不了了，而捕获型却非常适合，可以在最顶层结点添加捕获型事件监听器，伪码如下:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="k">if</span><span class="p">(</span><span class="nx">canEventPass</span> <span class="o">==</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">//取消事件进一步向子结点传递和冒泡传递</span>
-    <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
-    <span class="c1">//取消浏览器事件后的默认执行</span>
-    <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">if(canEventPass == false) {
+    //取消事件进一步向子结点传递和冒泡传递
+    event.stopPropagation();
+    //取消浏览器事件后的默认执行
+    event.preventDefault();
+}
+</code></pre>
+
 <p>这样一来，当canEventPass条件为假时，document下所有的子结点click注册事件都不会被浏览器处理。</p>
 
 <p>2、 冒泡型的应用场合</p>
@@ -425,19 +439,21 @@ function someHandle(event) {
 <p>综合案例分析</p>
 
 <p>最后结合下面HTML代码作分析:</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;body</span> <span class="na">onclick=</span><span class="s">&quot;alert(&#39;current is body&#39;);&quot;</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;div0&quot;</span> <span class="na">onclick=</span><span class="s">&quot;alert(&#39;current is &#39;+this.id)&quot;</span><span class="nt">&gt;</span>
-     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;div1&quot;</span> <span class="na">onclick=</span><span class="s">&quot;alert(&#39;current is &#39;+this.id)&quot;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;div2&quot;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;event_source&quot;</span>
-                 <span class="na">onclick=</span><span class="s">&quot;alert(&#39;current is &#39;+this.id)&quot;</span>
-                 <span class="na">style=</span><span class="s">&quot;height:200px;width:200px;background-color:red;&quot;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;/div&gt;</span>
-         <span class="nt">&lt;/div&gt;</span>
-   <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-</code></pre></div>
+
+<pre><code class="language-html">&lt;body onclick="alert('current is body');"&gt;
+  &lt;div id="div0" onclick="alert('current is '+this.id)"&gt;
+     &lt;div id="div1" onclick="alert('current is '+this.id)"&gt;
+        &lt;div id="div2"&gt;
+            &lt;div id="event_source"
+                 onclick="alert('current is '+this.id)"
+                 style="height:200px;width:200px;background-color:red;"&gt;
+            &lt;/div&gt;
+         &lt;/div&gt;
+   &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+
 <p>HTML运行后点击红色区域,这是最里层的DIV,根据上面说明,无论是DOM标准还是IE,直接写在html里的监听处理函数是事件冒泡传递时调用的,由最里层一直往上传递,所以会先后出现
 current is event_source
 current is div2
@@ -446,27 +462,32 @@ current is div0
 current is body</p>
 
 <p>添加以下片段:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">div2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;div2&#39;</span><span class="p">);</span>
-<span class="nx">addEventHandler</span><span class="p">(</span><span class="nx">div2</span><span class="p">,</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
-   <span class="nx">event</span> <span class="o">=</span> <span class="nx">event</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">event</span><span class="p">;</span>
-   <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">)</span>
-     <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
-   <span class="k">else</span> <span class="nx">event</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">},</span><span class="kc">false</span><span class="p">);</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">var div2 = document.getElementById('div2');
+addEventHandler(div2,'click',function(event){
+   event = event || window.event;
+   if(event.stopPropagation)
+     event.stopPropagation();
+   else event.cancelBubble = true;
+},false);
+</code></pre>
+
 <p>当点击红色区域后,根据上面说明,在泡冒泡处理期间,事件传递到div2后被停止传递了,所以div2上层的元素收不到通知,所以会先后出现:</p>
 
 <p>current is event_source
 current is div2</p>
 
 <p>在支持DOM标准的浏览器中,添加以下代码:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
-     <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
-<span class="p">},</span><span class="kc">true</span><span class="p">);</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">document.body.addEventListener('click',function(event){
+     event.stopPropagation();
+},true);
+</code></pre>
+
 <p>以上代码中的监听函数由于是捕获型传递时被调用的,所以点击红色区域后,虽然事件源是ID为event_source的元素,但捕获型选传递,从最顶层开始,body结点监听函数先被调用,并且取消了事件进一步向下传递,所以只会出现current is body。</p>
 
 <p>转载于：http://www.cnblogs.com/ilexcai/archive/2011/09/05/2168094.html</p>
+
 
   </section>
   
@@ -488,7 +509,7 @@ current is div2</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

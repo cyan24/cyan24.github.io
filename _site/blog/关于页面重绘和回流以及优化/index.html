@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
+	<link rel="canonical" href="http://localhost:4000/blog/%E5%85%B3%E4%BA%8E%E9%A1%B5%E9%9D%A2%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%E4%BB%A5%E5%8F%8A%E4%BC%98%E5%8C%96/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -257,7 +257,7 @@
   <section class="post-content">
   <p>在讨论页面重绘、回流之前。需要对页面的呈现流程有些了解，页面是怎么把html结合css等显示到浏览器上的，下面的流程图显示了浏览器对页面的呈现的处理流程。可能不同的浏览器略微会有些不同。但基本上都是类似的。</p>
 
-<p><img src="/img/post/1403031.jpg" alt=""> </p>
+<p><img src="/img/post/1403031.jpg" alt="" /></p>
 
 <p>1、  浏览器把获取到的HTML代码解析成1个DOM树，HTML中的每个tag都·     是DOM树中的1个节点，根节点就是我们常用的document对象。DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。</p>
 
@@ -292,15 +292,17 @@
 <p>6、浏览器窗口尺寸改变——resize事件发生时；</p>
 
 <p>让我们看看下面的代码是如何影响回流和重绘的:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s2">&quot;2px&quot;</span><span class="p">;</span> <span class="c1">// 回流+重绘</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s2">&quot;1px solid red&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span><span class="p">;</span> <span class="c1">// 再一次重绘</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s2">&quot;#ccc&quot;</span><span class="p">;</span> <span class="c1">// 再一次 重绘</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="s2">&quot;14px&quot;</span><span class="p">;</span> <span class="c1">// 再一次 回流+重绘</span>
-<span class="c1">// 添加node，再一次 回流+重绘</span>
-<span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="s1">&#39;abc!&#39;</span><span class="p">));</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">var s = document.body.style;
+s.padding = "2px"; // 回流+重绘
+s.border = "1px solid red"; // 再一次 回流+重绘
+s.color = "blue"; // 再一次重绘
+s.backgroundColor = "#ccc"; // 再一次 重绘
+s.fontSize = "14px"; // 再一次 回流+重绘
+// 添加node，再一次 回流+重绘
+document.body.appendChild(document.createTextNode('abc!'));
+</code></pre>
+
 <p>说到这里大家都知道回流比重绘的代价要更高，回流的花销跟render tree有多少节点需要重新构建有关系，假设你直接操作body，比如在body最前面插入1个元素，会导致整个render tree回流，这样代价当然会比较高，但如果是指body后面插入1个元素，则不会影响前面元素的回流。</p>
 
 <p>聪明的浏览器</p>
@@ -310,11 +312,21 @@
 <p>虽然有了浏览器的优化，但有时候我们写的一些代码可能会强制浏览器提前flush队列，这样浏览器的优化可能就起不到作用了。当你请求向浏览器请求一些 style信息的时候，就会让浏览器flush队列，比如：</p>
 
 <ol>
-<li><p>offsetTop, offsetLeft, offsetWidth, offsetHeight</p></li>
-<li><p>scrollTop/Left/Width/Height</p></li>
-<li><p>clientTop/Left/Width/Height</p></li>
-<li><p>width,height</p></li>
-<li><p>请求了getComputedStyle(), 或者 IE的 currentStyle</p></li>
+  <li>
+    <p>offsetTop, offsetLeft, offsetWidth, offsetHeight</p>
+  </li>
+  <li>
+    <p>scrollTop/Left/Width/Height</p>
+  </li>
+  <li>
+    <p>clientTop/Left/Width/Height</p>
+  </li>
+  <li>
+    <p>width,height</p>
+  </li>
+  <li>
+    <p>请求了getComputedStyle(), 或者 IE的 currentStyle</p>
+  </li>
 </ol>
 
 <p>当你请求上面的一些属性的时候，浏览器为了给你最精确的值，需要flush队列，因为队列中可能会有影响到这些值的操作。即使你获取元素的布局和样式信息跟最近发生或改变的布局信息无关，浏览器都会强行刷新渲染队列。</p>
@@ -324,20 +336,22 @@
 <p>减少回流、重绘其实就是需要减少对render tree的操作（合并多次多DOM和样式的修改），并减少对一些style信息的请求，尽量利用好浏览器的优化策略。具体方法有：</p>
 
 <p>1、直接改变className，如果动态改变样式，则使用cssText（考虑没有优化的浏览器）</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 不好的写法</span>
-<span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">top</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
 
-<span class="c1">// 比较好的写法</span>
-<span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="o">+=</span> <span class="s2">&quot; className1&quot;</span><span class="p">;</span>
+<pre><code class="language-javascript">// 不好的写法
+var left = 1;
+var top = 1;
+el.style.left = left + "px";
+el.style.top = top + "px";
 
-<span class="c1">// 比较好的写法</span>
-<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cssText</span> <span class="o">+=</span> <span class="s2">&quot;;</span>
-<span class="s2">left: &quot;</span> <span class="o">+</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px;</span>
-<span class="s2">top: &quot;</span> <span class="o">+</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px;&quot;</span><span class="p">;</span>
-</code></pre></div>
+// 比较好的写法
+el.className += " className1";
+ 
+// 比较好的写法
+el.style.cssText += ";
+left: " + left + "px;
+top: " + top + "px;";
+</code></pre>
+
 <p>2、让要操作的元素进行”离线处理”，处理完后一起更新</p>
 
 <p>a) 使用DocumentFragment进行缓存操作,引发一次回流和重绘；</p>
@@ -347,122 +361,133 @@
 <p>c) 使用cloneNode(true or false) 和 replaceChild 技术，引发一次回流和重绘；</p>
 
 <p>3、不要经常访问会引起浏览器flush队列的属性，如果你确实要访问，利用缓存</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">// 别这样写，大哥</span>
-<span class="k">for</span><span class="p">(</span><span class="err">循环</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetLeft</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-<span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetTop</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-<span class="p">}</span>
 
-<span class="c1">// 这样写好点</span>
-<span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetLeft</span><span class="p">,</span>
-<span class="nx">top</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">offsetTop</span><span class="p">,</span>
-<span class="nx">s</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
-<span class="k">for</span> <span class="p">(</span><span class="err">循环</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">left</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="nx">top</span> <span class="o">+=</span> <span class="mi">10</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">top</span> <span class="o">+</span> <span class="s2">&quot;px&quot;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-javascript">// 别这样写，大哥
+for(循环) {
+el.style.left = el.offsetLeft + 5 + "px";
+el.style.top = el.offsetTop + 5 + "px";
+}
+ 
+// 这样写好点
+var left = el.offsetLeft,
+top = el.offsetTop,
+s = el.style;
+for (循环) {
+left += 10;
+top += 10;
+s.left = left + "px";
+s.top = top + "px";
+}
+</code></pre>
+
 <p>4、 让元素脱离动画流，减少回流的Render Tree的规模</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#block1&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="mi">50</span><span class="p">});</span>
-<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#block2&quot;</span><span class="p">).</span><span class="nx">animate</span><span class="p">({</span><span class="nx">marginLeft</span><span class="o">:</span><span class="mi">50</span><span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">$("#block1").animate({left:50});
+$("#block2").animate({marginLeft:50});
+</code></pre>
+
 <p><strong>实例测试</strong></p>
 
 <p>最后用2个工具对上面的理论进行一些测试，分别是：dynaTrace(测试ie),Speed Tracer(测试Chrome)。</p>
 
 <p>第一个测试代码不改变元素的规则，大小，位置。只改变颜色，所以不存在回流，仅测试重绘，代码如下：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
-<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">computed</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">computed</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-<span class="nx">computed</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">defaultView</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-<span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">testOneByOne</span><span class="p">(){</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundImage</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundAttachment</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kd">function</span> <span class="nx">testAll</span><span class="p">()</span> <span class="p">{</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;pink&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundImage</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundAttachment</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="o">&lt;</span><span class="err">/script&gt;</span>
-</code></pre></div><div class="highlight"><pre><code class="language-html" data-lang="html">color test <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">&quot;testOneByOne()&quot;</span><span class="nt">&gt;</span>Test One by One<span class="nt">&lt;/button&gt;</span>
-<span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">&quot;testAll()&quot;</span><span class="nt">&gt;</span>Test All<span class="nt">&lt;/button&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-</code></pre></div>
+<pre><code class="language-javascript">&lt;body&gt;
+&lt;script type="text/javascript"&gt;
+var s = document.body.style;
+var computed;
+if (document.body.currentStyle) {
+computed = document.body.currentStyle;
+} else {
+computed = document.defaultView.getComputedStyle(document.body, '');
+}
+ 
+function testOneByOne(){
+s.color = 'red';;
+tmp = computed.backgroundColor;
+s.color = 'white';
+tmp = computed.backgroundImage;
+s.color = 'green';
+tmp = computed.backgroundAttachment;
+}
+function testAll() {
+s.color = 'yellow';
+s.color = 'pink';
+s.color = 'blue';
+tmp = computed.backgroundColor;
+tmp = computed.backgroundImage;
+tmp = computed.backgroundAttachment;
+}
+&lt;/script&gt;
+</code></pre>
+
+<pre><code class="language-html">color test &lt;br /&gt;
+&lt;button onclick="testOneByOne()"&gt;Test One by One&lt;/button&gt;
+&lt;button onclick="testAll()"&gt;Test All&lt;/button&gt;
+&lt;/body&gt;
+</code></pre>
+
 <p>testOneByOne 函数改变3次color,其中每次改变后调用getComputedStyle,读取属性值(按我们上面的讨论，这里会引起队列的 flush)，testAll 同样是改变3次color，但是每次改变后并不马上调用getComputedStyle。
 我们先点击Test One by One按钮，然后点击 Test All,用dynaTrace监控如下：</p>
 
-<p><img src="/img/post/1403032.jpg" alt=""> </p>
+<p><img src="/img/post/1403032.jpg" alt="" /></p>
 
 <p>上图可以看到我们执行了2次button的click事件，每次click后都跟一次rendering，2次click函数执行的时间都差不多, 0.25ms,0.26ms，但其后的rendering时间就相差一倍多。(其实很多时候，前端的性能瓶颈并不在于JS的执行，而是在于页面的呈现，这种情况在富客户端中更为突出)。我们再看图的下面部分，这是第一次rendering的详细信息，可以看到里面有2行是 Scheduleing layout task，这个就是我们前面讨论过的浏览器优化过的队列，可以看出我们引发2次的flush。</p>
 
-<p><img src="/img/post/1403033.jpg" alt=""> </p>
+<p><img src="/img/post/1403033.jpg" alt="" /></p>
 
 <p>再看第二次rendering的详细信息，可以看出并没有Scheduleing layout task,所以这次rendering的时间也比较短。</p>
 
 <p>测试代码2：这个测试跟第一次测试的代码很类似，但加上了对layout的改变，为的是测试回流。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1</span>
-<span class="cp">/DTD/xhtml1-transitional.dtd&quot;&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;head&gt;</span>
-<span class="nt">&lt;/head&gt;</span>
-<span class="nt">&lt;body&gt;</span>
-<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-<span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">style</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">computed</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">computed</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">currentStyle</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-<span class="nx">computed</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">defaultView</span><span class="p">.</span><span class="nx">getComputedStyle</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="kd">function</span> <span class="nx">testOneByOne</span><span class="p">(){</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s1">&#39;1px&#39;</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s1">&#39;2px&#39;</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundImage</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s1">&#39;3px&#39;</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundAttachment</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kd">function</span> <span class="nx">testAll</span><span class="p">()</span> <span class="p">{</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s1">&#39;4px&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;pink&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s1">&#39;5px&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;blue&#39;</span><span class="p">;</span>
-<span class="nx">s</span><span class="p">.</span><span class="nx">padding</span> <span class="o">=</span> <span class="s1">&#39;6px&#39;</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundColor</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundImage</span><span class="p">;</span>
-<span class="nx">tmp</span> <span class="o">=</span> <span class="nx">computed</span><span class="p">.</span><span class="nx">backgroundAttachment</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="nt">&lt;/script&gt;</span>
-color test <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
-<span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">&quot;testOneByOne()&quot;</span><span class="nt">&gt;</span>Test One by One<span class="nt">&lt;/button&gt;</span>
-<span class="nt">&lt;button</span> <span class="na">onclick=</span><span class="s">&quot;testAll()&quot;</span><span class="nt">&gt;</span>Test All<span class="nt">&lt;/button&gt;</span>
-<span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span>
-</code></pre></div>
+
+<pre><code class="language-html">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1
+/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script type="text/javascript"&gt;
+var s = document.body.style;
+var computed;
+if (document.body.currentStyle) {
+computed = document.body.currentStyle;
+} else {
+computed = document.defaultView.getComputedStyle(document.body, '');
+}
+function testOneByOne(){
+s.color = 'red';
+s.padding = '1px';
+tmp = computed.backgroundColor;
+s.color = 'white';
+s.padding = '2px';
+tmp = computed.backgroundImage;
+s.color = 'green';
+s.padding = '3px';
+tmp = computed.backgroundAttachment;
+}
+function testAll() {
+s.color = 'yellow';
+s.padding = '4px';
+s.color = 'pink';
+s.padding = '5px';
+s.color = 'blue';
+s.padding = '6px';
+tmp = computed.backgroundColor;
+tmp = computed.backgroundImage;
+tmp = computed.backgroundAttachment;
+}
+&lt;/script&gt;
+color test &lt;br /&gt;
+&lt;button onclick="testOneByOne()"&gt;Test One by One&lt;/button&gt;
+&lt;button onclick="testAll()"&gt;Test All&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+
 <p>用dynaTrace监控如下</p>
 
-<p><img src="/img/post/1403034.jpg" alt=""> </p>
+<p><img src="/img/post/1403034.jpg" alt="" /></p>
 
 <p>这图可以看出，有了回流后，rendering的时间相比之前的只重绘，时间翻了3倍了，可见回流的高成本性啊。</p>
 
@@ -472,20 +497,19 @@ color test <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
 
 <p>测试1：</p>
 
-<p><img src="/img/post/1403037.jpg" alt=""> </p>
+<p><img src="/img/post/1403037.jpg" alt="" /></p>
 
 <p>图上第一次点击执行2ms (其中有50% 用于style Recalculation), 第二次1ms，而且第一次click后面也跟了2次style Recalculation,而第二次点击却没有style Recalculation。
 但是这次测试发现paint重绘的时间竟然是一样的，都是3ms，这可能就是chrome比IE强的地方吧。</p>
 
 <p>测试2：</p>
 
-<p><img src="/img/post/1403036.jpg" alt=""> </p>
+<p><img src="/img/post/1403036.jpg" alt="" /></p>
 
 <p>从图中竟然发现第二次的测试结果在时间上跟第一次的完全一样，这可能是因为操作太少，而chrome又比较强大，所以没能测试明显结果出来。</p>
 
-<p>但注意图中多了1个紫色部分，就是layout的部分。也就是我们说的回流。</p>
-
-<hr>
+<p>但注意图中多了1个紫色部分，就是layout的部分。也就是我们说的回流。
+___</p>
 
 <p>参考文章：</p>
 
@@ -513,7 +537,7 @@ color test <span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

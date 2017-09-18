@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/HTML5%E5%9C%A8%E8%B7%A8%E5%9F%9F%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83/">
+	<link rel="canonical" href="http://localhost:4000/blog/HTML5%E5%9C%A8%E8%B7%A8%E5%9F%9F%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%97%B6%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E6%80%9D%E8%80%83/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -259,8 +259,9 @@
 在h5之前，由于同源策略的限制导致在两个窗口之间进行消息传送必须是使用相同的协议、端口和主机。而H5有了一种新的方法叫做postMessage()，通过这一方法，跨域的消息传送将不再受到同源策略的限制。
 postMessage()使用方式：
 在发送方：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">otherWindeow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span><span class="nx">targetOrigin</span><span class="p">,[</span><span class="nx">transfer</span><span class="p">]);</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">otherWindeow.postMessage(message,targetOrigin,[transfer]);
+</code></pre>
 <p><strong>参数说明</strong>：</p>
 
 <p>Otherwindows：涉及到的其他窗口</p>
@@ -276,24 +277,26 @@ postMessage()使用方式：
 <p>当otherWindow.postMessage()执行时，消息将会被发送到接收方的窗口。</p>
 
 <p>接收方使用以下这段代码后，我们就可以接收到这条消息。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;message&quot;</span><span class="p">,</span><span class="nx">receiveMessage</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
-<span class="kd">function</span> <span class="nx">receiveMessage</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
-  <span class="k">if</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">origin</span> <span class="o">!==</span><span class="s2">&quot;http://site.com:8383&quot;</span><span class="p">){</span>
-    <span class="k">return</span><span class="p">;</span>
-    <span class="c1">//</span>
-    <span class="p">...</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">window.addEventListener("message",receiveMessage,false);
+function receiveMessage(event){
+  if(event.origin !=="http://site.com:8383"){
+    return;
+    //
+    ...
+  }
+}
+</code></pre>
+
 <p>通过该段代码，我们可以访问数据以及这一信息的源。如下所示：</p>
 
 <p>Event.origin：提供信息的源(我们所接收到的信息的URL)</p>
 
 <p>Event.data：提供实际所发送出的信息内容</p>
 
-<hr>
+<hr />
 
-<h3>安全性实例分析</h3>
+<p>###安全性实例分析</p>
 
 <p>出于演示需要，设立了如下两个服务：</p>
 
@@ -306,13 +309,13 @@ postMessage()使用方式：
 <p>A是发送窗口，B是接收窗口
 现在我们加载第二个URL(http://localhost/ )作为第一个URL的iframe：</p>
 
-<p><img src="/img/post/1401051.png" alt=""> </p>
+<p><img src="/img/post/1401051.png" alt="" /></p>
 
 <p>通过使用postMessage()的方法，我可以轻松的将消息从第一个URL发送到第二个URL.</p>
 
 <p>我们可以通过点击”send message“的按钮来进行验证。</p>
 
-<p><img src="/img/post/1401052.png" alt=""> </p>
+<p><img src="/img/post/1401052.png" alt="" /></p>
 
 <p>尽管加载在第一个URL中的iframe与其并不同源，但通过postMessage() 即可进行信息传递。</p>
 
@@ -321,32 +324,43 @@ postMessage()使用方式：
 <p><strong>case1</strong></p>
 
 <p>发送方代码：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hi,There...!&#39;</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+receiver.postMessage('Hi,There...!','*');
+</code></pre>
+
 <p>当发送者把targetOrigin规定为通配符”*“时，将会导致未知的信息被陌生的接收方(窗口)接收到。原因是从接收窗口传来的消息任何人都可以再加载一个iframe来进行监听。因此在进行敏感数据的传输时，使用通配符是一个十分错误的决定。</p>
 
 <p>针对此问题最好的解决方法就是在发送时添加具体的目标字段，如下所示：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s1">&#39;Hi,There...!&#39;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+receiver.postMessage('Hi,There...!','http://localhost');
+</code></pre>
 <p><strong>case2</strong>
 接收窗口代码：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-  <span class="k">do</span> <span class="nx">something</span><span class="p">..</span><span class="o">!</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+function receiver(e){
+  do something..!
+}
+</code></pre>
+
 <p>在上面这段代码中可以看到，我们是直接接收发送方的消息对其进行处理，并不检验是否来自发送方。</p>
 
 <p>但检查消息的来源无疑是十分重要的，这样可以防止消息来自未经授权的发送者。</p>
 
 <p>因此，我们只需要在代码中加入对发送方的验证，这一问题就可解决了。代码如下：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="o">!==</span><span class="s2">&quot;http://localhost:8383&quot;</span><span class="p">){</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="p">...</span>
-  <span class="k">do</span> <span class="nx">something</span> <span class="p">...</span><span class="o">!</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+function receiver(e){
+  if (e.origin!=="http://localhost:8383"){
+    return;
+  }
+  ...
+  do something ...!;
+}
+
+</code></pre>
 <p>通过检验event.origin，来进行验证。</p>
 
 <p><strong><em>Case3</em></strong></p>
@@ -356,44 +370,51 @@ postMessage()使用方式：
 <p>由下面这段代码可以看出，当应用程序接收到攻击者发来的恶意信息，并已经插入到HTML DOM使用innerHTML属性时，其显得异常脆弱。</p>
 
 <p>发送方：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;&lt; img src=&quot;</span><span class="nx">x</span><span class="s2">&quot; onerror=alert(1);&gt;&quot;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span>
 
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-javascript">receiver.postMessage("&lt; img src="x" onerror=alert(1);&gt;",'http://localhost');
+
+}
+</code></pre>
 <p>接收方：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="o">!==</span><span class="s2">&quot;http://localhost:8383&quot;</span><span class="p">){</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="p">...</span>
-  <span class="nx">messageEle</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Message from localhost:8383: &quot;</span><span class="o">+</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+function receiver(e){
+  if (e.origin!=="http://localhost:8383"){
+    return;
+  }
+  ...
+  messageEle.innerHTML = "Message from localhost:8383: "+e.data;
+}
+</code></pre>
+
 <p>执行上面这段代码，可导致在接收窗口出现XSS。</p>
 
-<p><img src="/img/post/1401053.png" alt=""> </p>
+<p><img src="/img/post/1401053.png" alt="" /></p>
 
 <p>解决这一问题最简单的方法就是在给元素分配数据值时使用 textContent 而不是innerHTML.</p>
 
 <p>如下所示：</p>
 
 <p>发送方：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">receiver</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">&quot;&lt; img src=&quot;</span><span class="nx">x</span><span class="s2">&quot; onerror=alert(1);&gt;&quot;</span><span class="p">,</span><span class="s1">&#39;http://localhost&#39;</span><span class="p">);</span>
 
-<span class="p">}</span>
-</code></pre></div>
+<pre><code class="language-javascript">receiver.postMessage("&lt; img src="x" onerror=alert(1);&gt;",'http://localhost');
+
+}
+</code></pre>
 <p>接收方：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">receiver</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">origin</span><span class="o">!==</span><span class="s2">&quot;http://localhost:8383&quot;</span><span class="p">){</span>
-    <span class="k">return</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="p">...</span>
-  <span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">&quot;Message from localhost:8383: &quot;</span><span class="o">+</span><span class="nx">e</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+function receiver(e){
+  if (e.origin!=="http://localhost:8383"){
+    return;
+  }
+  ...
+  element.textContent = "Message from localhost:8383: "+e.data;
+}
+</code></pre>
 <p>执行上面这段代码时我们可以看到，文本中显示frame是作为数据而不是代码。</p>
 
-<p><img src="/img/post/1401054.png" alt=""> </p>
+<p><img src="/img/post/1401054.png" alt="" /></p>
 
   </section>
   
@@ -415,7 +436,7 @@ postMessage()使用方式：
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

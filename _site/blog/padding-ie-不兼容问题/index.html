@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/padding-ie-%E4%B8%8D%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
+	<link rel="canonical" href="http://localhost:4000/blog/padding-ie-%E4%B8%8D%E5%85%BC%E5%AE%B9%E9%97%AE%E9%A2%98/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -258,31 +258,37 @@
   <p>在使用padding时，在ie 兼容时通常我们遇到3种情况：</p>
 
 <ul>
-<li>IE6 正常 IE7/FF不正常</li>
+  <li>IE6 正常 IE7/FF不正常</li>
 </ul>
 
 <p>这种情况下我们这样处理：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px !important;（针对FF/IE7）
+
+<pre><code class="language-html">   padding: 7px !important;（针对FF/IE7）
    padding: 6px;（针对IE6）
-</code></pre></div>
+</code></pre>
+
 <ul>
-<li>IE6 IE7正常 FF不正常</li>
+  <li>IE6 IE7正常 FF不正常</li>
 </ul>
 
 <p>这种情况我们要这么处理，因为!important IE7也是能识别的！</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">  padding: 7px;（针对FF）
+
+<pre><code class="language-html">
+  padding: 7px;（针对FF）
  *padding: 6px;（针对IE6/IE7）
-</code></pre></div>
+</code></pre>
 <ul>
-<li>E6 IE7 FF都不一样
+  <li>E6 IE7 FF都不一样
 ```</li>
 </ul>
 
 <p>这种情况我们这样来处理：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">   padding: 7px;（针对FF）
+
+<pre><code class="language-html">   padding: 7px;（针对FF）
   *padding: 6px;（针对IE7）
   _padding: 5px; （针对IE6）
-</code></pre></div>
+</code></pre>
+
   </section>
   
 </article>
@@ -303,7 +309,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

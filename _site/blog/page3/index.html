@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="used by search engines">
+	<meta name="description" content="Cyan的技术笔记">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/page3/">
+	<link rel="canonical" href="http://localhost:4000/blog/page3/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -265,7 +265,7 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>一、什么是Webp WebP是Google新推出的影像技术，它可让网页图档有效进行压缩，同时在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，进而让整体网页下载速度加快。为了改善JPEG的图片压缩技术，他们使用了一种基于VP8编码(已在2010五月开源)的图片压缩器，利用预测编码技术，同时还采用了一种基于RIFF的非常轻量级的容器。这种容器只会给每张图片增加20字节，但能让图片作者保存他们想要存储的元数据。 与JPEG相同，WebP是一种有损压缩利用预测编码技术。</p> <p>二、Webp文件制作准备</p> <p>Google开发并放出了不同操作系统的WebP文件解码器(libvpx)和命令行工具(webpconv)。 下载地址： <a href="http://code.google.com/intl/zh-CN/speed/webp/download.html">http://code.google.com/intl/zh-CN/speed/webp/download.html</a></p> <p>我下载了用于Windows的WebpCodecSetup.exe 和libwebp-0.1.3-windows-x86.zip</p> <ol> <li>先安装WebpCodecSetup.exe，</li> <li>解压libwebp-0.1.3-windows-x86.zip（无需安装）</li> </ol> <p>三、Jpg或png转换到Webp方法</p> <p>进入libwebp-0.1.3-windows-x86.zip的解压目录，可以看到cwebp.exe和dwebp.exe，其中cwebp.exe是将jpg或png文件转换成webp文件，dwebp.exe是将webp文件转换成png、pp或pgm。这两个程序只能在dos命令行环境下运行</p> <ol> <li><p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p></li> <li><p>输入路径进入解压文件夹，以下是我安装的路径</p></li> </ol> <p>C:\Documents andSettings\Administrator&gt;e: E:&gt;cd libwebp-0.1.3-windows-x86 E:\libwebp-0.1.3-windows-x86&gt;</p> <ol> <li>输入命令，将jpg或png转换成webp</li> </ol> <p>命令行结构：cwebp [-preset &lt;...&gt;] [options] in<em>file [-o out</em>file]</p> <p>E:\libwebp-0.1.3-windows-x86&gt; cwebp -qquality e:\photo\png1.png -o e:\webp1.webp （回车） （e:\photo\png1.png是原文件路径，e:\webp1.webp是目标文件路径）</p> <p>Saving file ‘ webp1.webp’</p> <p>27672 bytes Y-U-V-All-PSNR 30.30 32.22 32.78 30.91 dB</p> <p>block count: intra4: 1372</p> <p>intra16: 10378 (-&gt; 88.32%)</p> <p>skipped block: 6204 (52.80%)</p> <p>bytes used: header: 131 (0.5%)</p> <p>mode-partition: 13138 (47.5%)</p> <p>Residuals bytes |segment 1|segment 2|segment 3|segment4| total</p> <p>intra4-coeffs: | 3918 | 911 | 268 | 65 | 5162 (18.7%)</p> <p>intra16-coeffs: | 3086 | 1964 | 881 | 240 | 6171 (22.3%)</p> <p>chroma coeffs: | 1627 | 902 | 408 | 105 | 3042 (11.0%)</p> <p>macroblocks: | 27%| 33%| 26%| 12%| 11750</p> <p>quantizer: | 127 | 127 | 127 | 127 |</p> <p>filter level: | 19 | 14| 11| 9 |</p> <p>——————————————————————————————————————</p> <p>segments total: | 8631 | 3777 | 1557 | 410 | 14375 (51.9%)</p> <ol> <li><p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件</p></li> <li><p>cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。 E:\libwebp-0.1.3-windows-x86&gt;cwebp.exe –H（回车） options:</p></li> </ol> <p>-h / -help ………… short help</p> <p>-H / -longhelp …….. long help</p> <p>-q …………. qualityfactor (0:small..100:big)</p> <p>-preset ……. Presetsetting, one of:</p> <p>default, photo, picture,</p> <p>drawing, icon, text</p> <p>-preset must come first, as it overwritesother parameters.</p> <p>-m …………… compressionmethod (0=fast, 6=slowest)</p> <p>-segments …….. number ofsegments to use (1..4)</p> <p>-s ……… Inputsize (width x height) for YUV</p> <p>-sns …………. SpatialNoise Shaping (0:off, 100:max)</p> <p>-f …………… filterstrength (0=off..100)</p> <p>-sharpness ……. filtersharpness (0:most .. 7:least sharp)</p> <p>-strong ……………. use strong filterinstead of simple.</p> <p>-partition_limit . limitquality to fit the 512k limit on the first partition (0=no degradation …100=full)</p> <p>-pass ………… analysispass number (1..10)</p> <p>-partitions …… number ofpartitions to use (0..3)</p> <p>-crop .. crop picture with the given rectangle</p> <p>-resize …….. resizepicture (after any cropping)</p> <p>-map …………. print map ofextra info.</p> <p>-d ………. dump thecompressed output (PGM...
+		    <p>一、什么是Webp WebP是Google新推出的影像技术，它可让网页图档有效进行压缩，同时在质量相同的情况下，WebP格式图像的体积要比JPEG格式图像小40%，进而让整体网页下载速度加快。为了改善JPEG的图片压缩技术，他们使用了一种基于VP8编码(已在2010五月开源)的图片压缩器，利用预测编码技术，同时还采用了一种基于RIFF的非常轻量级的容器。这种容器只会给每张图片增加20字节，但能让图片作者保存他们想要存储的元数据。 与JPEG相同，WebP是一种有损压缩利用预测编码技术。</p> <p>二、Webp文件制作准备</p> <p>Google开发并放出了不同操作系统的WebP文件解码器(libvpx)和命令行工具(webpconv)。 下载地址： <a href="http://code.google.com/intl/zh-CN/speed/webp/download.html">http://code.google.com/intl/zh-CN/speed/webp/download.html</a></p> <p>我下载了用于Windows的WebpCodecSetup.exe 和libwebp-0.1.3-windows-x86.zip</p> <ol> <li>先安装WebpCodecSetup.exe，</li> <li>解压libwebp-0.1.3-windows-x86.zip（无需安装）</li> </ol> <p>三、Jpg或png转换到Webp方法</p> <p>进入libwebp-0.1.3-windows-x86.zip的解压目录，可以看到cwebp.exe和dwebp.exe，其中cwebp.exe是将jpg或png文件转换成webp文件，dwebp.exe是将webp文件转换成png、pp或pgm。这两个程序只能在dos命令行环境下运行</p> <ol> <li> <p>点击“开始”-&gt;“运行”-&gt;输入 cmd 后回车进入dos环境</p> </li> <li> <p>输入路径进入解压文件夹，以下是我安装的路径</p> </li> </ol> <p>C:\Documents andSettings\Administrator&gt;e: E:&gt;cd libwebp-0.1.3-windows-x86 E:\libwebp-0.1.3-windows-x86&gt;</p> <ol> <li>输入命令，将jpg或png转换成webp</li> </ol> <p>命令行结构：cwebp [-preset &lt;…&gt;] [options] in_file [-o out_file]</p> <p>E:\libwebp-0.1.3-windows-x86&gt; cwebp -qquality e:\photo\png1.png -o e:\webp1.webp （回车） （e:\photo\png1.png是原文件路径，e:\webp1.webp是目标文件路径）</p> <p>Saving file ‘ webp1.webp’</p> <p>27672 bytes Y-U-V-All-PSNR 30.30 32.22 32.78 30.91 dB</p> <p>block count: intra4: 1372</p> <p>intra16: 10378 (-&gt; 88.32%)</p> <p>skipped block: 6204 (52.80%)</p> <p>bytes used: header: 131 (0.5%)</p> <p>mode-partition: 13138 (47.5%)</p> <table> <tbody> <tr> <td>Residuals bytes</td> <td>segment 1</td> <td>segment 2</td> <td>segment 3</td> <td>segment4</td> <td>total</td> </tr> </tbody> </table> <table> <tbody> <tr> <td>intra4-coeffs:</td> <td>3918</td> <td>911</td> <td>268</td> <td>65</td> <td>5162 (18.7%)</td> </tr> </tbody> </table> <table> <tbody> <tr> <td>intra16-coeffs:</td> <td>3086</td> <td>1964</td> <td>881</td> <td>240</td> <td>6171 (22.3%)</td> </tr> </tbody> </table> <table> <tbody> <tr> <td>chroma coeffs:</td> <td>1627</td> <td>902</td> <td>408</td> <td>105</td> <td>3042 (11.0%)</td> </tr> </tbody> </table> <table> <tbody> <tr> <td>macroblocks:</td> <td>27%</td> <td>33%</td> <td>26%</td> <td>12%</td> <td>11750</td> </tr> </tbody> </table> <table> <tbody> <tr> <td>quantizer:</td> <td>127</td> <td>127</td> <td>127</td> <td>127</td> </tr> </tbody> </table> <table> <tbody> <tr> <td>filter level:</td> <td>19</td> <td>14</td> <td>11</td> <td>9</td> </tr> </tbody> </table> <p>——————————————————————————————————————</p> <table> <tbody> <tr> <td>segments total:</td> <td>8631</td> <td>3777</td> <td>1557</td> <td>410</td> <td>14375 (51.9%)</td> </tr> </tbody> </table> <ol> <li> <p>转换成功，在E:\libwebp-0.1.3-windows-x86目录中会生成一个webp1.webp文件</p> </li> <li> <p>cwebp通过不同命令的选项，可以对图片的大小、尺寸打印信息等进行设置。 E:\libwebp-0.1.3-windows-x86&gt;cwebp.exe –H（回车） options:</p> </li> </ol> <p>-h / -help ………… short help</p> <p>-H / -longhelp …….. long help</p> <p>-q …………. qualityfactor (0:small..100:big)</p> <p>-preset ……. Presetsetting, one of:</p> <p>default, photo, picture,</p> <p>drawing, icon, text</p> <p>-preset must come first, as it overwritesother parameters.</p> <p>-m …………… compressionmethod (0=fast, 6=slowest)</p> <p>-segments …….. number ofsegments to use (1..4)</p> <p>-s ……… Inputsize (width x height) for YUV</p> <p>-sns …………. SpatialNoise Shaping (0:off, 100:max)</p> <p>-f …………… filterstrength (0=off..100)</p> <p>-sharpness ……. filtersharpness (0:most .. 7:least sharp)</p> <p>-strong ……………. use strong filterinstead of simple.</p> <p>-partition_limit . limitquality to fit the 512k limit on the first partition (0=no degradation …100=full)</p> <p>-pass ………… analysispass number (1..10)</p> <p>-partitions …… number...
 		    <p>
 		    <a class="text" href="/blog/.jpg-.png%E8%BD%AC%E6%8D%A2%E6%88%90.webp/">
 		      Continue Reading...
@@ -295,12 +295,215 @@
 		  <div class="excerpt">
 		  
 		  
-		    <h3>关于ios系统中，webapp启动图片在不同设备上的适应性设置</h3> <p><a href="http://stackoverflow.com/questions/4687698/mulitple-apple-touch-startup-image-resolutions-for-ios-web-app-esp-for-ipad/10011893#10011893">不同设备上的适应性设置</a></p> <h3>关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</h3> <p>可以通过正则去掉</p> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\u2006/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span> </code></pre></div> <h3>Cache开启和设置</h3> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCachePath</span><span class="p">(</span><span class="s2">&quot;/data/data/[com.packagename]/cache&quot;</span><span class="p">);</span> <span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setAppCacheMaxSize</span><span class="p">(</span><span class="mi">5</span><span class="o">*</span><span class="mi">1024</span><span class="o">*</span><span class="mi">1024</span><span class="p">);</span> <span class="c1">// 5MB</span> </code></pre></div> <h3>LocalStorage相关设置</h3> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabaseEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDomStorageEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span> <span class="n">String</span> <span class="n">databasePath</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="na">getContext</span><span class="o">().</span><span class="na">getDir</span><span class="o">(</span><span class="s">&quot;databases&quot;</span><span class="o">,</span> <span class="n">Context</span><span class="o">.</span><span class="na">MODE_PRIVATE</span><span class="o">).</span><span class="na">getPath</span><span class="o">();</span> <span class="n">browser</span><span class="o">.</span><span class="na">getSettings</span><span class="o">().</span><span class="na">setDatabasePath</span><span class="o">(</span><span class="n">databasePath</span><span class="o">);</span><span class="c1">//Android　webview的LocalStorage有个问题，关闭APP或者重启后，就清楚了，所以需要browser.getSettings().setDatabase相关的操作，把LocalStoarge存到DB中</span> <span class="n">myWebView</span><span class="o">.</span><span class="na">setWebChromeClient</span><span class="o">(</span><span class="k">new</span> <span class="nf">WebChromeClient</span><span class="o">(){</span> 　　　<span class="nd">@Override</span> 　　　<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onExceededDatabaseQuota</span><span class="o">(</span><span class="n">String</span> <span class="n">url</span><span class="o">,</span> <span class="n">String</span> <span class="n">databaseIdentifier</span><span class="o">,</span> <span class="kt">long</span> <span class="n">currentQuota</span><span class="o">,</span> <span class="kt">long</span> <span class="n">estimatedSize</span><span class="o">,</span> <span class="kt">long</span> <span class="n">totalUsedQuota</span><span class="o">,</span> <span class="n">WebStorage</span><span class="o">.</span><span class="na">QuotaUpdater</span> <span class="n">quotaUpdater</span><span class="o">){</span> 　　　　　　　<span class="n">quotaUpdater</span><span class="o">.</span><span class="na">updateQuota</span><span class="o">(</span><span class="n">estimatedSize</span> <span class="o">*</span> <span class="mi">2</span><span class="o">);</span> 　　　<span class="o">}</span> <span class="o">}</span> </code></pre></div> <h3>浏览器自带缩放按钮取消显示</h3> <div class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">browser</span><span class="p">.</span><span class="nx">getSettings</span><span class="p">().</span><span class="nx">setBuiltInZoomControls</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span> </code></pre></div> <h3>几个比较好的实践</h3> <p>使用localstorage缓存html</p> <p>使用lazyload，还要记得lazyload占位图虽然小，但是最好能提前加载到缓存</p> <p>延时加载执行js</p> <p>主要原因就在于Android Webview的onPageFinished事件，Android端一般是用这个事件来标识页面加载完成并显示的，也就是说在此之前，会一直loading，但是Android的OnPageFinished事件会在Javascript脚本执行完成之后才会触发。如果在页面中使用JQuery，会在处理完DOM对象，执行完$(document).ready(function() {});事件自会后才会渲染并显示页面。</p> <h3>移动浏览器篇</h3> <ul> <li>UC浏览器 video标签脱离文档流</li> </ul> <p>场景：标签的父元素(祖辈元素)设置transform样式后，标签会脱离文档流。</p> <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p> <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zj3xiyu</a></p> <p>解决方案：不使用transform属性。translate用 top、 margin等属性替代。</p> <ul> <li>UC浏览器 video标签总在最前场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</li> </ul> <p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p> <ul> <li>UC浏览器position:fixed 属性在UC浏览器的奇葩现象</li> </ul> <p>场景：设置了position: fixed 的元素会遮挡z-index值更高的同辈元素。</p> <p>在8.6的版本,这个情况直接出现。</p> <p>在8.7之后的版本,当同辈元素的height大于713这个「神奇」的数值时,才会被遮挡。</p> <p>测试环境：UC浏览器 8.8_beta/8.7/8.6 + Android 2.3/4.0 。</p> <p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zYLTSg6</a></p> <ul> <li>QQ手机浏览器不支持HttpOnly</li> </ul> <p>场景：带有HttpOnly属性的Cookie，在QQ手机浏览器版本从4.0开始失效。JavaScript可以直接读取设置了HttpOnly的Cookie值。</p> <p>测试环境：QQ手机浏览器 4.0/4.1/4.2 + Android 4.0 。</p> <ul> <li>(MIUI原生浏览器)浏览器地址栏hash不改变</li> </ul> <p>场景：location.hash 被赋值后，地址栏的地址不会改变。</p> <p>但实际上 location.href 已经更新了，通过JavaScript可以顺利获取到更新后的地址。</p> <p>虽然不影响正常访问，但用户无法将访问过程中改变hash后的地址存为书签。</p> <p>测试环境：MIUI 4.0</p> <ul> <li> (Chrome Mobile )fixed元素无法点击</li> </ul> <p>场景：父元素设置position: fixed;</p> <p>子元素设置position: absolute;</p> <p>此时，如果父元素/子元素还设置了overflow: hidden 则出现“父元素遮挡该子元素“的bug。</p> <p>视觉(view)层并没有出现遮挡，只是无法触发绑定在该子元素上的事件。可理解为：「看到点不到」。</p> <p>补充： 页面往下滚动，触发position: fixed;的特性时，才会出现这个bug，在最顶不会出现。</p> <p>测试平台： 小米1S，Android4.0的Chrome18</p> <p>demo： <a href="http://maplejan.sinaapp.com/demo/fixed_chromemobile.html">http://maplejan.sinaapp.com/demo/fixed_chromemobile.html</a></p> <p>解决办法： 把父元素和子元素的overflow: hidden去掉。</p> <p>以上来源于 http://www.cnblogs.com/maplejan/archive/2013/04/26/3045928.html</p> <ul>...
-		    <p>
-		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-3/">
-		      Continue Reading...
-		    </a>
-		    </p>
+		    <p>###关于ios系统中，webapp启动图片在不同设备上的适应性设置</p>
+
+<p><a href="http://stackoverflow.com/questions/4687698/mulitple-apple-touch-startup-image-resolutions-for-ios-web-app-esp-for-ipad/10011893#10011893">不同设备上的适应性设置</a></p>
+
+<p>###关于ios系统中，中文输入法输入英文时，字母之间可能会出现一个六分之一空格</p>
+
+<p>可以通过正则去掉</p>
+
+<pre><code class="language-js">this.value = this.value.replace(/\u2006/g, '');
+</code></pre>
+
+<p>###Cache开启和设置</p>
+
+<pre><code class="language-js">browser.getSettings().setAppCacheEnabled(true);
+browser.getSettings().setAppCachePath("/data/data/[com.packagename]/cache");
+browser.getSettings().setAppCacheMaxSize(5*1024*1024); // 5MB
+</code></pre>
+
+<p>###LocalStorage相关设置</p>
+
+<pre><code class="language-java">browser.getSettings().setDatabaseEnabled(true);
+browser.getSettings().setDomStorageEnabled(true);
+String databasePath = browser.getContext().getDir("databases", Context.MODE_PRIVATE).getPath();
+browser.getSettings().setDatabasePath(databasePath);//Android　webview的LocalStorage有个问题，关闭APP或者重启后，就清楚了，所以需要browser.getSettings().setDatabase相关的操作，把LocalStoarge存到DB中
+
+myWebView.setWebChromeClient(new WebChromeClient(){
+　　　@Override
+　　　public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater){
+　　　　　　　quotaUpdater.updateQuota(estimatedSize * 2);
+　　　}
+}
+</code></pre>
+
+<p>###浏览器自带缩放按钮取消显示</p>
+
+<pre><code class="language-js">browser.getSettings().setBuiltInZoomControls(false);
+</code></pre>
+
+<p>###几个比较好的实践</p>
+
+<p>使用localstorage缓存html</p>
+
+<p>使用lazyload，还要记得lazyload占位图虽然小，但是最好能提前加载到缓存</p>
+
+<p>延时加载执行js</p>
+
+<p>主要原因就在于Android Webview的onPageFinished事件，Android端一般是用这个事件来标识页面加载完成并显示的，也就是说在此之前，会一直loading，但是Android的OnPageFinished事件会在Javascript脚本执行完成之后才会触发。如果在页面中使用JQuery，会在处理完DOM对象，执行完$(document).ready(function() {});事件自会后才会渲染并显示页面。</p>
+
+<p>###移动浏览器篇</p>
+
+<ul>
+  <li>UC浏览器 video标签脱离文档流</li>
+</ul>
+
+<p>场景：标签的父元素(祖辈元素)设置transform样式后，标签会脱离文档流。</p>
+
+<p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p>
+
+<p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zj3xiyu</a></p>
+
+<p>解决方案：不使用transform属性。translate用 top、 margin等属性替代。</p>
+
+<ul>
+  <li>UC浏览器 video标签总在最前场景：<video> 标签总是在最前（可以理解为video标签的z-index属性是Max）。</video></li>
+</ul>
+
+<p>测试环境：UC浏览器 8.7/8.6 + Android 2.3/4.0 。</p>
+
+<ul>
+  <li>UC浏览器position:fixed 属性在UC浏览器的奇葩现象</li>
+</ul>
+
+<p>场景：设置了position: fixed 的元素会遮挡z-index值更高的同辈元素。</p>
+
+<p>在8.6的版本,这个情况直接出现。</p>
+
+<p>在8.7之后的版本,当同辈元素的height大于713这个「神奇」的数值时,才会被遮挡。</p>
+
+<p>测试环境：UC浏览器 8.8_beta/8.7/8.6 + Android 2.3/4.0 。</p>
+
+<p>Demo：<a href="http://maplejan.sinaapp.com/demo/uc_fixed.html">http://t.cn/zYLTSg6</a></p>
+
+<ul>
+  <li>QQ手机浏览器不支持HttpOnly</li>
+</ul>
+
+<p>场景：带有HttpOnly属性的Cookie，在QQ手机浏览器版本从4.0开始失效。JavaScript可以直接读取设置了HttpOnly的Cookie值。</p>
+
+<p>测试环境：QQ手机浏览器 4.0/4.1/4.2 + Android 4.0 。</p>
+
+<ul>
+  <li>(MIUI原生浏览器)浏览器地址栏hash不改变</li>
+</ul>
+
+<p>场景：location.hash 被赋值后，地址栏的地址不会改变。</p>
+
+<p>但实际上 location.href 已经更新了，通过JavaScript可以顺利获取到更新后的地址。</p>
+
+<p>虽然不影响正常访问，但用户无法将访问过程中改变hash后的地址存为书签。</p>
+
+<p>测试环境：MIUI 4.0</p>
+
+<ul>
+  <li>(Chrome Mobile )fixed元素无法点击</li>
+</ul>
+
+<p>场景：父元素设置position: fixed;</p>
+
+<p>子元素设置position: absolute;</p>
+
+<p>此时，如果父元素/子元素还设置了overflow: hidden 则出现“父元素遮挡该子元素“的bug。</p>
+
+<p>视觉(view)层并没有出现遮挡，只是无法触发绑定在该子元素上的事件。可理解为：「看到点不到」。</p>
+
+<p>补充： 页面往下滚动，触发position: fixed;的特性时，才会出现这个bug，在最顶不会出现。</p>
+
+<p>测试平台： 小米1S，Android4.0的Chrome18</p>
+
+<p>demo： <a href="http://maplejan.sinaapp.com/demo/fixed_chromemobile.html">http://maplejan.sinaapp.com/demo/fixed_chromemobile.html</a></p>
+
+<p>解决办法： 把父元素和子元素的overflow: hidden去掉。</p>
+
+<p>以上来源于 http://www.cnblogs.com/maplejan/archive/2013/04/26/3045928.html</p>
+
+<ul>
+  <li>(微信浏览器)</li>
+</ul>
+
+<p>因为微信浏览器屏蔽了一部分链接图片，所以需要引导用户去打开新页面，可以用以下方式判断微信浏览器的ua</p>
+
+<pre><code class="language-js">
+function is_weixn(){
+    var ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger/i)=="micromessenger") {
+        return true;
+    } else {
+        return false;
+    }
+}
+</code></pre>
+
+<p>后端判断也很简单，比如php</p>
+
+<pre><code class="language-php">function is_weixin(){ if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false ) { return true; } return false;}
+</code></pre>
+
+<p>###库的使用实践</p>
+
+<p>zepto.js</p>
+
+<p><a href="http://chaoskeh.com/blog/some-experience-of-using-zepto.html">zepto的一篇使用注意点讲解</a></p>
+
+<p><a href="http://blog.youyo.name/archives/zepto-tap-click-through-research.html">zepto的著名的tap“点透”bug</a></p>
+
+<p><a href="http://www.cnblogs.com/sky000/archive/2013/03/29/2988952.html">zepto源码注释</a></p>
+
+<p>###跨域问题</p>
+
+<p>手机浏览器也是浏览器，在ajax调用外部api的时候也存在跨域问题。当然利用phonegap打包后，由于协议不一样就不存在跨域问题了。 但页面通常是需要跟后端进行调试的。一般会报类似</p>
+
+<pre><code class="language-js">XMLHttpRequest cannot load XXX
+Origin null is not allowed by Access-Control-Allow-Origin.
+</code></pre>
+
+<p>以及</p>
+
+<pre><code class="language-js">XMLHttpRequest cannot load http://. Request header field Content-Type is not allowed by Access-Control-Allow-Headers."
+</code></pre>
+
+<p>这时候可以让后端加上两个http头</p>
+
+<pre><code class="language-js">
+Access-Control-Allow-Origin "*"
+Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept"
+</code></pre>
+
+<p>第一个头可以避免跨域问题，第二个头可以方便ajax请求设置content-type等配置项</p>
+
+<p>###调试篇</p>
+
+<p>手机抓包与配host</p>
+
+<p>在PC上，我们可以很方便地配host，但是手机上如何配host，这是一个问题。</p>
+
+<p>这里主要使用fiddler和远程代理，实现手机配host的操作，具体操作如下：</p>
+
+<p>首先，保证PC和移动设备在同一个局域网下；</p>
+
+<p>PC上开启fiddler，并在设置中勾选“allow remote computers to connect”</p>
+
+<p>首先，保证PC和移动设备在同一个局域网下；</p>
+
+<p>PC上开启fiddler，并在设置中勾选“allow remote computers to connect”</p>
+
+<p>手机上设置代理，代理IP为PC的IP地址，端口为8888（这是fiddler的默认端口）。通常手机上可以直接设置代理，如果没有，可以去下载一个叫ProxyDroid的APP来实现代理的设置。</p>
+
+<p>此时你会发现，用手机上网，走的其实是PC上的fiddler，所有的请求包都会在fiddler中列出来，配合willow使用，即可实现配host，甚至是反向代理的操作。</p>
+
+<p>###相关收藏</p>
+
+<p><a href="https://github.com/AlloyTeam/Mars">腾讯移动Web前端知识库</a></p>
+
+<p>一些非常重要的工具类网站</p>
+
+<p><a href="http://ww1.sinaimg.cn/bmiddle/c2c57f68jw1e4fh7dmw12j20fi2w6qe1.jpg">移动端手势表</a></p>
+
+<p><a href="http://ued.ctrip.com/webkitcss/index.html">webkit独有的样式分析</a></p>
+
+
 		  
 		  </div>
 		</div>
@@ -325,7 +528,7 @@
 		  <div class="excerpt">
 		  
 		  
-		    <h3>使用特殊链接：</h3> <p>如果你关闭自动识别后 ，又希望某些电话号码能够链接到 iPhone 的拨号功能 ，那么可以通过这样来声明电话链接 ,</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;tel:12345654321&quot;</span><span class="nt">&gt;</span>打电话给我<span class="nt">&lt;/a&gt;</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;sms:12345654321&quot;</span><span class="nt">&gt;</span>发短信<span class="nt">&lt;/a&gt;</span> </code></pre></div> <p>或用于单元格：</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;td</span> <span class="na">onclick=</span><span class="s">&quot;location.href=&#39;tel:122&#39;&quot;</span><span class="nt">&gt;&lt;/td&gt;</span> </code></pre></div> <p>“文本”描述属性的特定文字样式，间距和自动滚屏。</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nt">text-shadow</span><span class="o">:</span> <span class="nf">#00FFFC</span> <span class="nt">10px</span> <span class="nt">10px</span> <span class="nt">5px</span><span class="o">;</span> <span class="nt">text-transform</span><span class="o">:</span> <span class="nt">capitalize</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">capitalize</span><span class="o">/</span><span class="nt">lowercase</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">uppercase</span> <span class="nt">word-wrap</span><span class="o">:</span> <span class="nt">break-word</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">break-word</span><span class="o">/</span><span class="nt">normal</span> <span class="nt">-webkit-marquee</span><span class="o">:</span> <span class="nt">right</span> <span class="nt">large</span> <span class="nt">infinite</span> <span class="nt">normal</span> <span class="nt">10s</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">direction</span><span class="o">(</span><span class="err">方向</span><span class="o">)</span> <span class="nt">increment</span><span class="o">(</span><span class="err">迭代次数</span><span class="o">)</span> <span class="nt">repetition</span><span class="o">(</span><span class="err">重复</span><span class="o">)</span> <span class="nt">style</span><span class="o">(</span><span class="err">样式</span><span class="o">)</span> <span class="nt">speed</span><span class="o">(</span><span class="err">速度</span><span class="o">);</span> <span class="nt">-webkit-marquee-direction</span><span class="o">:</span> <span class="nt">ahead</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">backwards</span><span class="o">/</span><span class="nt">down</span><span class="o">/</span><span class="nt">forwards</span><span class="o">/</span><span class="nt">left</span><span class="o">/</span><span class="nt">reverse</span><span class="o">/</span><span class="nt">right</span><span class="o">/</span><span class="nt">up</span> <span class="nt">-webkit-marquee-incrementt</span><span class="o">:</span> <span class="nt">1-n</span><span class="o">/</span><span class="nt">infinite</span><span class="o">(</span><span class="err">无穷次</span><span class="o">)</span> <span class="nt">-webkit-marquee-speed</span><span class="o">:</span> <span class="nt">fast</span><span class="o">/</span><span class="nt">normal</span><span class="o">/</span><span class="nt">slow</span> <span class="nt">-webkit-marquee-style</span><span class="o">:</span> <span class="nt">alternate</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">scroll</span><span class="o">/</span><span class="nt">slide</span> <span class="nt">-webkit-text-fill-color</span><span class="o">:</span> <span class="nf">#ff6600</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">capitalize</span><span class="o">,</span> <span class="nt">lowercase</span><span class="o">,</span> <span class="nt">none</span><span class="o">,</span> <span class="nt">uppercase</span> <span class="nt">-webkit-text-security</span><span class="o">:</span> <span class="nt">circle</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">circle</span><span class="o">/</span><span class="nt">disc</span><span class="o">/</span><span class="nt">none</span><span class="o">/</span><span class="nt">square</span> <span class="nt">-webkit-text-size-adjust</span><span class="o">:</span> <span class="nt">none</span><span class="o">;</span> <span class="err">常量</span><span class="nd">:auto</span><span class="o">/</span><span class="nt">none</span><span class="o">;</span> <span class="nt">-webkit-text-stroke</span><span class="o">:</span> <span class="nt">15px</span> <span class="nf">#fff</span><span class="o">;</span> <span class="nt">-webkit-line-break</span><span class="o">:</span> <span class="nt">after-white-space</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">normal</span><span class="o">/</span><span class="nt">after-white-space</span> <span class="nt">-webkit-appearance</span><span class="o">:</span> <span class="nt">caps-lock-indicator</span><span class="o">;</span> <span class="nt">-webkit-nbsp-mode</span><span class="o">:</span> <span class="nt">space</span><span class="o">;</span> <span class="err">常量：</span> <span class="nt">normal</span><span class="o">/</span><span class="nt">space</span> <span class="nt">-webkit-rtl-ordering</span><span class="o">:</span> <span class="nt">logical</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">visual</span><span class="o">/</span><span class="nt">logical</span> <span class="nt">-webkit-user-drag</span><span class="o">:</span> <span class="nt">element</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">element</span><span class="o">/</span><span class="nt">auto</span><span class="o">/</span><span class="nt">none</span> <span class="nt">-webkit-user-modify</span><span class="o">:</span> <span class="nt">read-</span> <span class="nt">only</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">read-write-plaintext-only</span><span class="o">/</span><span class="nt">read-write</span><span class="o">/</span><span class="nt">read-only</span> <span class="nt">-webkit-user-select</span><span class="o">:</span> <span class="nt">text</span><span class="o">;</span> <span class="err">常量：</span><span class="nt">text</span><span class="o">/</span><span...
+		    <p>###使用特殊链接：</p> <p>如果你关闭自动识别后 ，又希望某些电话号码能够链接到 iPhone 的拨号功能 ，那么可以通过这样来声明电话链接 ,</p> <pre><code class="language-html">&lt;a href="tel:12345654321"&gt;打电话给我&lt;/a&gt; &lt;a href="sms:12345654321"&gt;发短信&lt;/a&gt; </code></pre> <p>或用于单元格：</p> <pre><code class="language-html">&lt;td onclick="location.href='tel:122'"&gt;&lt;/td&gt; </code></pre> <p>“文本”描述属性的特定文字样式，间距和自动滚屏。</p> <pre><code class="language-css">text-shadow: #00FFFC 10px 10px 5px; text-transform: capitalize; 常量：capitalize/lowercase/none/uppercase word-wrap: break-word; 常量：break-word/normal -webkit-marquee: right large infinite normal 10s; 常量：direction(方向) increment(迭代次数) repetition(重复) style(样式) speed(速度); -webkit-marquee-direction: ahead/auto/backwards/down/forwards/left/reverse/right/up -webkit-marquee-incrementt: 1-n/infinite(无穷次) -webkit-marquee-speed: fast/normal/slow -webkit-marquee-style: alternate/none/scroll/slide -webkit-text-fill-color: #ff6600; 常量：capitalize, lowercase, none, uppercase -webkit-text-security: circle; 常量：circle/disc/none/square -webkit-text-size-adjust: none; 常量:auto/none; -webkit-text-stroke: 15px #fff; -webkit-line-break: after-white-space; 常量：normal/after-white-space -webkit-appearance: caps-lock-indicator; -webkit-nbsp-mode: space; 常量： normal/space -webkit-rtl-ordering: logical; 常量：visual/logical -webkit-user-drag: element; 常量：element/auto/none -webkit-user-modify: read- only; 常量：read-write-plaintext-only/read-write/read-only -webkit-user-select: text; 常量：text/auto/none </code></pre> <p>“表格”描述的布局和设计性能表的具体内容。</p> <pre><code class="language-css">-webkit-border-horizontal-spacing: 2px; -webkit-border-vertical-spacing: 2px; -webkit-column-break-after: right; 常量：always/auto/avoid/left/right -webkit-column-break-before: right; 常量：always/auto/avoid/left/right –webkit-column-break-inside: logical; 常量：avoid/auto -webkit-column-count: 3; //分栏 -webkit-column-rule: 1px solid #fff; style:dashed,dotted,double,groove,hidden,inset,none,outset,ridge,solid </code></pre> <p>“用户界面”描述属性，涉及到用户界面元素在浏览器中，如滚动文字区，滚动条，等等。报告还描述属性，范围以外的网页内容，如光标的标注样式和显示当您按住触摸触摸 目标，如在iPhone上的链接。</p> <pre><code class="language-css">-webkit-box-align: baseline,center,end,start,stretch 常量：baseline/center/end/start/stretch -webkit-box-direction: normal;常量：normal/reverse -webkit-box-flex: flex_valuet -webkit-box-flex-group: group_number -webkit-box-lines: multiple; 常量：multiple/single -webkit-box-ordinal-group: group_number -webkit-box-orient: block-axis; 常量：block-axis/horizontal/inline-axis/vertical/orientation –webkit-box-pack: alignment; 常量：center/end/justify/start </code></pre> <p>动画过渡 这是 Webkit 中最具创新力的特性：使用过渡函数定义动画。</p> <pre><code class="language-css">-webkit-animation: title infinite ease-in-out 3s; animation 有这几个属性： -webkit-animation-name： //属性名，就是我们定义的keyframes -webkit-animation-duration：3s //持续时间 -webkit-animation-timing-function： //过渡类型：ease/ linear(线性) /ease-in(慢到快)/ease-out(快到慢) /ease-in-out(慢到快再到慢) /cubic-bezier -webkit-animation-delay：10ms //动画延迟(默认0) -webkit-animation-iteration-count： //循环次数(默认1)，infinite 为无限 -webkit-animation-direction： //动画方式：normal(默认 正向播放)； alternate(交替方向，第偶数次正向播放，第奇数次反向播放) </code></pre> <p>这些同样是可以简写的。但真正让我觉的很爽的是keyframes，它能定义一个动画的转变过程供调用，过程为0%到100%或from(0%)到to(100%)。简单点说，只要你有想法，你想让元素在这个过程中以什么样的方式改变都是很简单的。</p> <p>-webkit-transform: 类型（缩放scale/旋转rotate/倾斜skew/位移translate） scale(num,num) 放大倍率。scaleX 和 scaleY(3)，可以简写为：scale(* , <em>) rotate(</em>deg) 转动角度。rotateX 和 rotateY，可以简写为：rotate(* , <em>) Skew(</em>deg) 倾斜角度。skewX 和skewY，可简写为：skew(* , <em>) translate(</em>,<em>) 坐标移动。translateX 和translateY，可简写为：translate(</em> , *)。 ___</p> <p>###锁定 viewport</p> <pre><code class="language-js">ontouchmove="event.preventDefault()" //锁定viewport，任何屏幕操作不移动用户界面（弹出键盘除外）。 </code></pre> <hr /> <p>###被点击元素的外观变化，可以使用样式来设定：</p> <p>-webkit-tap-highlight-color: 颜色</p> <hr /> <p>###侦测iPhone/iPod</p> <p>开发特定设备的移动网站，首先要做的就是设备侦测了。下面是使用Javascript侦测iPhone/iPod的UA，然后转向到专属的URL。</p> <pre><code class="language-js">if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) { if (document.cookie.indexOf("iphone_redirect=false") == -1) { window.location = "http://m.example.com"; } } </code></pre> <hr /> <p>###阻止旋转屏幕时自动调整字体大小</p> <pre><code class="language-css">html, body, form, fieldset, p, div, h1, h2, h3, h4, h5, h6 {-webkit-text-size-adjust:none;} </code></pre> <hr /> <p>###模拟:hover伪类</p> <p>因为iPhone并没有鼠标指针，所以没有hover事件。那么CSS :hover伪类就没用了。但是iPhone有Touch事件，onTouchStart 类似 onMouseOver，onTouchEnd 类似 onMouseOut。所以我们可以用它来模拟hover。使用Javascript：</p> <pre><code class="language-js">var myLinks = document.getElementsByTagName('a'); for(var i = 0; i &lt; myLinks.length; i++){ myLinks[i].addEventListener('touchstart', function(){ this.className = 'hover'; }, false); myLinks[i].addEventListener('touchend', function(){ this.className = '';}, false); } </code></pre> <hr /> <p>###flexbox布局模板</p> <p><a href="http://jsbin.com/ibuwol/2/edit">flex模板</a></p> <p><a href="http://www.w3cplus.com/blog/666.html">深入了解flex布局</a></p> <hr /> <p>###测试是否支持svg图片</p> <pre><code class="language-js">document.implementation.hasFeature("http:// www.w3.org/TR/SVG11/feature#Image", "1.1"); </code></pre> <hr /> <p>###消除transition闪屏</p> <p>两个方法</p> <pre><code...
 		    <p>
 		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-2/">
 		      Continue Reading...
@@ -355,7 +558,7 @@
 		  <div class="excerpt">
 		  
 		  
-		    <p>在工作中遇到的一些问题和fix方法，做一个汇总：</p> <h3>样式表:</h3> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">href=</span><span class="s">&quot;startup.png&quot;</span> <span class="nt">/&gt;</span> // 设置开始页面图片 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon&quot;</span> <span class="na">href=</span><span class="s">&quot;iphon_tetris_icon.png&quot;</span><span class="nt">/&gt;</span> // 在设置书签的时候可以显示好看的图标 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;all and (orientation:portrait)&quot;</span> <span class="na">href=</span><span class="s">&quot;portrait.css&quot;</span><span class="nt">&gt;</span> // 肖像模式样式 <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">media=</span><span class="s">&quot;all and (orientation:landscape)&quot;</span><span class="na">href=</span><span class="s">&quot;landscape.css&quot;</span><span class="nt">&gt;</span> // 风景模式样式 //竖屏时使用的样式 <span class="nt">&lt;style </span><span class="na">media=</span><span class="s">&quot;all and (orientation:portrait)&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span> <span class="nf">#landscape</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span> <span class="nt">&lt;/style&gt;</span> //横屏时使用的样式 <span class="nt">&lt;style </span><span class="na">media=</span><span class="s">&quot;all and (orientation:landscape)&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span><span class="nf">#portrait</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span> <span class="p">}</span><span class="nt">&lt;/style&gt;</span> </code></pre></div> <h3>meta标签:</h3> <p>这些meta标签在开发webapp时起到非常重要的作用</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0&quot;</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;black&quot;</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">content=</span><span class="s">&quot;telephone=no&quot;</span> <span class="na">name=</span><span class="s">&quot;format-detection&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>第一个meta标签表示：强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；</p> <p>其中：</p> <p>width - viewport的宽度</p> <p>height - viewport的高度</p> <p>initial-scale - 初始的缩放比例</p> <p>minimum-scale - 允许用户缩放到的最小比例</p> <p>maximum-scale - 允许用户缩放到的最大比例</p> <p>user-scalable - 用户是否可以手动缩放 </p> <p>第二个meta标签是iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；</p> <p>第三个meta标签也是iphone的私有标签，它指定的iphone中safari顶端的状态条的样式；</p> <p>第四个meta标签表示：告诉设备忽略将页面中的数字识别为电话号码</p> <h3>页面描述(iOS)</h3> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_114.png&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;72x72&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_72.png&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-icon-precomposed&quot;</span> <span class="na">sizes=</span><span class="s">&quot;114x114&quot;</span> <span class="na">href=</span><span class="s">&quot;http://www.xxx.com/App_icon_114.png&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这个属性是当用户把连接保存到手机桌面时使用的图标，如果不设置，则会用网页的截图。有了这，就可以让你的网页像APP一样存在手机里了</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;apple-touch-startup-image&quot;</span> <span class="na">href=</span><span class="s">&quot;/img/startup.png&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这个是APP启动画面图片，用途和上面的类似，如果不设置，启动画面就是白屏，图片像素就是手机全屏的像素</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-status-bar-style&quot;</span> <span class="na">content=</span><span class="s">&quot;black-translucent&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这个描述是表示打开的web app的最上面的时间、信号栏是黑色的，当然也可以设置其它参数，详细参数说明在：Supported Meta Tags</p> <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-touch-fullscreen&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span> </code></pre></div> <p>这2个描述也很有用的，如果没有它，你的web app会用safari浏览器打开，有了它，就会用独立进程的无地址栏的打开，完全可以和普通的APP比拟了</p> <p>下面还有个不错的css，是用来区分视网膜屏幕的，这样你可以在iphone这样的手机里载入2x的图片，就不会模糊了</p> <div class="highlight"><pre><code class="language-css" data-lang="css"><span class="k">@media</span> <span class="nt">only</span> <span class="nt">screen</span> <span class="nt">and</span> <span class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="nd">:1</span><span...
+		    <p>在工作中遇到的一些问题和fix方法，做一个汇总：</p> <p>###样式表:</p> <pre><code class="language-html">&lt;link rel="apple-touch-startup-image" href="startup.png" /&gt; // 设置开始页面图片 &lt;link rel="apple-touch-icon" href="iphon_tetris_icon.png"/&gt; // 在设置书签的时候可以显示好看的图标 &lt;link rel="stylesheet" media="all and (orientation:portrait)" href="portrait.css"&gt; // 肖像模式样式 &lt;link rel="stylesheet" media="all and (orientation:landscape)"href="landscape.css"&gt; // 风景模式样式 //竖屏时使用的样式 &lt;style media="all and (orientation:portrait)" type="text/css"&gt; #landscape { display: none; } &lt;/style&gt; //横屏时使用的样式 &lt;style media="all and (orientation:landscape)" type="text/css"&gt;#portrait { display: none; }&lt;/style&gt; </code></pre> <p>###meta标签:</p> <p>这些meta标签在开发webapp时起到非常重要的作用</p> <pre><code class="language-html">&lt;meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" /&gt; &lt;meta content="yes" name="apple-mobile-web-app-capable" /&gt; &lt;meta content="black" name="apple-mobile-web-app-status-bar-style" /&gt; &lt;meta content="telephone=no" name="format-detection" /&gt; </code></pre> <p>第一个meta标签表示：强制让文档的宽度与设备的宽度保持1:1，并且文档最大的宽度比例是1.0，且不允许用户点击屏幕放大浏览；</p> <p>其中：</p> <p>width - viewport的宽度</p> <p>height - viewport的高度</p> <p>initial-scale - 初始的缩放比例</p> <p>minimum-scale - 允许用户缩放到的最小比例</p> <p>maximum-scale - 允许用户缩放到的最大比例</p> <p>user-scalable - 用户是否可以手动缩放</p> <p>第二个meta标签是iphone设备中的safari私有meta标签，它表示：允许全屏模式浏览；</p> <p>第三个meta标签也是iphone的私有标签，它指定的iphone中safari顶端的状态条的样式；</p> <p>第四个meta标签表示：告诉设备忽略将页面中的数字识别为电话号码</p> <p>###页面描述(iOS)</p> <pre><code class="language-html">&lt;link rel="apple-touch-icon-precomposed" href="http://www.xxx.com/App_icon_114.png" /&gt; &lt;link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://www.xxx.com/App_icon_72.png" /&gt; &lt;link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://www.xxx.com/App_icon_114.png" /&gt; </code></pre> <p>这个属性是当用户把连接保存到手机桌面时使用的图标，如果不设置，则会用网页的截图。有了这，就可以让你的网页像APP一样存在手机里了</p> <pre><code class="language-html">&lt;link rel="apple-touch-startup-image" href="/img/startup.png" /&gt; </code></pre> <p>这个是APP启动画面图片，用途和上面的类似，如果不设置，启动画面就是白屏，图片像素就是手机全屏的像素</p> <pre><code class="language-html">&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /&gt; </code></pre> <p>这个描述是表示打开的web app的最上面的时间、信号栏是黑色的，当然也可以设置其它参数，详细参数说明在：Supported Meta Tags</p> <pre><code class="language-html">&lt;meta name="apple-touch-fullscreen" content="yes" /&gt; &lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt; </code></pre> <p>这2个描述也很有用的，如果没有它，你的web app会用safari浏览器打开，有了它，就会用独立进程的无地址栏的打开，完全可以和普通的APP比拟了</p> <p>下面还有个不错的css，是用来区分视网膜屏幕的，这样你可以在iphone这样的手机里载入2x的图片，就不会模糊了</p> <pre><code class="language-css"> @media only screen and (-webkit-min-device-pixel-ratio:1.5),only screen and (min--moz-device-pixel-ratio:1.5),only screen and (min-device-pixel-ratio:1.5),only screen and (min-resolution:200dpi) { #logo{background-image: url(logo@2x.png);} } </code></pre> <p>###关于点击和click事件</p> <p>对于a标记的点击导航，默认是在onclick事件中处理的。而移动客户端对onclick的响应相比PC浏览器有着明显的几百毫秒延迟。</p> <p>在移动浏览器中对触摸事件的响应顺序应当是：</p> <p>ontouchstart -&gt; ontouchmove -&gt; ontouchend -&gt; onclick 因此，如果确实要加快对点击事件的响应，就应当绑定ontouchend事件。</p> <p>使用click会出现绑定点击区域闪一下的情况，解决：给该元素一个样式如下</p> <pre><code class="language-css">-webkit-tap-highlight-color: rgba(0,0,0,0); </code></pre> <p>如果不使用click，也不能简单的用touchstart或touchend替代，需要用touchstart的模拟一个click事件，并且不能发生touchmove事件，或者用zepto中的tap（轻击）事件。</p> <pre><code class="language-css">body{-webkit-overflow-scrolling: touch;} </code></pre> <p>用iphone或ipad浏览很长的网页滚动时的滑动效果很不错吧？不过如果是一个div，然后设置height:200px;overflow:auto;的话，可以滚动但是完全没有那滑动效果，很郁闷吧？ 我看到很多网站为了实现这一效果，用了第三方类库，最常用的是iscroll（包括新浪手机页，百度等） 我一开始也使用，不过自从用了-webkit-overflow-scrolling:touch;样式后，就完全可以抛弃第三方类库了，把它加在body{}区域，所有的overflow需要滚动的都可以生效了。</p> <p>###手机浏览器常用手势动作监听封装(配合zepto,from mansonchor)</p> <p><a href="http://wo.poco.cn/manson/post/id/268780" alt="手机浏览器常用手势动作监听封装">手机浏览器常用手势动作监听封装</a></p> <p>###事件：(参考：引用了指尖上的js系列，在此向作者表示感谢) <a href="http://www.cnblogs.com/pifoo/archive/2011/05/23/webkit-touch-event-1.html">对于Touch的处理</a> <a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-2.html">处理简单手势</a></p> <p><a href="http://www.cnblogs.com/pifoo/archive/2011/05/22/webkit-touch-event-3.html">处理复杂手势</a></p> <p>###手势事件</p> <p>touchstart //当手指接触屏幕时触发</p> <p>touchmove //当已经接触屏幕的手指开始移动后触发</p> <p>touchend //当手指离开屏幕时触发</p> <p>touchcancel</p> <p>###触摸事件</p> <p>gesturestart //当两个手指接触屏幕时触发</p> <p>gesturechange //当两个手指接触屏幕后开始移动时触发</p> <p>gestureend</p> <p>###屏幕旋转事件</p> <p>onorientationchange //检测触摸屏幕的手指何时改变方向</p> <p>orientationchange //touch事件支持的相关属性</p> <p>touches</p> <p>targetTouches</p> <p>changedTouches</p> <p>clientX　　　　// X coordinate of touch relative to the viewport (excludes scroll offset)</p> <p>clientY　　　　// Y coordinate of touch relative to the viewport (excludes scroll offset)</p> <p>screenX　　　 // Relative to the screen</p> <p>screenY 　　 // Relative to the screen</p> <p>pageX　　 　　// Relative to the full page (includes scrolling)</p> <p>pageY　　　　 // Relative to the full page (includes scrolling)</p> <p>target　　　　 // Node the touch event originated from</p> <p>identifier　　 // An identifying number, unique to each touch event</p> <p>屏幕旋转事件：onorientationchange 添加屏幕旋转事件侦听，可随时发现屏幕旋转状态（左旋、右旋还是没旋）</p>...
 		    <p>
 		    <a class="text" href="/blog/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%B8%8A%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98%E4%B8%8E%E6%80%BB%E7%BB%93-1/">
 		      Continue Reading...
@@ -387,41 +590,51 @@
 		  
 		    <p>图片懒加载有很多js插件，非常著名的属jQuery的Lazy Load了。自己做手机项目上也需要图片懒加载，而且手机上的图片懒加载有两种：一种是普通img标签的，一种是div标签（或者其他标签）上加背景图片的。所以就练手写了个支持以上两种情况的Zepto小插件。</p>
 
-<h3>功能：</h3>
-
-<p>支持img标签图片懒加载、div标签（或者其他标签）的背景图片懒加载；
+<p>###功能：
+支持img标签图片懒加载、div标签（或者其他标签）的背景图片懒加载；
 支持预加载。默认是图片出现在屏幕时开始加载，可以设置threshold参数，如threshold:100，此时图片出现在屏幕之前100px时开始加载；
-背景图片懒加载时，自动添加base64的1*1透明图片做默认背景图。也可以自定义默认背景图，参数为placeholder。</p>
-
-<h3>使用方法：</h3>
+背景图片懒加载时，自动添加base64的1*1透明图片做默认背景图。也可以自定义默认背景图，参数为placeholder。
+###使用方法：</p>
 
 <p>引用1.1.3的Zepto（我只测过这个目前最新版），并引用picLazyLoad.js</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;1.1.3/zepto.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;1.0/zepto.picLazyLoad.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-</code></pre></div>
-<p>在要懒加载的标签上，加类名或者id名，方便调用。在标签上加data-original=&quot;original.jpg&quot;，original.jpg为实际加载图片路径。如果是img标签，还需要加src=&quot;blank.png&quot;。blank.png为默认背景图，建议用base64图。例如：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;img</span> <span class="na">class=</span><span class="s">&quot;test-lazyload&quot;</span> <span class="na">src=</span><span class="s">&quot;blank.png&quot;</span> <span class="na">data-original=</span><span class="s">&quot;original.jpg&quot;</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">&quot;test-lazyload&quot;</span> <span class="na">data-original=</span><span class="s">&quot;original.jpg&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
-</code></pre></div>
+
+<pre><code class="language-html">
+&lt;script src="1.1.3/zepto.min.js"&gt;&lt;/script&gt;
+&lt;script src="1.0/zepto.picLazyLoad.min.js"&gt;&lt;/script&gt;
+
+</code></pre>
+<p>在要懒加载的标签上，加类名或者id名，方便调用。在标签上加data-original=”original.jpg”，original.jpg为实际加载图片路径。如果是img标签，还需要加src=”blank.png”。blank.png为默认背景图，建议用base64图。例如：</p>
+
+<pre><code class="language-html">&lt;img class="test-lazyload" src="blank.png" data-original="original.jpg"&gt;&lt;div class="test-lazyload" data-original="original.jpg"&gt;&lt;/div&gt;
+</code></pre>
+
 <p><strong><em>调用:</em></strong></p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.test-lazyload&#39;</span><span class="p">).</span><span class="nx">picLazyLoad</span><span class="p">();</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+$('.test-lazyload').picLazyLoad();
+</code></pre>
+
 <p>如需加参数：</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.test-lazyload&#39;</span><span class="p">).</span><span class="nx">picLazyLoad</span><span class="p">({</span>
-    <span class="nx">threshold</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="nx">placeholder</span><span class="o">:</span> <span class="s1">&#39;http://image.yihaodianimg.com/front-homepage/global/images/blank.gif&#39;</span>
-<span class="p">});</span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+$('.test-lazyload').picLazyLoad({
+    threshold: 100,
+    placeholder: 'http://image.yihaodianimg.com/front-homepage/global/images/blank.gif'
+});
+</code></pre>
 <p><a href="http://ons.me/wp-content/uploads/2014/05/picLazyLoad/">→示例DEMO←</a></p>
 
 <ul>
-<li>已知问题：
+  <li>已知问题：
 iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不执行onscroll方法，获取不到scrolltop值。导致此时刷新网页，网页下方的图片没有默认加载。</li>
-<li><p>待增加功能：
+  <li>
+    <p>待增加功能：
 现在是直接显示图片show，以后增加fadeIn图片淡入；
-现在是只能根据窗口懒加载图片，待增加根据容器、tab选项卡等。</p></li>
-<li><p>小提示：
+现在是只能根据窗口懒加载图片，待增加根据容器、tab选项卡等。</p>
+  </li>
+  <li>小提示：
 使用背景图片比使用img标签懒加载浏览器显示速度要快，不知道是不是后者多了一步替换src路径操作导致的；
-如果要兼容更多的设备，使用背景图片可以显示更清晰，因为可以设置background-size，之前的文章有提到过。</p></li>
+如果要兼容更多的设备，使用背景图片可以显示更清晰，因为可以设置background-size，之前的文章有提到过。</li>
 </ul>
 
 		  
@@ -495,7 +708,7 @@ iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不�
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

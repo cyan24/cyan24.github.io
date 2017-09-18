@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/%E8%A7%A3%E5%86%B3-%E5%9C%A8Mac-OS%E4%B8%8B%E5%BC%80%E5%8F%91html5+JS-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%B7%A8%E5%9F%9F-%E5%92%8C-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">
+	<link rel="canonical" href="http://localhost:4000/blog/%E8%A7%A3%E5%86%B3-%E5%9C%A8Mac-OS%E4%B8%8B%E5%BC%80%E5%8F%91html5+JS-Chrome-%E6%B5%8F%E8%A7%88%E5%99%A8-%E8%B7%A8%E5%9F%9F-%E5%92%8C-%E5%AE%89%E5%85%A8%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -262,29 +262,37 @@
 <p>用命令行打开 Google Chrome 就好了</p>
 
 <p>Mac os 下面用</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="err">/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  </span>
-</code></pre></div>
+
+<pre><code class="language-javascript">
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security  
+</code></pre>
 <p>or</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">open</span> <span class="o">-</span><span class="nx">a</span> <span class="s2">&quot;Google Chrome&quot;</span> <span class="o">--</span><span class="nx">args</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
+
+<pre><code class="language-javascript">open -a "Google Chrome" --args --disable-web-security  
+</code></pre>
+
 <p>然后就可以看到下面的效果了：
-<img src="/img/131012.jpg" alt=""> </p>
+<img src="/img/131012.jpg" alt="" /></p>
 
 <p>Ubuntu Linux:</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chromium</span><span class="o">-</span><span class="nx">browser</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
+
+<pre><code class="language-javascript">chromium-browser --disable-web-security  
+</code></pre>
+
 <p>windows</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">chrome</span><span class="p">.</span><span class="nx">exe</span> <span class="o">--</span><span class="nx">disable</span><span class="o">-</span><span class="nx">web</span><span class="o">-</span><span class="nx">security</span>  
-</code></pre></div>
+
+<pre><code class="language-javascript">
+chrome.exe --disable-web-security  
+</code></pre>
 <p>用命令行打开 Apple Safafi 方法是：</p>
 
 <p>Mac OS 下：</p>
 
-<p>open -a &#39;/Applications/Safari.app&#39; --args --disable-web-security  </p>
+<p>open -a ‘/Applications/Safari.app’ –args –disable-web-security</p>
 
 <p>Windows：</p>
 
-<p>C:\Program Files\Safari\Safari.exe --disable-web-security  </p>
+<p>C:\Program Files\Safari\Safari.exe –disable-web-security</p>
 
   </section>
   
@@ -306,7 +314,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

@@ -19,7 +19,7 @@
 <head>
 	<meta charset="utf-8">
 	<title> Cyan的技术笔记</title>
-	<meta name="description" content="used by search engines">
+	<meta name="description" content="Cyan的技术笔记">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-Frame-Options" content="sameorigin">
 	<!-- CSS -->
@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/page10/">
+	<link rel="canonical" href="http://localhost:4000/blog/page10/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -265,12 +265,198 @@
 		  <div class="excerpt">
 		  
 		  
-		    <ol> <li>logback介绍</li> </ol> <p>Logback是由log4j创始人设计的又一个开源日志组件。logback当前分成三个模块：logback-core,logback- classic和logback-access。logback-core是其它两个模块的基础模块。logback-classic是log4j的一个 改良版本。此外logback-classic完整实现SLF4J API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging。logback-access访问模块与Servlet容器集成提供通过Http来访问日志的功能。</p> <ol> <li>maven依赖</li> </ol> <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="c">&lt;!-- logback+slf4j --&gt;</span> <span class="nt">&lt;dependency&gt;</span> <span class="nt">&lt;groupId&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span> <span class="nt">&lt;artifactId&gt;</span>slf4j-api<span class="nt">&lt;/artifactId&gt;</span> <span class="nt">&lt;version&gt;</span>1.6.0<span class="nt">&lt;/version&gt;</span> <span class="nt">&lt;type&gt;</span>jar<span class="nt">&lt;/type&gt;</span> <span class="nt">&lt;scope&gt;</span>compile<span class="nt">&lt;/scope&gt;</span> <span class="nt">&lt;/dependency&gt;</span> <span class="nt">&lt;dependency&gt;</span> <span class="nt">&lt;groupId&gt;</span>ch.qos.logback<span class="nt">&lt;/groupId&gt;</span> <span class="nt">&lt;artifactId&gt;</span>logback-core<span class="nt">&lt;/artifactId&gt;</span> <span class="nt">&lt;version&gt;</span>0.9.28<span class="nt">&lt;/version&gt;</span> <span class="nt">&lt;type&gt;</span>jar<span class="nt">&lt;/type&gt;</span> <span class="nt">&lt;/dependency&gt;</span> <span class="nt">&lt;dependency&gt;</span> <span class="nt">&lt;groupId&gt;</span>ch.qos.logback<span class="nt">&lt;/groupId&gt;</span> <span class="nt">&lt;artifactId&gt;</span>logback-classic<span class="nt">&lt;/artifactId&gt;</span> <span class="nt">&lt;version&gt;</span>0.9.28<span class="nt">&lt;/version&gt;</span> <span class="nt">&lt;type&gt;</span>jar<span class="nt">&lt;/type&gt;</span> <span class="nt">&lt;/dependency&gt;</span> </code></pre></div> <p>如果你没有使用maven，那么你自己去下载jar包吧...</p> <ol> <li><p>配置和使用</p></li> <li><p>日志使用</p></li> </ol> <p>我们使用org.slf4j.LoggerFactory，就可以直接使用日志了。</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span> </code></pre></div> <p>使用：</p> <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Controller</span> <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">)</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">IndexController</span> <span class="kd">extends</span> <span class="n">BaseController</span> <span class="o">{</span> <span class="cm">/** </span> <span class="cm"> * Success </span> <span class="cm"> * @param response </span> <span class="cm"> * @throws IOException </span> <span class="cm"> */</span> <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">)</span> <span class="nd">@ResponseBody</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">hello</span><span class="o">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span> <span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&quot;DEBUG TEST 这个地方输出DEBUG级别的日志&quot;</span><span class="o">);</span> <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&quot;INFO test 这个地方输出INFO级别的日志&quot;</span><span class="o">);</span> <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">&quot;ERROR test 这个地方输出ERROR级别的日志&quot;</span><span class="o">);</span> <span class="o">}</span> <span class="o">}</span> </code></pre></div> <ol> <li>在控制台输出特定级别的日志</li> </ol> <p>logback的配置文件都放在/src/main/resource/文件夹下的logback.xml文件中。其中logback.xml文件就是logback的配置文件。只要将这个文件放置好了之后，系统会自动找到这个配置文件。</p> <p>下面的配置中，我们输出特定的ERROR级别的日志：</p> <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span> <span class="nt">&lt;configuration&gt;</span> <span class="c">&lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;</span> <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;console&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;encoder&gt;</span> <span class="nt">&lt;pattern&gt;</span>[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n<span class="nt">&lt;/pattern&gt;</span> <span class="nt">&lt;/encoder&gt;</span> <span class="nt">&lt;/appender&gt;</span> <span class="c">&lt;!-- 日志级别 --&gt;</span> <span class="nt">&lt;root&gt;</span> <span class="nt">&lt;level</span> <span class="na">value=</span><span class="s">&quot;error&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">&quot;console&quot;</span> <span class="nt">/&gt;</span> <span class="nt">&lt;/root&gt;</span> <span class="nt">&lt;/configuration&gt;</span> </code></pre></div> <p>结果只在控制台输出ERROR级别的日志。</p> <ol> <li>设置输出多个级别的日志</li> </ol> <div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span> <span class="nt">&lt;configuration&gt;</span> <span class="c">&lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;</span> <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&quot;console&quot;</span> <span class="na">class=</span><span class="s">&quot;ch.qos.logback.core.ConsoleAppender&quot;</span><span...
-		    <p>
-		    <a class="text" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/">
-		      Continue Reading...
-		    </a>
-		    </p>
+		    <ol>
+  <li>logback介绍</li>
+</ol>
+
+<p>Logback是由log4j创始人设计的又一个开源日志组件。logback当前分成三个模块：logback-core,logback- classic和logback-access。logback-core是其它两个模块的基础模块。logback-classic是log4j的一个 改良版本。此外logback-classic完整实现SLF4J API使你可以很方便地更换成其它日志系统如log4j或JDK14 Logging。logback-access访问模块与Servlet容器集成提供通过Http来访问日志的功能。</p>
+
+<ol>
+  <li>maven依赖</li>
+</ol>
+
+<pre><code class="language-xml">
+&lt;!-- logback+slf4j --&gt;  
+&lt;dependency&gt;  
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;  
+    &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;  
+    &lt;version&gt;1.6.0&lt;/version&gt;  
+    &lt;type&gt;jar&lt;/type&gt;  
+    &lt;scope&gt;compile&lt;/scope&gt;  
+&lt;/dependency&gt;  
+&lt;dependency&gt;  
+    &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;  
+    &lt;artifactId&gt;logback-core&lt;/artifactId&gt;  
+    &lt;version&gt;0.9.28&lt;/version&gt;  
+    &lt;type&gt;jar&lt;/type&gt;  
+&lt;/dependency&gt;  
+&lt;dependency&gt;  
+    &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;  
+    &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;  
+    &lt;version&gt;0.9.28&lt;/version&gt;  
+    &lt;type&gt;jar&lt;/type&gt;  
+&lt;/dependency&gt;  
+</code></pre>
+
+<p>如果你没有使用maven，那么你自己去下载jar包吧…</p>
+
+<ol>
+  <li>
+    <p>配置和使用</p>
+  </li>
+  <li>
+    <p>日志使用</p>
+  </li>
+</ol>
+
+<p>我们使用org.slf4j.LoggerFactory，就可以直接使用日志了。</p>
+
+<pre><code class="language-java">
+protected final Logger logger = LoggerFactory.getLogger(this.getClass());  
+</code></pre>
+
+<p>使用：</p>
+
+<pre><code class="language-java">@Controller  
+@RequestMapping(value = "")  
+public class IndexController extends BaseController {  
+  
+    /** 
+     * Success 
+     * @param response 
+     * @throws IOException 
+     */  
+    @RequestMapping(value = "")  
+    @ResponseBody  
+    public void hello(HttpServletResponse response) throws IOException {  
+        logger.debug("DEBUG TEST 这个地方输出DEBUG级别的日志");  
+        logger.info("INFO test 这个地方输出INFO级别的日志");  
+        logger.error("ERROR test 这个地方输出ERROR级别的日志");  
+    }  
+  
+}  
+
+</code></pre>
+
+<ol>
+  <li>在控制台输出特定级别的日志</li>
+</ol>
+
+<p>logback的配置文件都放在/src/main/resource/文件夹下的logback.xml文件中。其中logback.xml文件就是logback的配置文件。只要将这个文件放置好了之后，系统会自动找到这个配置文件。</p>
+
+<p>下面的配置中，我们输出特定的ERROR级别的日志：</p>
+
+<pre><code class="language-xml">
+&lt;?xml version="1.0"?&gt;  
+&lt;configuration&gt;  
+  
+    &lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;  
+    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;  
+        &lt;encoder&gt;  
+            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n&lt;/pattern&gt;  
+        &lt;/encoder&gt;  
+    &lt;/appender&gt;  
+  
+    &lt;!-- 日志级别 --&gt;  
+    &lt;root&gt;  
+        &lt;level value="error" /&gt;  
+        &lt;appender-ref ref="console" /&gt;  
+    &lt;/root&gt;  
+  
+&lt;/configuration&gt;   
+</code></pre>
+
+<p>结果只在控制台输出ERROR级别的日志。</p>
+
+<ol>
+  <li>设置输出多个级别的日志</li>
+</ol>
+
+<pre><code class="language-xml">
+&lt;?xml version="1.0"?&gt;  
+&lt;configuration&gt;  
+  
+    &lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;  
+    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;  
+        &lt;encoder&gt;  
+            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n&lt;/pattern&gt;  
+        &lt;/encoder&gt;  
+    &lt;/appender&gt;  
+  
+    &lt;!-- 日志级别 --&gt;  
+    &lt;root&gt;  
+        &lt;level value="error" /&gt;  
+        &lt;level value="info" /&gt;  
+        &lt;appender-ref ref="console" /&gt;  
+    &lt;/root&gt;  
+  
+&lt;/configuration&gt;   
+</code></pre>
+
+<p>设置两个level，则可以输出 ERROR和INFO级别的日志了。</p>
+
+<ol>
+  <li>设置文件日志</li>
+</ol>
+
+<pre><code class="language-xml">
+&lt;?xml version="1.0"?&gt;  
+&lt;configuration&gt;  
+  
+    &lt;!-- ch.qos.logback.core.ConsoleAppender 控制台输出 --&gt;  
+    &lt;appender name="console" class="ch.qos.logback.core.ConsoleAppender"&gt;  
+        &lt;encoder&gt;  
+            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n  
+            &lt;/pattern&gt;  
+        &lt;/encoder&gt;  
+    &lt;/appender&gt;  
+  
+    &lt;!-- ch.qos.logback.core.rolling.RollingFileAppender 文件日志输出 --&gt;  
+    &lt;appender name="file"  
+        class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;  
+        &lt;Encoding&gt;UTF-8&lt;/Encoding&gt;  
+        &lt;File&gt;/home/test.log&lt;/File&gt;  
+        &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;  
+            &lt;FileNamePattern&gt;/home/test-%d{yyyy-MM-dd}.log  
+            &lt;/FileNamePattern&gt;  
+            &lt;MaxHistory&gt;10&lt;/MaxHistory&gt;  
+            &lt;TimeBasedFileNamingAndTriggeringPolicy  
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"&gt;  
+                &lt;MaxFileSize&gt;5MB&lt;/MaxFileSize&gt;  
+            &lt;/TimeBasedFileNamingAndTriggeringPolicy&gt;  
+        &lt;/rollingPolicy&gt;  
+        &lt;layout class="ch.qos.logback.classic.PatternLayout"&gt;  
+            &lt;pattern&gt;[%-5level] %d{HH:mm:ss.SSS} [%thread] %logger{36} - %msg%n  
+            &lt;/pattern&gt;  
+        &lt;/layout&gt;  
+    &lt;/appender&gt;  
+  
+    &lt;!-- 日志级别 --&gt;  
+    &lt;root&gt;  
+        &lt;!-- 定义了ERROR和INFO级别的日志，分别在FILE文件和控制台输出 --&gt;  
+        &lt;level value="error" /&gt;  
+        &lt;level value="info" /&gt;  
+        &lt;appender-ref ref="file" /&gt;   
+        &lt;appender-ref ref="console" /&gt;  
+    &lt;/root&gt;  
+  
+  
+&lt;/configuration&gt;   
+</code></pre>
+
+<ol>
+  <li>精确设置每个包下面的日志</li>
+</ol>
+
+<pre><code class="language-xml">
+&lt;logger name="com.xxx" additivity="false"&gt;  
+    &lt;level value="info" /&gt;  
+    &lt;appender-ref ref="file" /&gt;  
+    &lt;appender-ref ref="console" /&gt;  
+&lt;/logger&gt;  
+
+</code></pre>
+
 		  
 		  </div>
 		</div>
@@ -340,7 +526,7 @@
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>

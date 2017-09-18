@@ -38,10 +38,10 @@
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
 	<link href="/favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
 	<!-- Canonical -->
-	<link rel="canonical" href="http://cyan24.github.io/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
+	<link rel="canonical" href="http://localhost:4000/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
 
 	<!-- RSS -->
-	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://cyan24.github.io/feed.xml" />
+	<link rel="alternate" type="application/atom+xml" title="Cyan的技术笔记" href="http://localhost:4000/feed.xml" />
 
 	<!-- Font Awesome -->
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -227,7 +227,7 @@
 	</div> <!-- .container -->
 	<div class="et_search_outer">
 		<div class="container et_search_form_container">
-			<form role="search" method="get" class="et-search-form" action="http://cyan24.github.io">
+			<form role="search" method="get" class="et-search-form" action="http://localhost:4000">
 			<input type="search" class="et-search-field" placeholder="搜索 &hellip;" value="" name="s" title="搜索：" /></form>
 			<span class="et_close_search_field"></span>
 		</div>
@@ -256,12 +256,14 @@
   </header>
   <section class="post-content">
   <p>多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">setBalance</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">){</span>
-  <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
-<span class="o">}</span>
-</code></pre></div>
+<pre><code class="language-java">private int balance;
+
+public synchronized int setBalance(int value){
+  this.balance = value;
+}
+</code></pre>
+
 <p>但是，如果多个变量的话，这种方法虽然能够保持每个变量的安全，但不能保证多个变量的一致性，因为方法上的synchronized关键字只对本方法加锁，对其他方法没有影响。方法之间是相互独立的。
 可以采用的方法是：</p>
 
@@ -271,116 +273,118 @@
 
 <p>下面是对这个类加锁的代码</p>
 
-<p>---RGB类--- </p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RGB</span> <span class="o">{</span>
-<span class="kd">private</span> <span class="kt">int</span> <span class="n">red</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
-<span class="kd">private</span> <span class="kt">int</span> <span class="n">green</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
-<span class="kd">private</span> <span class="kt">int</span> <span class="n">blue</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+<p>—RGB类—</p>
 
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getRed</span><span class="o">()</span> <span class="o">{</span>
-  <span class="k">return</span> <span class="n">red</span><span class="o">;</span>
-<span class="o">}</span>
+<pre><code class="language-java">
+public class RGB {
+private int red = 10;
+private int green = 10;
+private int blue = 10;
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">addRed</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
-  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">try</span> <span class="o">{</span>
-      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span> 
-      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
-      <span class="n">print</span><span class="o">();</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-  <span class="o">}</span>
+public int getRed() {
+  return red;
+}
 
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getGreen</span><span class="o">()</span> <span class="o">{</span>
-<span class="k">return</span> <span class="n">green</span><span class="o">;</span>
-<span class="o">}</span>
+public void addRed(int interval) {
+  synchronized (this) {
+    try {
+      Thread.sleep(200L);
+      this.red += interval * 2; 
+      Thread.sleep(200L);
+      this.green -= interval;
+      this.blue -= interval;
+      print();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+  }
 
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">addGreen</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
-  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">try</span> <span class="o">{</span>
-      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
-      <span class="n">ret</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
-      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
-      <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
-      <span class="n">print</span><span class="o">();</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-  <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
-<span class="o">}</span>
+public int getGreen() {
+return green;
+}
 
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBlue</span><span class="o">()</span> <span class="o">{</span>
-<span class="k">return</span> <span class="n">blue</span><span class="o">;</span>
-<span class="o">}</span>
-<span class="o">---</span><span class="n">Painter类</span><span class="o">---</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Painter</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
-<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
-<span class="kd">private</span> <span class="n">RGB</span> <span class="n">rgb</span><span class="o">;</span>
-<span class="kd">private</span> <span class="kt">int</span> <span class="n">interval</span><span class="o">;</span>
+public int addGreen(int interval) {
+  int ret = 0;
+  synchronized (this) {
+    try {
+      Thread.sleep(200L);
+      ret = this.green += interval * 2;
+      Thread.sleep(200L);
+      this.red -= interval;
+      this.blue -= interval;
+      print();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+  return ret;
+}
 
-<span class="n">Painter</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">RGB</span> <span class="n">rgb</span><span class="o">,</span> <span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
-  <span class="k">this</span><span class="o">.</span><span class="na">rgb</span> <span class="o">=</span> <span class="n">rgb</span><span class="o">;</span>
-  <span class="k">this</span><span class="o">.</span><span class="na">interval</span> <span class="o">=</span> <span class="n">interval</span><span class="o">;</span>
-<span class="o">}</span>
+public int getBlue() {
+return blue;
+}
+---Painter类---
+public class Painter implements Runnable {
+private String name;
+private RGB rgb;
+private int interval;
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-  <span class="n">rgb</span><span class="o">.</span><span class="na">addBlue</span><span class="o">(</span><span class="n">interval</span><span class="o">);</span>
-  <span class="n">rgb</span><span class="o">.</span><span class="na">addRed</span><span class="o">(</span><span class="n">interval</span><span class="o">);</span>
-  <span class="n">rgb</span><span class="o">.</span><span class="na">addGreen</span><span class="o">(</span><span class="n">interval</span><span class="o">);</span>
-<span class="o">}</span>
+Painter(String name, RGB rgb, int interval) {
+  this.name = name;
+  this.rgb = rgb;
+  this.interval = interval;
+}
 
-<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-  <span class="n">RGB</span> <span class="n">rgb</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">RGB</span><span class="o">();</span>
+public void run() {
+  rgb.addBlue(interval);
+  rgb.addRed(interval);
+  rgb.addGreen(interval);
+}
 
-  <span class="n">Thread</span> <span class="n">t1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-1&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="mi">20</span><span class="o">));</span>
-  <span class="n">Thread</span> <span class="n">t2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-2&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="o">-</span><span class="mi">15</span><span class="o">));</span>
-  <span class="n">Thread</span> <span class="n">t3</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-3&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="mi">30</span><span class="o">));</span>
-  <span class="n">Thread</span> <span class="n">t4</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-3&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="o">-</span><span class="mi">22</span><span class="o">));</span>
-  <span class="n">Thread</span> <span class="n">t5</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="k">new</span> <span class="nf">Painter</span><span class="o">(</span><span class="s">&quot;Painter-3&quot;</span><span class="o">,</span> <span class="n">rgb</span><span class="o">,</span> <span class="o">-</span><span class="mi">10</span><span class="o">));</span>
+public static void main(String[] args) {
+  RGB rgb = new RGB();
 
-  <span class="n">t1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-  <span class="n">t2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-  <span class="n">t3</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-  <span class="n">t4</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
-  <span class="n">t5</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+  Thread t1 = new Thread(new Painter("Painter-1", rgb, 20));
+  Thread t2 = new Thread(new Painter("Painter-2", rgb, -15));
+  Thread t3 = new Thread(new Painter("Painter-3", rgb, 30));
+  Thread t4 = new Thread(new Painter("Painter-3", rgb, -22));
+  Thread t5 = new Thread(new Painter("Painter-3", rgb, -10));
 
-  <span class="o">}</span>
-<span class="o">}</span>
-<span class="kd">public</span> <span class="kt">int</span> <span class="nf">addBlue</span><span class="o">(</span><span class="kt">int</span> <span class="n">interval</span><span class="o">)</span> <span class="o">{</span>
-  <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
-  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">try</span> <span class="o">{</span>
-    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
-    <span class="n">ret</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">blue</span> <span class="o">+=</span> <span class="n">interval</span> <span class="o">*</span> <span class="mi">2</span><span class="o">;</span>
-    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">200L</span><span class="o">);</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">red</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">green</span> <span class="o">-=</span> <span class="n">interval</span><span class="o">;</span>
-    <span class="n">print</span><span class="o">();</span>
-  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-  <span class="o">}</span>
-  <span class="o">}</span>
-  <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
-<span class="o">}</span>
+  t1.start();
+  t2.start();
+  t3.start();
+  t4.start();
+  t5.start();
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">print</span><span class="o">()</span> <span class="o">{</span>
-  <span class="kd">synchronized</span> <span class="o">(</span><span class="k">this</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kt">int</span> <span class="n">total</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getBlue</span><span class="o">()</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getGreen</span><span class="o">()</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getRed</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Red+Green+Blue = &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getRed</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;+&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getGreen</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;+&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getBlue</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;=&quot;</span> <span class="o">+</span> <span class="n">total</span><span class="o">);</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
-<p>---执行结果---
+  }
+}
+public int addBlue(int interval) {
+  int ret = 0;
+  synchronized (this) {
+  try {
+    Thread.sleep(200L);
+    ret = this.blue += interval * 2;
+    Thread.sleep(200L);
+    this.red -= interval;
+    this.green -= interval;
+    print();
+  } catch (InterruptedException e) {
+    e.printStackTrace();
+  }
+  }
+  return ret;
+}
+
+public void print() {
+  synchronized (this) {
+    int total = this.getBlue() + this.getGreen() + this.getRed();
+    System.out.println("Red+Green+Blue = " + this.getRed() + "+" + this.getGreen() + "+" + this.getBlue() + "=" + total);
+    }
+  }
+}
+</code></pre>
+<p>—执行结果—
 Red+Green+Blue = -10+-10+50=30</p>
 
 <p>Red+Green+Blue = 5+5+20=30</p>
@@ -464,7 +468,7 @@ Red+Green+Blue = 27+7+16=-4</p>
 <footer id="page-footer-trans" class="page-footer">
 	<!--<p class="text"><a href="https://cyan24.github.io">Cyan的技术笔记</a> 
 </p>-->
-	Copyright &copy; 2016 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
+	Copyright &copy; 2017 <a href="https://cyan24.github.io">Cyan的技术笔记</a> 
  All Rights Reserved. 
 	<p class="text">Hosted by <a href="https://github.com">GitHub</a><a alt="Fork me on GitHub" href="https://github.com/cyan24">Fork me on GitHub</a></p>
 </footer>
