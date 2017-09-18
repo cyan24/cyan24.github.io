@@ -13,7 +13,7 @@ theme:
   hometitle: 首页 #display on navigation menu.
   yoursitetitle: Cyan的技术笔记
   gravatar: # Email MD5 hash
-  description: "used by search engines" # used by search engines
+  description: "Cyan的技术笔记" # used by search engines
   visiblewords: 300
   # Header and footer text
   header_text: >
@@ -78,7 +78,10 @@ sechby:
   tag:   #with
 
 # BUILD SETTINGS
-markdown: redcarpet
+markdown: kramdown
+kramdown:
+  input:  GFM
+  use_coderay: true
 highlighter: pygments
 sass:
   sass_dir: _sass
