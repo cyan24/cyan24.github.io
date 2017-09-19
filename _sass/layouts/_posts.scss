@@ -8,7 +8,7 @@ article {
     text-align: center;
   }
   a:hover {
-    @extend %link-hover;
+    // @extend %link-hover;
   }
   .footnotes {
     font-size: 0.9em;
@@ -91,7 +91,7 @@ header {
     width: 50%;
   }
   a:hover {
-    @extend a.button:hover;
+    // @extend a.button:hover;
   }
 
   i {
