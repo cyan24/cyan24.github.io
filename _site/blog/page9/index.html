@@ -252,140 +252,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E7%94%A8jQuery%E4%B8%8EJSONP%E8%BD%BB%E6%9D%BE%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E8%AE%BF%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
-		        用jQuery与JSONP轻松解决跨域访问的问题
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2013年09月27日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/Jquery/">Jquery</a>, <a href="/tags/跨域/">跨域</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>跨域的安全限制都是指浏览器端来说的.服务器端是不存在跨域安全限制的,所以通过本机服务器端通过类似httpclient方式完成“跨域访问”的 工作，然后在浏览器端用AJAX获取本机服务器端“跨域访问”对应的url.来间接完成跨域访问也是可以的.但很显然开发量比较大,但限制也最少,很多 widget开放平台server端(如sohu博客开放平台)其实就么搞的.不在本次讨论范围.</p>
-
-<p>我们要讨论的是浏览器端的真正跨域访问,推荐的是目前jQuery $.ajax()支持get方式的跨域,这其实是采用jsonp的方式来完成的.</p>
-
-<p>真实案例:</p>
-
-<pre><code class="language-javascript">
-var qsData = {'searchWord':$("#searchWord").attr("value"),'currentUserId':$("#currentUserId").attr("value"),'conditionBean.pageSize':$("#pageSize").attr("value")};
-$.ajax({
-   async:false,
-   url: http:/ /跨域的dns/document!searchJSONResult.action,
-   type: "GET",
-   dataType: 'jsonp',
-   jsonp: 'jsoncallback',
-   data: qsData,
-   timeout: 5000,
-   beforeSend: function(){
-   //jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了
-   },
-   success: function (json) {
-   //客户端jquery预先定义好的callback函数,成功获取跨域服务器上的json数据后,会动态执行这个callback函数
-	    if(json.actionErrors.length!=0){
-	        alert(json.actionErrors);
-	    }
-	    genDynamicContent(qsData,type,json);
-   },
-   complete: function(XMLHttpRequest, textStatus){
-   $.unblockUI({ fadeOut: 10 });
-   },
-   error: function(xhr){
-    //jsonp 方式此方法不被触发.原因可能是dataType如果指定为jsonp的话,就已经不是ajax事件了
-    //请求出错处理
-    alert("请求出错(请检查相关度网络状况.)");
-   }
-});
-
-
-</code></pre>
-
-<p>注意:</p>
-
-<pre><code class="language-javascript">
-$.getJSON(" http://跨域的dns/document!searchJSONResult.action?name1="+value1+"&amp;jsoncallback=?",
-function(json){
-if(json.属性名==值){
-// 执行代码
-    }
-});
-</code></pre>
-
-<p>这种方式其实是上例$.ajax({..}) api的一种高级封装,有些$.ajax api底层的参数就被封装而不可见了.
-这样,jquery就会拼装成如下的url get请求</p>
-
-<p>http:/ / 跨域的 dns/document!searchJSONResult.action?&amp;jsoncallback=jsonp1236827957501&amp;_=1236828192549&amp;searchWord=%E7%94%A8%E4%BE%8B¤tUserId=5351&amp;conditionBean.pageSize=15</p>
-
-<p>在响应端(http://跨域的dns/document!searchJSONResult.action),
-通过 jsoncallback = request.getParameter(“jsoncallback”) 得到jquery端随后要回调的js function name:jsonp1236827957501
-然后 response的内容为一个Script Tags:”jsonp1236827957501(“+按请求参数生成的json数组+”)”;
-jquery就会通过回调方法动态加载调用这个js tag:jsonp1236827957501(json数组);
-这样就达到了跨域数据交换的目的.</p>
-
-<p>jsonp的最基本的原理是:动态添加一个script标签，而script标签的src属性是没有跨域的限制的。这样说来,这种跨域方式其实与ajax XmlHttpRequest协议无关了.
-这样其实”jQuery AJAX跨域问题”就成了个伪命题了,jquery $.ajax方法名有误导人之嫌.</p>
-
-<p>如果设为dataType: ‘jsonp’, 这个$.ajax方法就和ajax XmlHttpRequest没什么关系了,取而代之的则是JSONP协议.</p>
-
-<p>JSONP是一个非官方的协议，它允许在服务器端集成Script tags返回至客户端，通过javascript callback的形式实现跨域访问JSONP即JSON with Padding。由于同源策略的限制，XmlHttpRequest只允许请求当前源（域名、协议、端口）的资源。如果要进行跨域请求，我们可以通过使用 html的script标记来进行跨域请求，并在响应中返回要执行的script代码，其中可以直接使用JSON传递javascript对象。这种跨域 的通讯方式称为JSONP。</p>
-
-<p>jsonCallback 函数jsonp1236827957501(….): 是浏览器客户端注册的，获取跨域服务器上的json数据后，回调的函数.</p>
-
-<ul>
-  <li>Jsonp原理：</li>
-</ul>
-
-<p>首先在客户端注册一个callback (如:’jsoncallback’), 然后把callback的名字(如:jsonp1236827957501)传给服务器。注意：服务端得到callback的数值后，要用 jsonp1236827957501(……)把将要输出的json内容包括起来，此时，服务器生成 json 数据才能被客户端正确接收。</p>
-
-<p>然后以 javascript 语法的方式，生成一个function , function 名字就是传递上来的参数 ‘jsoncallback’的值 jsonp1236827957501 .</p>
-
-<p>最后将 json 数据直接以入参的方式，放置到 function 中，这样就生成了一段 js 语法的文档，返回给客户端。</p>
-
-<p>客户端浏览器，解析script标签，并执行返回的 javascript 文档，此时javascript文档数据,作为参数，
-传入到了客户端预先定义好的 callback 函数(如上例中jquery $.ajax()方法封装的的success: function (json))里.（动态执行回调函数）</p>
-
-<p>可以说jsonp的方式原理上和&lt; script src=”http://跨域/…xx.js”&gt; &lt;\/ script&gt;是一致的(qq空间就是大量采用这种方式来实现跨域数据交换 的) .JSONP是一种脚本注入(Script Injection)行为,所以也有一定的安全隐患.</p>
-
-<p>原理的示例代码:</p>
-
-<pre><code class="language-javascript">
-//客户端的JAVASCRIPT代码
-var script=document.createElement("script");
-script.src="http://www.pl4cj.com:8888/5/6/action.php?param=123&amp;callback="+fnName;
-document.getElementsByTagName("head")[0].appendChild(script)
-
-//服务器端的PHP代码，一定要有callback来进行回调，在这里加上括号，是让它以语句块的方式来进行解析
-</code></pre>
-
-<pre><code class="language-php">
-&lt;?php
-&lt;SPAN style="COLOR: #ff00ff"&gt;echo $_GET["callback"]."(".json_encode($_GET).");";
-&lt;/SPAN&gt;?
-</code></pre>
-
-<p><strong>注意,jquey是不支持post方式跨域的</strong>
-为什么呢?
-虽然采用post +动态生成iframe是可以达到post跨域的目的,但这样做是一个比较极端的方式,不建议采用.
-也可以说get方式的跨域是合法的,post方式从安全角度上,被认为是不合法的, 万不得已还是不要剑走偏锋..</p>
-
-<p>client端跨域访问的需求看来也引起w3c的注意了,看资料说html5 WebSocket标准支持跨域的数据交换,应该也是一个将来可选的跨域数据交换的解决方案。</p>
-
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E8%A7%A3%E5%86%B3IE6%E7%9A%84PNG%E9%80%8F%E6%98%8EJS%E6%8F%92%E4%BB%B6%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/">
 		        解决IE6的PNG透明JS插件使用介绍
 		      </a>
@@ -654,6 +520,36 @@ ___</p>
 		    <p>多线程访问对象的某个属性是不安全的，要使线程安全访问变量，一般是将变量私有化，然后写一个synchronized 的方法来访问，比如:</p> <pre><code class="language-java">private int balance; public synchronized int setBalance(int value){ this.balance = value; } </code></pre> <p>但是，如果多个变量的话，这种方法虽然能够保持每个变量的安全，但不能保证多个变量的一致性，因为方法上的synchronized关键字只对本方法加锁，对其他方法没有影响。方法之间是相互独立的。 可以采用的方法是：</p> <p>1.将整个类加锁 （代码为synchronized(this)）</p> <p>2.定义一个object，访问某些相关变量时，对该对象加锁（代码为synchronized(lockobj)）。</p> <p>下面是对这个类加锁的代码</p> <p>—RGB类—</p> <pre><code class="language-java"> public class RGB { private int red = 10; private int green = 10; private int blue = 10; public int getRed() { return red; } public void addRed(int interval) { synchronized (this) { try { Thread.sleep(200L); this.red += interval * 2; Thread.sleep(200L); this.green -= interval; this.blue -= interval; print(); } catch (InterruptedException e) { e.printStackTrace(); } } } public int getGreen() { return green; } public int addGreen(int interval) { int ret = 0; synchronized (this) { try { Thread.sleep(200L); ret = this.green += interval * 2; Thread.sleep(200L); this.red -= interval; this.blue -= interval; print(); } catch (InterruptedException e) { e.printStackTrace(); } } return ret; } public int getBlue() { return blue; } ---Painter类--- public class Painter implements Runnable { private String name; private RGB rgb; private int interval; Painter(String name, RGB rgb, int interval) { this.name = name; this.rgb = rgb; this.interval = interval; } public void run() { rgb.addBlue(interval); rgb.addRed(interval); rgb.addGreen(interval); } public static void main(String[] args) { RGB rgb = new RGB(); Thread t1 = new Thread(new Painter("Painter-1", rgb, 20)); Thread t2 = new Thread(new Painter("Painter-2", rgb, -15)); Thread t3 = new Thread(new Painter("Painter-3", rgb, 30)); Thread t4 = new Thread(new Painter("Painter-3", rgb, -22)); Thread t5 = new Thread(new Painter("Painter-3", rgb, -10)); t1.start(); t2.start(); t3.start(); t4.start(); t5.start(); } } public int addBlue(int interval) { int ret = 0; synchronized (this) { try { Thread.sleep(200L); ret = this.blue += interval * 2; Thread.sleep(200L); this.red -= interval; this.green -= interval; print(); } catch (InterruptedException e) { e.printStackTrace(); } } return ret; } public void print() { synchronized (this) { int total = this.getBlue() + this.getGreen() + this.getRed(); System.out.println("Red+Green+Blue = " + this.getRed() +...
 		    <p>
 		    <a class="text" href="/blog/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8-%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%80%E4%B8%AA%E7%B1%BB%E9%87%8C%E9%9D%A2%E5%A4%9A%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%80%E8%87%B4%E6%80%A7/">
+		      Continue Reading...
+		    </a>
+		    </p>
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
+		        如何通过编程发现Java死锁
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2013年03月11日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/后端/">后端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/Memcached/">Memcached</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>先看下死锁的定义:死锁是指，两个或多个动作一直在等待其他动作完成而使得所有动作都始终处在阻塞的状态。想要在开发阶段检测到死锁是非常困难的，而想要解除死锁往 往需要重新启动程序。更糟的是，死锁通常发生在负载最重的生产过程中，而想要在测试中发现它，十分不易。之所以这么说，是因为测试线程之间所有可能的交叉 是不现实的。尽管出现了一些静态分析库可以帮助我们发现可能出现的死锁，我们还是有必要在运行时检测到死锁，并且得到有用的信息，以便我们解决这个问题或 者重启程序，或者做些其他的事情。</p> <p>在编程中使用ThreadMXBean类来检测死锁</p> <p>Java 5引入了 ThreadMXBean 接口，它提供了多种监视线程的方法。我建议您了解所有这些方法，因为当您没使用外部工具时，它们会为您提供很多有用的操作以便您监测程序性能。这里，我们感兴趣的方法是 findMonitorDeadlockedThreads ，如过您使用的是Java 6，对应的方法是 findDeadlockedThreads 。二者的区别的是，findDeadlockedThreads还可以检测到owner locks（java.util.concurrent）引起的死锁，而findMonitorDeadlockedThreads只能检测 monitor locks（例如，同步块）。由于保留老版本的方法只是出于兼容性的考虑，所以我将使用新版本的方法。在这里，编程的思想是把对死锁的周期性检测封装到一 个可重用组件里，之后我们只需启动它、随它去。</p> <p>一种实现调度的方法是通过执行器框架，即一组良好抽象并易于使用的多线程类。</p> <pre><code class="language-java"> ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); this.scheduler.scheduleAtFixedRate(deadlockCheck, period, period, unit); </code></pre> <p>就是那么简单，在我们通过选择周期和时间单位而设置了一个特定时间后，就得到了一个周期性调用的线程。接着，我们想使功用得以拓展从而允许用户提供在程序检测到死锁时所触发的行为。最后，我们需要一个方法来接收用于描述死锁中所有线程的一系列对象。</p> <pre><code class="language-java">void handleDeadlock(final ThreadInfo[] deadlockedThreads); </code></pre> <p>现在，实现死锁检测类已经万事俱备了。</p> <pre><code class="language-java">public interface DeadlockHandler { void handleDeadlock(final ThreadInfo[] deadlockedThreads); } public class DeadlockDetector { private final DeadlockHandler deadlockHandler; private final long period; private final TimeUnit unit; private final ThreadMXBean mbean = ManagementFactory.getThreadMXBean(); private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); final Runnable deadlockCheck = new Runnable() { @Override public void run() { long[] deadlockedThreadIds = DeadlockDetector.this.mbean.findDeadlockedThreads(); if (deadlockedThreadIds != null) { ThreadInfo[] threadInfos = DeadlockDetector.this.mbean.getThreadInfo(deadlockedThreadIds); DeadlockDetector.this.deadlockHandler.handleDeadlock(threadInfos); } } }; public DeadlockDetector(final DeadlockHandler deadlockHandler, final long period, final TimeUnit unit) { this.deadlockHandler = deadlockHandler; this.period = period; this.unit = unit; } public void start() { this.scheduler.scheduleAtFixedRate( this.deadlockCheck, this.period, this.period, this.unit); } } </code></pre> <p>让我们动手试试。首先，我们要创建一个handler用来向System.err输出死锁线程的信息。在现实场景中，我们可以用它发送邮件，比如：</p> <pre><code class="language-java">public class DeadlockConsoleHandler implements DeadlockHandler { @Override public void handleDeadlock(final ThreadInfo[] deadlockedThreads) { if (deadlockedThreads != null) { System.err.println("Deadlock detected!"); Map&lt;Thread, StackTraceElement[]&gt; stackTraceMap = Thread.getAllStackTraces(); for (ThreadInfo threadInfo : deadlockedThreads) { if (threadInfo != null) { for (Thread thread : Thread.getAllStackTraces().keySet()) { if (thread.getId() == threadInfo.getThreadId()) { System.err.println(threadInfo.toString().trim()); for (StackTraceElement ste : thread.getStackTrace()) { System.err.println("t" + ste.toString().trim()); } } } } } } } } </code></pre> <p>这一过程在所有的堆栈追踪中反复进行并为每个线程信息打印对应的堆栈踪迹。通过这种方式，我们可以准确知道每个线程等待的位置和对象。但这个方法 有一个缺陷——当一个线程只是暂时等待时，可能会被当作一个暂时的死锁，从而引发错误的警报。出于此，当我们处理死锁时，原始线程不能继续存在而 findDeadlockedThreads方法会返回没有此类线程。为了避免可能出现的NullPointerException，我们需要警惕这种情 况。最后，让我们促成一个死锁来看看系统是如何运行的。</p> <pre><code class="language-java">DeadlockDetector deadlockDetector = new DeadlockDetector(new DeadlockConsoleHandler(), 5, TimeUnit.SECONDS); deadlockDetector.start(); final Object lock1 = new Object(); final Object lock2 = new Object(); Thread thread1 = new Thread(new Runnable() { @Override public void run() { synchronized (lock1) { System.out.println("Thread1 acquired lock1"); try { TimeUnit.MILLISECONDS.sleep(500); } catch (InterruptedException ignore) { } synchronized (lock2) { System.out.println("Thread1 acquired lock2"); } } } }); thread1.start(); Thread thread2 = new Thread(new Runnable() { @Override public void run() { synchronized (lock2) { System.out.println("Thread2 acquired lock2"); synchronized (lock1) { System.out.println("Thread2 acquired lock1"); } } } }); thread2.start(); </code></pre>...
+		    <p>
+		    <a class="text" href="/blog/logback%E7%9A%84%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8%E5%89%AF%E6%9C%AC-2/">
 		      Continue Reading...
 		    </a>
 		    </p>

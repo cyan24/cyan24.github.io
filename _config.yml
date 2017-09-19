@@ -81,11 +81,12 @@ sechby:
 markdown: kramdown
 kramdown:
   input:  GFM
-  use_coderay: true
+  # enable_coderay: true
+  syntax_highlighter: coderay
 highlighter: pygments
 sass:
   sass_dir: _sass
   style: :compressed
 
-gems:
+plugins:
   - jekyll-paginate

@@ -252,61 +252,6 @@
 		<div class="post-teaser">
 		  <header>
 		    <h1>
-		      <a id="post-link-trans" class="post-link" href="/blog/%E8%B0%88%E8%B0%88200-OK-(from-cache)-%E4%B8%8E-304-Not-Modified/">
-		        谈谈200 OK (from cache) 与 304 Not Modified
-		      </a>
-		    </h1>
-		    <p id="subtitletrans" class="subtitlecontainer">
-		      <a class="subtitle">2014年04月27日</a>
-		       | <a class="subtitle" href="/about/">cyan</a>
-		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tag"></i>: <a href="/tags/性能优化/">性能优化</a></a>
-		    </p>
-		  </header>
-		  <div class="excerpt">
-		  
-		  
-		    <p>为什么有的缓存是 200 OK (from cache)，有的缓存是 304 Not Modified 呢？很简单，看运维是否移除了 Entity Tag。移除了，就总是 200 OK (from cache)。没有移除，就两者交替出现。</p>
-
-<p>其实， 200 OK (from cache)  是浏览器没有跟服务器确认，直接用了浏览器缓存；而 304 Not Modified 是浏览器和服务器多确认了一次缓存有效性，再用的缓存。</p>
-
-<p>它们都是在设置了缓存的情况下触发的。</p>
-
-<p>那么，两者触发的时机有什么区别呢？200 OK (from cache) 是直接点击链接访问，输入网址按回车访问也能触发；而 304 Not Modified 是刷新页面时触发，或是设置了长缓存、但 Entity Tags 没有移除时触发。这是经过查阅资料得出的结论。博主实际测试了一下，结论与之相符：</p>
-
-<p><img src="/img/post/1404271.jpg" alt="" /></p>
-
-<p>直接访问有缓存的网站都触发 200 OK (from cache)</p>
-
-<p><img src="/img/post/1404272.jpg" alt="" /></p>
-
-<p>图2 – 刷新浏览器则会触发 304 Not Modifie</p>
-
-<p><img src="/img/post/1404273.jpg" alt="" /></p>
-
-<p>同一域名下，没有 Entity Tag 的资源直接访问，是 200 OK (from cache) 的结果</p>
-
-<p><img src="/img/post/1404274.jpg" alt="" /></p>
-
-<p>同一域名下，有 Entity Tag ，直接访问就会触发 304 Not Modified
-现在一般都会设置长时间的缓存，正确设置方式参考这两篇笔记：</p>
-
-<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule3.html">如何正确设置 Expires Header 及其原理</a></p>
-
-<p><a href="https://www.bokeyy.com/post/high-performance-web-sites-rule-13.html">如何正确移除 Entity Tags 及其原理</a></p>
-
-<p>本文并不是说影响浏览器缓存只有 ETag 这一个因素的意思，请大家不要误解。只是就“为什么我加了缓存，有的却是 304 Not Modified， 而不是 200 OK(from cache)”这件事给出一个一针见血的原因和解答.</p>
-
-		  
-		  </div>
-		</div>
-		
-		
-	
-
-	
-		<div class="post-teaser">
-		  <header>
-		    <h1>
 		      <a id="post-link-trans" class="post-link" href="/blog/%E8%BF%94%E5%9B%9E%E9%A1%B5%E9%9D%A2%E9%A1%B6%E9%83%A8%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95-%E8%A7%A3%E5%86%B3%E7%A7%BB%E5%8A%A8%E7%AB%AF%E4%BD%BF%E7%94%A8zepto%E6%B2%A1%E6%9C%89%E6%BB%91%E5%8A%A8%E7%9A%84%E6%95%88%E6%9E%9C)/">
 		        返回页面顶部的三种方法(解决移动端使用zepto没有滑动的效果)
 		      </a>
@@ -559,6 +504,54 @@ $(document).delegate('a', 'click', function() { blah() });
 
 <p>最后一点，live方法有一个非常大的缺点，那就是它仅能针对直接的CSS选择器做操作，这使得它变得非常的不灵活。</p>
 
+
+		  
+		  </div>
+		</div>
+		
+		
+	
+
+	
+		<div class="post-teaser">
+		  <header>
+		    <h1>
+		      <a id="post-link-trans" class="post-link" href="/blog/IE6-IE7%E4%B8%8B-inline-block%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+		        IE6/IE7下：inline-block解决方案
+		      </a>
+		    </h1>
+		    <p id="subtitletrans" class="subtitlecontainer">
+		      <a class="subtitle">2014年01月20日</a>
+		       | <a class="subtitle" href="/about/">cyan</a>
+		       | <a class="subtitle">  <i class="fa fa-book"></i>: <a href="/前端/">前端</a></a> <a class="subtitle">  <i class="fa fa-tags"></i>: <a href="/tags/IE/">IE</a>, <a href="/tags/兼容/">兼容</a></a>
+		    </p>
+		  </header>
+		  <div class="excerpt">
+		  
+		  
+		    <p>E6/IE7下对display:inline-block的支持性不好。比如在inline元素的display属性设置为inline-block时，所有的浏览器都支持；block元素的display属性设置为inline-block时，IE6/IE7浏览器是不支持的。</p>
+
+<p>###产生的原因</p>
+
+<p>虽然对象呈递为内联对象，但是对象的内容作为块对象呈递。旁边的内联对象会被呈递在同一行，允许空格。（准确地说，应用此特性的元素现为内联对象，周围元素保持在同一行，但可以设置宽度和高度等块元素的属性）
+IE中对内联元素使用display:inline-block，IE是不识别的，但使用display:inline-block在IE下会触发layout，从而使内联元素拥有了display:inline-block属性的表征。从上面的这个分析，也不难理解为什么IE下，对块元素设置display:inline-block属性无法实现inline-block的效果。这时块元素仅仅是被display:inline-block触发了layout，而它本身就是行布局，所以触发后，块元素依然还是行布局，而不会如Opera中块元素呈递为内联对象。</p>
+
+<p>###IE6下块元素如何实现display:inline-block的效果？</p>
+
+<p>有两种方法：</p>
+
+<p>1、先使用display:inline-block属性触发块元素，然后再定义display:inline，让块元素呈递为内联对象（两个display 要先后放在两个CSS声明中才有效果，这是IE的一个经典bug，如果先定义了display:inline-block，然后再将display设回 inline或block，layout不会消失）。代码如下（…为省略的其他属性内容）：</p>
+
+<pre><code class="language-css">
+div {display:inline-block;...} 
+div {display:inline;}
+</code></pre>
+
+<p>2、直接让块元素设置为内联对象呈递（设置属性display:inline），然后触发块元素的layout（如：zoom:1 或float属性等）。代码如下：</p>
+
+<pre><code class="language-css">div { display:inline-block; _zoom:1;_display:inline;} /*推荐*/
+div { display:inline-block; _zoom:1;*display:inline;} /*推荐:IE67*/
+</code></pre>
 
 		  
 		  </div>

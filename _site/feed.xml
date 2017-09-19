@@ -5,7 +5,7 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
     <link>http://localhost:4000/</link>
     <description>Cyan的技术笔记</description>
-    <pubDate>Mon, 18 Sep 2017 12:53:13 +0800</pubDate>
+    <pubDate>Wed, 20 Sep 2017 00:02:29 +0800</pubDate>
     
       <item>
         <title>2017上海 前端开发者大会小记</title>
@@ -115,101 +115,6 @@
 
 </description>
         <pubDate>Sat, 15 Apr 2017 00:00:00 +0800</pubDate>
-      </item>
-    
-      <item>
-        <title>2016上海 iWeb 峰会小记</title>
-        <link>http://localhost:4000/blog/2016%E4%B8%8A%E6%B5%B7-iWeb-%E5%B3%B0%E4%BC%9A%E5%B0%8F%E8%AE%B0/</link>
-        <guid isPermaLink="true">http://localhost:4000/blog/2016%E4%B8%8A%E6%B5%B7-iWeb-%E5%B3%B0%E4%BC%9A%E5%B0%8F%E8%AE%B0/</guid>
-        <description>&lt;p&gt;早前在公众号看到会议的日程，果断报名参加了这次峰会。想对下午工具应用场的几个印象比较深刻多分享做一下小记。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1606071.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Hax 的 《ES6+代码风格和质量标准》
-Intel 的 《VR &amp;amp; Realsense in Crosswalk》
-勾股 的 《Weex 跨平台渲染实现》&lt;/p&gt;
-
-&lt;p&gt;###ES6+代码风格和质量标准###&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1606072.jpg&quot; alt=&quot;&quot; /&gt;
-&lt;img src=&quot;/img/post/1606073.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Hax 贺老还是一如既往喜欢用风趣来带入代码『哲学』问题。在人人都开始逐渐迈入 ES6 的时代，通过控制一个团队级别的代码风格规范，会更容易控制代码的质量。其中特意介绍了 ESLint，Eslint具有高度可配置、预置大量规则、可共享复用(git搜索 eslint-config)等等优势。大概的规则分为：可能是错误，最佳实践，变量声明等等，贺老的建议是能用的规则都用上。。。
-事后有小伙伴专门用ESLint跑了一下代码，用贺老推荐的airbnb的代码规范，据说错误刷爆了，如下这种情况会报错：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;
-oneList.forEach(function(item) {
-    // doSomething
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这样的代码会报 Missing function expression name 的警告。改成如下可以消除这个警告。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;
-oneList.forEach(function each(item) {
-    // doSomething
-});
-
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;目前还不了解airbnb这样写的目的。如果有小伙伴知道请m我。。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;而ES6+的总体原则是尽量用Es6的语法，比如：ajax =&amp;gt; promise,Class工厂 =&amp;gt; 原生 Class 语法，arguments =&amp;gt; …args，&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
-      &lt;td&gt;=&amp;gt; 函数默认参数，回调函数 =&amp;gt; 剪头函数等等。&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;然后贺老还调侃了space党和tab党之间的偏见，算是一个轻松的话题引入，主要是分享了一个他写Atom插件: elastic-tabstops。同时推荐下Atom编辑器。&lt;/p&gt;
-
-&lt;p&gt;就目前看来，代码规范这件事，还是要根据不同的情况：业务&amp;amp;框架、 ES5&amp;amp;ES6+、Brower&amp;amp;Node等不同场景来制定。&lt;/p&gt;
-
-&lt;p&gt;附上演讲用的原版资料：http://johnhax.net/2015/es6-code-style/#0&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;###VR &amp;amp; Realsense in Crosswalk###&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1606074.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;都说今年是vr元年，之前就一直在想，前端离vr的距离是多远，这次分享就有了答案，前端能搞 VR？答案是 Yes！这次的 iWeb 峰会中，前端 VR 技术让我真正认识到 JS 真的没有什么不能做的。因特尔通过vr主推了他们的开源项目Crosswalk。Crosswalk 可以简单理解为增强版的 webkit，用于 Hybird 项目中，可替代原生的浏览器。对于前端vr场景而言，强悍的浏览器是支持vr的必不可少的一部分，
-Crosswalk优势是多平台支持，对 WEBGL支持，对 VR，RealSense支持，知名应用比如有道云接入，谷歌的Mobile Chrome App团队接入，对兼容性的把握，对性能的优秀的处理等等。&lt;/p&gt;
-
-&lt;p&gt;Crosswalk有三种接入模式：
-嵌入模式，和native打包到一起，作为 HTML5页面的 webview 使用；
-共享模式：不用打包到单个App中，系统只需要一个 crosswalk供所有应用去调用；
-还有一种下载模式：好像是应用需要依赖 crosswalk，然后貌似自动会去 app store下载。&lt;/p&gt;
-
-&lt;p&gt;最后我觉得想在业务中推广使用的硬伤还是体积问题，完整包大概20M左右，轻
-量版也有10M，为了引入 crosswalk 安装包多10M，产品会噘嘴吧。。
-当天早前在他们展位现场体验了webVR小游戏，效果狠酷炫，感受很真实，演讲中还讲到一项技术web for RealSense，用手隔空操作小车的移动。&lt;/p&gt;
-
-&lt;p&gt;这次因特尔的vr分享使更多前端开发者有了一个新的方向和期待，未来出了平面化的web 前端开发，vr说不定会成为一个前端再次闪耀的新热点。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;###Weex 跨平台渲染实现###&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/img/post/1606075.jpg&quot; alt=&quot;图片&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Week 作为阿里近期主推的一款跨平台移动开发工具，这次会场中据说一半以上听众是冲着他来的。2015年双11，Weex 成功突围，算是成为阿里最好的跨平台工具，再从 QConf 宣布内测 和 iWeb 的分享 到 6 月份的正式开源，Weex 为更多人所认知，毕竟是大厂出品，又经过了双11的考验，可靠程度还是值得信任的。当天weex分享主要由勾股领衔，主要做了大概的产品介绍，Demo展示，如何调试，还有一些技术实现细节。Weex目前还是私有项目也只有Android部分，可以在&lt;a href=&quot;http://alibaba.github.io/weex/&quot;&gt;官网&lt;/a&gt;通过git帐号申请获取权限，计划在6月份完全开源。&lt;/p&gt;
-
-&lt;p&gt;weex和react-native 是同类型的框架，但 weex 主打的是轻量，语法简单，上手容易。weex借鉴了 vue，而 vue 和 react 相比学习成本还是比较低的。&lt;/p&gt;
-
-&lt;p&gt;Weex 和 React Native 的一大区别是模板的构建形式：&lt;/p&gt;
-
-&lt;p&gt;React Naitve 的 UI 和业务逻辑一般是在一起的，这比较符合 Native 的开发习惯。 Weex 采用了前端常用的方式，模板和逻辑分离，而模板采用 vuejs、hogan、avalon、artTemplate 等等模板使用的  双大括号的形式，使前端工程师开发起来非常顺手。同时，Native 工程师学习使用 Weex ，成本将会提高。
-最后，笔者感觉 Weex 是针对前端开发人员设计的一款工具框架，比较适合前端同学使用；而 React Native 是基于前端语言构建的一个 Native 框架，前端开发者会有一定的学习使用成本的同时（Native 的开发思想等），Native 开发者也会有一定的学习使用成本（ES6 语法等）。当然，环境搭建是共有的成本。&lt;/p&gt;
-
-&lt;p&gt;weex框架也再次肯定了用js开发原生的这种模式，作为前端开发人员还是需要去多关注下。此外，vue社区今年应该会更活跃，关注度更高。&lt;/p&gt;
-
-</description>
-        <pubDate>Tue, 07 Jun 2016 00:00:00 +0800</pubDate>
       </item>
     
       <item>
@@ -2202,6 +2107,62 @@ function twoFingerScroll(ev) {
 localStorage.setItem('n', v); // 写入名称为 n、值为  v  的数据
 localStorage.removeItem('n'); // 删除名称为  n  的数据
 &lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Fri, 24 Apr 2015 00:00:00 +0800</pubDate>
+      </item>
+    
+      <item>
+        <title>zepto lazyload图片</title>
+        <link>http://localhost:4000/blog/zepto-lazyload%E5%9B%BE%E7%89%87/</link>
+        <guid isPermaLink="true">http://localhost:4000/blog/zepto-lazyload%E5%9B%BE%E7%89%87/</guid>
+        <description>&lt;p&gt;图片懒加载有很多js插件，非常著名的属jQuery的Lazy Load了。自己做手机项目上也需要图片懒加载，而且手机上的图片懒加载有两种：一种是普通img标签的，一种是div标签（或者其他标签）上加背景图片的。所以就练手写了个支持以上两种情况的Zepto小插件。&lt;/p&gt;
+
+&lt;p&gt;###功能：
+支持img标签图片懒加载、div标签（或者其他标签）的背景图片懒加载；
+支持预加载。默认是图片出现在屏幕时开始加载，可以设置threshold参数，如threshold:100，此时图片出现在屏幕之前100px时开始加载；
+背景图片懒加载时，自动添加base64的1*1透明图片做默认背景图。也可以自定义默认背景图，参数为placeholder。
+###使用方法：&lt;/p&gt;
+
+&lt;p&gt;引用1.1.3的Zepto（我只测过这个目前最新版），并引用picLazyLoad.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;
+&amp;lt;script src=&quot;1.1.3/zepto.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&quot;1.0/zepto.picLazyLoad.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在要懒加载的标签上，加类名或者id名，方便调用。在标签上加data-original=”original.jpg”，original.jpg为实际加载图片路径。如果是img标签，还需要加src=”blank.png”。blank.png为默认背景图，建议用base64图。例如：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-html&quot;&gt;&amp;lt;img class=&quot;test-lazyload&quot; src=&quot;blank.png&quot; data-original=&quot;original.jpg&quot;&amp;gt;&amp;lt;div class=&quot;test-lazyload&quot; data-original=&quot;original.jpg&quot;&amp;gt;&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;调用:&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;
+$('.test-lazyload').picLazyLoad();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如需加参数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-javascript&quot;&gt;
+$('.test-lazyload').picLazyLoad({
+    threshold: 100,
+    placeholder: 'http://image.yihaodianimg.com/front-homepage/global/images/blank.gif'
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;a href=&quot;http://ons.me/wp-content/uploads/2014/05/picLazyLoad/&quot;&gt;→示例DEMO←&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;已知问题：
+iPhone 5S 7.1.1里，所有浏览器，网页滑到下面，刷新网页，不执行onscroll方法，获取不到scrolltop值。导致此时刷新网页，网页下方的图片没有默认加载。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;待增加功能：
+现在是直接显示图片show，以后增加fadeIn图片淡入；
+现在是只能根据窗口懒加载图片，待增加根据容器、tab选项卡等。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;小提示：
+使用背景图片比使用img标签懒加载浏览器显示速度要快，不知道是不是后者多了一步替换src路径操作导致的；
+如果要兼容更多的设备，使用背景图片可以显示更清晰，因为可以设置background-size，之前的文章有提到过。&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         <pubDate>Fri, 24 Apr 2015 00:00:00 +0800</pubDate>
       </item>
